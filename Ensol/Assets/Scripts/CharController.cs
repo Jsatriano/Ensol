@@ -14,7 +14,7 @@ public class CharController : MonoBehaviour
     public State state;
 
     Vector3 forward, right, direction;
-    Vector3 zeroVector = new Vector3(0, 0, 0);
+    Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
