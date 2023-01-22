@@ -69,7 +69,7 @@ namespace BehaviorTree
             return null;
         }
 
-        //Erases data from the dictionary (or the dictionary of any ancestor node) using the same logic as GetData
+        //Erases data from the dictionary (or the dictionary of any ancestor node) using the Its same logic as GetData
         public bool ClearData(string key)
         {
             object value = null;
