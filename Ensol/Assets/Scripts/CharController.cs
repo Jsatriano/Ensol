@@ -17,6 +17,9 @@ public class CharController : MonoBehaviour
 
     Vector3 forward, right, direction;
     Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
+
+    [Header("References")]
+    public BoxCollider PlayerBox;
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -76,7 +79,7 @@ public class CharController : MonoBehaviour
                 }
 
                 // if player hits space, dash
-                else if(Input.GetKeyDown(KeyCode.Space))
+                else if(Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;
                 }
@@ -92,16 +95,17 @@ public class CharController : MonoBehaviour
 
                 // after the dash is done, change states
                 if(!_isDashing)
+                {
+                    print("dash done");   
+                    if(direction == zeroVector)
                     {
-                        if(direction == zeroVector)
-                        {
-                            state = State.IDLE;
-                        }
-                        else if(direction != zeroVector)
-                        {
-                            state = State.MOVING;
-                        }
+                        state = State.IDLE;
                     }
+                    else if(direction != zeroVector)
+                    {
+                        state = State.MOVING;
+                    }
+                }
                 break;
         }
     }
@@ -151,6 +155,9 @@ public class CharController : MonoBehaviour
 
         _isDashing = true;
 
+        // give player i-frames
+        PlayerBox.enabled = false;
+
         // apply force forwards of where player is facing
         Vector3 forceToApply = transform.forward * _dashForce;
         rb.AddForce(forceToApply, ForceMode.Impulse);
@@ -162,5 +169,6 @@ public class CharController : MonoBehaviour
     private void ResetDash() // Justin
     {
         _isDashing = false;
+        PlayerBox.enabled = true;
     }
 }
