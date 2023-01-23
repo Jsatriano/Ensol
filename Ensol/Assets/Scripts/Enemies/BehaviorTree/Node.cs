@@ -40,10 +40,18 @@ namespace BehaviorTree
         //Is defined in task/check classes derived from Node
         public virtual NodeState Evaluate() => NodeState.FAILURE;
 
-        //Adds data to the dictionary
+        //Adds data to the dictionary at the root node
         public void SetData(string key, object value)
         {
-            _dataContext[key] = value;
+            //if parent is null then it is the root
+            if (parent == null)
+            {
+                _dataContext[key] = value;
+            }
+            else
+            {
+                parent.SetData(key, value);
+            }
         }
 
         //returns the value associated with the provided key in the dictionary of the node or any ancestor of the node (else null)

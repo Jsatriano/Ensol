@@ -14,7 +14,7 @@ namespace BehaviorTree
             _root = SetupTree();
         }
 
-        //Evaluates all nodes every update
+        //Evaluates all nodes in the tree every update
         private void Update()
         {
             if (_root != null)
