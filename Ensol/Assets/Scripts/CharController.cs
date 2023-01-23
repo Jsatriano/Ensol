@@ -39,10 +39,6 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
-
-        //freeze X and Z axis rotation
-        //_rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-        //_rb.constraints = RigidbodyConstraints.FreezeRotationX;
     }
     
 
