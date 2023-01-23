@@ -39,6 +39,8 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
+
+        gameObject.tag = "Player";
     }
     
 
