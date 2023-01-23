@@ -13,9 +13,9 @@ public class CharController : MonoBehaviour
     }
     public State state;
 
-    private Rigidbody rb;
+    private Rigidbody _rb;
 
-    Vector3 forward, right, direction;
+    Vector3 forward, right, direction, heading;
     Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
     [Header("References")]
@@ -38,11 +38,11 @@ public class CharController : MonoBehaviour
     private void Start()
     {
         state = State.IDLE;
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
 
         //freeze X and Z axis rotation
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        //_rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        //_rb.constraints = RigidbodyConstraints.FreezeRotationX;
     }
     
 
@@ -66,6 +66,11 @@ public class CharController : MonoBehaviour
                 if(direction != zeroVector)
                 {
                     state = State.MOVING;
+                }
+                // if player hits space, dash
+                else if(Input.GetButtonDown("Dash"))
+                {
+                    state = State.DASHING;
                 }
                 break;
             
@@ -132,7 +137,7 @@ public class CharController : MonoBehaviour
             Vector3 upMovement = forward * _moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
 
             // combines both movements to create a direction that our character will point to
-            Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+            heading = Vector3.Normalize(rightMovement + upMovement);
 
             // smoothly rotates player when changeing directions (rather than abruptly)
             Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
@@ -146,21 +151,29 @@ public class CharController : MonoBehaviour
 
     private void Dash() // Justin
     {
-        // return func if dash is still on CD
-        if(_dashCdTimer > 0)
-        {
-            return;
-        }
+        // return func if dash is still on CD | else dash is successful, start CD until dahs is available again
+        if(_dashCdTimer > 0) return;
         else _dashCdTimer = _dashCD;
 
+        // player is now seen as dashing
         _isDashing = true;
 
         // give player i-frames
         PlayerBox.enabled = false;
 
+        // find out how much force to apply to player (also check if player is moving or not)
+        Vector3 forceToApply;
+        if(direction == zeroVector)
+        {
+            forceToApply = transform.forward * _dashForce;
+        }
+        else 
+        {
+            forceToApply = heading * _dashForce;
+        }
+
         // apply force forwards of where player is facing
-        Vector3 forceToApply = transform.forward * _dashForce;
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        _rb.AddForce(forceToApply, ForceMode.Impulse);
 
         // invoke RestDash function after dash is done
         Invoke(nameof(ResetDash), _dashDuration);
@@ -168,7 +181,10 @@ public class CharController : MonoBehaviour
 
     private void ResetDash() // Justin
     {
+        // player isnt seen as dashing anymore
         _isDashing = false;
+
+        // enable the player's hitbox again
         PlayerBox.enabled = true;
     }
 }
