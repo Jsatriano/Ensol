@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyStats : MonoBehaviour
 {
     /* This will be the parent class for all enemy npcs. 
     Everything that is common to ALL ENEMY NPCS goes in this class.
@@ -11,19 +11,12 @@ public class EnemyController : MonoBehaviour
     -Elizabeth */
 
     //STATS
-    [SerializeField] public int maxHP; //max health
-    public int currHP; //current health
-    [SerializeField] protected int attackPower; //used in damage calculations
-    [SerializeField] protected int speed; //move speed
+    [SerializeField] public int maxHP = 10; //max health
+    [HideInInspector] public int currHP; //current health
+    [SerializeField] protected int attackPower = 5; //used in damage calculations
+    [SerializeField] protected int speed = 5; //move speed
     [SerializeField] public string nameID; //a string name to ID the enemy
     [SerializeField] public int numID; //an int to id an enemy, if we want that too? maybe to differentiate units with the same name?
-
-    //STATE MACHINE
-    public enum State {
-        IDLE,
-        ATTACKING,
-        MOVING
-    }
 
     //OTHER VARIABLES
     public CharController player; //Stores reference to player, in order to deal damage/otherwise affect them.
@@ -43,21 +36,8 @@ public class EnemyController : MonoBehaviour
     protected virtual void Update()
     {
         //Checks to see if the enemy is dead
-        if(currHP > 0) {
-            //Executes the enemy's behavior AI.
-            //The behavior AI should be contained in the function called here rather than hardcoded into update.
-            //This way, you can override the behavior AI function in child classes for each enemy's specific behavior.
-            BehaviorAI();
-        }
-        else {
-            //[play the model's death animation or whatever here, once that's available]
+        if(currHP <= 0) {
             Destroy(gameObject);
         }
-        
-    }
-
-    //Behavior AI function to contain behavior trees. Override this in child classes to customize each enemy's behavior.
-    protected virtual void BehaviorAI() {
-        //override this function in child classes to write behavior for each enemy type.
     }
 }

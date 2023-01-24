@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDeer : EnemyController
+public class DeerStats : EnemyStats
 {
 
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
