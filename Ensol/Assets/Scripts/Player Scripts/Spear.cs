@@ -19,8 +19,7 @@ public class Spear : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision col) {
-        print("Collided!");
+    void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Enemy") {
             col.gameObject.GetComponent<EnemyStats>().currHP -= combatController.attackPower;
             print("Did " + combatController.attackPower + " damage to " + col.gameObject.GetComponent<EnemyStats>().nameID);

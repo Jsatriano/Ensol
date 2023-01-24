@@ -11,7 +11,7 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public int currHP;
     [SerializeField] private int baseAttackPower = 5;
     [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private float attackDuration = 0.2f;
+    [SerializeField] private float attackDuration = 0.3f;
     private float attackCDTimer;
     private float attackDurationTimer;
     public int attackPower; //used to calculate the real damage value of different attacks
@@ -26,8 +26,9 @@ public class PlayerCombatController : MonoBehaviour
     void Start()
     {
         spearHitbox = placeholderSpear.GetComponent<Collider>();
-        spearHitbox.enabled = false;
+        placeholderSpear.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
+        attackPower = baseAttackPower;
         
     }
 
@@ -39,9 +40,6 @@ public class PlayerCombatController : MonoBehaviour
         }
         if(attackDurationTimer > 0) {
             attackDurationTimer -= Time.deltaTime;
-            if(attackDurationTimer <= 0) {
-                spearHitbox.enabled = false;
-            }
         }
         if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 
         && charController.state != CharController.State.ATTACKING) {
@@ -50,6 +48,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) {
             charController.state = CharController.State.IDLE;
+            placeholderSpear.SetActive(false);
         }
 
 
@@ -57,11 +56,11 @@ public class PlayerCombatController : MonoBehaviour
 
     private void LightAttack(int ap) {
         print("used light attack");
-        attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
-        charController.state = CharController.State.ATTACKING;
-        spearHitbox.enabled = true;
         attackCDTimer = attackSpeed;
         attackDurationTimer = attackDuration;
+        attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
+        placeholderSpear.SetActive(true);
+        charController.state = CharController.State.ATTACKING;
     }
 
     private void HeavyAttack(int ap) {

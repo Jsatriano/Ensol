@@ -12,7 +12,7 @@ public class EnemyStats : MonoBehaviour
 
     //STATS
     [SerializeField] public int maxHP = 10; //max health
-    [HideInInspector] public int currHP; //current health
+     public int currHP; //current health
     [SerializeField] protected int attackPower = 5; //used in damage calculations
     [SerializeField] protected int speed = 5; //move speed
     [SerializeField] public string nameID; //a string name to ID the enemy
@@ -37,6 +37,7 @@ public class EnemyStats : MonoBehaviour
     {
         //Checks to see if the enemy is dead
         if(currHP <= 0) {
+            print(nameID + " is dead!");
             Destroy(gameObject);
         }
     }
