@@ -9,7 +9,8 @@ public class CharController : MonoBehaviour
     {
         IDLE,
         MOVING,
-        DASHING
+        DASHING,
+        ATTACKING
     }
     public State state;
 
@@ -39,6 +40,8 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
+
+        gameObject.tag = "Player";
     }
     
 
@@ -107,6 +110,12 @@ public class CharController : MonoBehaviour
                         state = State.MOVING;
                     }
                 }
+                break;
+            case State.ATTACKING:
+                //We will have to decide if the player can move or take other actions while attacking.
+                //This state is just to tell this script that the player is attacking, so
+                //hold other state changes. Attack combos will be handled in PlayerCombatController.
+                //Since there is probably going to be a lot of combat code, I put it in a different script.
                 break;
         }
     }
