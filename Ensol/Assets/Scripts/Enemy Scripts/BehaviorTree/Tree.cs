@@ -20,6 +20,7 @@ namespace BehaviorTree
             if (_root != null)
             {
                 _root.Evaluate();
+                print(_root.Evaluate());
             }
         }
         protected abstract Node SetupTree();

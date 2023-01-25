@@ -7,6 +7,15 @@ public class DeerStats : EnemyStats
 
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
 
+    public Transform playerTF;
+    public Transform deerTF;   
+    public BoxCollider chargeHitbox;
+    public Rigidbody deerRB;
+    public float visionRange;
+    public float chargeSpeed;  
+    public float windupLength;
+    public float cooldownLength;
+
     // Start is called before the first frame update
     protected override void Start()
     {
