@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 730389097}
   - component: {fileID: 730389096}
   - component: {fileID: 730389103}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 1120226832}
   - component: {fileID: 1120226831}
   - component: {fileID: 1120226830}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 1240072003}
   - component: {fileID: 1240072002}
   - component: {fileID: 1240072001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 1523130633}
   - component: {fileID: 1523130632}
   - component: {fileID: 1523130635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1123,7 @@ GameObject:
   - component: {fileID: 1795023249}
   - component: {fileID: 1795023256}
   - component: {fileID: 1795023255}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1139,7 +1139,7 @@ Rigidbody:
   m_GameObject: {fileID: 1795023248}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1.75
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1217,7 +1217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795023248}
   m_LocalRotation: {x: -0, y: -0.96138006, z: -0, w: 0.27522436}
-  m_LocalPosition: {x: -5.081369, y: 0.56, z: 3.1649432}
+  m_LocalPosition: {x: -2.52, y: 0.56, z: 2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1232,11 +1232,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795023248}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bda16b8dafd2ed458d7228422ac93dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deerStats: {fileID: 1795023256}
 --- !u!114 &1795023256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1256,15 @@ MonoBehaviour:
   speed: 5
   nameID: 
   numID: 0
-  player: {fileID: 0}
+  player: {fileID: 730389096}
+  playerTF: {fileID: 730389101}
+  deerTF: {fileID: 1795023254}
+  chargeHitbox: {fileID: 1795023250}
+  deerRB: {fileID: 1795023249}
+  visionRange: 15
+  chargeSpeed: 20
+  windupLength: 2
+  cooldownLength: 4
 --- !u!1 &1803210491
 GameObject:
   m_ObjectHideFlags: 3

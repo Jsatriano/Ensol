@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Abstract class for behavior trees - RYAN
 
 namespace BehaviorTree
 {
@@ -20,7 +21,14 @@ namespace BehaviorTree
             if (_root != null)
             {
                 _root.Evaluate();
-                print(_root.Evaluate());
+                //print(_root.Evaluate());
+                if (_root.GetData("charging") == null)
+                {
+                    print("NO");
+                } else
+                {
+                    print("YES");
+                }
             }
         }
         protected abstract Node SetupTree();

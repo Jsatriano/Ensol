@@ -9,6 +9,9 @@ namespace BehaviorTree
         SUCCESS,
         FAILURE
     }
+
+    //Node class used for all behaviors in behavior trees - RYAN
+
     public class Node
     {
         protected NodeState state;
@@ -77,26 +80,23 @@ namespace BehaviorTree
             return null;
         }
 
-        //Erases data from the dictionary (or the dictionary of any ancestor node) using the Its same logic as GetData
+        //Erases data from the dictionary (or the dictionary of any ancestor node) by checking all ancestors dictionaries
+        //Returns true if key was erased or false if the key didn't exist
         public bool ClearData(string key)
         {
-            object value = null;
             if (_dataContext.ContainsKey(key))
             {
                 _dataContext.Remove(key);
                 return true;
             }
-            Node node = parent;
-            while (node != null)
+            if (parent != null)
             {
-                value = node.GetData(key);
-                if (value != null)
-                {
-                    return true;
-                }
-                node = node.parent;
+                return parent.ClearData(key);
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }
