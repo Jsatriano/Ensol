@@ -10,6 +10,7 @@ public class DeerStats : EnemyStats
     public Transform playerTF;
     public Transform deerTF;   
     public BoxCollider chargeHitbox;
+    public BoxCollider hitZone;
     public Rigidbody deerRB;
     public float visionRange;
     public float chargeSpeed;  

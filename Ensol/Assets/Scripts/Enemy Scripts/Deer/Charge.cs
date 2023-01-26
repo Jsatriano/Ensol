@@ -7,6 +7,7 @@ public class Charge : Node
 {
     private float _chargeSpeed;
     private BoxCollider _chargeHitbox;
+    private BoxCollider _hitZone;
     private float _windupLength;
     private float _windupTimer;
     private Transform _playerTF;
@@ -16,7 +17,9 @@ public class Charge : Node
     private Rigidbody _deerRB;
     private float _chargeTime;
 
-    public Charge(float chargeSpeed, BoxCollider chargeHitbox, float chargeWindupLength, Transform playerTF, Transform deerTF, Rigidbody deerRB)
+
+    public Charge(float chargeSpeed, BoxCollider chargeHitbox, float chargeWindupLength, Transform playerTF, 
+                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone)
     {
         _chargeSpeed = chargeSpeed;
         _chargeHitbox = chargeHitbox;
@@ -25,6 +28,7 @@ public class Charge : Node
         _playerTF = playerTF;
         _deerTF = deerTF;
         _deerRB = deerRB;
+        _hitZone = hitZone;
     }
 
     //Deer charge attack - RYAN
@@ -47,14 +51,24 @@ public class Charge : Node
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _targetPosition)) 
             {
-                ClearData("charging");
-                _windupTimer = 0;
-                state = NodeState.SUCCESS;
+                if(_deerRB.velocity.magnitude <= 1)
+                {
+                    _hitZone.enabled = false; // disables enemy damage hitbox
+                    ClearData("charging");
+                    _windupTimer = 0;
+                    state = NodeState.SUCCESS;
+                    return state;
+                }
+                state = NodeState.RUNNING;
                 return state;
             }
             //Makes deer charge forwards
             _deerRB.AddForce(_deerTF.forward * _chargeSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
             _chargeTime += Time.deltaTime;
+
+            // enables damage hitbox
+            _hitZone.enabled = true;
+
             //Checks if the deer has been charging for too long (bandaid fix for getting stuck on walls)
             if (_chargeTime > 2)
             {

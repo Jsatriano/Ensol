@@ -8,7 +8,7 @@ public class PlayerCombatController : MonoBehaviour
     //Elizabeth
     [Header("Combat Stats")]
     [SerializeField] public int maxHP = 10;
-    [HideInInspector] public int currHP;
+    public int currHP;
     [SerializeField] private int baseAttackPower = 5;
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private float attackDuration = 0.3f;
@@ -20,11 +20,14 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] public GameObject placeholderSpear;
     private Collider spearHitbox;
     private CharController charController;
+    public float invulnLength;
+    private float invulnTimer = 0f;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        currHP = maxHP;
         spearHitbox = placeholderSpear.GetComponent<Collider>();
         placeholderSpear.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
@@ -51,10 +54,17 @@ public class PlayerCombatController : MonoBehaviour
             placeholderSpear.SetActive(false);
         }
 
+        //Checks to see if the player is dead
+        if(currHP <= 0) 
+        {
+            print("Player is dead");
+            Destroy(gameObject);
+        }
 
     }
 
-    private void LightAttack(int ap) {
+    private void LightAttack(int ap) 
+    {
         print("used light attack");
         attackCDTimer = attackSpeed;
         attackDurationTimer = attackDuration;
@@ -63,13 +73,26 @@ public class PlayerCombatController : MonoBehaviour
         charController.state = CharController.State.ATTACKING;
     }
 
-    private void HeavyAttack(int ap) {
+    private void HeavyAttack(int ap) 
+    {
         attackPower = ap;
         return;
     }
 
-    private void Special(int ap) {
+    private void Special(int ap) // 
+    {
         attackPower = ap;
         return;
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        if(Time.time - invulnTimer >= invulnLength && charController.canTakeDmg == true)
+        {
+            // does dmg
+            currHP -= dmg;
+            invulnTimer = Time.time;
+            print("took damage");
+        }
     }
 }

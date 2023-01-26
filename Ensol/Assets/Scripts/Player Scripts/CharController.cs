@@ -18,9 +18,6 @@ public class CharController : MonoBehaviour
 
     Vector3 forward, right, direction, heading;
     Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
-
-    [Header("References")]
-    public BoxCollider PlayerBox;
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -32,6 +29,7 @@ public class CharController : MonoBehaviour
     [SerializeField] private float _dashCD;
     private float _dashCdTimer;
     private bool _isDashing = false;
+    public bool canTakeDmg;
 
     
 
@@ -42,6 +40,8 @@ public class CharController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         gameObject.tag = "Player";
+
+        canTakeDmg = true;
     }
     
 
@@ -163,8 +163,8 @@ public class CharController : MonoBehaviour
         // player is now seen as dashing
         _isDashing = true;
 
-        // give player i-frames
-        PlayerBox.enabled = false;
+        // turn on i-frames
+        canTakeDmg = false;
 
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
@@ -177,8 +177,10 @@ public class CharController : MonoBehaviour
             forceToApply = heading * _dashForce;
         }
 
-        // apply force forwards of where player is facing
+        // increase drag and apply force forwards of where player is facing
+        _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
+
 
         // invoke RestDash function after dash is done
         Invoke(nameof(ResetDash), _dashDuration);
@@ -186,10 +188,13 @@ public class CharController : MonoBehaviour
 
     private void ResetDash() // Justin
     {
+        // reset drag
+        _rb.drag = 20;
+
         // player isnt seen as dashing anymore
         _isDashing = false;
 
-        // enable the player's hitbox again
-        PlayerBox.enabled = true;
+        // turn off i-frames
+        canTakeDmg = true;
     }
 }

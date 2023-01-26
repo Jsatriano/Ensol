@@ -24,10 +24,10 @@ namespace BehaviorTree
                 //print(_root.Evaluate());
                 if (_root.GetData("charging") == null)
                 {
-                    print("NO");
+                    //print("NO");
                 } else
                 {
-                    print("YES");
+                    //print("YES");
                 }
             }
         }

@@ -12,8 +12,8 @@ public class EnemyStats : MonoBehaviour
 
     //STATS
     [SerializeField] public int maxHP = 10; //max health
-     public int currHP; //current health
-    [SerializeField] protected int attackPower = 5; //used in damage calculations
+    public int currHP; //current health
+    public int attackPower = 5; //used in damage calculations
     [SerializeField] protected int speed = 5; //move speed
     [SerializeField] public string nameID; //a string name to ID the enemy
     [SerializeField] public int numID; //an int to id an enemy, if we want that too? maybe to differentiate units with the same name?
