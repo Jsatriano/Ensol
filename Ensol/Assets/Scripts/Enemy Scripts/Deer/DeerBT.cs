@@ -15,7 +15,7 @@ public class DeerBT : Tree
             new FOVCheck(deerStats.deerTF, deerStats.playerTF, deerStats.visionRange, "charging"),
             new CooldownCheck(deerStats.cooldownLength, "charging"),
             new Charge(deerStats.chargeSpeed, deerStats.chargeHitbox, deerStats.windupLength, deerStats.playerTF, 
-                       deerStats.deerTF, deerStats.deerRB, deerStats.hitZone),
+                       deerStats.deerTF, deerStats.deerRB, deerStats.hitZone, deerStats.chargeTurning),
         });
 
         return root;

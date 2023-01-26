@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 1558340637}
   - component: {fileID: 1558340636}
   - component: {fileID: 1558340635}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bda16b8dafd2ed458d7228422ac93dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 730389095}
   deerStats: {fileID: 1795023256}
 --- !u!114 &1795023256
 MonoBehaviour:
@@ -1239,6 +1240,7 @@ MonoBehaviour:
   chargeSpeed: 20
   windupLength: 2
   cooldownLength: 4
+  chargeTurning: 15
 --- !u!65 &1795023257
 BoxCollider:
   m_ObjectHideFlags: 0

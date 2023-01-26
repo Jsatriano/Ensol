@@ -12,23 +12,27 @@ public class Charge : Node
     private float _windupTimer;
     private Transform _playerTF;
     private Transform _deerTF;
-    private Vector3 _targetPosition;
     private Vector3 _startingPosition;
     private Rigidbody _deerRB;
     private float _chargeTime;
+    private Vector3 _forwardRight;
+    private Vector3 _forwardLeft;
+    private float _chargeTurning;
+    private LayerMask _obstacleMask = 1 << 7;
 
 
     public Charge(float chargeSpeed, BoxCollider chargeHitbox, float chargeWindupLength, Transform playerTF, 
-                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone)
+                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning)
     {
-        _chargeSpeed = chargeSpeed;
-        _chargeHitbox = chargeHitbox;
-        _windupLength = chargeWindupLength;
-        _windupTimer = Time.time;
-        _playerTF = playerTF;
-        _deerTF = deerTF;
-        _deerRB = deerRB;
-        _hitZone = hitZone;
+        _chargeSpeed   = chargeSpeed;
+        _chargeHitbox  = chargeHitbox;
+        _windupLength  = chargeWindupLength;
+        _windupTimer   = Time.time;
+        _playerTF      = playerTF;
+        _deerTF        = deerTF;
+        _deerRB        = deerRB;
+        _hitZone       = hitZone;
+        _chargeTurning = chargeTurning / 10000;
     }
 
     //Deer charge attack - RYAN
@@ -40,7 +44,6 @@ public class Charge : Node
             _windupTimer += Time.deltaTime;
             SetData("charging", true);
             _deerTF.LookAt(_playerTF);
-            _targetPosition = _playerTF.position;
             _startingPosition = _deerTF.position;
             _chargeTime = 0;
             state = NodeState.RUNNING;
@@ -49,7 +52,7 @@ public class Charge : Node
         else
         {
             //Checks to see if deer has charged past its target position, if so then charge is over
-            if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _targetPosition)) 
+            if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
             {
                 if(_deerRB.velocity.magnitude <= 1)
                 {
@@ -62,6 +65,9 @@ public class Charge : Node
                 state = NodeState.RUNNING;
                 return state;
             }
+
+            ChangeDirection();
+
             //Makes deer charge forwards
             _deerRB.AddForce(_deerTF.forward * _chargeSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
             _chargeTime += Time.deltaTime;
@@ -79,6 +85,40 @@ public class Charge : Node
             }
             state = NodeState.RUNNING;
             return state;
+        }
+    }
+
+    private void ChangeDirection()
+    {
+        _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning)).normalized;
+        _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning)).normalized;
+
+        Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
+
+        float leftWeight, forwardWeight, rightWeight;
+        leftWeight    = CalculateWeight(Physics.Raycast(_deerTF.position, _forwardLeft, 100f, _obstacleMask), Vector3.Dot(_forwardLeft, toPlayer));
+        forwardWeight = CalculateWeight(Physics.Raycast(_deerTF.position, _deerTF.forward, 100f, _obstacleMask), Vector3.Dot(_deerTF.forward, toPlayer));
+        rightWeight   = CalculateWeight(Physics.Raycast(_deerTF.position, _forwardRight, 100f, _obstacleMask), Vector3.Dot(_forwardRight, toPlayer));
+
+        if (leftWeight > forwardWeight && leftWeight >= rightWeight)
+        {
+            _deerTF.forward = _forwardLeft;
+        }
+        else if (rightWeight > forwardWeight && rightWeight > leftWeight)
+        {
+            _deerTF.forward = _forwardRight;
+        }
+    }
+
+    private float CalculateWeight(bool hitObstacle, float dotProduct)
+    {
+        if (hitObstacle)
+        {
+            return (0.25f * dotProduct);
+        }
+        else
+        {
+            return (dotProduct);
         }
     }
 }
