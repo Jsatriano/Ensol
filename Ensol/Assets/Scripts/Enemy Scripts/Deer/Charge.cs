@@ -6,7 +6,6 @@ using BehaviorTree;
 public class Charge : Node
 {
     private float _chargeSpeed;
-    private BoxCollider _chargeHitbox;
     private BoxCollider _hitZone;
     private float _windupLength;
     private float _windupTimer;
@@ -21,11 +20,10 @@ public class Charge : Node
     private LayerMask _obstacleMask = 1 << 7;
 
 
-    public Charge(float chargeSpeed, BoxCollider chargeHitbox, float chargeWindupLength, Transform playerTF, 
+    public Charge(float chargeSpeed, float chargeWindupLength, Transform playerTF, 
                   Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning)
     {
         _chargeSpeed   = chargeSpeed;
-        _chargeHitbox  = chargeHitbox;
         _windupLength  = chargeWindupLength;
         _windupTimer   = Time.time;
         _playerTF      = playerTF;
@@ -88,18 +86,36 @@ public class Charge : Node
         }
     }
 
+    //Uses context based movement to curve deer towards player or around obstacles by checking 3 forward directions and seeing which is most desirable
     private void ChangeDirection()
     {
+        //Defines the directions that point slightly to the left and right of player
         _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning)).normalized;
         _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning)).normalized;
 
+        //Defines the direction from the deer to the player
         Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
-
+        bool obstacleLeft, obstacleForward, obstacleRight;
         float leftWeight, forwardWeight, rightWeight;
-        leftWeight    = CalculateWeight(Physics.Raycast(_deerTF.position, _forwardLeft, 100f, _obstacleMask), Vector3.Dot(_forwardLeft, toPlayer));
-        forwardWeight = CalculateWeight(Physics.Raycast(_deerTF.position, _deerTF.forward, 100f, _obstacleMask), Vector3.Dot(_deerTF.forward, toPlayer));
-        rightWeight   = CalculateWeight(Physics.Raycast(_deerTF.position, _forwardRight, 100f, _obstacleMask), Vector3.Dot(_forwardRight, toPlayer));
+        float dotLeft, dotForward, dotRight;
 
+        //Checks if there are obstacles in the way of the three forward directions
+        obstacleLeft    = Physics.Raycast(_deerTF.position, _forwardLeft, 100f, _obstacleMask);
+        obstacleForward = Physics.Raycast(_deerTF.position, _deerTF.forward, 100f, _obstacleMask);
+        obstacleRight   = Physics.Raycast(_deerTF.position, _forwardRight, 100f, _obstacleMask);
+
+        //Gets the dot product between the three forward directions and the direction to the player
+        dotLeft = Vector3.Dot(_forwardLeft, toPlayer);
+        dotForward = Vector3.Dot(_deerTF.forward, toPlayer);
+        dotRight = Vector3.Dot(_forwardRight, toPlayer);
+
+        //Gets how desirable each direction is based on if there are obstacles in the way and
+        //how close each direction is to the direction to player
+        leftWeight    = CalculateWeight(obstacleLeft, dotLeft);
+        forwardWeight = CalculateWeight(obstacleForward, dotForward);
+        rightWeight   = CalculateWeight(obstacleRight, dotRight);
+
+        //Checks if left or right are more desirable and if so sets the deers transform.forward to that direction
         if (leftWeight > forwardWeight && leftWeight >= rightWeight)
         {
             _deerTF.forward = _forwardLeft;
@@ -108,8 +124,26 @@ public class Charge : Node
         {
             _deerTF.forward = _forwardRight;
         }
+        else
+        {
+            //If forward is deemed most desirable, but all directions are blocked then pick left or right depending on
+            //which has the best dot product result
+            if (obstacleLeft && obstacleForward && obstacleRight)
+            {
+                if (dotLeft >= dotRight)
+                {
+                    _deerTF.forward = _forwardLeft;
+                }
+                else
+                {
+                    _deerTF.forward = _forwardRight;
+                }
+            }
+        }
     }
 
+    //Calculates the desirablity of a given direction based on if there is an obstacle in the
+    //way and its dot product with the direction to the player
     private float CalculateWeight(bool hitObstacle, float dotProduct)
     {
         if (hitObstacle)
