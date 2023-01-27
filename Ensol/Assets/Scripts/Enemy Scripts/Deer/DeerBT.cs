@@ -10,12 +10,16 @@ public class DeerBT : Tree
     
     protected override Node SetupTree()
     {
-        Node root = new Sequence(new List<Node>
+        Node root = new Selector(new List<Node>
         {
-            new FOVCheck(deerStats.deerTF, deerStats.playerTF, deerStats.visionRange, "charging"),
-            new CooldownCheck(deerStats.cooldownLength, "charging"),
-            new Charge(deerStats.chargeSpeed, deerStats.windupLength, deerStats.playerTF, 
-                       deerStats.deerTF, deerStats.deerRB, deerStats.hitZone, deerStats.chargeTurning),
+            new Sequence(new List<Node>
+            {
+                new FOVCheck(deerStats.deerTF, deerStats.playerTF, deerStats.visionRange, "charging"),
+                new CooldownCheck(deerStats.cooldownLength, "charging"),
+                new Charge(deerStats.chargeSpeed, deerStats.windupLength, deerStats.playerTF,
+                           deerStats.deerTF, deerStats.deerRB, deerStats.hitZone, deerStats.chargeTurning),
+            }),
+            new DeerAgroIdle(deerStats.speed, deerStats.playerTF, deerStats.deerTF, deerStats.rotationSpeed)         
         });
 
         return root;

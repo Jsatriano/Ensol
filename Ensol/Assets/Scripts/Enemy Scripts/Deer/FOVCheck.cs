@@ -4,7 +4,7 @@ using UnityEngine;
 using BehaviorTree;
 public class FOVCheck : Node
 {
-    private static int _envLayerMask = 1 << 0;
+    private static int _envLayerMask = 1 << 7;
     private Transform _enemyTF;
     private Transform _playerTF;
     private float _visionRange;

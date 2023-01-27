@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438511018}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -9.066303, y: 9.249369, z: -15.021477}
+  m_LocalPosition: {x: -7.3263025, y: 9.249369, z: -15.021477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -510,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730389095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.42, y: 0.56, z: -4.64}
+  m_LocalPosition: {x: -2.68, y: 0.56, z: -4.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -662,7 +662,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154538880}
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -9.066303, y: 9.249369, z: -15.021477}
+  m_LocalPosition: {x: -7.3263025, y: 9.249369, z: -15.021477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1233,7 +1233,6 @@ MonoBehaviour:
   player: {fileID: 730389096}
   playerTF: {fileID: 730389101}
   deerTF: {fileID: 1795023254}
-  chargeHitbox: {fileID: 1795023250}
   hitZone: {fileID: 1795023257}
   deerRB: {fileID: 1795023249}
   visionRange: 15
@@ -1241,6 +1240,7 @@ MonoBehaviour:
   windupLength: 2
   cooldownLength: 4
   chargeTurning: 15
+  rotationSpeed: 4
 --- !u!65 &1795023257
 BoxCollider:
   m_ObjectHideFlags: 0

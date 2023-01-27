@@ -30,7 +30,7 @@ public class Charge : Node
         _deerTF        = deerTF;
         _deerRB        = deerRB;
         _hitZone       = hitZone;
-        _chargeTurning = chargeTurning / 10000;
+        _chargeTurning = chargeTurning / 10;
     }
 
     //Deer charge attack - RYAN
@@ -39,11 +39,15 @@ public class Charge : Node
         //Charge windup, has deer look at player and stores a target position to charge towards based on the player's current position;
         if (_windupTimer < _windupLength)
         {
-            _windupTimer += Time.deltaTime;
-            SetData("charging", true);
-            _deerTF.LookAt(_playerTF);
+            //Gradually turns deer to face player
+            Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _windupTimer);       
             _startingPosition = _deerTF.position;
+
             _chargeTime = 0;
+            _windupTimer += Time.deltaTime;
+
+            SetData("charging", true);
             state = NodeState.RUNNING;
             return state;
         }
@@ -90,8 +94,8 @@ public class Charge : Node
     private void ChangeDirection()
     {
         //Defines the directions that point slightly to the left and right of player
-        _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning)).normalized;
-        _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning)).normalized;
+        _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning * Time.deltaTime)).normalized;
+        _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning * Time.deltaTime)).normalized;
 
         //Defines the direction from the deer to the player
         Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;

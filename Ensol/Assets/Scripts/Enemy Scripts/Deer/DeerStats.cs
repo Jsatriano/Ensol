@@ -16,6 +16,7 @@ public class DeerStats : EnemyStats
     public float windupLength;
     public float cooldownLength;
     public float chargeTurning;
+    public float rotationSpeed;
 
     // Start is called before the first frame update
     protected override void Start()
