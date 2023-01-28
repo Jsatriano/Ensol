@@ -85,7 +85,7 @@ public class PlayerCombatController : MonoBehaviour
         return;
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(int dmg) // Justin
     {
         if(Time.time - invulnTimer >= invulnLength && charController.canTakeDmg == true)
         {
