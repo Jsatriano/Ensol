@@ -18,6 +18,8 @@ public class CharController : MonoBehaviour
 
     Vector3 forward, right, direction, heading;
     Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
+
+    public GameObject mouseFollower;
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -116,6 +118,11 @@ public class CharController : MonoBehaviour
                 //This state is just to tell this script that the player is attacking, so
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
                 //Since there is probably going to be a lot of combat code, I put it in a different script.
+
+
+                Vector3 toMouse = (mouseFollower.transform.position - transform.position);
+                transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
+
                 break;
         }
     }
