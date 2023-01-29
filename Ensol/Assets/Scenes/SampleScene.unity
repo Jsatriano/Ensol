@@ -581,11 +581,16 @@ MonoBehaviour:
   maxHP: 10
   currHP: 0
   baseAttackPower: 5
-  attackSpeed: 1
-  attackDuration: 0.1
-  attackPower: 0
+  lightAttackSpeed: 1
+  heavyAttackSpeed: 1.5
+  lightAttackDuration: 0.3
+  heavyAttackDuration: 1.5
+  heavyDelay: 0.5
+  attackPower: 5
+  heavyMult: 2
   placeholderSpear: {fileID: 1523130630}
   invulnLength: 1
+  maxComboTimer: 2
 --- !u!1 &1120226828
 GameObject:
   m_ObjectHideFlags: 0

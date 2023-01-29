@@ -10,11 +10,15 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] public int maxHP = 10;
     public int currHP;
     [SerializeField] private int baseAttackPower = 5;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private float attackDuration = 0.3f;
+    [SerializeField] private float lightAttackSpeed = 1f;
+    [SerializeField] private float heavyAttackSpeed = 1.5f;
+    [SerializeField] private float lightAttackDuration = 0.3f;
+    [SerializeField] private float heavyAttackDuration = 0.5f;
+    [SerializeField] private float heavyDelay = 0.5f;
     private float attackCDTimer;
     private float attackDurationTimer;
     public int attackPower; //used to calculate the real damage value of different attacks
+    public int heavyMult;
 
     [Header("Other Variables")]
     [SerializeField] public GameObject placeholderSpear;
@@ -22,6 +26,9 @@ public class PlayerCombatController : MonoBehaviour
     private CharController charController;
     public float invulnLength;
     private float invulnTimer = 0f;
+    private int comboCounter = 0;
+    public float maxComboTimer = 2.0f;
+    private float comboTimer = 0.0f;
 
 
     // Start is called before the first frame update
@@ -44,12 +51,34 @@ public class PlayerCombatController : MonoBehaviour
         if(attackDurationTimer > 0) {
             attackDurationTimer -= Time.deltaTime;
         }
-        if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 
-        && charController.state != CharController.State.ATTACKING) {
-            LightAttack(baseAttackPower);
+        if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Justin and Harsha
+            comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
+            if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
+                print("second hit!");
+                comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
+                LightAttack(baseAttackPower);
+            }
+            else if (comboCounter == 3 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
+                print("third hit!");
+                LightAttack(baseAttackPower);
+            }
+            else { // This else statement is for a regular attack or if the light attack button was pressed beyond the maxComboTimer time limit
+                print("first attack!");
+                comboCounter = 1; // resets combo counter back to 1
+                comboTimer = Time.time;
+                LightAttack(baseAttackPower);
+            }
+        }
+
+        if (Input.GetButtonDown("HeavyAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Harsha and Justin
+            print("at line 74");
+            attackDurationTimer = heavyAttackDuration;
+            charController.state = CharController.State.ATTACKING;
+            Invoke(nameof(HeavyAttack), heavyDelay);
         }
 
         if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) {
+            print(attackDurationTimer);
             charController.state = CharController.State.IDLE;
             placeholderSpear.SetActive(false);
         }
@@ -65,18 +94,21 @@ public class PlayerCombatController : MonoBehaviour
 
     private void LightAttack(int ap) 
     {
-        print("used light attack");
-        attackCDTimer = attackSpeed;
-        attackDurationTimer = attackDuration;
+        print("in light attack");
+        attackCDTimer = lightAttackSpeed;
+        attackDurationTimer = lightAttackDuration;
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
         charController.state = CharController.State.ATTACKING;
     }
 
-    private void HeavyAttack(int ap) 
+    private void HeavyAttack() // Harsha and Justin
     {
-        attackPower = ap;
-        return;
+        print("in heavy attack");
+        attackCDTimer = heavyAttackSpeed;
+        
+        attackPower = baseAttackPower * heavyMult; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
+        placeholderSpear.SetActive(true);
     }
 
     private void Special(int ap) // 
