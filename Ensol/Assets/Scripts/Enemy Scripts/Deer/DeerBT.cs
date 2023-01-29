@@ -19,7 +19,7 @@ public class DeerBT : Tree
                 new Charge(deerStats.chargeSpeed, deerStats.windupLength, deerStats.playerTF,
                            deerStats.deerTF, deerStats.deerRB, deerStats.hitZone, deerStats.chargeTurning),
             }),
-            new DeerAgroIdle(deerStats.speed, deerStats.playerTF, deerStats.deerTF, deerStats.rotationSpeed)         
+            new TrackPlayer(deerStats.playerTF, deerStats.deerTF, deerStats.rotationSpeed)         
         });
 
         return root;

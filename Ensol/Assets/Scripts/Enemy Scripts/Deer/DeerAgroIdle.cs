@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class DeerAgroIdle : Node
+public class TrackPlayer : Node
 {
     private float _speed;
     private Transform _playerTF;
-    private Transform _deerTF;
+    private Transform _enemyTF;
     private float _rotationSpeed;
 
-    public DeerAgroIdle(float speed, Transform playerTF, Transform deerTF, float rotationSpeed)
+    public TrackPlayer(Transform playerTF, Transform enemyTF, float rotationSpeed)
     {
-        _speed = speed;
         _playerTF = playerTF;
-        _deerTF = deerTF;
+        _enemyTF = enemyTF;
         _rotationSpeed = rotationSpeed;
     }
 
@@ -22,15 +21,11 @@ public class DeerAgroIdle : Node
     {
         if (GetData("player") != null)
         {
-            Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
-            float dot = Vector3.Dot(toPlayer, _deerTF.forward);
+            Vector3 toPlayer = (_playerTF.position - _enemyTF.position).normalized;
+            float dot = Vector3.Dot(toPlayer, _enemyTF.forward);
             if (dot < 1)
             {
-                if (dot < 0)
-                {
-                    dot = 0;
-                }
-                _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _rotationSpeed * Time.deltaTime);
+                _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotationSpeed * Time.deltaTime);
             }
             state = NodeState.SUCCESS;
             return NodeState.SUCCESS;

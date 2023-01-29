@@ -13,6 +13,7 @@ public class Charge : Node
     private Transform _deerTF;
     private Vector3 _startingPosition;
     private Rigidbody _deerRB;
+    private float _stuckTime;
     private float _chargeTime;
     private Vector3 _forwardRight;
     private Vector3 _forwardLeft;
@@ -44,6 +45,7 @@ public class Charge : Node
             _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _windupTimer);       
             _startingPosition = _deerTF.position;
 
+            _stuckTime = 0;
             _chargeTime = 0;
             _windupTimer += Time.deltaTime;
 
@@ -77,9 +79,15 @@ public class Charge : Node
             // enables damage hitbox
             _hitZone.enabled = true;
 
-            //Checks if the deer has been charging for too long (bandaid fix for getting stuck on walls)
-            if (_chargeTime > 2)
+            if (_deerRB.velocity.magnitude < 0.5f)
             {
+                _stuckTime += Time.deltaTime;
+            }
+
+            //Checks if the deer is stuck on something or has been charging too long
+            if (_stuckTime > 0.75f || _chargeTime > 4)
+            {
+                _hitZone.enabled = false;
                 ClearData("charging");
                 _windupTimer = 0;
                 state = NodeState.FAILURE;
