@@ -19,6 +19,7 @@ public class PlayerCombatController : MonoBehaviour
     private float attackDurationTimer;
     public int attackPower; //used to calculate the real damage value of different attacks
     public int heavyMult;
+    public float heavyForce;
 
     [Header("Other Variables")]
     [SerializeField] public GameObject placeholderSpear;
@@ -29,6 +30,7 @@ public class PlayerCombatController : MonoBehaviour
     private int comboCounter = 0;
     public float maxComboTimer = 2.0f;
     private float comboTimer = 0.0f;
+    private Rigidbody _rb;
 
 
     // Start is called before the first frame update
@@ -39,7 +41,7 @@ public class PlayerCombatController : MonoBehaviour
         placeholderSpear.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
-        
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,8 @@ public class PlayerCombatController : MonoBehaviour
         if(attackDurationTimer > 0) {
             attackDurationTimer -= Time.deltaTime;
         }
+
+        // Start Light Attack
         if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Justin and Harsha
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
             if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
@@ -70,15 +74,20 @@ public class PlayerCombatController : MonoBehaviour
             }
         }
 
+        // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Harsha and Justin
             print("at line 74");
             attackDurationTimer = heavyAttackDuration;
             charController.state = CharController.State.ATTACKING;
+
+            // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
             Invoke(nameof(HeavyAttack), heavyDelay);
         }
 
+        // End Light and Heavy Attack
         if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) {
-            print(attackDurationTimer);
+            // resets drag
+            _rb.drag = 20;
             charController.state = CharController.State.IDLE;
             placeholderSpear.SetActive(false);
         }
@@ -106,9 +115,13 @@ public class PlayerCombatController : MonoBehaviour
     {
         print("in heavy attack");
         attackCDTimer = heavyAttackSpeed;
-        
         attackPower = baseAttackPower * heavyMult; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
+
+        // push player forward a bit | remove drag from player
+        Vector3 forceToApply = transform.forward * heavyForce;
+        _rb.drag = 0;
+        _rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 
     private void Special(int ap) // 

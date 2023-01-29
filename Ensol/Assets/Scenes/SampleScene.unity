@@ -463,7 +463,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  forward: {x: 0, y: 0, z: 0}
+  right: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  heading: {x: 0, y: 0, z: 0}
   mouseFollower: {fileID: 1899593184}
+  attacking: 0
   _moveSpeed: 5
   _rotationSpeed: 1000
   _dashForce: 15
@@ -588,6 +593,7 @@ MonoBehaviour:
   heavyDelay: 0.5
   attackPower: 5
   heavyMult: 2
+  heavyForce: 8.5
   placeholderSpear: {fileID: 1523130630}
   invulnLength: 1
   maxComboTimer: 2
