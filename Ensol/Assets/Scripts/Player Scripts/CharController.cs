@@ -16,10 +16,14 @@ public class CharController : MonoBehaviour
 
     private Rigidbody _rb;
 
-    Vector3 forward, right, direction, heading;
+    public Vector3 forward, right, direction, heading;
     Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
+    [Header("Other Vaiables")]
     public GameObject mouseFollower;
+    public bool attacking = false;
+    private bool controller = false;
+
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -40,9 +44,7 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
-
         gameObject.tag = "Player";
-
         canTakeDmg = true;
     }
     
@@ -50,6 +52,12 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // determines if controller is connected, removes cursor if one is
+        if(Input.GetJoystickNames().Length <= 0)
+        {
+            Cursor.visible = false;
+            controller = true;
+        }
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         
@@ -63,6 +71,7 @@ public class CharController : MonoBehaviour
         switch (state)
         {
             case State.IDLE:
+                attacking = false;
                 // checks if player starts to move
                 if(direction != zeroVector)
                 {
@@ -119,10 +128,14 @@ public class CharController : MonoBehaviour
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
                 //Since there is probably going to be a lot of combat code, I put it in a different script.
 
-
+                // stop ability to rotate player when attacking | only active if on keyboard
+                if(!attacking && !controller)
+                {
+                // Turns player towards mouse for attack
                 Vector3 toMouse = (mouseFollower.transform.position - transform.position);
                 transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
-
+                }
+                attacking = true;
                 break;
         }
     }
