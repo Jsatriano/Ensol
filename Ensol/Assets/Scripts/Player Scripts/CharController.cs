@@ -44,12 +44,8 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
-
         gameObject.tag = "Player";
-
         canTakeDmg = true;
-
-        print(Input.GetJoystickNames()[0]);
     }
     
 
@@ -57,7 +53,7 @@ public class CharController : MonoBehaviour
     void Update()
     {
         // determines if controller is connected, removes cursor if one is
-        if(Input.GetJoystickNames()[0].Length != 0)
+        if(Input.GetJoystickNames().Length <= 0)
         {
             Cursor.visible = false;
             controller = true;

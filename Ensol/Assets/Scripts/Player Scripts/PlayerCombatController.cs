@@ -6,23 +6,32 @@ public class PlayerCombatController : MonoBehaviour
 {
     //This entire class is for the most part very extremely placeholder. I intend to do some more work later to find a better system to use for attack combos.
     //Elizabeth
-    [Header("Combat Stats")]
-    [SerializeField] public int maxHP = 10;
+    [Header("Health and Attack Stats")]
+    public int maxHP = 10;
     public int currHP;
+    public int attackPower; //used to calculate the real damage value of different attacks
     [SerializeField] private int baseAttackPower = 5;
+
+    [Header("Light Attack Stats")]
     [SerializeField] private float lightAttackSpeed = 1f;
-    [SerializeField] private float heavyAttackSpeed = 1.5f;
     [SerializeField] private float lightAttackDuration = 0.3f;
+
+    [Header("Heavy Attack Stats")]
+    [SerializeField] private float heavyAttackSpeed = 1.5f;
     [SerializeField] private float heavyAttackDuration = 0.5f;
     [SerializeField] private float heavyDelay = 0.5f;
-    private float attackCDTimer;
-    private float attackDurationTimer;
-    public int attackPower; //used to calculate the real damage value of different attacks
-    public int heavyMult;
-    public float heavyForce;
+    [SerializeField] private int heavyMult;
+    [SerializeField] private float heavyForce;
 
+    [Header("Special Attack Stats")]
+    [SerializeField] private float specialAttackSpeed = 3.0f;
+    [SerializeField] private float specialAttackDuration = 1.0f;
+    [SerializeField] private float specialDelay = 0.3f;
+    [SerializeField] private int specialMult;
+    [SerializeField] private GameObject shockwaveParticles;
+    
     [Header("Other Variables")]
-    [SerializeField] public GameObject placeholderSpear;
+    public GameObject placeholderSpear;
     private Collider spearHitbox;
     private CharController charController;
     public float invulnLength;
@@ -31,7 +40,8 @@ public class PlayerCombatController : MonoBehaviour
     public float maxComboTimer = 2.0f;
     private float comboTimer = 0.0f;
     private Rigidbody _rb;
-
+    private float attackCDTimer;
+    private float attackDurationTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -55,7 +65,8 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         // Start Light Attack
-        if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Justin and Harsha
+        if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        {
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
             if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
                 print("second hit!");
@@ -75,13 +86,23 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) { // Harsha and Justin
-            print("at line 74");
+        if (Input.GetButtonDown("HeavyAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        {
             attackDurationTimer = heavyAttackDuration;
             charController.state = CharController.State.ATTACKING;
 
             // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
             Invoke(nameof(HeavyAttack), heavyDelay);
+        }
+
+        if(Input.GetButtonDown("SpecialAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING)
+        {
+            print("START SPECIAL ATTACK");
+            attackDurationTimer = specialAttackDuration;
+            charController.state = CharController.State.ATTACKING;
+
+            // start special attack funtion after 'specialDelay' delay. This imitates a wind up feature
+            Invoke(nameof(SpecialAttack), specialDelay);
         }
 
         // End Light and Heavy Attack
@@ -124,10 +145,31 @@ public class PlayerCombatController : MonoBehaviour
         _rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 
-    private void Special(int ap) // 
+    private void SpecialAttack() // Harsha and Justin
     {
-        attackPower = ap;
+        print("in special attack");
+        attackCDTimer = specialAttackSpeed;
+        attackPower = baseAttackPower * specialMult;
+
+        StartCoroutine(ShockwaveEffect());
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 4f);
+        foreach (Collider c in colliders)
+        {
+            if(c.gameObject.tag == "Enemy")
+            {
+                c.gameObject.GetComponent<EnemyStats>().currHP -= attackPower;
+                print("Did " + attackPower + " damage to " + c.gameObject.GetComponent<EnemyStats>().nameID);
+            }
+        }
         return;
+    }
+
+    private IEnumerator ShockwaveEffect() // Harsha and Justin
+    {
+        shockwaveParticles.SetActive(true);
+        yield return new WaitForSeconds(specialAttackDuration);
+        shockwaveParticles.SetActive(false);
     }
 
     public void TakeDamage(int dmg) // Justin
