@@ -52,11 +52,20 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        controller = false;
         // determines if controller is connected, removes cursor if one is
-        if(Input.GetJoystickNames().Length <= 0)
+        var controllers = Input.GetJoystickNames();
+        if(!controller && controllers.Length > 0)
         {
             Cursor.visible = false;
             controller = true;
+            print("Connected");
+        }
+        else if (controller && controllers.Length == 0)
+        {
+            Cursor.visible = true;
+            controller = false;
+            print("Disconnected");
         }
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
