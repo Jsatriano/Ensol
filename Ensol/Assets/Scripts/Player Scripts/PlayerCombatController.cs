@@ -6,6 +6,12 @@ public class PlayerCombatController : MonoBehaviour
 {
     //This entire class is for the most part very extremely placeholder. I intend to do some more work later to find a better system to use for attack combos.
     //Elizabeth
+    [Header("References")]
+    public GameObject placeholderSpear;
+    private Collider spearHitbox;
+    private CharController charController;
+    private Rigidbody _rb;
+
     [Header("Health and Attack Stats")]
     public int maxHP = 10;
     public int currHP;
@@ -31,16 +37,14 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private GameObject shockwaveParticles;
     
     [Header("Other Variables")]
-    public GameObject placeholderSpear;
-    private Collider spearHitbox;
-    private CharController charController;
     public float invulnLength;
     private float invulnTimer = 0f;
     private int comboCounter = 0;
     public float maxComboTimer = 2.0f;
     private float comboTimer = 0.0f;
-    private Rigidbody _rb;
-    private float attackCDTimer;
+    private float lightAttackCDTimer;
+    private float heavyAttackCDTimer;
+    private float specialAttackCDTimer;
     private float attackDurationTimer;
 
     // Start is called before the first frame update
@@ -57,15 +61,29 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(attackCDTimer > 0) {
-            attackCDTimer -= Time.deltaTime;
+        print(attackDurationTimer);
+        // checks if light attack is off cooldown
+        if(lightAttackCDTimer > 0) {
+            lightAttackCDTimer -= Time.deltaTime;
         }
+
+        // checks if heavy attack is off cooldown
+        if(heavyAttackCDTimer > 0) {
+            heavyAttackCDTimer -= Time.deltaTime;
+        }
+
+        // checks if special attack is off cooldown
+        if(specialAttackCDTimer > 0) {
+            specialAttackCDTimer -= Time.deltaTime;
+        }
+
+        // checks how long is left in current attack
         if(attackDurationTimer > 0) {
             attackDurationTimer -= Time.deltaTime;
         }
 
         // Start Light Attack
-        if(Input.GetButtonDown("LightAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        if(Input.GetButtonDown("LightAttack") && lightAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
         {
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
             if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
@@ -86,7 +104,7 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
         {
             attackDurationTimer = heavyAttackDuration;
             charController.state = CharController.State.ATTACKING;
@@ -95,7 +113,7 @@ public class PlayerCombatController : MonoBehaviour
             Invoke(nameof(HeavyAttack), heavyDelay);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && attackCDTimer <= 0 && charController.state != CharController.State.ATTACKING)
+        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING)
         {
             print("START SPECIAL ATTACK");
             attackDurationTimer = specialAttackDuration;
@@ -105,8 +123,11 @@ public class PlayerCombatController : MonoBehaviour
             Invoke(nameof(SpecialAttack), specialDelay);
         }
 
-        // End Light and Heavy Attack
-        if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) {
+        // End Light Attack | End Heavy Attack | End Special Attack
+        if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) 
+        {
+            print("IN DIS BITCH");
+            
             // resets drag
             _rb.drag = 20;
             charController.state = CharController.State.IDLE;
@@ -125,7 +146,7 @@ public class PlayerCombatController : MonoBehaviour
     private void LightAttack(int ap) 
     {
         print("in light attack");
-        attackCDTimer = lightAttackSpeed;
+        lightAttackCDTimer = lightAttackSpeed;
         attackDurationTimer = lightAttackDuration;
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
@@ -135,7 +156,7 @@ public class PlayerCombatController : MonoBehaviour
     private void HeavyAttack() // Harsha and Justin
     {
         print("in heavy attack");
-        attackCDTimer = heavyAttackSpeed;
+        heavyAttackCDTimer = heavyAttackSpeed;
         attackPower = baseAttackPower * heavyMult; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
 
@@ -148,7 +169,7 @@ public class PlayerCombatController : MonoBehaviour
     private void SpecialAttack() // Harsha and Justin
     {
         print("in special attack");
-        attackCDTimer = specialAttackSpeed;
+        specialAttackCDTimer = specialAttackSpeed;
         attackPower = baseAttackPower * specialMult;
 
         StartCoroutine(ShockwaveEffect());
@@ -168,7 +189,7 @@ public class PlayerCombatController : MonoBehaviour
     private IEnumerator ShockwaveEffect() // Harsha and Justin
     {
         shockwaveParticles.SetActive(true);
-        yield return new WaitForSeconds(specialAttackDuration);
+        yield return new WaitForSeconds(specialAttackDuration - specialDelay);
         shockwaveParticles.SetActive(false);
     }
 

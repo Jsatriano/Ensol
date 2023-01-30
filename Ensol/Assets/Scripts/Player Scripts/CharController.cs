@@ -47,26 +47,39 @@ public class CharController : MonoBehaviour
         gameObject.tag = "Player";
         canTakeDmg = true;
     }
+
+    IEnumerator CheckforControllers() // Justin
+    {
+        while (true)
+        {
+            // determines if controller is connected, removes cursor if one is
+            if(!controller && Input.GetJoystickNames()[0].Length > 0) // controller is connected
+            {
+                Cursor.visible = false;
+                controller = true;
+                print("Connected");
+                
+            }
+            else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
+            {
+                Cursor.visible = true;
+                controller = false;
+                print("Disconnected");
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    void Awake() // Justin
+    {
+        StartCoroutine(CheckforControllers());
+    }
     
 
     // Update is called once per frame
     void Update()
     {
-        controller = false;
-        // determines if controller is connected, removes cursor if one is
-        var controllers = Input.GetJoystickNames();
-        if(!controller && controllers.Length > 0)
-        {
-            Cursor.visible = false;
-            controller = true;
-            print("Connected");
-        }
-        else if (controller && controllers.Length == 0)
-        {
-            Cursor.visible = true;
-            controller = false;
-            print("Disconnected");
-        }
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         
