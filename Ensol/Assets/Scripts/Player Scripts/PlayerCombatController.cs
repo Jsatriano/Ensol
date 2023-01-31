@@ -83,7 +83,8 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         // Start Light Attack
-        if(Input.GetButtonDown("LightAttack") && lightAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        if(Input.GetButtonDown("LightAttack") && lightAttackCDTimer <= 0 && 
+           charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
             if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
@@ -104,7 +105,8 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING) // Harsha and Justin
+        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && 
+            charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
             attackDurationTimer = heavyAttackDuration;
             charController.state = CharController.State.ATTACKING;
@@ -113,7 +115,8 @@ public class PlayerCombatController : MonoBehaviour
             Invoke(nameof(HeavyAttack), heavyDelay);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && charController.state != CharController.State.ATTACKING)
+        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && 
+           charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED)
         {
             print("START SPECIAL ATTACK");
             attackDurationTimer = specialAttackDuration;

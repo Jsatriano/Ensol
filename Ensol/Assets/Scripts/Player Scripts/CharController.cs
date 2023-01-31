@@ -10,7 +10,8 @@ public class CharController : MonoBehaviour
         IDLE,
         MOVING,
         DASHING,
-        ATTACKING
+        ATTACKING,
+        PAUSED
     }
     public State state;
 
@@ -21,8 +22,10 @@ public class CharController : MonoBehaviour
 
     [Header("Other Vaiables")]
     public GameObject mouseFollower;
+    public GameObject pauseMenu;
     public bool attacking = false;
     public bool controller = false;
+    private State prevState;
 
     
     [Header("Movement Vaiables")]
@@ -108,6 +111,11 @@ public class CharController : MonoBehaviour
                 {
                     state = State.DASHING;
                 }
+                else if(Input.GetButtonDown("Cancel"))
+                {
+                    prevState = State.IDLE;
+                    state = State.PAUSED;
+                }
                 break;
             
             case State.MOVING:
@@ -123,6 +131,11 @@ public class CharController : MonoBehaviour
                 else if(Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;
+                }
+                else if(Input.GetButtonDown("Cancel"))
+                {
+                    prevState = State.MOVING;
+                    state = State.PAUSED;
                 }
                 break;
 
@@ -146,6 +159,11 @@ public class CharController : MonoBehaviour
                     {
                         state = State.MOVING;
                     }
+                    else if(Input.GetButtonDown("Cancel"))
+                    {
+                        prevState = State.DASHING;
+                        state = State.PAUSED;
+                    }
                 }
                 break;
             case State.ATTACKING:
@@ -153,6 +171,12 @@ public class CharController : MonoBehaviour
                 //This state is just to tell this script that the player is attacking, so
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
                 //Since there is probably going to be a lot of combat code, I put it in a different script.
+
+                if(Input.GetButtonDown("Cancel"))
+                {
+                    prevState = State.ATTACKING;
+                    state = State.PAUSED;
+                }
 
                 // stop ability to rotate player when attacking | only active if on keyboard
                 if(!attacking && !controller)
@@ -162,6 +186,13 @@ public class CharController : MonoBehaviour
                 transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
                 }
                 attacking = true;
+                break;
+            case State.PAUSED:
+                // pause game, make all actions unavailable
+                if(!pauseMenu.activeInHierarchy)
+                {
+                    state = prevState;
+                }
                 break;
         }
     }
