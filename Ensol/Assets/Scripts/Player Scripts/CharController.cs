@@ -53,18 +53,22 @@ public class CharController : MonoBehaviour
         while (true)
         {
             // determines if controller is connected, removes cursor if one is
-            if(!controller && Input.GetJoystickNames()[0].Length > 0) // controller is connected
+            var controllers = Input.GetJoystickNames();
+            if(controllers.Length > 0)
             {
-                Cursor.visible = false;
-                controller = true;
-                print("Connected");
-                
-            }
-            else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
-            {
-                Cursor.visible = true;
-                controller = false;
-                print("Disconnected");
+                if(!controller && Input.GetJoystickNames()[0].Length > 0) // controller is connected
+                {
+                    Cursor.visible = false;
+                    controller = true;
+                    print("Connected");
+                    
+                }
+                else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
+                {
+                    Cursor.visible = true;
+                    controller = false;
+                    print("Disconnected");
+                }
             }
 
             yield return new WaitForSeconds(1f);
