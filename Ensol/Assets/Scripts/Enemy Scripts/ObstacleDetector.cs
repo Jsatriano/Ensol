@@ -18,7 +18,7 @@ public class ObstacleDetector : Node
         _detectionRadius    = obstacleDetectRadius;
         _obstacleMask       = obstacleMask;
         _enemyTF            = enemyTF;
-        _detectionRateTimer = 0;
+        _detectionRateTimer = -1;
     }
 
     public override NodeState Evaluate()
