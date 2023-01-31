@@ -14,12 +14,21 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] public int maxHP = 10; //max health
     public int currHP; //current health
     public int attackPower = 5; //used in damage calculations
-    public int speed = 5; //move speed
+    public float speed = 5; //move speed
     [SerializeField] public string nameID; //a string name to ID the enemy
     [SerializeField] public int numID; //an int to id an enemy, if we want that too? maybe to differentiate units with the same name?
+    public float visionRange; //The radius at which the enemy detects the player
+    public float rotationSpeed; //How fast the enemy can rotate when tracking the player
+    public float obstacleDetectRadius; //The radius at which the enemy detects obstacles. Used for avoiding obstacles when moving
+
 
     //OTHER VARIABLES
     public CharController player; //Stores reference to player, in order to deal damage/otherwise affect them.
+    public Transform playerTF; //Player transform
+    public Transform enemyTF; //Enemy Transform
+    public BoxCollider hitZone; //The attacking hitbox of the enemy
+    public Rigidbody enemyRB; //The enemy Rigidbody
+    public LayerMask obstacleMask; //The layer(s) that obstacles in the arena are on
 
 
     // Start is called before the first frame update

@@ -14,12 +14,17 @@ public class DeerBT : Tree
         {
             new Sequence(new List<Node>
             {
-                new FOVCheck(deerStats.deerTF, deerStats.playerTF, deerStats.visionRange, "charging"),
+                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging"),
                 new CooldownCheck(deerStats.cooldownLength, "charging"),
                 new Charge(deerStats.chargeSpeed, deerStats.windupLength, deerStats.playerTF,
-                           deerStats.deerTF, deerStats.deerRB, deerStats.hitZone, deerStats.chargeTurning),
+                           deerStats.enemyTF, deerStats.enemyRB, deerStats.hitZone, deerStats.chargeTurning),
             }),
-            new TrackPlayer(deerStats.playerTF, deerStats.deerTF, deerStats.rotationSpeed)         
+            new Sequence(new List<Node>
+            {
+                new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF),
+                new TrackPlayer(deerStats.playerTF, deerStats.enemyTF, deerStats.rotationSpeed),
+                new DeerAgroMovement(deerStats.speed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB, deerStats.cooldownLength, deerStats.distanceFromPlayer)
+            })            
         });
 
         return root;

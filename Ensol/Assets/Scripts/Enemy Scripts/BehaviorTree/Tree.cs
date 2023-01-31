@@ -25,5 +25,17 @@ namespace BehaviorTree
             }
         }
         protected abstract Node SetupTree();
+
+        
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying && _root.GetData("dir") != null)
+            {
+                
+                Gizmos.color = Color.green;
+                Vector3 dir = (Vector3)_root.GetData("dir");
+                Gizmos.DrawRay(transform.position, dir * 5);
+            }
+        }
     }
 }
