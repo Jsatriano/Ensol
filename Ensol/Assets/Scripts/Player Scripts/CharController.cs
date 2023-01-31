@@ -22,7 +22,7 @@ public class CharController : MonoBehaviour
     [Header("Other Vaiables")]
     public GameObject mouseFollower;
     public bool attacking = false;
-    private bool controller = false;
+    public bool controller = false;
 
     
     [Header("Movement Vaiables")]

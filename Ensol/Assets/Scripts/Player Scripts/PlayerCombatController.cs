@@ -11,6 +11,7 @@ public class PlayerCombatController : MonoBehaviour
     private Collider spearHitbox;
     private CharController charController;
     private Rigidbody _rb;
+    public FadeOnDeath fadeOnDeath;
 
     [Header("Health and Attack Stats")]
     public float maxHP = 10;
@@ -88,17 +89,17 @@ public class PlayerCombatController : MonoBehaviour
             if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
                 print("second hit!");
                 comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
-                LightAttack(baseAttackPower);
+                LightAttack(baseAttackPower * 1.3f);
             }
             else if (comboCounter == 3 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
                 print("third hit!");
-                LightAttack(baseAttackPower * 1.3f);
+                LightAttack(baseAttackPower * 1.6f);
             }
             else { // This else statement is for a regular attack or if the light attack button was pressed beyond the maxComboTimer time limit
                 print("first attack!");
                 comboCounter = 1; // resets combo counter back to 1
                 comboTimer = Time.time;
-                LightAttack(baseAttackPower * 1.6f);
+                LightAttack(baseAttackPower);
             }
         }
 
@@ -136,6 +137,7 @@ public class PlayerCombatController : MonoBehaviour
         {
             print("Player is dead");
             Destroy(gameObject);
+            //StartCoroutine(fadeOnDeath.FadeBlackOutSquare());
         }
 
     }
