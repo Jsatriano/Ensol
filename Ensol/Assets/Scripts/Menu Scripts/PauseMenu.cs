@@ -45,4 +45,9 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName:"MenuScene");
     }
 
+    public void ReturnToNodeSelect() {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName:"MapScene");
+    }
+
 }
