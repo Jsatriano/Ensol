@@ -246,10 +246,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   chargeSpeed: 20
-  windupLength: 2
-  cooldownLength: 4
+  chargeWindupLength: 1
+  chargeCooldown: 4
   chargeTurning: 15
   distanceFromPlayer: 4
+  attackCooldown: 1
 --- !u!114 &4265731491905512409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deerStats: {fileID: 4265731491905512411}
+  deerBT: {fileID: 0}
 --- !u!114 &4265731491905512404
 MonoBehaviour:
   m_ObjectHideFlags: 0
