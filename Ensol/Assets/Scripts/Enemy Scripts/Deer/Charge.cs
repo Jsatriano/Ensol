@@ -26,7 +26,7 @@ public class Charge : Node
     {
         _chargeSpeed   = chargeSpeed;
         _windupLength  = chargeWindupLength;
-        _windupTimer   = Time.time;
+        _windupTimer   = 0;
         _playerTF      = playerTF;
         _deerTF        = deerTF;
         _deerRB        = deerRB;
@@ -42,7 +42,7 @@ public class Charge : Node
         {
             //Gradually turns deer to face player
             Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
-            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _windupTimer);       
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);       
             _startingPosition = _deerTF.position;
 
             _stuckTime = 0;

@@ -12,6 +12,8 @@ public class DeerStats : EnemyStats
     public float cooldownLength; //Cooldown of charge
     public float chargeTurning; //How much the deer can turn while charging
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
+    public float basicAttackDamage;
+    public float basicAttackCooldown;
     
 
     // Start is called before the first frame update

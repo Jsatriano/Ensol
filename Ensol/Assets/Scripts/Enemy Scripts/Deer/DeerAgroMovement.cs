@@ -13,9 +13,9 @@ public class DeerAgroMovement : Node
     private int randomDir;
     private float _randomMovementTimer;
     private float _randomMovementLength;
-    float _distanceFromPlayer;
+    float _idealDistance;
 
-    public DeerAgroMovement(float moveSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float distanceFromPlayer)
+    public DeerAgroMovement(float moveSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;
@@ -24,7 +24,7 @@ public class DeerAgroMovement : Node
         randomDir  = 0;
         _randomMovementTimer  = 0;
         _randomMovementLength = cooldown;
-        _distanceFromPlayer   = distanceFromPlayer;
+        _idealDistance   = idealDistance;
 }
 
     public override NodeState Evaluate()
@@ -80,11 +80,20 @@ public class DeerAgroMovement : Node
         {
             float dot = Vector3.Dot(directionToPlayer.normalized, Directions.eightDirections[i]);
             float weightToAdd = 1 - Mathf.Abs(dot);
-            //Next 3 lines aren't currently doing anything dw about it
+            //This blocked out code is an attempt at making the deer stay a certain distance from the player, giving up for now
+            /*
             Vector3 newPotentialPos = Directions.eightDirections[i] + _enemyTF.position;
-            float distFromIdealDist = Mathf.Abs(_distanceFromPlayer - (newPotentialPos - _playerTF.position).magnitude);
-            float distModifier = Mathf.Clamp(1 - distFromIdealDist, 0.2f, 1f);
-            weightToAdd = weightToAdd;
+            float distFromIdealDist = _idealDistance - (newPotentialPos - _playerTF.position).magnitude;
+            float distModifier = 1;
+            if (distFromIdealDist > 0)
+            {
+                distModifier = (_idealDistance - distFromIdealDist ) / _idealDistance;
+                distModifier = Mathf.Clamp(distFromIdealDist, 0.4f, 0.6f);
+            } else if (distFromIdealDist < 0)
+            {
+
+            }
+            */
             if (weightToAdd > playerWeights[i])
             {
                 playerWeights[i] = weightToAdd;
