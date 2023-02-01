@@ -25,6 +25,7 @@ public class EnemyStats : MonoBehaviour
 
 
     //OTHER VARIABLES
+    [HideInInspector] public GameObject[] players;
     public CharController player; //Stores reference to player, in order to deal damage/otherwise affect them.
     public Transform playerTF; //Player transform
     public Transform enemyTF; //Enemy Transform
@@ -32,7 +33,9 @@ public class EnemyStats : MonoBehaviour
     public Rigidbody enemyRB; //The enemy Rigidbody
     public LayerMask obstacleMask; //The layer(s) that obstacles in the arena are on
 
-
+    private void Awake() {
+        gameObject.tag = "Enemy";
+    }
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -40,16 +43,38 @@ public class EnemyStats : MonoBehaviour
         gameObject.tag = "Enemy";
         nameID = "DefaultEnemy";
         numID = -1;
-        
+
+        SearchForPlayer();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        //checks if player has been successfully located, if not, tries to locate it
+        if(player == null) {
+            SearchForPlayer();
+        }
         //Checks to see if the enemy is dead
         if(currHP <= 0) {
             print(nameID + " is dead!");
             Destroy(gameObject);
+        }
+    }
+
+    public void SearchForPlayer() {
+        if(players.Length == 0) {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
+        foreach(GameObject p in players) {
+            player = p.GetComponent<CharController>();
+            playerTF = p.GetComponent<Transform>();
+        }
+
+        if(player == null) {
+            print("EnemyStats failed to locate Player");
+        }
+        else {
+            print("EnemyStats located Player");
         }
     }
 }
