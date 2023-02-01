@@ -10,6 +10,9 @@ public class DeerBT : Tree
     
     protected override Node SetupTree()
     {
+        if(deerStats.playerTF == null || deerStats.player == null) {
+            deerStats.SearchForPlayer();
+        }
         Node root = new Selector(new List<Node>
         {
             new Sequence(new List<Node>

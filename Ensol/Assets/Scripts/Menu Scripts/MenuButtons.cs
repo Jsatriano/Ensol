@@ -18,7 +18,7 @@ public class MenuButtons : MonoBehaviour
     public void StartGame()
     {
         // will need to change this to the cabin once its created
-        SceneManager.LoadScene(sceneName:"SampleScene");
+        SceneManager.LoadScene(sceneName:"MapScene");
     }
 
     public void Controls()

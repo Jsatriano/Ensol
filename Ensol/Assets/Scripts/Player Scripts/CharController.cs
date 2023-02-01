@@ -40,7 +40,6 @@ public class CharController : MonoBehaviour
     private bool _isDashing = false;
     public bool canTakeDmg;
 
-    
 
     // function is called in scene start
     private void Start()
@@ -48,6 +47,7 @@ public class CharController : MonoBehaviour
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
         gameObject.tag = "Player";
+        print(gameObject.tag);
         canTakeDmg = true;
     }
 
@@ -80,6 +80,7 @@ public class CharController : MonoBehaviour
 
     void Awake() // Justin
     {
+        gameObject.tag = "Player";
         StartCoroutine(CheckforControllers());
     }
     
