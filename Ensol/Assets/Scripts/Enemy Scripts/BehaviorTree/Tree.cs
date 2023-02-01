@@ -8,7 +8,7 @@ namespace BehaviorTree
 {
     public abstract class Tree : MonoBehaviour
     {
-        private Node _root = null;
+        public Node root = null;
         public GameObject player;
         [HideInInspector] public GameObject[] players;
 
@@ -17,7 +17,7 @@ namespace BehaviorTree
             if(player == null) {
                 SearchForPlayer();
             }
-            _root = SetupTree();
+            root = SetupTree();
         }
 
         //Evaluates all nodes in the tree every update as long as the player is alive
@@ -26,9 +26,9 @@ namespace BehaviorTree
             if(player == null) {
                 SearchForPlayer();
             }
-            if (_root != null && player != null)
+            if (root != null && player != null)
             {
-                _root.Evaluate();
+                root.Evaluate();
             }
         }
         protected abstract Node SetupTree();
@@ -36,11 +36,11 @@ namespace BehaviorTree
         
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && _root.GetData("dir") != null)
+            if (Application.isPlaying && root.GetData("dir") != null)
             {
                 
                 Gizmos.color = Color.green;
-                Vector3 dir = (Vector3)_root.GetData("dir");
+                Vector3 dir = (Vector3) root.GetData("dir");
                 Gizmos.DrawRay(transform.position, dir * 5);
             }
         }

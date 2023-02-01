@@ -8,12 +8,11 @@ public class DeerStats : EnemyStats
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
 
     public float chargeSpeed;  //How fast the charge is
-    public float windupLength; //How long the windup of charge is
-    public float cooldownLength; //Cooldown of charge
+    public float chargeWindupLength; //How long the windup of charge is
+    public float chargeCooldown; //Cooldown of charge
     public float chargeTurning; //How much the deer can turn while charging
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
-    public float basicAttackDamage;
-    public float basicAttackCooldown;
+    public float attackCooldown;
     
 
     // Start is called before the first frame update

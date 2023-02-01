@@ -17,6 +17,7 @@ public class DeerBasicAttack : Node
     {
         _hitBox = hitBox;
         _attackLength = attackLength;
+        _attackTimer = 0;
         _windupTimer = 0;
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -26,7 +27,7 @@ public class DeerBasicAttack : Node
     {
         if (_windupTimer < _windupLength)
         {
-            SetData("Attacking", true);
+            SetData("attacking", true);
             Vector3 toPlayer = (_playerTF.position - _enemyTF.position).normalized;
             _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, (_windupTimer / _windupLength) * 0.9f);
             _windupTimer += Time.deltaTime;
@@ -35,8 +36,18 @@ public class DeerBasicAttack : Node
         } 
         else
         {
-            state = NodeState.FAILURE;
-            return state;
+            if (_attackTimer >= _attackLength)
+            {
+                _attackTimer = 0;
+                ClearData("attacking");
+                _hitBox.enabled = false;
+                state = NodeState.FAILURE;
+                return state;
+            }
+            _hitBox.enabled = true;
+            _attackTimer += Time.deltaTime;
+            state = NodeState.RUNNING;
+            return NodeState.RUNNING;
         }
     }
 }
