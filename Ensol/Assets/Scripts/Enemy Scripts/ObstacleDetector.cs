@@ -5,12 +5,12 @@ using BehaviorTree;
 
 public class ObstacleDetector : Node
 {
-    private float _detectionRadius;
-    private LayerMask _obstacleMask;
-    private Transform _enemyTF;
+    private LayerMask _obstacleMask;    //Layer(s) the obstacles to detect are on (usually the environment and other enemies)
+    private Transform _enemyTF;         //Enemy transform
+    private float _detectionRadius;     //Distance the enemy detects obstacles from
     private float _detectionRate = .1f; //Used to make it so checks for obstacles at a slower rate than update cause its unnecessary and prevents lag
-    private float _detectionRateTimer;
-    private float _hitBoxSize = 1f;
+    private float _detectionRateTimer;  //Used internally to keep track of the above
+    private float _hitBoxSize = 1f;     //Size of the enemies hitbox, would be nice to automate this value in the future
 
 
     public ObstacleDetector(float obstacleDetectRadius, LayerMask obstacleMask, Transform enemyTF)
@@ -21,11 +21,16 @@ public class ObstacleDetector : Node
         _detectionRateTimer = -1;
     }
 
+    //Script for the obstacle avoidance part of context steering. Detects all the obstacles around a player and assigns
+    //a weight to all 8 directions based on how close an obstacle is to each direction - RYAN
+
     public override NodeState Evaluate()
     {
+        //Only runs at the rate given by detection rate (running every update would be unecessary and intensive)
         if (Time.time - _detectionRateTimer > _detectionRate)
         {
             _detectionRateTimer = Time.time;
+            //Sets up array and fills it with zeroes (zero part might be unnecessary)
             float[] avoidanceWeights = new float[8];
             for (int i = 0; i < avoidanceWeights.Length; i++)
             {
@@ -36,9 +41,9 @@ public class ObstacleDetector : Node
             Collider[] obstacles = Physics.OverlapSphere(_enemyTF.position, _detectionRadius, _obstacleMask);
             foreach (Collider coll in obstacles)
             {
-                Vector3 dirToObstacle = coll.ClosestPoint(_enemyTF.position) - _enemyTF.position;
-                float distToObstacle = dirToObstacle.magnitude;
                 //Assigns a weight for the obstacle based on how close it is
+                Vector3 dirToObstacle = coll.ClosestPoint(_enemyTF.position) - _enemyTF.position;
+                float distToObstacle = dirToObstacle.magnitude;             
                 if (distToObstacle <= _hitBoxSize)
                 {
                     weight = 1;
@@ -47,8 +52,9 @@ public class ObstacleDetector : Node
                 {
                     weight = (_detectionRadius - distToObstacle) / _detectionRadius;
                 }
-                dirToObstacle = dirToObstacle.normalized;
+
                 //Checks how close each of the 8 directions is to the direction to the obstacle
+                dirToObstacle = dirToObstacle.normalized;             
                 for (int i = 0; i < Directions.eightDirections.Count; i++)
                 {
                     float dot = Vector3.Dot(dirToObstacle, Directions.eightDirections[i]);

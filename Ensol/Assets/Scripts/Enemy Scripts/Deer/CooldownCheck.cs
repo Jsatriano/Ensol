@@ -5,15 +5,15 @@ using BehaviorTree;
 
 public class CooldownCheck : Node
 {
-    private float _cooldownLength;
-    private float _cooldownTimer;
-    private string _attackName;
+    private float _cooldownLength; //How long the cooldown is
+    private float _cooldownTimer;  //Used internally to time the cooldown
+    private string _attackName;    //Name of the attack the cooldown is for
 
     public CooldownCheck(float cooldownLength, string attackName)
     {
         _cooldownLength = cooldownLength;
-        _cooldownTimer = -1;
-        _attackName = attackName;
+        _cooldownTimer  = -1;
+        _attackName     = attackName;
     }
 
     //Checks to see if ability is off cooldown, if so resets cooldown and returns SUCCESS, otherwise failure - RYAN

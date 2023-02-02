@@ -5,19 +5,19 @@ using BehaviorTree;
 
 public class RangeCheck : Node
 {
-    private Transform _enemyTF;
-    private Transform _playerTF;
-    private float _attackRange;
-    private string _attackName;
+    private Transform _enemyTF;  //Enemy transform
+    private Transform _playerTF; //Player transform
+    private float _attackRange;  //How close the player needs to be for the enemy to start the attack
+    private string _attackName;  //Name of the attack. Used to check if the enemy is already attacking
 
     //Node for checking if the enemy is close enough to the player to do some attack - RYAN
 
     public RangeCheck(Transform enemyTF, Transform playerTF, float attackRange, string attackName)
     {
-        _enemyTF = enemyTF;
-        _playerTF = playerTF;
+        _enemyTF     = enemyTF;
+        _playerTF    = playerTF;
         _attackRange = attackRange;
-        _attackName = attackName;
+        _attackName  = attackName;
     }
 
     public override NodeState Evaluate()

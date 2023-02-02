@@ -4,19 +4,19 @@ using UnityEngine;
 using BehaviorTree;
 public class FOVCheck : Node
 {
-    private static int _envLayerMask = 1 << 7;
-    private Transform _enemyTF;
-    private Transform _playerTF;
-    private float _visionRange;
-    private RaycastHit _hit;
-    private string _attackName;
+    private LayerMask _envLayerMask; //Layer(s) the environment is on
+    private Transform _enemyTF;      //Enemy transform
+    private Transform _playerTF;     //Player transform
+    private float _visionRange;      //Detection range of the enemy
+    private string _attackName;      //Name of the attack this check is for
 
-    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName)
+    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName, LayerMask envLayerMask)
     {
-        _enemyTF = enemyTF;
-        _playerTF = playerTF;
-        _visionRange = visionRange;
-        _attackName = attackName;
+        _enemyTF      = enemyTF;
+        _playerTF     = playerTF;
+        _visionRange  = visionRange;
+        _attackName   = attackName;
+        _envLayerMask = envLayerMask;
     }
 
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
@@ -44,8 +44,7 @@ public class FOVCheck : Node
                 if (Vector3.Distance(_enemyTF.position, _playerTF.position) <= _visionRange)
                 {
                     //checks if enemy has LOS of player, if so returns success
-                    _hit = new RaycastHit();
-                    if (!Physics.Linecast(_enemyTF.position, _playerTF.position, out _hit, _envLayerMask))
+                    if (!Physics.Linecast(_enemyTF.position, _playerTF.position, _envLayerMask))
                     {
                         SetData("player", _playerTF);
                         state = NodeState.SUCCESS;
@@ -56,7 +55,7 @@ public class FOVCheck : Node
                 return state;
             }
             //Doesn't start attacking unless player is in LOS
-            if (!Physics.Linecast(_enemyTF.position, _playerTF.position, out _hit, _envLayerMask))
+            if (!Physics.Linecast(_enemyTF.position, _playerTF.position, _envLayerMask))
             {
                 state = NodeState.SUCCESS;
                 return state;

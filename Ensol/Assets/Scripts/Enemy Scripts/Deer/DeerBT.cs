@@ -17,10 +17,10 @@ public class DeerBT : Tree
         {
             new Sequence(new List<Node>
             {
-                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging"),
+                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask),
                 new CooldownCheck(deerStats.chargeCooldown, "charging"),
                 new Charge(deerStats.chargeSpeed, deerStats.chargeWindupLength, deerStats.playerTF,
-                           deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitZone, deerStats.chargeTurning, 
+                           deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitZone, deerStats.chargeTurning, deerStats.obstacleMask,
                            deerStats.enemyMaterial, deerStats.windupMaterial, deerStats.attackMaterial, deerStats.defaultMaterial)
             }),
             new Sequence(new List<Node>
@@ -33,7 +33,7 @@ public class DeerBT : Tree
             }),
             new Sequence(new List<Node>
             {
-                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging"),
+                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask),
                 new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF),
                 new TrackPlayer(deerStats.playerTF, deerStats.enemyTF, deerStats.rotationSpeed),
                 new DeerAgroMovement(deerStats.speed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeCooldown, deerStats.distanceFromPlayer)

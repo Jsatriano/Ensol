@@ -5,20 +5,25 @@ using BehaviorTree;
 
 public class Charge : Node
 {
-    private float _chargeSpeed;
-    private BoxCollider _hitZone;
-    private float _windupLength;
-    private float _windupTimer;
-    private Transform _playerTF;
-    private Transform _deerTF;
-    private Vector3 _startingPosition;
-    private Rigidbody _deerRB;
-    private float _stuckTime;
-    private float _chargeTime;
-    private Vector3 _forwardRight;
-    private Vector3 _forwardLeft;
-    private float _chargeTurning;
-    private LayerMask _obstacleMask = 1 << 7;
+    //Charge Vars
+    private float _chargeSpeed;   //How fast the charge is
+    private float _windupLength;  //How long the windup for the charge is
+    private float _windupTimer;   //Used internally to keep track of the windup
+    private float _chargeTurning; //How well the enemy tracks the player during windup
+
+    //Used for ending the charge
+    private Vector3 _startingPosition; //Used to check if the enemy has passed the player
+    private float _stuckTime;   //Used to check if the deer has been stuck on something for too long
+    private float _chargeTime;  //Used to check if the deer has been charing for too long
+
+    //Components
+    private Transform _playerTF;     //Player transform
+    private Transform _deerTF;       //Deer transform
+    private BoxCollider _hitZone;    //Hitzone of charge attack
+    private Rigidbody _deerRB;       //Deer rigidbody
+    private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
+
+    //Temp vars
     private Material _windupMaterial;
     private Material _attackMaterial;
     private Material _deerMaterial;
@@ -26,8 +31,8 @@ public class Charge : Node
 
 
     public Charge(float chargeSpeed, float chargeWindupLength, Transform playerTF, 
-                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, MeshRenderer 
-                  enemyMaterial, Material windupMaterial, Material attackMaterial, Material deerMaterial)
+                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask, 
+                  MeshRenderer enemyMaterial, Material windupMaterial, Material attackMaterial, Material deerMaterial)
     {
         _chargeSpeed   = chargeSpeed;
         _windupLength  = chargeWindupLength;
@@ -37,6 +42,7 @@ public class Charge : Node
         _deerRB        = deerRB;
         _hitZone       = hitZone;
         _chargeTurning = chargeTurning / 10;
+        _obstacleMask  = obstacleMask;
         _enemyMaterial = enemyMaterial;
         _windupMaterial = windupMaterial;
         _attackMaterial = attackMaterial;
@@ -50,12 +56,13 @@ public class Charge : Node
         if (_windupTimer < _windupLength)
         {
             //Gradually turns deer to face player
-            Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
-            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);       
+            Vector3 toPlayer  = (_playerTF.position - _deerTF.position).normalized;
+            _deerTF.forward   = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);       
             _startingPosition = _deerTF.position;
 
-            _stuckTime = 0;
-            _chargeTime = 0;
+            //Setups/ticks up timers
+            _stuckTime    = 0;
+            _chargeTime   = 0;
             _windupTimer += Time.deltaTime;
 
             _enemyMaterial.material = _windupMaterial;
@@ -67,48 +74,44 @@ public class Charge : Node
         else
         {
             _enemyMaterial.material = _attackMaterial;
+            _chargeTime += Time.deltaTime;
+            //Counts up stuck timer when deer is moving too slow while charging
+            if (_deerRB.velocity.magnitude < 0.5f)
+            {
+                _stuckTime += Time.deltaTime;
+            }
+            //Checks if the deer is stuck on something or has been charging too long
+            if (_stuckTime > 0.75f || _chargeTime > 4)
+            {
+                _hitZone.enabled = false;        
+                _windupTimer = 0;
+                _enemyMaterial.material = _deerMaterial;
+                ClearData("charging");
+                ClearData("attacking");
+                state = NodeState.FAILURE;
+                return state;
+            }
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
             {
+                //Doesn't stop charge until deer has slowed down more
                 if(_deerRB.velocity.magnitude <= 1)
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
-                    ClearData("charging");
-                    ClearData("attacking");
                     _windupTimer = 0;
                     _enemyMaterial.material = _deerMaterial;
+                    ClearData("charging");
+                    ClearData("attacking");
                     state = NodeState.SUCCESS;
                     return state;
                 }
                 state = NodeState.RUNNING;
                 return state;
             }
-
+            //Steers deer towards player, keeps the hitzone enabled, and pushes deer forward
             ChangeDirection();
-
-            //Makes deer charge forwards
-            _deerRB.AddForce(_deerTF.forward * _chargeSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
-            _chargeTime += Time.deltaTime;
-
-            // enables damage hitbox
             _hitZone.enabled = true;
-
-            if (_deerRB.velocity.magnitude < 0.5f)
-            {
-                _stuckTime += Time.deltaTime;
-            }
-
-            //Checks if the deer is stuck on something or has been charging too long
-            if (_stuckTime > 0.75f || _chargeTime > 4)
-            {
-                _hitZone.enabled = false;
-                ClearData("charging");
-                ClearData("attacking");
-                _windupTimer = 0;
-                _enemyMaterial.material = _deerMaterial;
-                state = NodeState.FAILURE;
-                return state;
-            }
+            _deerRB.AddForce(_deerTF.forward * _chargeSpeed * Time.deltaTime * 100, ForceMode.Acceleration);    
             state = NodeState.RUNNING;
             return state;
         }
@@ -118,8 +121,8 @@ public class Charge : Node
     private void ChangeDirection()
     {
         //Defines the directions that point slightly to the left and right of player
-        _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning * Time.deltaTime)).normalized;
-        _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning * Time.deltaTime)).normalized;
+        Vector3 _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning * Time.deltaTime)).normalized;
+        Vector3 _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning * Time.deltaTime)).normalized;
 
         //Defines the direction from the deer to the player
         Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
@@ -133,9 +136,9 @@ public class Charge : Node
         obstacleRight   = Physics.Raycast(_deerTF.position, _forwardRight, 100f, _obstacleMask);
 
         //Gets the dot product between the three forward directions and the direction to the player
-        dotLeft = Vector3.Dot(_forwardLeft, toPlayer);
+        dotLeft    = Vector3.Dot(_forwardLeft, toPlayer);
         dotForward = Vector3.Dot(_deerTF.forward, toPlayer);
-        dotRight = Vector3.Dot(_forwardRight, toPlayer);
+        dotRight   = Vector3.Dot(_forwardRight, toPlayer);
 
         //Gets how desirable each direction is based on if there are obstacles in the way and
         //how close each direction is to the direction to player

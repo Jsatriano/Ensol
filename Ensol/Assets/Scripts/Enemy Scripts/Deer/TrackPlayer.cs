@@ -5,10 +5,9 @@ using BehaviorTree;
 
 public class TrackPlayer : Node
 {
-    private float _speed;
-    private Transform _playerTF;
-    private Transform _enemyTF;
-    private float _rotationSpeed;
+    private Transform _playerTF;  //Player Transform
+    private Transform _enemyTF;   //Enemy Transform
+    private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
 
     public TrackPlayer(Transform playerTF, Transform enemyTF, float rotationSpeed)
     {
@@ -23,9 +22,9 @@ public class TrackPlayer : Node
     {
         if (GetData("player") != null)
         {
-            Vector3 toPlayer = (_playerTF.position - _enemyTF.position).normalized;
-            float dot = Vector3.Dot(toPlayer, _enemyTF.forward);
             //Lerps the enemies forward vector towards the direction of the player when they aren't already looking at them
+            Vector3 toPlayer = (_playerTF.position - _enemyTF.position).normalized;
+            float dot = Vector3.Dot(toPlayer, _enemyTF.forward);           
             if (dot < 1)
             {
                 _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotationSpeed * Time.deltaTime);

@@ -34,16 +34,25 @@ namespace BehaviorTree
         protected abstract Node SetupTree();
 
         
+        /*
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("dir") != null)
+            if (Application.isPlaying && root.GetData("d") != null)
             {
                 
                 Gizmos.color = Color.green;
-                Vector3 dir = (Vector3) root.GetData("dir");
-                Gizmos.DrawRay(transform.position, dir * 5);
+                float[] charge = (float[]) root.GetData("charge");
+                Vector3[] d = (Vector3[])root.GetData("d");
+                for (int i = 0; i < 3; i++)
+                {
+                    print(charge[i]);
+                    //Gizmos.DrawRay(transform.position, d[i] * charge[i] * 5);
+                }
+                print("------");
+               
             }
         }
+        */
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth
         public void SearchForPlayer() {
