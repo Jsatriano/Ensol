@@ -16,6 +16,7 @@ public class EnemyStats : MonoBehaviour
     public float currHP; //current health
     public float attackPower = 5; //used in damage calculations
     public float speed = 5; //move speed
+    public float attackRange;
 
     [SerializeField] public string nameID; //a string name to ID the enemy
     [SerializeField] public int numID; //an int to id an enemy, if we want that too? maybe to differentiate units with the same name?
@@ -32,6 +33,12 @@ public class EnemyStats : MonoBehaviour
     public BoxCollider hitZone; //The attacking hitbox of the enemy
     public Rigidbody enemyRB; //The enemy Rigidbody
     public LayerMask obstacleMask; //The layer(s) that obstacles in the arena are on
+
+    //Playtesting
+    public MeshRenderer enemyMaterial;
+    public Material defaultMaterial;
+    public Material windupMaterial;
+    public Material attackMaterial;
 
     private void Awake() {
         gameObject.tag = "Enemy";

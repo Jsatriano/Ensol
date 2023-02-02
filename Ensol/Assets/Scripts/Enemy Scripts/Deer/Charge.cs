@@ -19,10 +19,15 @@ public class Charge : Node
     private Vector3 _forwardLeft;
     private float _chargeTurning;
     private LayerMask _obstacleMask = 1 << 7;
+    private Material _windupMaterial;
+    private Material _attackMaterial;
+    private Material _deerMaterial;
+    private MeshRenderer _enemyMaterial;
 
 
     public Charge(float chargeSpeed, float chargeWindupLength, Transform playerTF, 
-                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning)
+                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, MeshRenderer 
+                  enemyMaterial, Material windupMaterial, Material attackMaterial, Material deerMaterial)
     {
         _chargeSpeed   = chargeSpeed;
         _windupLength  = chargeWindupLength;
@@ -32,6 +37,10 @@ public class Charge : Node
         _deerRB        = deerRB;
         _hitZone       = hitZone;
         _chargeTurning = chargeTurning / 10;
+        _enemyMaterial = enemyMaterial;
+        _windupMaterial = windupMaterial;
+        _attackMaterial = attackMaterial;
+        _deerMaterial = deerMaterial;
     }
 
     //Deer charge attack - RYAN
@@ -49,12 +58,15 @@ public class Charge : Node
             _chargeTime = 0;
             _windupTimer += Time.deltaTime;
 
+            _enemyMaterial.material = _windupMaterial;
             SetData("charging", true);
+            SetData("attacking", true);
             state = NodeState.RUNNING;
             return state;
         }
         else
         {
+            _enemyMaterial.material = _attackMaterial;
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
             {
@@ -62,7 +74,9 @@ public class Charge : Node
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     ClearData("charging");
+                    ClearData("attacking");
                     _windupTimer = 0;
+                    _enemyMaterial.material = _deerMaterial;
                     state = NodeState.SUCCESS;
                     return state;
                 }
@@ -89,7 +103,9 @@ public class Charge : Node
             {
                 _hitZone.enabled = false;
                 ClearData("charging");
+                ClearData("attacking");
                 _windupTimer = 0;
+                _enemyMaterial.material = _deerMaterial;
                 state = NodeState.FAILURE;
                 return state;
             }

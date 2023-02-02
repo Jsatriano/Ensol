@@ -25,23 +25,32 @@ public class CooldownCheck : Node
         {
             _cooldownTimer = Time.time;
             state = NodeState.SUCCESS;
-            return NodeState.SUCCESS;          
+            return NodeState.SUCCESS;
         }
-        //Makes a random delay before the first time an enemy attacks that way groups of enemies will have offset attacks
-        if (_cooldownTimer == -1)
+        //Checks if enemy is currently doing a different attack (automatically fails if so)
+        else if (GetData("attacking") != null)
         {
-            _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
-        }
-        //Checks if enough time has passed since the last time the attack has been used
-        if (Time.time - _cooldownTimer >= _cooldownLength)
-        {        
-            state = NodeState.SUCCESS;
+            state = NodeState.FAILURE;
             return state;
         }
         else
         {
-            state = NodeState.FAILURE;
-            return state;
+            //Makes a random delay before the first time an enemy attacks that way groups of enemies will have offset attacks
+            if (_cooldownTimer == -1)
+            {
+                _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
+            }
+            //Checks if enough time has passed since the last time the attack has been used
+            if (Time.time - _cooldownTimer >= _cooldownLength)
+            {        
+                state = NodeState.SUCCESS;
+                return state;
+            }
+            else
+            {
+                state = NodeState.FAILURE;
+                return state;
+            }
         }
     }
 }

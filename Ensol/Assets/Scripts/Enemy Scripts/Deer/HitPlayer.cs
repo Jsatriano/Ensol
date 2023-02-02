@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class HitPlayer : MonoBehaviour
 {
-    public DeerStats deerStats;
     public DeerBT deerBT;
+    [SerializeField] private string attackName;
+    [SerializeField] private float attackDamage;
 
-    void OnTriggerEnter(Collider col) // Justin
+    void OnTriggerEnter(Collider col) // Justin/Ryan
     {
         if(col.gameObject.tag == "Player") 
         {
-            if (deerBT.root.GetData("charging") != null)
+            if (deerBT.root.GetData(attackName) != null)
             {
-                col.gameObject.GetComponent<PlayerCombatController>().TakeDamage(deerStats.attackPower);
+                col.gameObject.GetComponent<PlayerCombatController>().TakeDamage(attackDamage);
             } 
-            else if (deerBT.root.GetData("attacking") != null)
-            {
-                col.gameObject.GetComponent<PlayerCombatController>().TakeDamage(deerStats.attackPower);
-            }
-            else
-            {
-                return;
-            }
+            return;
         }
     }
 }

@@ -20,7 +20,16 @@ public class DeerBT : Tree
                 new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging"),
                 new CooldownCheck(deerStats.chargeCooldown, "charging"),
                 new Charge(deerStats.chargeSpeed, deerStats.chargeWindupLength, deerStats.playerTF,
-                           deerStats.enemyTF, deerStats.enemyRB, deerStats.hitZone, deerStats.chargeTurning),
+                           deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitZone, deerStats.chargeTurning, 
+                           deerStats.enemyMaterial, deerStats.windupMaterial, deerStats.attackMaterial, deerStats.defaultMaterial)
+            }),
+            new Sequence(new List<Node>
+            {
+                new RangeCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.attackRange, "basic"),
+                new CooldownCheck(deerStats.attackCooldown, "basic"),
+                new DeerBasicAttack(deerStats.hitZone, deerStats.basicAttackDuration, deerStats.basicAttackWindup, 
+                                    deerStats.playerTF, deerStats.enemyTF, deerStats.tempAttackIndicator,
+                                    deerStats.enemyMaterial, deerStats.windupMaterial, deerStats.attackMaterial, deerStats.defaultMaterial)
             }),
             new Sequence(new List<Node>
             {

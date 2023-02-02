@@ -10,9 +10,15 @@ public class DeerStats : EnemyStats
     public float chargeSpeed;  //How fast the charge is
     public float chargeWindupLength; //How long the windup of charge is
     public float chargeCooldown; //Cooldown of charge
+    public float chargeDamage;
     public float chargeTurning; //How much the deer can turn while charging
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
     public float attackCooldown;
+    public BoxCollider chargeHitZone;
+    public GameObject tempAttackIndicator;
+    public float basicAttackDuration;
+    public float basicAttackWindup;
+
     
 
     // Start is called before the first frame update

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 899aac55b161db7469c4ad4674cb5f63, type: 2}
+  - {fileID: 2100000, guid: 688cd235f872f0340b3d8ca8d833414f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,11 +94,9 @@ GameObject:
   - component: {fileID: 4265731491905512405}
   - component: {fileID: 4265731491905512406}
   - component: {fileID: 4265731491905512407}
-  - component: {fileID: 4265731491905512410}
   - component: {fileID: 4265731491905512401}
   - component: {fileID: 4265731491905512402}
   - component: {fileID: 4265731491905512411}
-  - component: {fileID: 4265731491905512409}
   - component: {fileID: 4265731491905512404}
   m_Layer: 6
   m_Name: Deer
@@ -120,6 +118,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4265731491351084291}
+  - {fileID: 1387585476510060772}
+  - {fileID: 8442946919161273320}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -148.049, z: 0}
@@ -151,7 +151,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3637e16c6d6c6624d93860c05843133f, type: 2}
+  - {fileID: 2100000, guid: 5087f0e6ea9ebb24b8f7517b8c4e8a20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,19 +173,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4265731491905512410
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4265731491905512403}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &4265731491905512401
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -231,6 +218,7 @@ MonoBehaviour:
   currHP: 0
   attackPower: 5
   speed: 6.8
+  attackRange: 3
   nameID: 
   numID: 0
   visionRange: 15
@@ -240,31 +228,26 @@ MonoBehaviour:
   player: {fileID: 0}
   playerTF: {fileID: 0}
   enemyTF: {fileID: 4265731491905512405}
-  hitZone: {fileID: 4265731491905512410}
+  hitZone: {fileID: 2531082468550991690}
   enemyRB: {fileID: 4265731491905512402}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 192
+  enemyMaterial: {fileID: 4265731491905512407}
+  defaultMaterial: {fileID: 2100000, guid: 5087f0e6ea9ebb24b8f7517b8c4e8a20, type: 2}
+  windupMaterial: {fileID: 2100000, guid: 29210c5a86903c94fa69cc7354471934, type: 2}
+  attackMaterial: {fileID: 2100000, guid: 51640c94fcf945a42bfb3128b2a97198, type: 2}
   chargeSpeed: 20
   chargeWindupLength: 1
   chargeCooldown: 4
+  chargeDamage: 5
   chargeTurning: 15
   distanceFromPlayer: 4
-  attackCooldown: 1
---- !u!114 &4265731491905512409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4265731491905512403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f776be9f4f4e32f49bd1aeaa7d805545, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deerStats: {fileID: 4265731491905512411}
-  deerBT: {fileID: 0}
+  attackCooldown: 2.5
+  chargeHitZone: {fileID: 6081231337202509091}
+  tempAttackIndicator: {fileID: 6873806398144953419}
+  basicAttackDuration: 0.4
+  basicAttackWindup: 0.5
 --- !u!114 &4265731491905512404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +263,209 @@ MonoBehaviour:
   player: {fileID: 0}
   players: []
   deerStats: {fileID: 4265731491905512411}
+--- !u!1 &4688671560058953835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8442946919161273320}
+  - component: {fileID: 2029459634553122546}
+  - component: {fileID: 2531082468550991690}
+  m_Layer: 6
+  m_Name: BasicAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8442946919161273320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688671560058953835}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2917023199808602676}
+  m_Father: {fileID: 4265731491905512405}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2029459634553122546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688671560058953835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f776be9f4f4e32f49bd1aeaa7d805545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deerBT: {fileID: 4265731491905512404}
+  attackName: basic
+  attackDamage: 3
+--- !u!65 &2531082468550991690
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688671560058953835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 1}
+--- !u!1 &6873806398144953419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2917023199808602676}
+  - component: {fileID: 5791872506886614520}
+  - component: {fileID: 5697960652414445874}
+  m_Layer: 0
+  m_Name: AttackVisual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2917023199808602676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6873806398144953419}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8442946919161273320}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5791872506886614520
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6873806398144953419}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &5697960652414445874
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6873806398144953419}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8397946251903786512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387585476510060772}
+  - component: {fileID: 7464599994133391903}
+  - component: {fileID: 6081231337202509091}
+  m_Layer: 6
+  m_Name: ChargeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1387585476510060772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397946251903786512}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4265731491905512405}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7464599994133391903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397946251903786512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f776be9f4f4e32f49bd1aeaa7d805545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deerBT: {fileID: 4265731491905512404}
+  attackName: charging
+  attackDamage: 5
+--- !u!65 &6081231337202509091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397946251903786512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1, z: 1.25}
+  m_Center: {x: 0, y: 0, z: 0}
