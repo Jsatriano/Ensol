@@ -17,7 +17,9 @@ public class PlayerCombatController : MonoBehaviour
     public float maxHP = 10;
     public float currHP;
     public float attackPower; //used to calculate the real damage value of different attacks
+    public float maxComboTimer = 2.0f;
     [SerializeField] private float baseAttackPower = 5;
+    [SerializeField] private float attackDelay = 0.8f;
 
     [Header("Light Attack Stats")]
     [SerializeField] private float lightAttackSpeed = 1f;
@@ -41,12 +43,12 @@ public class PlayerCombatController : MonoBehaviour
     public float invulnLength;
     private float invulnTimer = 0f;
     private int comboCounter = 0;
-    public float maxComboTimer = 2.0f;
     private float comboTimer = 0.0f;
     private float lightAttackCDTimer;
     private float heavyAttackCDTimer;
     private float specialAttackCDTimer;
     private float attackDurationTimer;
+    public bool comboChain = false;
 
     // Start is called before the first frame update
     void Start()
@@ -82,28 +84,40 @@ public class PlayerCombatController : MonoBehaviour
             attackDurationTimer -= Time.deltaTime;
         }
 
+        if (comboChain == true) { // Harsha
+            if (Time.time - comboTimer > maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
+                print("broken combo");
+                comboChain = false; // If the next button wasn't pressed in time, then the combo chain is set to false
+                lightAttackCDTimer += attackDelay; // Penality time to attack again is added
+                comboCounter = 0; // combos set to 0 again
+            }
+        }
+
         // Start Light Attack
         if(Input.GetButtonDown("LightAttack") && lightAttackCDTimer <= 0 && 
            charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
+            lightAttackCDTimer = 0; // lightAttackCDTimer is set to 0 because it is added to later on in code instead of being set equal to a certain value
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
-            if (comboCounter == 2 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
+            if (comboCounter == 1) {
+                comboChain = true; // sets comboChain to true to initiate combo
+                print("first hit");
+                comboTimer = Time.time; // logs the time the button was pressed to check for the next time light attack button is pressed
+                LightAttack(baseAttackPower);
+            }
+            else if (comboCounter == 2 && comboChain == true) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
                 print("second hit!");
                 comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
                 LightAttack(baseAttackPower * 1.3f);
             }
-            else if (comboCounter == 3 && (Time.time - comboTimer <= maxComboTimer)) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
+            else if (comboCounter == 3 && comboChain == true) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
                 print("third hit!");
+                comboCounter = 0;
+                comboChain = false; // resets combo variables for next time
+                lightAttackCDTimer += attackDelay; // delay for next combo
                 LightAttack(baseAttackPower * 1.6f);
             }
-            else { // This else statement is for a regular attack or if the light attack button was pressed beyond the maxComboTimer time limit
-                print("first attack!");
-                comboCounter = 1; // resets combo counter back to 1
-                comboTimer = Time.time;
-                LightAttack(baseAttackPower);
-            }
         }
-
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && 
             charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
@@ -148,7 +162,7 @@ public class PlayerCombatController : MonoBehaviour
     private void LightAttack(float ap) 
     {
         print("in light attack");
-        lightAttackCDTimer = lightAttackSpeed;
+        lightAttackCDTimer += lightAttackSpeed;
         attackDurationTimer = lightAttackDuration;
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
