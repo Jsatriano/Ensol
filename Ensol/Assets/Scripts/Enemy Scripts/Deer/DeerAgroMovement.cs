@@ -13,9 +13,11 @@ public class DeerAgroMovement : Node
     private int randomDir;        //The random left/right direction the deer moves in when in the above situations
     private float _randomMovementTimer;  //Timer for above situations
     private float _randomMovementLength; //Length of fix for above situations
-    float _idealDistance; //The ideal distance the deer tries to stay from the player
+    private float _idealDistance; //The ideal distance the deer tries to stay from the player
+    private Vector3 _dirToPlayer; //The direction from the enemy to the player
+    private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
 
-    public DeerAgroMovement(float moveSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance)
+    public DeerAgroMovement(float moveSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance, float rotationSpeed)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;
@@ -25,6 +27,7 @@ public class DeerAgroMovement : Node
         _randomMovementTimer  = 0;
         _randomMovementLength = cooldown;
         _idealDistance   = idealDistance;
+        _rotationSpeed = rotationSpeed;
 }
 
     //Idle movement inbetween attacks when deer is in combat,using context steering to avoid obstacles and other enemies - RYAN
@@ -32,15 +35,15 @@ public class DeerAgroMovement : Node
     {
         //Gets the weights for all 8 directions and adds them together to get the most optimal direction
         float[] weights = CalculateWeights();
-        Vector3 direction = Vector3.zero;
+        Vector3 movingDir = Vector3.zero;
         for (int i = 0; i < weights.Length; i++)
         {
-            direction += Directions.eightDirections[i] * weights[i];
+            movingDir += Directions.eightDirections[i] * weights[i];
         }
-        direction = direction.normalized;
+        movingDir = movingDir.normalized;
 
         //Fixes cases where there are no obstacles nearby by random picking whether to move left or right
-        if (direction == Vector3.zero)
+        if (movingDir == Vector3.zero)
         {
             if (!movingCauseZero || Time.time - _randomMovementTimer > _randomMovementLength)
             {
@@ -52,11 +55,11 @@ public class DeerAgroMovement : Node
             {
                 if (randomDir == 0)
                 {
-                    direction = _enemyTF.right;
+                    movingDir = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
                 }
                 else
                 {
-                    direction = _enemyTF.right * -1;
+                    movingDir = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized * -1;
                 }
             }
         } 
@@ -64,25 +67,45 @@ public class DeerAgroMovement : Node
         {
             movingCauseZero = false;
         }
+
+        //Updates the way the deer is facing. If the deer is walking sideways, then have it face at a diagonal towards player.
+        //Otherwise just have it face the player
+        Vector3 lookingDirection = (_dirToPlayer.normalized + movingDir ).normalized;
+        if (Vector3.Dot(_dirToPlayer.normalized, lookingDirection) > .4f)
+        {
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed * Time.deltaTime);
+            SetData("diagonal", true);
+        }
+        else
+        {
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed * Time.deltaTime);
+            SetData("straight", true);
+        }
+        SetData("move", movingDir);
+        SetData("look", lookingDirection);
+        SetData("dot", Vector3.Dot(_dirToPlayer.normalized, lookingDirection));
+
         //Moves player in the desired direction
-        _enemyRB.AddForce(direction * _moveSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
+        _enemyRB.AddForce(movingDir * _moveSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
         state = NodeState.SUCCESS;
         return state;
 
     }
 
+
+
     private float[] CalculateWeights()
     {
         //Sets up array and calcuates the distance/direction to the player
         float[] playerWeights     = new float[8];
-        Vector3 directionToPlayer = (_playerTF.position - _enemyTF.position);
-        float distanceToPlayer    = directionToPlayer.magnitude;
+        _dirToPlayer = (_playerTF.position - _enemyTF.position);
+        float distanceToPlayer    = _dirToPlayer.magnitude;
 
         //Calculates a weight for all 8 directions based on how close it is to being perpindicular to player.
         //Results in the enemy circling the player instead of chasing them
         for (int i = 0; i < playerWeights.Length; i++)
         {
-            float dot = Vector3.Dot(directionToPlayer.normalized, Directions.eightDirections[i]);
+            float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
             float weightToAdd = 1 - Mathf.Abs(dot);
 
             //This blocked out code is an attempt at making the deer stay a certain distance from the player, giving up for now

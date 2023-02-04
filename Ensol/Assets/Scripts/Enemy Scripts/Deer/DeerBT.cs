@@ -35,8 +35,8 @@ public class DeerBT : Tree
             {
                 new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask),
                 new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF),
-                new TrackPlayer(deerStats.playerTF, deerStats.enemyTF, deerStats.rotationSpeed),
-                new DeerAgroMovement(deerStats.speed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeCooldown, deerStats.distanceFromPlayer)
+                new DeerAgroMovement(deerStats.speed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeCooldown, 
+                                     deerStats.distanceFromPlayer, deerStats.rotationSpeed)
             })            
         });
 
