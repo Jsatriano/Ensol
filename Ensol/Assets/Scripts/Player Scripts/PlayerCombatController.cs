@@ -12,12 +12,16 @@ public class PlayerCombatController : MonoBehaviour
     private CharController charController;
     private Rigidbody _rb;
     public FadeOnDeath fadeOnDeath;
+    public HealthBar healthBar;
+    public ElectricVials electricVials;
 
     [Header("Health and Attack Stats")]
     public float maxHP = 10;
     public float currHP;
     public float attackPower; //used to calculate the real damage value of different attacks
     public float maxComboTimer = 2.0f;
+    public float vialRechargeSpeed;
+    private float vialTimer;
     [SerializeField] private float baseAttackPower = 5;
     [SerializeField] private float attackDelay = 0.8f;
 
@@ -54,6 +58,8 @@ public class PlayerCombatController : MonoBehaviour
     void Start()
     {
         currHP = maxHP;
+        healthBar.SetMaxHealth(maxHP);
+        vialTimer = vialRechargeSpeed;
         spearHitbox = placeholderSpear.GetComponent<Collider>();
         placeholderSpear.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
@@ -84,6 +90,19 @@ public class PlayerCombatController : MonoBehaviour
             attackDurationTimer -= Time.deltaTime;
         }
 
+        // adds ElectricVials over time
+
+        if(vialTimer > 0)
+        {
+            vialTimer -= Time.deltaTime;
+        }
+        else
+        {
+            electricVials.AddVial();
+            vialTimer += vialRechargeSpeed;
+        }
+
+
         if (comboChain == true) { // Harsha
             if (Time.time - comboTimer > maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
                 print("broken combo");
@@ -110,31 +129,41 @@ public class PlayerCombatController : MonoBehaviour
                 comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
                 LightAttack(baseAttackPower * 1.3f);
             }
-            else if (comboCounter == 3 && comboChain == true) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
+            else if (comboCounter == 3 && comboChain == true && electricVials.currVial >= 1) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
                 print("third hit!");
                 comboCounter = 0;
                 comboChain = false; // resets combo variables for next time
                 lightAttackCDTimer += attackDelay; // delay for next combo
+
+                // remove 1 electric vial
+                electricVials.RemoveVials(1);
+
                 LightAttack(baseAttackPower * 1.6f);
             }
         }
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && 
+        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && electricVials.currVial >= 1 &&
             charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
             attackDurationTimer = heavyAttackDuration;
             charController.state = CharController.State.ATTACKING;
 
+            // remove 1 electric vial
+            electricVials.RemoveVials(1);
+
             // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
             Invoke(nameof(HeavyAttack), heavyDelay);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && 
+        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && electricVials.currVial >= 2 &&
            charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED)
         {
             print("START SPECIAL ATTACK");
             attackDurationTimer = specialAttackDuration;
             charController.state = CharController.State.ATTACKING;
+
+            // remove 2 electric vials
+            electricVials.RemoveVials(2);
 
             // start special attack funtion after 'specialDelay' delay. This imitates a wind up feature
             Invoke(nameof(SpecialAttack), specialDelay);
@@ -216,6 +245,7 @@ public class PlayerCombatController : MonoBehaviour
             // does dmg
             currHP -= dmg;
             invulnTimer = Time.time;
+            healthBar.SetHealth(currHP);
             print("took damage");
         }
     }
