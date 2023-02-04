@@ -23,16 +23,8 @@ public class Charge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    //Temp vars
-    private Material _windupMaterial;
-    private Material _attackMaterial;
-    private Material _deerMaterial;
-    private MeshRenderer _enemyMaterial;
-
-
     public Charge(float chargeSpeed, float chargeWindupLength, Transform playerTF, 
-                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask, 
-                  MeshRenderer enemyMaterial, Material windupMaterial, Material attackMaterial, Material deerMaterial)
+                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
     {
         _chargeSpeed   = chargeSpeed;
         _windupLength  = chargeWindupLength;
@@ -43,10 +35,6 @@ public class Charge : Node
         _hitZone       = hitZone;
         _chargeTurning = chargeTurning / 10;
         _obstacleMask  = obstacleMask;
-        _enemyMaterial = enemyMaterial;
-        _windupMaterial = windupMaterial;
-        _attackMaterial = attackMaterial;
-        _deerMaterial = deerMaterial;
     }
 
     //Deer charge attack - RYAN
@@ -65,15 +53,16 @@ public class Charge : Node
             _chargeTime   = 0;
             _windupTimer += Time.deltaTime;
 
-            _enemyMaterial.material = _windupMaterial;
             SetData("charging", true);
             SetData("attacking", true);
+            SetData("chargeWindupAnim", true);
             state = NodeState.RUNNING;
             return state;
         }
         else
         {
-            _enemyMaterial.material = _attackMaterial;
+            SetData("chargingAnim", true);
+            ClearData("chargeWindupAnim");
             _chargeTime += Time.deltaTime;
             //Counts up stuck timer when deer is moving too slow while charging
             if (_deerRB.velocity.magnitude < 0.5f)
@@ -85,9 +74,9 @@ public class Charge : Node
             {
                 _hitZone.enabled = false;        
                 _windupTimer = 0;
-                _enemyMaterial.material = _deerMaterial;
                 ClearData("charging");
                 ClearData("attacking");
+                ClearData("chargingAnim");
                 state = NodeState.FAILURE;
                 return state;
             }
@@ -99,9 +88,9 @@ public class Charge : Node
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _windupTimer = 0;
-                    _enemyMaterial.material = _deerMaterial;
                     ClearData("charging");
                     ClearData("attacking");
+                    ClearData("chargingAnim");
                     state = NodeState.SUCCESS;
                     return state;
                 }

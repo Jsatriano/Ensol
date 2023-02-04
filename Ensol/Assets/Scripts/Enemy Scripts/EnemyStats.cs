@@ -33,12 +33,6 @@ public class EnemyStats : MonoBehaviour
     public LayerMask environmentMask; //The layers the environment is on
     [HideInInspector] public GameObject[] players;
 
-    [Header("Playtesting")]
-    public MeshRenderer enemyMaterial;
-    public Material defaultMaterial;
-    public Material windupMaterial;
-    public Material attackMaterial;
-
     private void Awake() {
         gameObject.tag = "Enemy";
     }
