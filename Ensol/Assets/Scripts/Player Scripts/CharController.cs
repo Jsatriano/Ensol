@@ -23,6 +23,7 @@ public class CharController : MonoBehaviour
     [Header("Other Vaiables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
+    public Animator animator;
     public bool attacking = false;
     public bool controller = false;
     private State prevState;
@@ -46,6 +47,7 @@ public class CharController : MonoBehaviour
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         gameObject.tag = "Player";
         print(gameObject.tag);
         canTakeDmg = true;
@@ -101,6 +103,13 @@ public class CharController : MonoBehaviour
         switch (state)
         {
             case State.IDLE:
+                // animations
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isLightAttacking", false);
+                animator.SetBool("isLightAttacking2", false);
+                animator.SetBool("isLightAttacking3", false);
+                animator.SetBool("isHeavyAttacking", false);
+
                 attacking = false;
                 // checks if player starts to move
                 if(direction != zeroVector)
@@ -120,6 +129,13 @@ public class CharController : MonoBehaviour
                 break;
             
             case State.MOVING:
+                // animations
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isLightAttacking", false);
+                animator.SetBool("isLightAttacking2", false);
+                animator.SetBool("isLightAttacking3", false);
+                animator.SetBool("isHeavyAttacking", false);
+                
                 Move();
 
                 // if player stops moving, go idle
