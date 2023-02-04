@@ -23,10 +23,11 @@ public class CharController : MonoBehaviour
     [Header("Other Vaiables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
+    public Animator animator;
+    public PlayerCombatController pcc;
     public bool attacking = false;
     public bool controller = false;
     private State prevState;
-
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -40,12 +41,15 @@ public class CharController : MonoBehaviour
     private bool _isDashing = false;
     public bool canTakeDmg;
 
+    
+
 
     // function is called in scene start
     private void Start()
     {
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         gameObject.tag = "Player";
         print(gameObject.tag);
         canTakeDmg = true;
@@ -101,6 +105,10 @@ public class CharController : MonoBehaviour
         switch (state)
         {
             case State.IDLE:
+                // animations
+                animator.SetBool("isRunning", false);
+                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+
                 attacking = false;
                 // checks if player starts to move
                 if(direction != zeroVector)
@@ -120,6 +128,10 @@ public class CharController : MonoBehaviour
                 break;
             
             case State.MOVING:
+                // animations
+                animator.SetBool("isRunning", true);
+                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+                
                 Move();
 
                 // if player stops moving, go idle
