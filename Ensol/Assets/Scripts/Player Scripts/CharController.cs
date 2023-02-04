@@ -24,10 +24,10 @@ public class CharController : MonoBehaviour
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
+    public PlayerCombatController pcc;
     public bool attacking = false;
     public bool controller = false;
     private State prevState;
-
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -40,6 +40,8 @@ public class CharController : MonoBehaviour
     private float _dashCdTimer;
     private bool _isDashing = false;
     public bool canTakeDmg;
+
+    
 
 
     // function is called in scene start
@@ -105,10 +107,7 @@ public class CharController : MonoBehaviour
             case State.IDLE:
                 // animations
                 animator.SetBool("isRunning", false);
-                animator.SetBool("isLightAttacking", false);
-                animator.SetBool("isLightAttacking2", false);
-                animator.SetBool("isLightAttacking3", false);
-                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
 
                 attacking = false;
                 // checks if player starts to move
@@ -131,10 +130,7 @@ public class CharController : MonoBehaviour
             case State.MOVING:
                 // animations
                 animator.SetBool("isRunning", true);
-                animator.SetBool("isLightAttacking", false);
-                animator.SetBool("isLightAttacking2", false);
-                animator.SetBool("isLightAttacking3", false);
-                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
                 
                 Move();
 

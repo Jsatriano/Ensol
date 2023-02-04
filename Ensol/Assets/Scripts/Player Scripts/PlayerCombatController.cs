@@ -46,7 +46,7 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Other Variables")]
     public float invulnLength;
     private float invulnTimer = 0f;
-    private int comboCounter = 0;
+    public int comboCounter = 0;
     private float comboTimer = 0.0f;
     private float lightAttackCDTimer;
     private float heavyAttackCDTimer;
@@ -118,21 +118,21 @@ public class PlayerCombatController : MonoBehaviour
         {
             lightAttackCDTimer = 0; // lightAttackCDTimer is set to 0 because it is added to later on in code instead of being set equal to a certain value
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
+            charController.animator.SetInteger("lightAttackCombo", comboCounter);
             if (comboCounter == 1) {
-                charController.animator.SetBool("isLightAttacking", true);
                 comboChain = true; // sets comboChain to true to initiate combo
                 print("first hit");
                 comboTimer = Time.time; // logs the time the button was pressed to check for the next time light attack button is pressed
                 LightAttack(baseAttackPower);
             }
             else if (comboCounter == 2 && comboChain == true) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
-                charController.animator.SetBool("isLightAttacking2", true);
+                //charController.animator.SetBool("isLightAttacking2", true);
                 print("second hit!");
                 comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
                 LightAttack(baseAttackPower * 1.3f);
             }
             else if (comboCounter == 3 && comboChain == true && electricVials.currVial >= 1) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
-                charController.animator.SetBool("isLightAttacking3", true);
+                //charController.animator.SetBool("isLightAttacking3", true);
                 print("third hit!");
                 comboCounter = 0;
                 comboChain = false; // resets combo variables for next time
@@ -194,7 +194,6 @@ public class PlayerCombatController : MonoBehaviour
 
     private void LightAttack(float ap) 
     {
-        print("in light attack");
         lightAttackCDTimer += lightAttackSpeed;
         attackDurationTimer = lightAttackDuration;
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
