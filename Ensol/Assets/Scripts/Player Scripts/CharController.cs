@@ -132,6 +132,8 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", pcc.comboCounter);
                 
+                attacking = false;
+
                 Move();
 
                 // if player stops moving, go idle

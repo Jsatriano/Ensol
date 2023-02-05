@@ -7,8 +7,9 @@ public class PlayerCombatController : MonoBehaviour
     //This entire class is for the most part very extremely placeholder. I intend to do some more work later to find a better system to use for attack combos.
     //Elizabeth
     [Header("References")]
-    public GameObject placeholderSpear;
-    private Collider spearHitbox;
+    public GameObject lightAttackHitbox;
+    public GameObject heavyAttackHitbox;
+    //private Collider spearHitbox;
     private CharController charController;
     private Rigidbody _rb;
     public FadeOnDeath fadeOnDeath;
@@ -65,8 +66,9 @@ public class PlayerCombatController : MonoBehaviour
         currHP = maxHP;
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
-        spearHitbox = placeholderSpear.GetComponent<Collider>();
-        placeholderSpear.SetActive(false);
+        //spearHitbox = lightAttackHitbox.GetComponent<Collider>();
+        lightAttackHitbox.SetActive(false);
+        heavyAttackHitbox.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
@@ -185,6 +187,7 @@ public class PlayerCombatController : MonoBehaviour
 
             // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
             Invoke(nameof(HeavyAttack), heavyDelay);
+            StartCoroutine(DisableWeapon());
             StartCoroutine(EndAnim());
         }
 
@@ -208,7 +211,7 @@ public class PlayerCombatController : MonoBehaviour
             // resets drag
             _rb.drag = 20;
             //charController.state = CharController.State.IDLE;
-            placeholderSpear.SetActive(false);
+            //lightAttackHitbox.SetActive(false);
         }
 
         //Checks to see if the player is dead
@@ -240,7 +243,7 @@ public class PlayerCombatController : MonoBehaviour
         }
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         print(attackPower);
-        placeholderSpear.SetActive(true);
+        lightAttackHitbox.SetActive(true);
         
     }
 
@@ -266,10 +269,13 @@ public class PlayerCombatController : MonoBehaviour
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
 
+    // disable hitbox after attack is over
     IEnumerator DisableWeapon() 
     {
-        yield return new WaitForSeconds(attackDurationTimer-0.1f);
-        placeholderSpear.SetActive(false);
+        yield return new WaitForSeconds(attackDurationTimer - 0.01f);
+        lightAttackHitbox.SetActive(false);
+        heavyAttackHitbox.SetActive(false);
+        charController.attacking = false;
     }
 
     private void HeavyAttack() // Harsha and Justin
@@ -277,7 +283,7 @@ public class PlayerCombatController : MonoBehaviour
         print("in heavy attack");
         heavyAttackCDTimer = heavyAttackSpeed;
         attackPower = baseAttackPower * heavyMult; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
-        placeholderSpear.SetActive(true);
+        heavyAttackHitbox.SetActive(true);
 
         // push player forward a bit | remove drag from player
         StartCoroutine(AttackForce(2.5f, 0.1f));
