@@ -18,7 +18,7 @@ public class CharController : MonoBehaviour
     private Rigidbody _rb;
 
     public Vector3 forward, right, direction, heading;
-    Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
+    [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
     [Header("Other Vaiables")]
     public GameObject mouseFollower;
@@ -40,8 +40,6 @@ public class CharController : MonoBehaviour
     private float _dashCdTimer;
     private bool _isDashing = false;
     public bool canTakeDmg;
-
-    
 
 
     // function is called in scene start
@@ -107,6 +105,7 @@ public class CharController : MonoBehaviour
             case State.IDLE:
                 // animations
                 animator.SetBool("isRunning", false);
+                animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", pcc.comboCounter);
 
                 attacking = false;
@@ -130,6 +129,7 @@ public class CharController : MonoBehaviour
             case State.MOVING:
                 // animations
                 animator.SetBool("isRunning", true);
+                animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", pcc.comboCounter);
                 
                 Move();

@@ -24,17 +24,19 @@ public class PlayerCombatController : MonoBehaviour
     private float vialTimer;
     [SerializeField] private float baseAttackPower = 5;
     [SerializeField] private float attackDelay = 0.8f;
+    [SerializeField] private float force;
 
     [Header("Light Attack Stats")]
-    [SerializeField] private float lightAttackSpeed = 1f;
-    [SerializeField] private float lightAttackDuration = 0.3f;
+    [SerializeField] private float lightAttackSpeed;
+    [SerializeField] private float lightAttackDuration;
+    
 
     [Header("Heavy Attack Stats")]
     [SerializeField] private float heavyAttackSpeed = 1.5f;
     [SerializeField] private float heavyAttackDuration = 0.5f;
     [SerializeField] private float heavyDelay = 0.5f;
     [SerializeField] private float heavyMult;
-    [SerializeField] private float heavyForce;
+    //[SerializeField] private float heavyForce;
 
     [Header("Special Attack Stats")]
     [SerializeField] private float specialAttackSpeed = 3.0f;
@@ -53,6 +55,8 @@ public class PlayerCombatController : MonoBehaviour
     private float specialAttackCDTimer;
     private float attackDurationTimer;
     public bool comboChain = false;
+    public float lightAttackBuffer;
+    private float lightAttackBufferTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -102,19 +106,32 @@ public class PlayerCombatController : MonoBehaviour
             vialTimer += vialRechargeSpeed;
         }
 
+        // checks if light attack input pressed, if so buffer attack, else count down timer
+        if(Input.GetButtonDown("LightAttack"))
+        {
+            lightAttackBufferTimer = lightAttackBuffer;
+        }
+        else
+        {
+            if(lightAttackBufferTimer >= 0)
+            {
+                lightAttackBufferTimer -= Time.deltaTime;
+            }
+        }
+
 
         if (comboChain == true) { // Harsha
-            if (Time.time - comboTimer > maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
+            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
                 print("broken combo");
                 comboChain = false; // If the next button wasn't pressed in time, then the combo chain is set to false
                 lightAttackCDTimer += attackDelay; // Penality time to attack again is added
                 comboCounter = 0; // combos set to 0 again
+                charController.state = CharController.State.IDLE;
             }
         }
 
         // Start Light Attack
-        if(Input.GetButtonDown("LightAttack") && lightAttackCDTimer <= 0 && 
-           charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
+        if(lightAttackBufferTimer > 0 && lightAttackCDTimer <= 0 && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
             lightAttackCDTimer = 0; // lightAttackCDTimer is set to 0 because it is added to later on in code instead of being set equal to a certain value
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
@@ -134,14 +151,18 @@ public class PlayerCombatController : MonoBehaviour
             else if (comboCounter == 3 && comboChain == true && electricVials.currVial >= 1) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
                 //charController.animator.SetBool("isLightAttacking3", true);
                 print("third hit!");
-                comboCounter = 0;
+                
                 comboChain = false; // resets combo variables for next time
                 lightAttackCDTimer += attackDelay; // delay for next combo
+                lightAttackCDTimer += lightAttackSpeed;
 
                 // remove 1 electric vial
                 electricVials.RemoveVials(1);
 
                 LightAttack(baseAttackPower * 1.6f);
+                
+                StartCoroutine(EndAnim());
+
             }
         }
         // Start heavy Attack
@@ -157,6 +178,7 @@ public class PlayerCombatController : MonoBehaviour
 
             // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
             Invoke(nameof(HeavyAttack), heavyDelay);
+            StartCoroutine(EndAnim());
         }
 
         if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && electricVials.currVial >= 2 &&
@@ -178,7 +200,7 @@ public class PlayerCombatController : MonoBehaviour
         {   
             // resets drag
             _rb.drag = 20;
-            charController.state = CharController.State.IDLE;
+            //charController.state = CharController.State.IDLE;
             placeholderSpear.SetActive(false);
         }
 
@@ -195,10 +217,45 @@ public class PlayerCombatController : MonoBehaviour
     private void LightAttack(float ap) 
     {
         lightAttackCDTimer += lightAttackSpeed;
-        attackDurationTimer = lightAttackDuration;
+
+        // speed of animations is different
+        if(comboCounter == 3)
+        {
+            attackDurationTimer = lightAttackDuration * 1.15f;
+            comboCounter = 0;
+            StartCoroutine(AttackForce(1.25f, 0.4f));
+        }
+        else
+        {
+            attackDurationTimer = lightAttackDuration;
+            StartCoroutine(AttackForce(1f, 0.1f));
+        }
+        print(attackDurationTimer);
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
         charController.state = CharController.State.ATTACKING;
+    }
+
+    IEnumerator EndAnim()
+    {
+        yield return new WaitForSeconds(attackDurationTimer);
+        if(charController.direction != charController.zeroVector)
+        {
+            charController.state = CharController.State.MOVING;
+        }
+        else
+        {
+            charController.state = CharController.State.IDLE;
+        }
+        
+    }
+
+    IEnumerator AttackForce(float multiplier, float forceDelay)
+    {
+        yield return new WaitForSeconds(forceDelay);
+        Vector3 forceToApply = transform.forward * force;
+        _rb.drag = 0;
+        _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
 
     private void HeavyAttack() // Harsha and Justin
@@ -209,9 +266,7 @@ public class PlayerCombatController : MonoBehaviour
         placeholderSpear.SetActive(true);
 
         // push player forward a bit | remove drag from player
-        Vector3 forceToApply = transform.forward * heavyForce;
-        _rb.drag = 0;
-        _rb.AddForce(forceToApply, ForceMode.Impulse);
+        StartCoroutine(AttackForce(2.5f, 0.1f));
     }
 
     private void SpecialAttack() // Harsha and Justin
