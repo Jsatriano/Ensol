@@ -57,6 +57,7 @@ public class PlayerCombatController : MonoBehaviour
     public bool comboChain = false;
     public float lightAttackBuffer;
     private float lightAttackBufferTimer;
+    public bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -133,6 +134,7 @@ public class PlayerCombatController : MonoBehaviour
         // Start Light Attack
         if(lightAttackBufferTimer > 0 && lightAttackCDTimer <= 0 && charController.state != CharController.State.PAUSED) // Harsha and Justin
         {
+            charController.state = CharController.State.ATTACKING;
             lightAttackCDTimer = 0; // lightAttackCDTimer is set to 0 because it is added to later on in code instead of being set equal to a certain value
             comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -141,12 +143,15 @@ public class PlayerCombatController : MonoBehaviour
                 print("first hit");
                 comboTimer = Time.time; // logs the time the button was pressed to check for the next time light attack button is pressed
                 LightAttack(baseAttackPower);
+                StartCoroutine(DisableWeapon());
+
             }
             else if (comboCounter == 2 && comboChain == true) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
                 //charController.animator.SetBool("isLightAttacking2", true);
                 print("second hit!");
                 comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
                 LightAttack(baseAttackPower * 1.3f);
+                StartCoroutine(DisableWeapon());
             }
             else if (comboCounter == 3 && comboChain == true && electricVials.currVial >= 1) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
                 //charController.animator.SetBool("isLightAttacking3", true);
@@ -160,10 +165,12 @@ public class PlayerCombatController : MonoBehaviour
                 electricVials.RemoveVials(1);
 
                 LightAttack(baseAttackPower * 1.6f);
+                StartCoroutine(DisableWeapon());
                 
                 StartCoroutine(EndAnim());
 
             }
+            //isAttacking = false;
         }
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && electricVials.currVial >= 1 &&
@@ -216,6 +223,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void LightAttack(float ap) 
     {
+        //isAttacking = true;
         lightAttackCDTimer += lightAttackSpeed;
 
         // speed of animations is different
@@ -231,8 +239,9 @@ public class PlayerCombatController : MonoBehaviour
             StartCoroutine(AttackForce(1f, 0.1f));
         }
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
+        print(attackPower);
         placeholderSpear.SetActive(true);
-        charController.state = CharController.State.ATTACKING;
+        
     }
 
     IEnumerator EndAnim()
@@ -255,6 +264,12 @@ public class PlayerCombatController : MonoBehaviour
         Vector3 forceToApply = transform.forward * force;
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
+    }
+
+    IEnumerator DisableWeapon() 
+    {
+        yield return new WaitForSeconds(attackDurationTimer-0.1f);
+        placeholderSpear.SetActive(false);
     }
 
     private void HeavyAttack() // Harsha and Justin

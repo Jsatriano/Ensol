@@ -6,6 +6,7 @@ public class Spear : MonoBehaviour
 {
     public CharController charController;
     public PlayerCombatController combatController;
+    private bool isTriggered = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +21,15 @@ public class Spear : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider col) {
-        if(col.gameObject.tag == "Enemy") {
-            col.gameObject.GetComponent<EnemyStats>().currHP -= combatController.attackPower;
-            print("Did " + combatController.attackPower + " damage to " + col.gameObject.GetComponent<EnemyStats>().nameID);
+        if (isTriggered == false) {
+            if(col.gameObject.tag == "Enemy") {
+                col.gameObject.GetComponent<EnemyStats>().currHP -= combatController.attackPower;
+                print("Did " + combatController.attackPower + " damage to " + col.gameObject.GetComponent<EnemyStats>().nameID);
+            }
         }
+    }
+
+    void onTriggerExit(Collider col) {
+        isTriggered = false;
     }
 }
