@@ -318,17 +318,48 @@ public class PlayerCombatController : MonoBehaviour
         shockwaveParticles.SetActive(false);
     }
 
-    public void TakeDamage(float dmg) // Justin
+    public void TakeDamage(float dmg, Collider collider) // Justin
     {
         if(Time.time - invulnTimer >= invulnLength && charController.canTakeDmg == true)
         {
             // does dmg
             currHP -= dmg;
+
+            // starts invuln
             invulnTimer = Time.time;
+
+            // updates UI healthbar
             healthBar.SetHealth(currHP);
+
+            // damage flash
             StartCoroutine(damageFlash.FlashRoutine());
+
+            // knockback player
+            StartCoroutine(Knockback(collider));
+
+            // change state to limit actions
+            charController.state = CharController.State.KNOCKBACK;
             print("took damage");
 
         }
+    }
+
+    private IEnumerator Knockback(Collider collider)
+    {
+        // start knockback
+        charController.knockback = true;
+
+        // calculate direction to push player back
+        Vector3 direction = (collider.transform.position - transform.position) * -1;
+        Vector3 forceToApply = direction * charController.knockbackForce;
+
+        // push player back
+        _rb.drag = 0;
+        _rb.AddForce(forceToApply, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.3f);
+
+        // reset drag and end knockback
+        _rb.drag = 20;
+        charController.knockback = false;
     }
 }

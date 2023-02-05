@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -1909560046687951122}
   m_Layer: 6
   m_Name: Deer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deerBT: {fileID: 4265731491905512404}
   attackDamage: 3
+  collider: {fileID: 2531082468550991690}
 --- !u!65 &2531082468550991690
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -218,8 +219,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.56, y: 1.8864105, z: 1.19}
-  m_Center: {x: 0.000015710533, y: 0.44320524, z: 1.72}
+  m_Size: {x: 1.8309368, y: 1.8864105, z: 1.2464703}
+  m_Center: {x: -0.027184892, y: 0.44320524, z: 1.7482324}
 --- !u!1 &6873806398144953419
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deerBT: {fileID: 4265731491905512404}
   attackDamage: 5
+  collider: {fileID: 6081231337202509091}
 --- !u!65 &6081231337202509091
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -361,8 +363,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.2499998, y: 1.8197796, z: 1.9360505}
-  m_Center: {x: 0.0000000016024204, y: 0.40988982, z: 0.066358626}
+  m_Size: {x: 1.3235883, y: 1.8197796, z: 3.131848}
+  m_Center: {x: -0.010419718, y: 0.40988982, z: 0.6642566}
 --- !u!1001 &44923653983417
 PrefabInstance:
   m_ObjectHideFlags: 0

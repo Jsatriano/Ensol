@@ -11,6 +11,7 @@ public class CharController : MonoBehaviour
         MOVING,
         DASHING,
         ATTACKING,
+        KNOCKBACK,
         PAUSED
     }
     public State state;
@@ -28,6 +29,8 @@ public class CharController : MonoBehaviour
     public bool attacking = false;
     public bool controller = false;
     private State prevState;
+    [HideInInspector] public bool knockback;
+    public float knockbackForce;
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -51,6 +54,7 @@ public class CharController : MonoBehaviour
         gameObject.tag = "Player";
         print(gameObject.tag);
         canTakeDmg = true;
+        knockback = false;
     }
 
     IEnumerator CheckforControllers() // Justin
@@ -201,6 +205,20 @@ public class CharController : MonoBehaviour
                 transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
                 }
                 attacking = true;
+                break;
+            case State.KNOCKBACK:
+                print(knockback);
+                // once knockback is over, go to idle state
+                if(knockback == false)
+                {
+                    state = State.IDLE;
+                }
+                // if paused during knockback, save state so game doesnt break
+                else if(Input.GetButtonDown("Cancel"))
+                {
+                    prevState = State.KNOCKBACK;
+                    state = State.PAUSED;
+                }
                 break;
             case State.PAUSED:
                 // pause game, make all actions unavailable
