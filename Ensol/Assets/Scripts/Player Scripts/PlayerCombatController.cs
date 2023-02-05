@@ -9,12 +9,12 @@ public class PlayerCombatController : MonoBehaviour
     [Header("References")]
     public GameObject lightAttackHitbox;
     public GameObject heavyAttackHitbox;
-    //private Collider spearHitbox;
     private CharController charController;
     private Rigidbody _rb;
     public FadeOnDeath fadeOnDeath;
     public HealthBar healthBar;
     public ElectricVials electricVials;
+    public DamageFlash damageFlash;
 
     [Header("Health and Attack Stats")]
     public float maxHP = 10;
@@ -247,37 +247,6 @@ public class PlayerCombatController : MonoBehaviour
         
     }
 
-    IEnumerator EndAnim()
-    {
-        yield return new WaitForSeconds(attackDurationTimer);
-        if(charController.direction != charController.zeroVector)
-        {
-            charController.state = CharController.State.MOVING;
-        }
-        else
-        {
-            charController.state = CharController.State.IDLE;
-        }
-        
-    }
-
-    IEnumerator AttackForce(float multiplier, float forceDelay)
-    {
-        yield return new WaitForSeconds(forceDelay);
-        Vector3 forceToApply = transform.forward * force;
-        _rb.drag = 0;
-        _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
-    }
-
-    // disable hitbox after attack is over
-    IEnumerator DisableWeapon() 
-    {
-        yield return new WaitForSeconds(attackDurationTimer - 0.01f);
-        lightAttackHitbox.SetActive(false);
-        heavyAttackHitbox.SetActive(false);
-        charController.attacking = false;
-    }
-
     private void HeavyAttack() // Harsha and Justin
     {
         print("in heavy attack");
@@ -309,6 +278,39 @@ public class PlayerCombatController : MonoBehaviour
         return;
     }
 
+    // ends the animation of light attack 3
+    IEnumerator EndAnim()
+    {
+        yield return new WaitForSeconds(attackDurationTimer);
+        if(charController.direction != charController.zeroVector)
+        {
+            charController.state = CharController.State.MOVING;
+        }
+        else
+        {
+            charController.state = CharController.State.IDLE;
+        }
+        
+    }
+
+    // how much forward force is added to every attack
+    IEnumerator AttackForce(float multiplier, float forceDelay)
+    {
+        yield return new WaitForSeconds(forceDelay);
+        Vector3 forceToApply = transform.forward * force;
+        _rb.drag = 0;
+        _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
+    }
+
+    // disable hitbox after attack is over
+    IEnumerator DisableWeapon() 
+    {
+        yield return new WaitForSeconds(attackDurationTimer - 0.01f);
+        lightAttackHitbox.SetActive(false);
+        heavyAttackHitbox.SetActive(false);
+        charController.attacking = false;
+    }
+
     private IEnumerator ShockwaveEffect() // Harsha and Justin
     {
         shockwaveParticles.SetActive(true);
@@ -324,7 +326,9 @@ public class PlayerCombatController : MonoBehaviour
             currHP -= dmg;
             invulnTimer = Time.time;
             healthBar.SetHealth(currHP);
+            StartCoroutine(damageFlash.FlashRoutine());
             print("took damage");
+
         }
     }
 }

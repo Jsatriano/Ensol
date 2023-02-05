@@ -6,6 +6,7 @@ public class Spear : MonoBehaviour
 {
     public CharController charController;
     public PlayerCombatController combatController;
+    public DamageFlash damageFlash;
     private bool isTriggered = false;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Spear : MonoBehaviour
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().currHP -= combatController.attackPower;
+                StartCoroutine(damageFlash.FlashRoutine());
                 print("Did " + combatController.attackPower + " damage to " + col.gameObject.GetComponent<EnemyStats>().nameID);
             }
         }
