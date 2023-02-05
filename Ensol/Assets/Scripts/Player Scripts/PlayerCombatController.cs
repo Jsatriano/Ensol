@@ -230,7 +230,6 @@ public class PlayerCombatController : MonoBehaviour
             attackDurationTimer = lightAttackDuration;
             StartCoroutine(AttackForce(1f, 0.1f));
         }
-        print(attackDurationTimer);
         attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
         placeholderSpear.SetActive(true);
         charController.state = CharController.State.ATTACKING;
