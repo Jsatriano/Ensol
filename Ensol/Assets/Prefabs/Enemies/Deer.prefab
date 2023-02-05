@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4265731491905512405}
+  - component: {fileID: 4265731491905512401}
+  - component: {fileID: 4265731491905512402}
   - component: {fileID: 4265731491905512411}
   - component: {fileID: 4265731491905512404}
   - component: {fileID: 8542523039206258601}
-  - component: {fileID: 4265731491905512401}
-  - component: {fileID: 4265731491905512402}
+  - component: {fileID: -1909560046687951122}
   m_Layer: 6
   m_Name: Deer
   m_TagString: Untagged
@@ -39,6 +40,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -148.049, z: 0}
+--- !u!65 &4265731491905512401
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265731491905512403}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6139803, z: 1.6485934}
+  m_Center: {x: 0.00000000121263, y: 0.30699015, z: 0.101292014}
+--- !u!54 &4265731491905512402
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4265731491905512403}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 1.75
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!114 &4265731491905512411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,35 +143,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animController: {fileID: 4777017732814570900}
   deerBT: {fileID: 4265731491905512404}
---- !u!65 &4265731491905512401
-BoxCollider:
+--- !u!114 &-1909560046687951122
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4265731491905512403}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.6139803, z: 1.6485934}
-  m_Center: {x: 0.00000000121263, y: 0.30699015, z: 0.101292014}
---- !u!54 &4265731491905512402
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4265731491905512403}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 1.75
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98875482a01ed8f409c9721c0422927e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 2d2d26a0ba886f24cb598211efdf9271, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 688cd235f872f0340b3d8ca8d833414f, type: 2}
+  duration: 0.3
+  makeFlash: []
 --- !u!1 &4688671560058953835
 GameObject:
   m_ObjectHideFlags: 0
