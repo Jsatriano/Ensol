@@ -42,6 +42,10 @@ public class DeerAgroMovement : Node
         }
         movingDir = movingDir.normalized;
 
+        Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
+        SetData("movingCross", movingCross);
+        SetData("dirToPlayer", _dirToPlayer);
+
         //Fixes cases where there are no obstacles nearby by random picking whether to move left or right
         if (movingDir == Vector3.zero)
         {
@@ -55,11 +59,11 @@ public class DeerAgroMovement : Node
             {
                 if (randomDir == 0)
                 {
-                    movingDir = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
+                    movingDir = movingCross;
                 }
                 else
                 {
-                    movingDir = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized * -1;
+                    movingDir = movingCross * -1;
                 }
             }
         } 
