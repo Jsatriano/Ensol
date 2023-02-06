@@ -20,7 +20,6 @@ public class FadeOnDeath : MonoBehaviour
     }
     public IEnumerator FadeBlackOutSquare(bool fadeToBlack = true, int fadeSpeed = 1)
     {
-        print("In fadeondeath");
         yield return new WaitForSeconds(1f);
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
