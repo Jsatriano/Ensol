@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : MonoBehaviour
+public class WeaponHitbox : MonoBehaviour
 {
     public CharController charController;
     public PlayerCombatController combatController;
