@@ -51,6 +51,8 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public int comboCounter = 0;
     private float comboTimer = 0f;
     private bool comboTimerActive = false;
+    private bool acceptingInput = true;
+    private bool isNextAttackBuffered = false;
 
     // Start is called before the first frame update
     void Start()
@@ -80,34 +82,40 @@ public class PlayerCombatController : MonoBehaviour
 
         if(charController.state != CharController.State.ATTACKING) {
             charController.animator.SetInteger("lightAttackCombo", 0);
+            acceptingInput = true;
+            isNextAttackBuffered = false;
         }
+        
 
-        if (comboChain && comboTimerActive) { // Harsha
+        if (comboChain && comboTimerActive && comboTimer != 0f) { // Harsha and Elizabeth
             if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-                print("broken combo");
+                print("broken combo, COMBO COUNTER " + comboCounter.ToString());
                 ResetLightAttackCombo();
             }
         } 
 
-        //Start Light Attack
+        //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
-        && Time.time - lightAttackInputAcceptTimer >= lightAttackInputAcceptDelay) {
-            lightAttackInputAcceptTimer = Time.time;
+        && acceptingInput && !isNextAttackBuffered) {
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             if(comboCounter > 3) {
-                print("combo counter > 3!!!!");
+                print("combo counter > 3!!!! COMBO COUNTER " + comboCounter.ToString());
                 comboCounter = 0;
             }
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
+            comboTimer = 0f;
             comboTimerActive = false;
+            acceptingInput = false;
+            isNextAttackBuffered = true;
+            print("input taken COMBO COUNTER " + comboCounter.ToString());
 
             
         }
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
-            charController.state != CharController.State.PAUSED) // Harsha and Justin
+            charController.state != CharController.State.PAUSED) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -121,6 +129,7 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void EnableLightAttackHitbox() {
+        comboTimerActive = false;
         if(comboCounter == 1) {
                 comboChain = true;
                 attackPower = baseAttackPower * lightAttackMult * light1Mult;
@@ -133,11 +142,19 @@ public class PlayerCombatController : MonoBehaviour
                 attackPower = baseAttackPower * lightAttackMult * light3Mult;
             }
         lightHitbox.SetActive(true);
+        print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void MarkComboTimer() {
         comboTimer = Time.time;
         comboTimerActive = true;
+        print("marked combo timer COMBO COUNTER " + comboCounter.ToString());
+    }
+
+    private void AllowInput() {
+        acceptingInput = true;
+        isNextAttackBuffered = false;
+        print("allowing input COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void DisableLightAttackHitbox() {
@@ -151,6 +168,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.state = CharController.State.IDLE;
         comboChain = false;
         comboTimerActive = false;
+        acceptingInput = true;
     }
 
     private void EnableHeavyAttackHitbox() {
@@ -164,6 +182,14 @@ public class PlayerCombatController : MonoBehaviour
     private void EndHeavyAttack() {
         charController.animator.SetBool("isHeavyAttacking", false);
         charController.state = CharController.State.IDLE;
+        acceptingInput = true;
+    }
+
+    private void LookAtMouse() {
+        if(!charController.controller) {
+            Vector3 toMouse = (charController.mouseFollower.transform.position - charController.transform.position);
+            charController.transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
+        }
     }
 
     // how much forward force is added to every attack

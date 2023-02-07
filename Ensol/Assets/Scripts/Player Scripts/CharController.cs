@@ -195,6 +195,8 @@ public class CharController : MonoBehaviour
                 //This state is just to tell this script that the player is attacking, so
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
                 //Since there is probably going to be a lot of combat code, I put it in a different script. -Elizabeth
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
 
                 if(Input.GetButtonDown("Cancel"))
                 {
