@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
-    //This entire class is for the most part very extremely placeholder. I intend to do some more work later to find a better system to use for attack combos.
-    //Elizabeth
     [Header("References")]
     public GameObject lightAttackHitbox;
     public GameObject heavyAttackHitbox;
@@ -127,7 +125,7 @@ public class PlayerCombatController : MonoBehaviour
             if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
                 print("broken combo");
                 comboChain = false; // If the next button wasn't pressed in time, then the combo chain is set to false
-                lightAttackCDTimer += attackDelay; // Penality time to attack again is added
+                //lightAttackCDTimer += attackDelay; // Penality time to attack again is added
                 comboCounter = 0; // combos set to 0 again
                 charController.state = CharController.State.IDLE;
             }
@@ -160,11 +158,11 @@ public class PlayerCombatController : MonoBehaviour
                 print("third hit!");
                 
                 comboChain = false; // resets combo variables for next time
-                lightAttackCDTimer += attackDelay; // delay for next combo
+                //lightAttackCDTimer += attackDelay; // delay for next combo
                 lightAttackCDTimer += lightAttackSpeed;
 
                 // remove 1 electric vial
-                electricVials.RemoveVials(1);
+                //electricVials.RemoveVials(1);
 
                 LightAttack(baseAttackPower * 1.6f);
                 StartCoroutine(DisableWeapon());

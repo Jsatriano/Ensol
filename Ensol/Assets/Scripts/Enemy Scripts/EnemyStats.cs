@@ -57,7 +57,7 @@ public class EnemyStats : MonoBehaviour
         //Checks to see if the enemy is dead
         if(currHP <= 0) {
             print(nameID + " is dead!");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
