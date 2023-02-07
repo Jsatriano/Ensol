@@ -111,7 +111,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
-                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+                animator.SetInteger("lightAttackCombo", 0);
 
                 attacking = false;
                 // checks if player starts to move
@@ -136,7 +136,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", true);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
-                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+                animator.SetInteger("lightAttackCombo", 0);
                 
                 attacking = false;
 
@@ -164,7 +164,10 @@ public class CharController : MonoBehaviour
                 // make player dash if CD is done
                 if(_dashCdTimer <= 0)
                 {
+                    animator.SetBool("isRunning", false);
                     animator.SetBool("isDashing", true);
+                    animator.SetBool("isHeavyAttacking", false);
+                    animator.SetInteger("lightAttackCombo", 0);
                     Dash();
                 }
 
@@ -186,11 +189,14 @@ public class CharController : MonoBehaviour
                     }
                 }
                 break;
+
             case State.ATTACKING:
                 //We will have to decide if the player can move or take other actions while attacking.
                 //This state is just to tell this script that the player is attacking, so
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
-                //Since there is probably going to be a lot of combat code, I put it in a different script.
+                //Since there is probably going to be a lot of combat code, I put it in a different script. -Elizabeth
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
 
                 if(Input.GetButtonDown("Cancel"))
                 {
@@ -207,7 +213,12 @@ public class CharController : MonoBehaviour
                 }
                 attacking = true;
                 break;
+
             case State.KNOCKBACK:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
                 // once knockback is over, go to idle state
                 if(knockback == false)
@@ -221,6 +232,7 @@ public class CharController : MonoBehaviour
                     state = State.PAUSED;
                 }
                 break;
+                
             case State.PAUSED:
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
