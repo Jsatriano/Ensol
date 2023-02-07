@@ -218,8 +218,8 @@ public class PlayerCombatController : MonoBehaviour
         if(currHP <= 0) 
         {
             print("Player is dead");
-            gameObject.SetActive(false); //do not destroy the objest, otherwise it causes an error in the enemy scripts which try to find the player - Elizabeth
-            //StartCoroutine(fadeOnDeath.FadeBlackOutSquare());
+            charController.animator.SetBool("isDead", true);
+            //gameObject.SetActive(false); //do not destroy the objest, otherwise it causes an error in the enemy scripts which try to find the player - Elizabeth
         }
 
     }
