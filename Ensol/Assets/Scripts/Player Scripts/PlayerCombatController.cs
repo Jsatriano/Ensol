@@ -94,7 +94,7 @@ public class PlayerCombatController : MonoBehaviour
 
         if (comboChain && comboTimerActive && comboTimer != 0f) { // Harsha and Elizabeth
             if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-                print("broken combo, COMBO COUNTER " + comboCounter.ToString());
+               // print("broken combo, COMBO COUNTER " + comboCounter.ToString());
                 ResetLightAttackCombo();
             }
         } 
@@ -105,7 +105,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             if(comboCounter > 3) {
-                print("combo counter > 3!!!! COMBO COUNTER " + comboCounter.ToString());
+               // print("combo counter > 3!!!! COMBO COUNTER " + comboCounter.ToString());
                 comboCounter = 0;
             }
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -113,7 +113,7 @@ public class PlayerCombatController : MonoBehaviour
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
-            print("input taken COMBO COUNTER " + comboCounter.ToString());
+           // print("input taken COMBO COUNTER " + comboCounter.ToString());
 
             
         }
@@ -152,19 +152,19 @@ public class PlayerCombatController : MonoBehaviour
                 attackPower = baseAttackPower * lightAttackMult * light3Mult;
             }
         lightHitbox.SetActive(true);
-        print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
+       // print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void MarkComboTimer() {
         comboTimer = Time.time;
         comboTimerActive = true;
-        print("marked combo timer COMBO COUNTER " + comboCounter.ToString());
+      //  print("marked combo timer COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void AllowInput() {
         acceptingInput = true;
         isNextAttackBuffered = false;
-        print("allowing input COMBO COUNTER " + comboCounter.ToString());
+       // print("allowing input COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void DisableLightAttackHitbox() {
