@@ -85,6 +85,11 @@ public class PlayerCombatController : MonoBehaviour
             acceptingInput = true;
             isNextAttackBuffered = false;
         }
+
+        if(charController.state == CharController.State.KNOCKBACK) {
+            ResetLightAttackCombo();
+            EndHeavyAttack();
+        }
         
 
         if (comboChain && comboTimerActive && comboTimer != 0f) { // Harsha and Elizabeth
@@ -115,7 +120,7 @@ public class PlayerCombatController : MonoBehaviour
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
-            charController.state != CharController.State.PAUSED) // Harsha and Justin and Elizabeth
+            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -125,6 +130,11 @@ public class PlayerCombatController : MonoBehaviour
             
             // remove 1 electric vial
             electricVials.RemoveVials(1);
+        }
+        if(currHP <= 0) 
+        {
+            print("Player is dead");
+            charController.animator.SetBool("isDead", true);
         }
     }
 

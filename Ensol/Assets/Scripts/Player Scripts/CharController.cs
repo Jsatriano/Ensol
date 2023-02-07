@@ -215,6 +215,10 @@ public class CharController : MonoBehaviour
                 break;
 
             case State.KNOCKBACK:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
                 // once knockback is over, go to idle state
                 if(knockback == false)
