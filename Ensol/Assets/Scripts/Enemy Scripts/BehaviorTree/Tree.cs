@@ -34,19 +34,20 @@ namespace BehaviorTree
         protected abstract Node SetupTree();
 
         
-        /*
+        
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("move") != null)
+            if (Application.isPlaying && root.GetData("dirToPlayer") != null)
             {
                 
                 Gizmos.color = Color.green;
-                Vector3 move = (Vector3)root.GetData("move");
-                Vector3 look = (Vector3)root.GetData("look");
+                //Vector3 move = (Vector3)root.GetData("move");
+                Vector3 look = (Vector3)root.GetData("dirToPlayer");
                 float dot = (float)root.GetData("dot");
-                Gizmos.DrawRay(transform.position, move * 5);
+                //Gizmos.DrawRay(transform.position, move * 5);
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawRay(transform.position, look * 5);
+                Gizmos.DrawRay(transform.position, look.normalized * 5);
+                /*
                 if (root.GetData("diagonal") != null)
                 {
                     print("Diagonal");
@@ -57,9 +58,10 @@ namespace BehaviorTree
                     print("straight");
                     root.ClearData("straight");
                 }
+                */
             }
         }
-        */
+        
         
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth

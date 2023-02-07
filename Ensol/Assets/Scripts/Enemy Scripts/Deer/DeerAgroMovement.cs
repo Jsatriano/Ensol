@@ -102,7 +102,7 @@ public class DeerAgroMovement : Node
     {
         //Sets up array and calcuates the distance/direction to the player
         float[] playerWeights     = new float[8];
-        _dirToPlayer = (_playerTF.position - _enemyTF.position);
+        _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
         float distanceToPlayer    = _dirToPlayer.magnitude;
 
         //Calculates a weight for all 8 directions based on how close it is to being perpindicular to player.

@@ -19,7 +19,9 @@ public class DeerStats : EnemyStats
     public float attackCooldown;           //Cooldown between basic attacks
     public float basicAttackDuration;      //How long the hitbox is active for basic attacks
     public float basicAttackWindup;        //How long the windup is for basic attacks
+    public float attackRange;              //How close the player needs to be for the enemy to basic attack
     public GameObject tempAttackIndicator; //Temp attack visual for basic attack
+    public BoxCollider basicAttackHitbox;
 
     [Header("Other Stats")]
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
@@ -31,7 +33,9 @@ public class DeerStats : EnemyStats
     {
         base.Start(); //Calls the parent start function.
         nameID = "EnemyDeer";
-        numID = 0; //placeholder, idk if we even want this      
+        numID = 0; //placeholder, idk if we even want this
+        basicAttackHitbox.center = new Vector3(0, 0, 0f);
+        basicAttackHitbox.size = new Vector3(attackRange / 2, 1.5f, (attackRange - 2.8f));
     }
 
     // Update is called once per frame
