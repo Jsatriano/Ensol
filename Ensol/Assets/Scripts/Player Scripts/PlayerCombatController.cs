@@ -8,6 +8,7 @@ public class PlayerCombatController : MonoBehaviour
     //Elizabeth
     [Header("References")]
     public GameObject weapon;
+    public GameObject weaponProjectilePrefab;
     public GameObject lightHitbox;
     public GameObject heavyHitbox;
     private CharController charController;
@@ -40,6 +41,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Special Attack Variables")]
     public float specialAttackMult;
+    private bool hasWeapon = true;
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -50,6 +52,8 @@ public class PlayerCombatController : MonoBehaviour
     private bool comboTimerActive = false;
     private bool acceptingInput = true;
     private bool isNextAttackBuffered = false;
+    private GameObject activeWeaponProjectile;
+    private Vector3 throwAim;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +80,8 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.AddVial();
             vialTimer += vialRechargeSpeed;
         }
+
+        charController.animator.SetBool("hasWeapon", hasWeapon);
 
         if(charController.state != CharController.State.ATTACKING) {
             charController.animator.SetInteger("lightAttackCombo", 0);
@@ -112,7 +118,7 @@ public class PlayerCombatController : MonoBehaviour
 
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
-        && acceptingInput && !isNextAttackBuffered) {
+        && acceptingInput && hasWeapon && !isNextAttackBuffered) {
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             if(comboCounter > 3) {
@@ -131,7 +137,7 @@ public class PlayerCombatController : MonoBehaviour
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
-            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING) // Harsha and Justin and Elizabeth
+            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -147,6 +153,31 @@ public class PlayerCombatController : MonoBehaviour
             print("Player is dead");
             charController.animator.SetBool("isDead", true);
         }
+
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon) {
+            charController.state = CharController.State.ATTACKING;
+            hasWeapon = false;
+            charController.animator.SetBool("hasWeapon", hasWeapon);
+            LookAtMouse();
+            if(!charController.controller) {
+                Vector3 toMouse = (charController.mouseFollower.transform.position - charController.transform.position);
+                throwAim = new Vector3(toMouse.x, 0, toMouse.z);
+            }
+            charController.animator.SetBool("isThrowing", true);
+
+        }
+    }
+
+    private void SpawnSpecialAttackProjectile() {
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, new Quaternion(0,0,0,1));
+        activeWeaponProjectile.transform.LookAt(throwAim);
+        weapon.SetActive(false);
+
+    }
+
+    private void EndThrow() {
+        charController.animator.SetBool("isThrowing", false);
+        charController.state = CharController.State.IDLE;
     }
 
     private void EnableLightAttackHitbox() {
