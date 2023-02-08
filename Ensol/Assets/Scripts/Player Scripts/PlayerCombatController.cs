@@ -39,7 +39,6 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Heavy Attack Variables")]
     public float heavyAttackMult;
-    public float heavyAttackWindupDuration = 0.35f;
 
     [Header("Special Attack Variables")]
     public float specialAttackMult;
@@ -88,7 +87,13 @@ public class PlayerCombatController : MonoBehaviour
 
         if(charController.state == CharController.State.KNOCKBACK) {
             ResetLightAttackCombo();
-            EndHeavyAttack();
+            charController.animator.SetBool("isHeavyAttacking", false);
+        }
+
+        if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
+            ResetLightAttackCombo();
+            LookAtMouse();
+            charController.state = CharController.State.DASHING;
         }
         
 
