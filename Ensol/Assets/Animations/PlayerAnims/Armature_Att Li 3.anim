@@ -47304,14 +47304,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: EnableLightAttackHitbox
+    functionName: LookAtMouse
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: LookAtMouse
+    functionName: DisableLightAttackHitbox
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.375
+    functionName: EnableLightAttackHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
