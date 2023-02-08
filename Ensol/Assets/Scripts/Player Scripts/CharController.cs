@@ -109,6 +109,7 @@ public class CharController : MonoBehaviour
             case State.IDLE:
                 // animations
                 animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", pcc.comboCounter);
 
@@ -133,6 +134,7 @@ public class CharController : MonoBehaviour
             case State.MOVING:
                 // animations
                 animator.SetBool("isRunning", true);
+                animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", pcc.comboCounter);
                 
@@ -162,14 +164,13 @@ public class CharController : MonoBehaviour
                 // make player dash if CD is done
                 if(_dashCdTimer <= 0)
                 {
-                    print(state);
+                    animator.SetBool("isDashing", true);
                     Dash();
                 }
 
                 // after the dash is done, change states
                 if(!_isDashing)
-                {
-                    print("dash done");   
+                {   
                     if(direction == zeroVector)
                     {
                         state = State.IDLE;
