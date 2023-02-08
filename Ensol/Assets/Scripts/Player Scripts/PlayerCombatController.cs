@@ -34,8 +34,6 @@ public class PlayerCombatController : MonoBehaviour
     public float light1Mult = 1f;
     public float light2Mult = 1.3f;
     public float light3Mult = 1.7f;
-    public float lightAttackInputAcceptDelay = 0.2f;
-    private float lightAttackInputAcceptTimer = 0f;
 
     [Header("Heavy Attack Variables")]
     public float heavyAttackMult;
@@ -83,6 +81,14 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetInteger("lightAttackCombo", 0);
             acceptingInput = true;
             isNextAttackBuffered = false;
+            if(lightHitbox.activeSelf) {
+                lightHitbox.SetActive(false);
+            }
+            if(heavyHitbox.activeSelf) {
+                heavyHitbox.SetActive(false);
+            }
+            
+
         }
 
         if(charController.state == CharController.State.KNOCKBACK) {
@@ -205,6 +211,10 @@ public class PlayerCombatController : MonoBehaviour
             Vector3 toMouse = (charController.mouseFollower.transform.position - charController.transform.position);
             charController.transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
         }
+    }
+
+    private void SetDashDirection(){
+        charController.transform.rotation.SetLookRotation(charController.heading);
     }
 
     // how much forward force is added to every attack

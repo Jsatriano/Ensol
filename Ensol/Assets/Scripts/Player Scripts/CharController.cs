@@ -297,8 +297,12 @@ public class CharController : MonoBehaviour
         }
         else 
         {
+            if(heading != transform.forward) {
+                transform.forward = heading;
+            }
             forceToApply = heading * _dashForce;
         }
+
 
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
