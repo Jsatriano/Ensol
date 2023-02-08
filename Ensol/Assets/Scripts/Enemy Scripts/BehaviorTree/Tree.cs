@@ -37,16 +37,16 @@ namespace BehaviorTree
         
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("dirToPlayer") != null)
+            if (Application.isPlaying && root.GetData("movingDir") != null)
             {
                 
                 Gizmos.color = Color.green;
-                //Vector3 move = (Vector3)root.GetData("move");
-                Vector3 look = (Vector3)root.GetData("dirToPlayer");
+                Vector3 move = (Vector3)root.GetData("movingDir");
+                Vector3 deerRight = (Vector3)root.GetData("deerRight");
                 float dot = (float)root.GetData("dot");
-                //Gizmos.DrawRay(transform.position, move * 5);
+                Gizmos.DrawRay(transform.position, move * 5);
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawRay(transform.position, look.normalized * 5);
+                Gizmos.DrawRay(transform.position, deerRight.normalized * 5);
                 /*
                 if (root.GetData("diagonal") != null)
                 {

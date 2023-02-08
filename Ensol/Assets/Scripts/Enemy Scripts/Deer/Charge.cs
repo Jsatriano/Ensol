@@ -84,7 +84,7 @@ public class Charge : Node
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
             {
                 //Doesn't stop charge until deer has slowed down more
-                if(_deerRB.velocity.magnitude <= 1)
+                if(_deerRB.velocity.magnitude <= 0.5f)
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _windupTimer = 0;

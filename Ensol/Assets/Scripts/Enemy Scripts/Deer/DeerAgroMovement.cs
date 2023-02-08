@@ -43,8 +43,8 @@ public class DeerAgroMovement : Node
         movingDir = movingDir.normalized;
 
         Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
-        SetData("movingCross", movingCross);
-        SetData("dirToPlayer", _dirToPlayer);
+        
+        SetData("deerRight", movingCross);
 
         //Fixes cases where there are no obstacles nearby by random picking whether to move left or right
         if (movingDir == Vector3.zero)
@@ -71,6 +71,8 @@ public class DeerAgroMovement : Node
         {
             movingCauseZero = false;
         }
+
+        SetData("movingDir", movingDir);
 
         //Updates the way the deer is facing. If the deer is walking sideways, then have it face at a diagonal towards player.
         //Otherwise just have it face the player

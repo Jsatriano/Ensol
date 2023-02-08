@@ -18,8 +18,8 @@ public class DeerAnimation : MonoBehaviour
     [SerializeField] private Animator animController;
     public DeerBT deerBT;
 
-    private Vector3 cross;
-    private Vector3 dirToPlayer;
+    private Vector3 movingDir;
+    private Vector3 deerRight;
     State state;
 
     void Start()
@@ -122,15 +122,15 @@ public class DeerAnimation : MonoBehaviour
     {
         if (deerBT.root.GetData("movingCross") != null && deerBT.root.GetData("dirToPlayer") != null)
         {
-            cross = (Vector3) deerBT.root.GetData("movingCross");
-            dirToPlayer = (Vector3)deerBT.root.GetData("dirToPlayer");
-            if (Vector3.Dot(cross, dirToPlayer) > 0)
+            movingDir = (Vector3) deerBT.root.GetData("movingDir");
+            deerRight = (Vector3)deerBT.root.GetData("deerRight");
+            if (Vector3.Dot(movingDir, deerRight) > 0)
             {
-                return State.MOVING_LEFT;
+                return State.MOVING_RIGHT;
             }
             else
             {
-                return State.MOVING_RIGHT;
+                return State.MOVING_LEFT;
             }
         }
         else
