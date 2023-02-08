@@ -41,6 +41,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Special Attack Variables")]
     public float specialAttackMult;
+    public float weaponThrowSpeed = 5;
     private bool hasWeapon = true;
     
     [Header("Other Variables")]
@@ -159,19 +160,24 @@ public class PlayerCombatController : MonoBehaviour
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
-            if(!charController.controller) {
-                Vector3 toMouse = (charController.mouseFollower.transform.position - charController.transform.position);
-                throwAim = new Vector3(toMouse.x, 0, toMouse.z);
-            }
             charController.animator.SetBool("isThrowing", true);
+            electricVials.RemoveVials(1);
 
         }
     }
 
     private void SpawnSpecialAttackProjectile() {
-        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, new Quaternion(0,0,0,1));
-        activeWeaponProjectile.transform.LookAt(throwAim);
+        LookAtMouse();
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
+        Vector3 aimToMouse = (charController.mouseFollower.transform.position - activeWeaponProjectile.transform.position);
+        aimToMouse.y = 0;
+        activeWeaponProjectile.transform.rotation.SetLookRotation(aimToMouse, Vector3.up);
         weapon.SetActive(false);
+
+        Rigidbody wRb = activeWeaponProjectile.GetComponent<Rigidbody>();
+
+        wRb.drag = 0;
+        wRb.AddForce(activeWeaponProjectile.transform.forward * weaponThrowSpeed);
 
     }
 
