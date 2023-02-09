@@ -8,7 +8,8 @@ public class DeerStats : EnemyStats
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
 
     [Header("Charge Stats/Components")]
-    public float chargeSpeed;         //How fast the charge is
+    public float chargeMaxSpeed;      //How fast the charge is\
+    public float chargeAccel;         //How fast the deer gets to max speed when chargin
     public float chargeWindupLength;  //How long the windup of charge is
     public float chargeCooldown;      //How long the cooldown for charge is
     public float chargeDamage;        //How much damage the charge does
@@ -23,8 +24,9 @@ public class DeerStats : EnemyStats
     public GameObject tempAttackIndicator; //Temp attack visual for basic attack
     public BoxCollider basicAttackHitbox;
 
-    [Header("Other Stats")]
+    [Header("Other Things")]
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
+    public DeerBT deerBT;
 
 
 
@@ -36,11 +38,18 @@ public class DeerStats : EnemyStats
         numID = 0; //placeholder, idk if we even want this
         basicAttackHitbox.center = new Vector3(0, 0, 0f);
         basicAttackHitbox.size = new Vector3(attackRange / 2, 1.5f, (attackRange - 2.8f));
+        deerBT.isAlive = true;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
+        //Checks to see if the enemy is dead
+        if (currHP <= 0)
+        {
+            print(nameID + " is dead!");
+            deerBT.isAlive = false;
+        }
         base.Update(); //calls the parent update       
     }
 }

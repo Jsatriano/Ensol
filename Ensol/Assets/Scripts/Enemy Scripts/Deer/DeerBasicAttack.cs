@@ -30,7 +30,7 @@ public class DeerBasicAttack : Node
         //Windup of the attack, turns deer to look at player
         if (_windupTimer < _windupLength)
         { 
-            Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
+            Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
             _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, (_windupTimer / _windupLength) * 0.95f);
             _windupTimer    += Time.deltaTime;
             SetData("basic", true);

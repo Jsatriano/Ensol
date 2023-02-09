@@ -27,7 +27,7 @@ public class TrackPlayer : Node
             float dot = Vector3.Dot(toPlayer, _enemyTF.forward);           
             if (dot < 1)
             {
-                _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotationSpeed * Time.deltaTime);
+                _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotationSpeed);
             }
             state = NodeState.SUCCESS;
             return NodeState.SUCCESS;

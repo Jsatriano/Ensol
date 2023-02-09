@@ -8,34 +8,66 @@ public class DeerAgroMovement : Node
     private Transform _playerTF;  //Player transform
     private Transform _enemyTF;   //Enemy transform
     private Rigidbody _enemyRB;   //Enemy rigidbody
-    private float _moveSpeed;     //Speed of the enemy
+    private float _acceleration;  //How fast the deer gets to max speed
+    private float _maxSpeed;      //Speed of the enemy
     private bool movingCauseZero; //Used internally to fix the deer not moving when not near any obstacles
     private int randomDir;        //The random left/right direction the deer moves in when in the above situations
     private float _randomMovementTimer;  //Timer for above situations
     private float _randomMovementLength; //Length of fix for above situations
     private float _idealDistance; //The ideal distance the deer tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
+    private Vector3 movingDir;   //The deers direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
 
-    public DeerAgroMovement(float moveSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance, float rotationSpeed)
+    public DeerAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance, float rotationSpeed)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;
         _enemyRB   = enemyRB;
-        _moveSpeed = moveSpeed;
+        _acceleration = acceleration;
+        _maxSpeed = maxSpeed / 10;
         randomDir  = 0;
         _randomMovementTimer  = 0;
         _randomMovementLength = cooldown;
         _idealDistance   = idealDistance;
         _rotationSpeed = rotationSpeed;
+        movingDir = Vector3.zero;
 }
 
     //Idle movement inbetween attacks when deer is in combat,using context steering to avoid obstacles and other enemies - RYAN
     public override NodeState Evaluate()
     {
+        ChooseDirection();
+
+        //Updates the way the deer is facing. If the deer is walking sideways, then have it face at a diagonal towards player.
+        //Otherwise just have it face the player
+        Vector3 lookingDirection = (_dirToPlayer.normalized + movingDir.normalized).normalized;
+        if (Vector3.Dot(_dirToPlayer.normalized, lookingDirection) > .4f)
+        {
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed / 100);
+        }
+        else
+        {
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
+            SetData("lookingForward", true);
+        }
+
+        //Moves deer in the desired direction (with a speed cap)
+        _enemyRB.AddForce(movingDir.normalized * _acceleration, ForceMode.Acceleration);
+        if (_enemyRB.velocity.magnitude > _maxSpeed)
+        {
+            _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
+        }
+        state = NodeState.SUCCESS;
+        return state;
+
+    }
+
+    private void ChooseDirection()
+    {
         //Gets the weights for all 8 directions and adds them together to get the most optimal direction
         float[] weights = CalculateWeights();
-        Vector3 movingDir = Vector3.zero;
+        movingDir = Vector3.zero;
         for (int i = 0; i < weights.Length; i++)
         {
             movingDir += Directions.eightDirections[i] * weights[i];
@@ -43,7 +75,7 @@ public class DeerAgroMovement : Node
         movingDir = movingDir.normalized;
 
         Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
-        
+
         SetData("deerRight", movingCross);
 
         //Fixes cases where there are no obstacles nearby by random picking whether to move left or right
@@ -66,39 +98,14 @@ public class DeerAgroMovement : Node
                     movingDir = movingCross * -1;
                 }
             }
-        } 
+        }
         else
         {
             movingCauseZero = false;
         }
 
         SetData("movingDir", movingDir);
-
-        //Updates the way the deer is facing. If the deer is walking sideways, then have it face at a diagonal towards player.
-        //Otherwise just have it face the player
-        Vector3 lookingDirection = (_dirToPlayer.normalized + movingDir ).normalized;
-        if (Vector3.Dot(_dirToPlayer.normalized, lookingDirection) > .4f)
-        {
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed * Time.deltaTime);
-            SetData("diagonal", true);
-        }
-        else
-        {
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed * Time.deltaTime);
-            SetData("straight", true);
-        }
-        SetData("move", movingDir);
-        SetData("look", lookingDirection);
-        SetData("dot", Vector3.Dot(_dirToPlayer.normalized, lookingDirection));
-
-        //Moves player in the desired direction
-        _enemyRB.AddForce(movingDir * _moveSpeed * Time.deltaTime * 100, ForceMode.Acceleration);
-        state = NodeState.SUCCESS;
-        return state;
-
     }
-
-
 
     private float[] CalculateWeights()
     {
@@ -106,6 +113,7 @@ public class DeerAgroMovement : Node
         float[] playerWeights     = new float[8];
         _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
         float distanceToPlayer    = _dirToPlayer.magnitude;
+        _dirToPlayer = _dirToPlayer.normalized;
 
         //Calculates a weight for all 8 directions based on how close it is to being perpindicular to player.
         //Results in the enemy circling the player instead of chasing them

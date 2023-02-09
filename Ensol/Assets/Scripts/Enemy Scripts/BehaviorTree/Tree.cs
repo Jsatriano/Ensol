@@ -10,10 +10,12 @@ namespace BehaviorTree
     {
         public Node root = null;
         public GameObject player;
+        public bool isAlive; //Determines whether the behavior tree should be running/Animations should be changing
         [HideInInspector] public GameObject[] players;
 
         protected void Start()
         {
+            isAlive = true;
             if(player == null) {
                 SearchForPlayer();
             }
@@ -21,12 +23,12 @@ namespace BehaviorTree
         }
 
         //Evaluates all nodes in the tree every update as long as the player is alive
-        private void Update()
+        private void FixedUpdate()
         {
             if(player == null) {
                 SearchForPlayer();
             }
-            if (root != null && player != null)
+            if (root != null && player != null && isAlive)
             {
                 root.Evaluate();
             }
@@ -34,7 +36,7 @@ namespace BehaviorTree
         protected abstract Node SetupTree();
 
         
-        
+        /*
         private void OnDrawGizmos()
         {
             if (Application.isPlaying && root.GetData("movingDir") != null)
@@ -47,7 +49,7 @@ namespace BehaviorTree
                 Gizmos.DrawRay(transform.position, move * 5);
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawRay(transform.position, deerRight.normalized * 5);
-                /*
+                
                 if (root.GetData("diagonal") != null)
                 {
                     print("Diagonal");
@@ -58,9 +60,10 @@ namespace BehaviorTree
                     print("straight");
                     root.ClearData("straight");
                 }
-                */
+                
             }
         }
+        */
         
         
 
