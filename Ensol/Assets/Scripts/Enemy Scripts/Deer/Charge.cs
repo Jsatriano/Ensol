@@ -16,6 +16,7 @@ public class Charge : Node
     private Vector3 _startingPosition; //Used to check if the enemy has passed the player
     private float _stuckTime;   //Used to check if the deer has been stuck on something for too long
     private float _chargeTime;  //Used to check if the deer has been charing for too long
+    private bool _chargeEnding;
 
     //Components
     private Transform _playerTF;     //Player transform
@@ -37,6 +38,7 @@ public class Charge : Node
         _hitZone        = hitZone;
         _chargeTurning  = chargeTurning / 1000;
         _obstacleMask   = obstacleMask;
+        _chargeEnding    = false;
     }
 
     //Deer charge attack - RYAN
@@ -47,13 +49,14 @@ public class Charge : Node
         {
             //Gradually turns deer to face player
             Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
-            _deerTF.forward   = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);       
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);
             _startingPosition = _deerTF.position;
 
             //Setups/ticks up timers
-            _stuckTime    = 0;
-            _chargeTime   = 0;
+            _stuckTime = 0;
+            _chargeTime = 0;
             _windupTimer += Time.deltaTime;
+            _chargeEnding = false;
 
             SetData("charging", true);
             SetData("attacking", true);
@@ -75,26 +78,30 @@ public class Charge : Node
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
                 _deerRB.drag = 1.75f;
-                _hitZone.enabled = false;        
+                _hitZone.enabled = false;
                 _windupTimer = 0;
                 ClearData("charging");
                 ClearData("attacking");
                 ClearData("chargingAnim");
-                state = NodeState.FAILURE;
+                ClearData("attackHit");
+                state = NodeState.SUCCESS;
                 return state;
             }
             //Checks to see if deer has charged past its target position, if so then charge is over
-            if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
+            if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position) || GetData("attackHit") != null || _chargeEnding) 
             {
-                _deerRB.drag = 1.75f;
+                _deerRB.drag  = 1.75f;
+                _chargeEnding = true;
                 //Doesn't stop charge until deer has slowed down more
                 if (_deerRB.velocity.magnitude <= 0.25f)
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _windupTimer = 0;
+                    _chargeEnding = false;
                     ClearData("charging");
                     ClearData("attacking");
                     ClearData("chargingAnim");
+                    ClearData("attackHit");
                     state = NodeState.SUCCESS;
                     return state;
                 }
