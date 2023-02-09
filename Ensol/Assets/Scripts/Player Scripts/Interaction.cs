@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    public bool storyElementTouched = false;
-
     public void Update()
     {
         if(Input.GetButtonDown("Interact"))
