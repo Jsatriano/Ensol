@@ -41,8 +41,11 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Special Attack Variables")]
     public float specialAttackMult;
-    public float weaponThrowSpeed = 5;
-    private bool hasWeapon = true;
+    public float weaponThrowForce = 750f;
+    public float weaponRecallSpeed = 5f;
+    public float weaponCatchDistance = 1f;
+    [HideInInspector] public bool hasWeapon = true;
+    [HideInInspector] public bool isCatching = false;
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -71,6 +74,10 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
+            activeWeaponProjectile.SetActive(true);
+            Destroy(activeWeaponProjectile);
+        }
         //Adds electric vials over time
         if(vialTimer > 0)
         {
@@ -83,6 +90,19 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
+        
+        if(isCatching) {
+            Collider[] weaponSearch = Physics.OverlapSphere(charController.transform.position, weaponCatchDistance);
+            print("searching colliders");
+            foreach(Collider col in weaponSearch) {
+                if(col.gameObject.tag == "WeaponProjectile") {
+                    print("located catchable weapon");
+                    charController.animator.SetBool("isCatching", true);
+                    isCatching = false;
+                }
+            }
+
+        }
 
         if(charController.state != CharController.State.ATTACKING) {
             charController.animator.SetInteger("lightAttackCombo", 0);
@@ -155,6 +175,15 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isDead", true);
         }
 
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && !hasWeapon && !isCatching) {
+            print("activated catching");
+            isCatching = true;
+            if(activeWeaponProjectile != null) {
+                activeWeaponProjectile.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+                activeWeaponProjectile.GetComponent<Rigidbody>().angularVelocity = new Vector3(0,0,0);
+            }
+        }
+
         if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
@@ -164,11 +193,13 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.RemoveVials(1);
 
         }
+
     }
 
     private void SpawnSpecialAttackProjectile() {
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
+        activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
         Vector3 aimToMouse = (charController.mouseFollower.transform.position - activeWeaponProjectile.transform.position);
         aimToMouse.y = 0;
         activeWeaponProjectile.transform.rotation.SetLookRotation(aimToMouse, Vector3.up);
@@ -177,12 +208,32 @@ public class PlayerCombatController : MonoBehaviour
         Rigidbody wRb = activeWeaponProjectile.GetComponent<Rigidbody>();
 
         wRb.drag = 0;
-        wRb.AddForce(activeWeaponProjectile.transform.forward * weaponThrowSpeed);
+        wRb.AddForce(activeWeaponProjectile.transform.forward * weaponThrowForce);
 
     }
 
     private void EndThrow() {
         charController.animator.SetBool("isThrowing", false);
+        charController.state = CharController.State.IDLE;
+    }
+
+    private void BeginCatch() {
+        charController.state = CharController.State.ATTACKING;
+    }
+
+    public void GrabWeapon() {
+        hasWeapon = true;
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        if(activeWeaponProjectile != null) {
+            activeWeaponProjectile.SetActive(false);
+        }
+    }
+
+    private void EndCatch() {
+        print("ending catch");
+        isCatching = false;
+        charController.animator.SetBool("isCatching", false);
         charController.state = CharController.State.IDLE;
     }
 
