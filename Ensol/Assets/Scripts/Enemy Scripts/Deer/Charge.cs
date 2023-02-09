@@ -6,10 +6,11 @@ using BehaviorTree;
 public class Charge : Node
 {
     //Charge Vars
-    private float _chargeSpeed;   //How fast the charge is
-    private float _windupLength;  //How long the windup for the charge is
-    private float _windupTimer;   //Used internally to keep track of the windup
-    private float _chargeTurning; //How well the enemy tracks the player during windup
+    private float _chargeMaxSpeed;      //How fast the charge is
+    private float _chargeAccel;  //How fast the charge gets to max speed
+    private float _windupLength;        //How long the windup for the charge is
+    private float _windupTimer;         //Used internally to keep track of the windup
+    private float _chargeTurning;       //How well the enemy tracks the player during windup
 
     //Used for ending the charge
     private Vector3 _startingPosition; //Used to check if the enemy has passed the player
@@ -23,18 +24,19 @@ public class Charge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public Charge(float chargeSpeed, float chargeWindupLength, Transform playerTF, 
+    public Charge(float chargeMaxSpeed, float chargeAccel, float chargeWindupLength, Transform playerTF, 
                   Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
     {
-        _chargeSpeed   = chargeSpeed;
-        _windupLength  = chargeWindupLength;
-        _windupTimer   = 0;
-        _playerTF      = playerTF;
-        _deerTF        = deerTF;
-        _deerRB        = deerRB;
-        _hitZone       = hitZone;
-        _chargeTurning = chargeTurning / 10;
-        _obstacleMask  = obstacleMask;
+        _chargeMaxSpeed = chargeMaxSpeed;
+        _chargeAccel    = chargeAccel;
+        _windupLength   = chargeWindupLength;
+        _windupTimer    = 0;
+        _playerTF       = playerTF;
+        _deerTF         = deerTF;
+        _deerRB         = deerRB;
+        _hitZone        = hitZone;
+        _chargeTurning  = chargeTurning / 1000;
+        _obstacleMask   = obstacleMask;
     }
 
     //Deer charge attack - RYAN
@@ -44,7 +46,7 @@ public class Charge : Node
         if (_windupTimer < _windupLength)
         {
             //Gradually turns deer to face player
-            Vector3 toPlayer  = (_playerTF.position - _deerTF.position).normalized;
+            Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
             _deerTF.forward   = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);       
             _startingPosition = _deerTF.position;
 
@@ -72,6 +74,7 @@ public class Charge : Node
             //Checks if the deer is stuck on something or has been charging too long
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
+                _deerRB.drag = 1.75f;
                 _hitZone.enabled = false;        
                 _windupTimer = 0;
                 ClearData("charging");
@@ -83,8 +86,9 @@ public class Charge : Node
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position)) 
             {
+                _deerRB.drag = 1.75f;
                 //Doesn't stop charge until deer has slowed down more
-                if(_deerRB.velocity.magnitude <= 1)
+                if (_deerRB.velocity.magnitude <= 0.25f)
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _windupTimer = 0;
@@ -100,7 +104,12 @@ public class Charge : Node
             //Steers deer towards player, keeps the hitzone enabled, and pushes deer forward
             ChangeDirection();
             _hitZone.enabled = true;
-            _deerRB.AddForce(_deerTF.forward * _chargeSpeed * Time.deltaTime * 100, ForceMode.Acceleration);    
+            _deerRB.drag = 0.5f;
+            _deerRB.AddForce(_deerTF.forward * _chargeAccel, ForceMode.Acceleration);
+            if (_deerRB.velocity.magnitude > _chargeMaxSpeed)
+            {
+                _deerRB.velocity = Vector3.ClampMagnitude(_deerRB.velocity, _chargeMaxSpeed);
+            }
             state = NodeState.RUNNING;
             return state;
         }
@@ -110,11 +119,11 @@ public class Charge : Node
     private void ChangeDirection()
     {
         //Defines the directions that point slightly to the left and right of player
-        Vector3 _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning * Time.deltaTime)).normalized;
-        Vector3 _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning * Time.deltaTime)).normalized;
+        Vector3 _forwardLeft  = (_deerTF.forward + (_deerTF.right * -_chargeTurning)).normalized;
+        Vector3 _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning)).normalized;
 
         //Defines the direction from the deer to the player
-        Vector3 toPlayer = (_playerTF.position - _deerTF.position).normalized;
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
         bool obstacleLeft, obstacleForward, obstacleRight;
         float leftWeight, forwardWeight, rightWeight;
         float dotLeft, dotForward, dotRight;
