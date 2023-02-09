@@ -78,30 +78,18 @@ public class DeerAgroMovement : Node
 
         SetData("deerRight", movingCross);
 
-        //Fixes cases where there are no obstacles nearby by random picking whether to move left or right
+        //If there are no obstacles nearby, deer picks between moving left/right based on which direction is
+        //closest to the direction it is already facing
         if (movingDir == Vector3.zero)
         {
-            if (!movingCauseZero || Time.time - _randomMovementTimer > _randomMovementLength)
+            if (Vector3.Dot(_enemyTF.forward, movingCross) > Vector3.Dot(_enemyTF.forward, -movingCross))
             {
-                movingCauseZero = true;
-                randomDir = Random.Range(0, 2);
-                _randomMovementTimer = Time.time;
+                movingDir = movingCross;
             }
             else
             {
-                if (randomDir == 0)
-                {
-                    movingDir = movingCross;
-                }
-                else
-                {
-                    movingDir = movingCross * -1;
-                }
+                movingDir = -movingCross;
             }
-        }
-        else
-        {
-            movingCauseZero = false;
         }
 
         SetData("movingDir", movingDir);
