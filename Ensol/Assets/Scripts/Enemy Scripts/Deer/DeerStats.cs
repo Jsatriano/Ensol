@@ -49,7 +49,7 @@ public class DeerStats : EnemyStats
         if (currHP <= 0)
         {
             print(nameID + " is dead!");
-            StartCoroutine(damageFlash.FlashRoutine());
+            //StartCoroutine(damageFlash.FlashRoutine());
             deerBT.isAlive = false;
         }
         base.Update(); //calls the parent update       
