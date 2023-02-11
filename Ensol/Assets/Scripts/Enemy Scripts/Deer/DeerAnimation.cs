@@ -19,11 +19,12 @@ public class DeerAnimation : MonoBehaviour
 
 
     [SerializeField] private Animator animController;
-    [SerializeField] private Transform headTF;
-    [SerializeField] private Transform playerTF;
+    [SerializeField] private Transform headTF;   
     [SerializeField] private float lookingSpeed;
+    private Transform playerTF;
     public DeerBT deerBT;
 
+    private float yRotation;
     private Vector3 movingDir;
     private Vector3 deerRight;
     State state;
@@ -32,6 +33,7 @@ public class DeerAnimation : MonoBehaviour
     void Start()
     {
         state = State.IDLE;
+        yRotation = 0;
     }
 
     void FixedUpdate()
@@ -48,11 +50,10 @@ public class DeerAnimation : MonoBehaviour
             return;
         }
 
-        if (headTF == null && deerBT.root.GetData("player") != null)
+        if (playerTF == null && deerBT.root.GetData("player") != null)
         {
             playerTF = (Transform)deerBT.root.GetData("player");
         }
-
 
         tempState = WalkingAnimDir();
         switch (state)
@@ -68,7 +69,7 @@ public class DeerAnimation : MonoBehaviour
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
                         state = State.MOVING_FORWARD;
-                        print("movingForward");
+                        //print("movingForward");
                     }
                     //Picks whether it transitions into movingLeft or movingRight
                     else
@@ -77,16 +78,16 @@ public class DeerAnimation : MonoBehaviour
                         if (tempState == State.MOVING_LEFT)
                         {
                             animController.SetTrigger("movingLeft");
-                            print("MovingLeft");
+                            //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
-                            print("MovingRight");
+                            //print("MovingRight");
                         }
                     }
                 }
-                return;
+                break;
 
             case State.MOVING_FORWARD:
                 //Checks if the deer is entering the windup for its charge
@@ -94,14 +95,14 @@ public class DeerAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    print("Charge Windup");
+                    //print("Charge Windup");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
                     animController.SetTrigger("swipe");
                     state = State.SWIPING;
-                    print("Swiping");
+                    //print("Swiping");
                 }
                 //Checks if the deer is now moving sideways
                 else if (deerBT.root.GetData("lookingForward") == null)
@@ -110,15 +111,15 @@ public class DeerAnimation : MonoBehaviour
                     if (state == State.MOVING_LEFT)
                     {
                         animController.SetTrigger("movingLeft");
-                        print("MovingLeft");
+                        //print("MovingLeft");
                     }
                     else
                     {
                         animController.SetTrigger("movingRight");
-                        print("MovingRight");
+                        //print("MovingRight");
                     }
                 }
-                return;
+                break;
 
             case State.MOVING_LEFT:
                 //Checks if the deer is entering the windup for its charge
@@ -126,14 +127,14 @@ public class DeerAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    print("Charge Windup");
+                    //print("Charge Windup");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
                     animController.SetTrigger("swipe");
                     state = State.SWIPING;
-                    print("Swiping");
+                    //print("Swiping");
                 }
                 //Checks if the deer is no longer moving sideways
                 else if (deerBT.root.GetData("lookingForward") != null)
@@ -141,16 +142,16 @@ public class DeerAnimation : MonoBehaviour
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
-                    print("movingForward");
+                    //print("movingForward");
                 }
                 //Checks if the deer is now moving sideways in the other direction
                 else if (tempState != state)
                 {
                     animController.SetTrigger("movingRight");
                     state = tempState;
-                    print("MovingRight");
+                    //print("MovingRight");
                 }
-                return;
+                break;
 
             case State.MOVING_RIGHT:
                 //Checks if the deer is entering the windup for its charge
@@ -158,14 +159,14 @@ public class DeerAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    print("ChargeWindup");
+                    //print("ChargeWindup");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
                     animController.SetTrigger("swipe");
                     state = State.SWIPING;
-                    print("Swipe");
+                    //print("Swipe");
                 }
                 //Checks if the deer is no longer moving sideways
                 else if (deerBT.root.GetData("lookingForward") != null)
@@ -173,16 +174,16 @@ public class DeerAnimation : MonoBehaviour
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
-                    print("movingForward");
+                    //print("movingForward");
                 }
                 //Checks if the deer is now moving sideways in the other direction
                 else if (tempState != state)
                 {
                     animController.SetTrigger("movingLeft");
                     state = tempState;
-                    print("MovingLeft");
+                    //print("MovingLeft");
                 }
-                return;
+                break;
 
             case State.CHARGE_WINDUP:
                 //Checks if the charge has started
@@ -190,7 +191,7 @@ public class DeerAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("charging");
                     state = State.CHARGING;
-                    print("Charging");
+                    //print("Charging");
                 }
                 return;
 
@@ -204,7 +205,7 @@ public class DeerAnimation : MonoBehaviour
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
                         state = State.MOVING_FORWARD;
-                        print("movingForward");
+                        //print("movingForward");
                     }
                     //Picks whether it transitions into movingLeft or movingRight
                     else
@@ -213,16 +214,16 @@ public class DeerAnimation : MonoBehaviour
                         if (tempState == State.MOVING_LEFT)
                         {
                             animController.SetTrigger("movingLeft");
-                            print("MovingLeft");
+                            //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
-                            print("MovingRight");
+                            //print("MovingRight");
                         }
                     }
                 }
-                return;
+                break;
 
             case State.SWIPING:
                 //Checks if the swiping attack has ended
@@ -234,7 +235,7 @@ public class DeerAnimation : MonoBehaviour
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
                         state = State.MOVING_FORWARD;
-                        print("movingForward");
+                        //print("movingForward");
                     }
                     //Picks whether it transitions into movingLeft or movingRight
                     else
@@ -243,27 +244,43 @@ public class DeerAnimation : MonoBehaviour
                         if (tempState == State.MOVING_LEFT)
                         {
                             animController.SetTrigger("movingLeft");
-                            print("MovingLeft");
+                            //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
-                            print("MovingRight");
+                            //print("MovingRight");
                         }
                     }
                 }
-                return;
+                break;
 
             case State.DYING:
                 //Don't update animations anymore when dead
                 return;
         }
+    }
 
-        if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state ==State.MOVING_RIGHT)
+    private void LateUpdate()
+    {
+        if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state == State.MOVING_RIGHT)
         {
-            //Head rotation here
+            Vector3 _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z);
+            float newRotation;
+            Vector3 headRight = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
+            if (Vector3.Dot(_dirToPlayer, headRight) > Vector3.Dot(_dirToPlayer, -headRight))
+            {
+                newRotation = yRotation + (lookingSpeed * Time.deltaTime);
+            }
+            else
+            {
+                newRotation = yRotation - (lookingSpeed * Time.deltaTime);
+            }
+            newRotation = Mathf.Clamp(newRotation, -50, 50);
+            //headTF.localRotation = Quaternion.Euler(headTF.localEulerAngles.x, newRotation, headTF.localEulerAngles.z);
         }
-    } 
+        yRotation = headTF.localEulerAngles.y;
+    }
 
     //Calculates whether the deer is moving to the left or right 
     private State WalkingAnimDir()
