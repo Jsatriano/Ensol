@@ -27,6 +27,7 @@ public class DeerStats : EnemyStats
     [Header("Other Things")]
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
     public DeerBT deerBT;
+    public DamageFlash damageFlash;
 
 
 
@@ -48,6 +49,7 @@ public class DeerStats : EnemyStats
         if (currHP <= 0)
         {
             print(nameID + " is dead!");
+            //StartCoroutine(damageFlash.FlashRoutine());
             deerBT.isAlive = false;
         }
         base.Update(); //calls the parent update       

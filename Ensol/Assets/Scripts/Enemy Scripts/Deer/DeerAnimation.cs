@@ -19,6 +19,9 @@ public class DeerAnimation : MonoBehaviour
 
 
     [SerializeField] private Animator animController;
+    [SerializeField] private Transform headTF;
+    [SerializeField] private Transform playerTF;
+    [SerializeField] private float lookingSpeed;
     public DeerBT deerBT;
 
     private Vector3 movingDir;
@@ -33,6 +36,7 @@ public class DeerAnimation : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Stops all animation once deer is dead
         if (state == State.DYING)
         {
             return;
@@ -43,6 +47,12 @@ public class DeerAnimation : MonoBehaviour
             animController.SetTrigger("dying");
             return;
         }
+
+        if (headTF == null && deerBT.root.GetData("player") != null)
+        {
+            playerTF = (Transform)deerBT.root.GetData("player");
+        }
+
 
         tempState = WalkingAnimDir();
         switch (state)
@@ -247,6 +257,11 @@ public class DeerAnimation : MonoBehaviour
             case State.DYING:
                 //Don't update animations anymore when dead
                 return;
+        }
+
+        if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state ==State.MOVING_RIGHT)
+        {
+            //Head rotation here
         }
     } 
 
