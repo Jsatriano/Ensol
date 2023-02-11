@@ -28,6 +28,8 @@ public class DeerStats : EnemyStats
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
     public DeerBT deerBT;
     public DamageFlash damageFlash;
+    public ButtonController buttonController;
+    public GameObject thisDeer;
 
 
 
@@ -51,6 +53,7 @@ public class DeerStats : EnemyStats
             print(nameID + " is dead!");
             //StartCoroutine(damageFlash.FlashRoutine());
             deerBT.isAlive = false;
+            buttonController.enemyKilled(thisDeer);
         }
         base.Update(); //calls the parent update       
     }
