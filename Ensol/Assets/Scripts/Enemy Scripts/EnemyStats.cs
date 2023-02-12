@@ -57,6 +57,10 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
+    public virtual void TakeDamage(float damage) { }
+
+    public virtual void Die() { }
+
     public void SearchForPlayer() {
         if(players.Length == 0) {
             players = GameObject.FindGameObjectsWithTag("Player");

@@ -53,9 +53,7 @@ public class WeaponHitbox : MonoBehaviour
     void OnTriggerEnter(Collider col) {
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
-                col.gameObject.GetComponent<EnemyStats>().currHP -= pcc.attackPower;
-                StartCoroutine(col.gameObject.GetComponent<DamageFlash>().FlashRoutine());
-                print("Did " + pcc.attackPower + " damage to " + col.gameObject.GetComponent<EnemyStats>().nameID);
+                col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
             }
         }
 
