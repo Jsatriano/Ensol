@@ -31,6 +31,7 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
+    public GameObject[] particleEffects;
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -103,6 +104,21 @@ public class CharController : MonoBehaviour
         if(_dashCdTimer > 0)
         {
             _dashCdTimer -= Time.deltaTime;
+        }
+
+        if(state == State.ATTACKING)
+        {
+            foreach(GameObject effect in particleEffects)
+            {
+                effect.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach(GameObject effect in particleEffects)
+            {
+                effect.SetActive(false);
+            }
         }
 
         switch (state)
