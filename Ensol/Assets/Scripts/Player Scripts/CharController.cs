@@ -48,6 +48,7 @@ public class CharController : MonoBehaviour
     // function is called in scene start
     private void Start()
     {
+        Cursor.visible = false;
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -67,14 +68,14 @@ public class CharController : MonoBehaviour
             {
                 if(!controller && Input.GetJoystickNames()[0].Length > 0) // controller is connected
                 {
-                    Cursor.visible = false;
+                    //Cursor.visible = false;
                     controller = true;
                     print("Connected");
                     
                 }
                 else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
                 {
-                    Cursor.visible = true;
+                    //Cursor.visible = true;
                     controller = false;
                     print("Disconnected");
                 }
@@ -96,6 +97,10 @@ public class CharController : MonoBehaviour
     {
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if(state != State.PAUSED)
+        {
+            Cursor.visible = false;
+        }
         
 
         // count down dash timer
@@ -234,6 +239,7 @@ public class CharController : MonoBehaviour
                 break;
                 
             case State.PAUSED:
+                Cursor.visible = true;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
