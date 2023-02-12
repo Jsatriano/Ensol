@@ -66,8 +66,6 @@ public class Charge : Node
         }
         else
         {
-            SetData("chargingAnim", true);
-            ClearData("chargeWindupAnim");
             _chargeTime += Time.deltaTime;
             //Counts up stuck timer when deer is moving too slow while charging
             if (_deerRB.velocity.magnitude < 0.5f)
@@ -77,7 +75,7 @@ public class Charge : Node
             //Checks if the deer is stuck on something or has been charging too long
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
-                _deerRB.drag = 1.75f;
+                _deerRB.drag = 1f;
                 _hitZone.enabled = false;
                 _windupTimer = 0;
                 ClearData("charging");
@@ -90,7 +88,11 @@ public class Charge : Node
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position) || GetData("attackHit") != null || _chargeEnding) 
             {
-                _deerRB.drag  = 1.75f;
+                if (!_chargeEnding)
+                {
+                    ClearData("chargingAnim");
+                }
+                _deerRB.drag  = 1f;
                 _chargeEnding = true;
                 //Doesn't stop charge until deer has slowed down more
                 if (_deerRB.velocity.magnitude <= 0.25f)
@@ -100,7 +102,6 @@ public class Charge : Node
                     _chargeEnding = false;
                     ClearData("charging");
                     ClearData("attacking");
-                    ClearData("chargingAnim");
                     ClearData("attackHit");
                     state = NodeState.SUCCESS;
                     return state;
@@ -117,6 +118,8 @@ public class Charge : Node
             {
                 _deerRB.velocity = Vector3.ClampMagnitude(_deerRB.velocity, _chargeMaxSpeed);
             }
+            SetData("chargingAnim", true);
+            ClearData("chargeWindupAnim");
             state = NodeState.RUNNING;
             return state;
         }
