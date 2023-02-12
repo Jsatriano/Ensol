@@ -97,10 +97,6 @@ public class CharController : MonoBehaviour
     {
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if(state != State.PAUSED)
-        {
-            Cursor.visible = false;
-        }
         
 
         // count down dash timer
@@ -243,6 +239,7 @@ public class CharController : MonoBehaviour
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
+                    Cursor.visible = false;
                     state = prevState;
                 }
                 break;

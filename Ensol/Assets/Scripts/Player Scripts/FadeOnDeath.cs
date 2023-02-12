@@ -34,6 +34,7 @@ public class FadeOnDeath : MonoBehaviour
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
                     SceneManager.LoadScene(sceneName:"RecloneScene");
+                    Cursor.visible = true;
                 }
                 yield return null;
             }
