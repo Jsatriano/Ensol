@@ -21,7 +21,6 @@ public class DeerStats : EnemyStats
     public float basicAttackDuration;      //How long the hitbox is active for basic attacks
     public float basicAttackWindup;        //How long the windup is for basic attacks
     public float attackRange;              //How close the player needs to be for the enemy to basic attack
-    public GameObject tempAttackIndicator; //Temp attack visual for basic attack
     public BoxCollider basicAttackHitbox;
 
     [Header("Other Things")]

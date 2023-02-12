@@ -39,19 +39,15 @@ public class DeerAgroMovement : Node
     {
         ChooseDirection();
 
-        //Updates the way the deer is facing. If the deer is walking sideways, then have it face at a diagonal towards player.
-        //Otherwise just have it face the player
+        //Makes the deer try to face diagonally between the dir it is moving and the dir to the player
+        //Plays the normal walking anim if they are walking towards/away from the player as opposed to perpendicular
         Vector3 lookingDirection = (_dirToPlayer.normalized + movingDir.normalized).normalized;
-        if (Vector3.Dot(_dirToPlayer.normalized, lookingDirection) > .4f)
+        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed / 100);
+        float lookingDot = Vector3.Dot(_dirToPlayer.normalized, lookingDirection);
+        if (lookingDot > .8f || lookingDot < -.8f)
         {
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed / 100);
-        }
-        else
-        {
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
             SetData("lookingForward", true);
         }
-
         //Moves deer in the desired direction (with a speed cap)
         _enemyRB.AddForce(movingDir.normalized * _acceleration, ForceMode.Acceleration);
         if (_enemyRB.velocity.magnitude > _maxSpeed)
@@ -108,7 +104,7 @@ public class DeerAgroMovement : Node
         for (int i = 0; i < playerWeights.Length; i++)
         {
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
-            float weightToAdd = 1 - Mathf.Abs(dot);
+            float weightToAdd = 1 - (Mathf.Abs(dot) * 0.9f);
 
             //This blocked out code is an attempt at making the deer stay a certain distance from the player, giving up for now
             /*

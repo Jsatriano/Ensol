@@ -39,16 +39,20 @@ namespace BehaviorTree
         /*
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("movingDir") != null)
+            if (Application.isPlaying && root.GetData("final") != null)
             {
                 
                 Gizmos.color = Color.green;
-                Vector3 move = (Vector3)root.GetData("movingDir");
-                Vector3 deerRight = (Vector3)root.GetData("deerRight");
-                float dot = (float)root.GetData("dot");
-                Gizmos.DrawRay(transform.position, move * 5);
+                float[] move = (float[])root.GetData("final");
+                //Vector3 deerRight = (Vector3)root.GetData("deerRight");
+                for (int i = 0; i < move.Length; i++)
+                {
+
+                Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * move[i] * 5);
+                }
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawRay(transform.position, deerRight.normalized * 5);
+                
                 
                 if (root.GetData("diagonal") != null)
                 {
@@ -61,9 +65,11 @@ namespace BehaviorTree
                     root.ClearData("straight");
                 }
                 
+                
             }
         }
         */
+        
         
         
 

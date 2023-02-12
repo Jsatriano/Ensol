@@ -43,7 +43,7 @@ public class ObstacleDetector : Node
             {
                 //Assigns a weight for the obstacle based on how close it is
                 Vector3 dirToObstacle = coll.ClosestPoint(_enemyTF.position) - _enemyTF.position;
-                float distToObstacle = dirToObstacle.magnitude;             
+                float distToObstacle = Vector3.Distance(_enemyTF.position, coll.ClosestPoint(_enemyTF.position));            
                 if (distToObstacle <= _hitBoxSize)
                 {
                     weight = 1;
@@ -58,7 +58,7 @@ public class ObstacleDetector : Node
                 for (int i = 0; i < Directions.eightDirections.Count; i++)
                 {
                     float dot = Vector3.Dot(dirToObstacle, Directions.eightDirections[i]);
-                    float desirablity = dot * weight;
+                    float desirablity = Mathf.Clamp01((dot * 1.25f) * weight);
                     //Assigns the danger of that direction to the result array (if its higher than the current danger for that direction)
                     if (desirablity > avoidanceWeights[i])
                     {

@@ -25,6 +25,8 @@ public class DeerAnimation : MonoBehaviour
     public DeerBT deerBT;
 
     private float yRotation;
+    private Vector3 previousDirection;
+    private Vector3 _dirToPlayer;
     private Vector3 movingDir;
     private Vector3 deerRight;
     State state;
@@ -265,21 +267,21 @@ public class DeerAnimation : MonoBehaviour
     {
         if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state == State.MOVING_RIGHT)
         {
-            Vector3 _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z);
-            float newRotation;
-            Vector3 headRight = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
-            if (Vector3.Dot(_dirToPlayer, headRight) > Vector3.Dot(_dirToPlayer, -headRight))
+            _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z).normalized;
+            if (Vector3.Dot(_dirToPlayer, transform.forward) < 0)
             {
-                newRotation = yRotation + (lookingSpeed * Time.deltaTime);
+                if (Vector3.Dot(transform.right, _dirToPlayer) > Vector3.Dot(-transform.right, _dirToPlayer))
+                {
+                    _dirToPlayer = transform.right;
+                }
+                else
+                {
+                    _dirToPlayer = -transform.right;
+                }
             }
-            else
-            {
-                newRotation = yRotation - (lookingSpeed * Time.deltaTime);
-            }
-            newRotation = Mathf.Clamp(newRotation, -50, 50);
-            //headTF.localRotation = Quaternion.Euler(headTF.localEulerAngles.x, newRotation, headTF.localEulerAngles.z);
+            headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;        
         }
-        yRotation = headTF.localEulerAngles.y;
+        previousDirection = headTF.forward;
     }
 
     //Calculates whether the deer is moving to the left or right 
