@@ -49,7 +49,7 @@ public class Charge : Node
         {
             //Gradually turns deer to face player
             Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
-            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength) * 1.5f);
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength));
             _startingPosition = _deerTF.position;
 
             //Setups/ticks up timers

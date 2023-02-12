@@ -22,6 +22,7 @@ public class FOVCheck : Node
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
     public override NodeState Evaluate()
     {
+        
         //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
         if (GetData(_attackName) != null)
         {
@@ -36,13 +37,13 @@ public class FOVCheck : Node
         }
         else
         {
+            
             //Checks if enemy has already seen player
-            object player = GetData("player");
-            if (player == null)
+            if (GetData("player") == null)
             {
                 //Checks if player is within range of the enemy
                 if (Vector3.Distance(_enemyTF.position, _playerTF.position) <= _visionRange)
-                {
+                {                   
                     //checks if enemy has LOS of player, if so returns success
                     if (!Physics.Linecast(_enemyTF.position, _playerTF.position, _envLayerMask))
                     {

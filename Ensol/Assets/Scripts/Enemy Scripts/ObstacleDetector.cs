@@ -25,7 +25,7 @@ public class ObstacleDetector : Node
     //a weight to all 8 directions based on how close an obstacle is to each direction - RYAN
 
     public override NodeState Evaluate()
-    {
+    {   
         //Only runs at the rate given by detection rate (running every update would be unecessary and intensive)
         if (Time.time - _detectionRateTimer > _detectionRate)
         {

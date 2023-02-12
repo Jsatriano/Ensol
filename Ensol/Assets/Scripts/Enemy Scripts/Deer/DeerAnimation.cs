@@ -265,11 +265,14 @@ public class DeerAnimation : MonoBehaviour
 
     private void LateUpdate()
     {
+        //Rotates deers head towards player when walking around
         if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state == State.MOVING_RIGHT)
         {
+            //Finds the direction to the player and then checks if that is greater than 90 degrees from the current head position
             _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z).normalized;
             if (Vector3.Dot(_dirToPlayer, transform.forward) < 0)
             {
+                //If greater than 90 degrees, check if the dir to player is closer to the right or left of the deer (that will be the new rotate goal)
                 if (Vector3.Dot(transform.right, _dirToPlayer) > Vector3.Dot(-transform.right, _dirToPlayer))
                 {
                     _dirToPlayer = transform.right;
@@ -279,6 +282,7 @@ public class DeerAnimation : MonoBehaviour
                     _dirToPlayer = -transform.right;
                 }
             }
+            //Rotate deers head towards the player
             headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;        
         }
         previousDirection = headTF.forward;
