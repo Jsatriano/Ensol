@@ -9,6 +9,7 @@ public class PlayerCombatController : MonoBehaviour
     [Header("References")]
     public GameObject weapon;
     public GameObject weaponProjectilePrefab;
+    public GameObject weaponCatchTarget;
     public GameObject lightHitbox;
     public GameObject heavyHitbox;
     private CharController charController;
@@ -41,7 +42,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Special Attack Variables")]
     public float specialAttackMult;
-    public float weaponThrowForce = 750f;
+    public float weaponThrowSpeed = 4f;
     public float weaponRecallSpeed = 5f;
     public float weaponCatchDistance = 1f;
     [HideInInspector] public bool hasWeapon = true;
@@ -94,8 +95,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
         if(isCatching) {
-            Collider[] weaponSearch = Physics.OverlapSphere(charController.transform.position, weaponCatchDistance);
-            print("searching colliders");
+            Collider[] weaponSearch = Physics.OverlapSphere(weaponCatchTarget.transform.position, weaponCatchDistance);
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
                     print("located catchable weapon");
@@ -177,16 +177,14 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isDead", true);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && !hasWeapon && !isCatching) {
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && !hasWeapon && !isCatching &&
+        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
             print("activated catching");
             isCatching = true;
-            if(activeWeaponProjectile != null) {
-                activeWeaponProjectile.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
-                activeWeaponProjectile.GetComponent<Rigidbody>().angularVelocity = new Vector3(0,0,0);
-            }
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon) {
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
+        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") ) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -199,18 +197,16 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void SpawnSpecialAttackProjectile() {
+        attackPower = baseAttackPower * specialAttackMult;
+
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
-        Vector3 aimToMouse = (charController.mouseFollower.transform.position - activeWeaponProjectile.transform.position);
-        aimToMouse.y = 0;
-        activeWeaponProjectile.transform.rotation.SetLookRotation(aimToMouse, Vector3.up);
+
+        Vector3 throwTarget = charController.mouseFollower.transform.position;
+        throwTarget.y = activeWeaponProjectile.transform.position.y;
+        activeWeaponProjectile.transform.LookAt(throwTarget);
         weapon.SetActive(false);
-
-        Rigidbody wRb = activeWeaponProjectile.GetComponent<Rigidbody>();
-
-        wRb.drag = 0;
-        wRb.AddForce(activeWeaponProjectile.transform.forward * weaponThrowForce);
 
     }
 
@@ -224,6 +220,8 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     public void GrabWeapon() {
+        attackPower = baseAttackPower;
+
         hasWeapon = true;
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
@@ -284,10 +282,14 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EnableHeavyAttackHitbox() {
         heavyHitbox.SetActive(true);
+
+        attackPower = baseAttackPower * heavyAttackMult;
     }
 
     private void DisableHeavyAttackHitbox() {
         heavyHitbox.SetActive(false);
+        
+        attackPower = baseAttackPower;
     }
 
     private void EndHeavyAttack() {
