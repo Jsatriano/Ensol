@@ -21,7 +21,7 @@ public class CharController : MonoBehaviour
     public Vector3 forward, right, direction, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
-    [Header("Other Vaiables")]
+    [Header("Other Variables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
