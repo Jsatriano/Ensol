@@ -58,7 +58,8 @@ public class PlayerCombatController : MonoBehaviour
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
-    public GameObject[] slashVFX;
+    public GameObject[] lightSlashVFX;
+    public GameObject heavySlashVFX;
 
     // Start is called before the first frame update
     void Start()
@@ -307,14 +308,24 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     // functions for showing slashes on attacks
-    private void StartlightSlash()
+    private void StartLightSlash()
     {
-        slashVFX[comboCounter - 1].SetActive(true);
+        lightSlashVFX[comboCounter - 1].SetActive(true);
     }
 
     private void EndLightSlash()
     {
-        slashVFX[comboCounter - 1].SetActive(false);
+        lightSlashVFX[comboCounter - 1].SetActive(false);
+    }
+
+    private void StartHeavySlash()
+    {
+        heavySlashVFX.SetActive(true);
+    }
+
+    private void EndHeavySlash()
+    {
+        heavySlashVFX.SetActive(false);
     }
 
     // how much forward force is added to every attack
