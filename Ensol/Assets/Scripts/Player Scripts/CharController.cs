@@ -110,6 +110,7 @@ public class CharController : MonoBehaviour
         {
             pcc.lightSlashVFX[0].SetActive(false);
             pcc.lightSlashVFX[1].SetActive(false);
+            pcc.lightSlashVFX[2].SetActive(false);
             pcc.heavySlashVFX.SetActive(false);
         }
 
