@@ -43,9 +43,11 @@ public class WeaponHitbox : MonoBehaviour
         }
 
         if(!pcc.hasWeapon && pcc.isCatching && isProjectile) {
-
-            gameObject.transform.rotation.SetLookRotation(player.transform.position, Vector3.up);
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, player.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
+            gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
+        }
+        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching) {
+            gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * pcc.weaponThrowSpeed * Time.deltaTime;
         }
         
     }
