@@ -46,14 +46,6 @@ public class DeerStats : EnemyStats
     // Update is called once per frame
     protected override void Update()
     {
-        //Checks to see if the enemy is dead
-        if (currHP <= 0)
-        {
-            print(nameID + " is dead!");
-            //StartCoroutine(damageFlash.FlashRoutine());
-            deerBT.isAlive = false;
-            buttonController.enemyKilled(thisDeer);
-        }
         base.Update(); //calls the parent update       
     }
 
@@ -75,9 +67,11 @@ public class DeerStats : EnemyStats
 
     public override void Die()
     {
+        print(nameID + " is dead!");
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
+        buttonController.enemyKilled(thisDeer);
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
     }
 
