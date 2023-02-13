@@ -10,10 +10,6 @@ public class DeerAgroMovement : Node
     private Rigidbody _enemyRB;   //Enemy rigidbody
     private float _acceleration;  //How fast the deer gets to max speed
     private float _maxSpeed;      //Speed of the enemy
-    private bool movingCauseZero; //Used internally to fix the deer not moving when not near any obstacles
-    private int randomDir;        //The random left/right direction the deer moves in when in the above situations
-    private float _randomMovementTimer;  //Timer for above situations
-    private float _randomMovementLength; //Length of fix for above situations
     private float _idealDistance; //The ideal distance the deer tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;   //The deers direction of movement
@@ -26,9 +22,6 @@ public class DeerAgroMovement : Node
         _enemyRB   = enemyRB;
         _acceleration = acceleration;
         _maxSpeed = maxSpeed / 10;
-        randomDir  = 0;
-        _randomMovementTimer  = 0;
-        _randomMovementLength = cooldown;
         _idealDistance   = idealDistance;
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
@@ -56,7 +49,6 @@ public class DeerAgroMovement : Node
         }
         state = NodeState.SUCCESS;
         return state;
-
     }
 
     private void ChooseDirection()
@@ -70,8 +62,8 @@ public class DeerAgroMovement : Node
         }
         movingDir = movingDir.normalized;
 
+        //Caculates the perpendicular direction to the direction to the player for sideways movement
         Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
-
         SetData("deerRight", movingCross);
 
         //If there are no obstacles nearby, deer picks between moving left/right based on which direction is
@@ -87,7 +79,6 @@ public class DeerAgroMovement : Node
                 movingDir = -movingCross;
             }
         }
-
         SetData("movingDir", movingDir);
     }
 
@@ -105,22 +96,6 @@ public class DeerAgroMovement : Node
         {
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
             float weightToAdd = 1 - (Mathf.Abs(dot) * 0.9f);
-
-            //This blocked out code is an attempt at making the deer stay a certain distance from the player, giving up for now
-            /*
-            Vector3 newPotentialPos = Directions.eightDirections[i] + _enemyTF.position;
-            float distFromIdealDist = _idealDistance - (newPotentialPos - _playerTF.position).magnitude;
-            float distModifier = 1;
-            if (distFromIdealDist > 0)
-            {
-                distModifier = (_idealDistance - distFromIdealDist ) / _idealDistance;
-                distModifier = Mathf.Clamp(distFromIdealDist, 0.4f, 0.6f);
-            } else if (distFromIdealDist < 0)
-            {
-
-            }
-            */
-
             if (weightToAdd > playerWeights[i])
             {
                 playerWeights[i] = weightToAdd;

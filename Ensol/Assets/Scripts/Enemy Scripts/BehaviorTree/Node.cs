@@ -20,7 +20,7 @@ namespace BehaviorTree
         protected List<Node> children = new List<Node>();
 
         //Dictionary to store waypoints/attack targets/etc in
-        private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
+        public Dictionary<string, object> _dataContext = new Dictionary<string, object>();
 
         //Constructors
         public Node()
@@ -60,24 +60,18 @@ namespace BehaviorTree
         //returns the value associated with the provided key in the dictionary of the node or any ancestor of the node (else null)
         public object GetData(string key)
         {
-            object value = null;
-            //Checks if the key exists in the dictionary of the initial node
-            if (_dataContext.TryGetValue(key, out value))
+            if (_dataContext.ContainsKey(key))
             {
-                return value;
+                return _dataContext[key];
             }
-            //Recursively checks the dictionary of every ancestor of the initial node
-            Node node = parent;
-            while (node != null)
+            if (parent != null)
             {
-                value = node.GetData(key);
-                if (value != null)
-                {
-                    return value;
-                }
-                node = node.parent;
+                return parent.GetData(key);
             }
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         //Erases data from the dictionary (or the dictionary of any ancestor node) by checking all ancestors dictionaries

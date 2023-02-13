@@ -14,7 +14,7 @@ public class DeerStats : EnemyStats
     public float chargeCooldown;      //How long the cooldown for charge is
     public float chargeDamage;        //How much damage the charge does
     public float chargeTurning;       //How much the deer can turn while charging
-    public BoxCollider chargeHitZone; //Hitbox for the charge
+    public BoxCollider chargeHitbox; //Hitbox for the charge
 
     [Header("Basic Attack Stats/Components")]
     public float attackCooldown;           //Cooldown between basic attacks
@@ -56,4 +56,29 @@ public class DeerStats : EnemyStats
         }
         base.Update(); //calls the parent update       
     }
+
+    public override void TakeDamage(float damage)
+    {
+        if (currHP <= 0)
+        {
+            return;
+        }
+        currHP -= damage;
+        StartCoroutine(damageFlash.FlashRoutine());
+        print("Did " + damage + " damage to " + nameID);
+        if (currHP <= 0)
+        {
+            Die();
+        }
+        return;
+    }
+
+    public override void Die()
+    {
+        deerBT.isAlive = false;
+        chargeHitbox.enabled = false;
+        basicAttackHitbox.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+    }
+
 }

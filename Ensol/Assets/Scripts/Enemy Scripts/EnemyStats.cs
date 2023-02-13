@@ -14,13 +14,14 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] public int numID; //an int to id an enemy, if we want that too? maybe to differentiate units with the same name?
 
     [Header("Basic Stats")]
-    public float maxHP;         //max health
-    public float currHP;        //current health
-    public float attackPower;   //used in damage calculations
-    public float maxSpeed;      //move speed
-    public float acceleration;  //How fast it gets to max speed
-    public float visionRange;   //The radius at which the enemy detects the player
-    public float rotationSpeed; //How fast the enemy can rotate when tracking the player
+    public float maxHP;             //max health
+    public float currHP;            //current health
+    public float attackPower;       //used in damage calculations
+    public float maxSpeed;          //move speed
+    public float attackingCooldown; //How frequently the enemy can attack (makes it so the enemy can't do two attacks in a row)
+    public float acceleration;      //How fast it gets to max speed
+    public float visionRange;       //The radius at which the enemy detects the player
+    public float rotationSpeed;     //How fast the enemy can rotate when tracking the player
     [HideInInspector] public float obstacleDetectRadius = 50f; //The radius at which the enemy detects obstacles. Used for avoiding obstacles when moving 
 
     [Header("Components")]
@@ -55,6 +56,10 @@ public class EnemyStats : MonoBehaviour
             SearchForPlayer();
         }
     }
+
+    public virtual void TakeDamage(float damage) { }
+
+    public virtual void Die() { }
 
     public void SearchForPlayer() {
         if(players.Length == 0) {
