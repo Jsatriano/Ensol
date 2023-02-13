@@ -13,6 +13,7 @@ public class MenuButtons : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(playButton);
+        Cursor.visible = true;
     }
 
     public void StartGame()
