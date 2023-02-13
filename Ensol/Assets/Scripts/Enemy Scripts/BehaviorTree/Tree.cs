@@ -36,39 +36,32 @@ namespace BehaviorTree
         protected abstract Node SetupTree();
 
         
-        /*
+        
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("final") != null)
+            if (Application.isPlaying && root.GetData("obstacles") != null && root.GetData("playerWeights") != null)
             {
                 
                 Gizmos.color = Color.green;
-                float[] move = (float[])root.GetData("final");
+                //float[] move = (float[])root.GetData("final");
+                float[] obstacle = (float[])root.GetData("obstacles");
+                float[] pWeights = (float[])root.GetData("playerWeights");
                 //Vector3 deerRight = (Vector3)root.GetData("deerRight");
-                for (int i = 0; i < move.Length; i++)
+                for (int i = 0; i < obstacle.Length; i++)
                 {
 
-                Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * move[i] * 5);
+                Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i] * 5);
                 }
                 Gizmos.color = Color.magenta;
-                Gizmos.DrawRay(transform.position, deerRight.normalized * 5);
-                
-                
-                if (root.GetData("diagonal") != null)
+                for (int i = 0; i < pWeights.Length; i++)
                 {
-                    print("Diagonal");
-                    root.ClearData("diagonal");
+
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 5);
                 }
-                else if (root.GetData("straight") != null)
-                {
-                    print("straight");
-                    root.ClearData("straight");
-                }
-                
-                
+
             }
         }
-        */
+        
         
         
         

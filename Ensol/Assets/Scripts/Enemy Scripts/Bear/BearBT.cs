@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using BehaviorTree;
 
-public class BearBT : MonoBehaviour
+public class BearBT : Tree
 {
-    // Start is called before the first frame update
-    void Start()
+    public BearStats bearStats;
+    protected override Node SetupTree()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (bearStats.playerTF == null || bearStats.player == null)
+        {
+            bearStats.SearchForPlayer();
+        }
+        Node root = new Selector(new List<Node>
+        {
+            new Sequence(new List<Node>
+            {
+                new PlayerSeenCheck(),
+                new ObstacleDetector(bearStats.obstacleDetectRadius, bearStats.obstacleMask, bearStats.enemyTF, bearStats.hitbox),
+                new BearAgroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.playerTF, bearStats.enemyTF, 
+                                     bearStats.enemyRB, bearStats.rotationSpeed)
+            }),
+            new Sequence(new List<Node>
+            {
+                new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "Claw", bearStats.environmentMask)
+            })
+        });
+        return root;
     }
 }

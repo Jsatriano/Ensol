@@ -17,14 +17,12 @@ public class DeerAnimation : MonoBehaviour
         DYING
     }
 
-
     [SerializeField] private Animator animController;
     [SerializeField] private Transform headTF;   
     [SerializeField] private float lookingSpeed;
     private Transform playerTF;
     public DeerBT deerBT;
 
-    private float yRotation;
     private Vector3 previousDirection;
     private Vector3 _dirToPlayer;
     private Vector3 movingDir;
@@ -35,7 +33,6 @@ public class DeerAnimation : MonoBehaviour
     void Start()
     {
         state = State.IDLE;
-        yRotation = 0;
     }
 
     void FixedUpdate()

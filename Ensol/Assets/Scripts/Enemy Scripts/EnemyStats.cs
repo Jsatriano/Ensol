@@ -16,7 +16,6 @@ public class EnemyStats : MonoBehaviour
     [Header("Basic Stats")]
     public float maxHP;             //max health
     public float currHP;            //current health
-    public float attackPower;       //used in damage calculations
     public float maxSpeed;          //move speed
     public float attackingCooldown; //How frequently the enemy can attack (makes it so the enemy can't do two attacks in a row)
     public float acceleration;      //How fast it gets to max speed
@@ -28,7 +27,7 @@ public class EnemyStats : MonoBehaviour
     public CharController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
     public Transform playerTF;         //Player transform
     public Transform enemyTF;          //Enemy Transform
-    public BoxCollider hitZone;        //The attacking hitbox of the enemy
+    public BoxCollider hitbox;         //The hitbox of the enemy
     public Rigidbody enemyRB;          //The enemy Rigidbody
     public LayerMask obstacleMask;     //The layer(s) that obstacles in the arena are on (includes other enemies)
     public LayerMask environmentMask;  //The layers the environment is on

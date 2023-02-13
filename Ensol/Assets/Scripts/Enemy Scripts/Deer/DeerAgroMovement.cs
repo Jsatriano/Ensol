@@ -15,7 +15,7 @@ public class DeerAgroMovement : Node
     private Vector3 movingDir;   //The deers direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
 
-    public DeerAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float cooldown, float idealDistance, float rotationSpeed)
+    public DeerAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;
@@ -101,7 +101,6 @@ public class DeerAgroMovement : Node
                 playerWeights[i] = weightToAdd;
             }
         }
-        SetData("playerWeights", playerWeights);
         float[] obstacleWeights = (float[])GetData("obstacles");
         float[] finalWeights    = new float[8];
         //Substracts the interest weights by the danger weights to get the final weights
@@ -109,7 +108,6 @@ public class DeerAgroMovement : Node
         {
             finalWeights[i] = Mathf.Clamp01(playerWeights[i] - obstacleWeights[i]);
         }
-        SetData("final", finalWeights);
         return finalWeights;
     }
 }

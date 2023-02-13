@@ -22,8 +22,8 @@ public class DeerBT : Tree
                     new CooldownCheck(deerStats.attackingCooldown, "idle")
                 }),
                 new PlayerSeenCheck(),
-                new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF),
-                new DeerAgroMovement(deerStats.acceleration, deerStats.maxSpeed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeCooldown,
+                new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF, deerStats.hitbox),
+                new DeerAgroMovement(deerStats.acceleration, deerStats.maxSpeed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB,
                                      deerStats.distanceFromPlayer, deerStats.rotationSpeed)
             }),
             new Sequence(new List<Node>
@@ -37,7 +37,7 @@ public class DeerBT : Tree
             {
                 new RangeCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.attackRange, "basic"),
                 new CooldownCheck(deerStats.attackCooldown, "basic"),
-                new DeerBasicAttack(deerStats.hitZone, deerStats.basicAttackDuration, deerStats.basicAttackWindup, 
+                new DeerBasicAttack(deerStats.basicAttackHitbox, deerStats.basicAttackDuration, deerStats.basicAttackWindup, 
                                     deerStats.playerTF, deerStats.enemyTF)
             }),           
         });

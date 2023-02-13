@@ -10,14 +10,15 @@ public class ObstacleDetector : Node
     private float _detectionRadius;     //Distance the enemy detects obstacles from
     private float _detectionRate = .1f; //Used to make it so checks for obstacles at a slower rate than update cause its unnecessary and prevents lag
     private float _detectionRateTimer;  //Used internally to keep track of the above
-    private float _hitBoxSize = 1f;     //Size of the enemies hitbox, would be nice to automate this value in the future
+    private float _hitboxSize;          //Size of the enemies hitbox, would be nice to automate this value in the future
 
 
-    public ObstacleDetector(float obstacleDetectRadius, LayerMask obstacleMask, Transform enemyTF)
+    public ObstacleDetector(float obstacleDetectRadius, LayerMask obstacleMask, Transform enemyTF, BoxCollider hitbox)
     {
         _detectionRadius    = obstacleDetectRadius;
         _obstacleMask       = obstacleMask;
         _enemyTF            = enemyTF;
+        _hitboxSize         = hitbox.size.z / 2;
         _detectionRateTimer = -1;
     }
 
@@ -41,10 +42,15 @@ public class ObstacleDetector : Node
             Collider[] obstacles = Physics.OverlapSphere(_enemyTF.position, _detectionRadius, _obstacleMask);
             foreach (Collider coll in obstacles)
             {
+                //Checks if the collider is the enemy this script is atached to
+                if (coll.transform == _enemyTF.transform)
+                {
+                    continue;
+                }
                 //Assigns a weight for the obstacle based on how close it is
                 Vector3 dirToObstacle = coll.ClosestPoint(_enemyTF.position) - _enemyTF.position;
                 float distToObstacle = Vector3.Distance(_enemyTF.position, coll.ClosestPoint(_enemyTF.position));            
-                if (distToObstacle <= _hitBoxSize)
+                if (distToObstacle <= _hitboxSize)
                 {
                     weight = 1;
                 }
@@ -58,7 +64,7 @@ public class ObstacleDetector : Node
                 for (int i = 0; i < Directions.eightDirections.Count; i++)
                 {
                     float dot = Vector3.Dot(dirToObstacle, Directions.eightDirections[i]);
-                    float desirablity = Mathf.Clamp01((dot * 1.25f) * weight);
+                    float desirablity = Mathf.Clamp01((dot) * weight);
                     //Assigns the danger of that direction to the result array (if its higher than the current danger for that direction)
                     if (desirablity > avoidanceWeights[i])
                     {

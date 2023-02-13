@@ -2,17 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearStats : MonoBehaviour
+public class BearStats : EnemyStats
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    [Header("Other Things")]
+    public BearBT bearBT;
+    public DamageFlash damageFlash;
+    public GameObject thisBear;
+    public ButtonController buttonController;
+
+    protected override void Start()
     {
-        
+        base.Start(); //Calls the parent start function.
+        nameID = "EnemyBear";
+        numID = 1; //placeholder, idk if we even want this
+        bearBT.isAlive = true;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update(); //calls the parent update       
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (currHP <= 0)
+        {
+            return;
+        }
+        currHP -= damage;
+        StartCoroutine(damageFlash.FlashRoutine());
+        print("Did " + damage + " damage to " + nameID);
+        if (currHP <= 0)
+        {
+            Die();
+        }
+        return;
+    }
+
+    public override void Die()
+    {
+        print(nameID + " is dead!");
+        bearBT.isAlive = false;
+        /*
+        chargeHitbox.enabled = false;
+        basicAttackHitbox.enabled = false;
+        */
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        buttonController.enemyKilled(thisBear);      
     }
 }
