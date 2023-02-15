@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class Charge : Node
+public class DeerCharge : Node
 {
     //Charge Vars
     private float _chargeMaxSpeed;      //How fast the charge is
@@ -25,7 +25,7 @@ public class Charge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public Charge(float chargeMaxSpeed, float chargeAccel, float chargeWindupLength, Transform playerTF, 
+    public DeerCharge(float chargeMaxSpeed, float chargeAccel, float chargeWindupLength, Transform playerTF, 
                   Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
     {
         _chargeMaxSpeed = chargeMaxSpeed;

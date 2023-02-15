@@ -22,7 +22,14 @@ public class BearBT : Tree
             }),
             new Sequence(new List<Node>
             {
-                new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "Claw", bearStats.environmentMask)
+                new CooldownCheck(bearStats.swipeCooldown, "swipe"),
+                new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.swipeRange, "swipe"),
+            }),
+            new Sequence(new List<Node>
+            {
+                new CooldownCheck(bearStats.junkCooldown, "junk"),
+                new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask),
+                new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkRange, "junk"),
             })
         });
         return root;
