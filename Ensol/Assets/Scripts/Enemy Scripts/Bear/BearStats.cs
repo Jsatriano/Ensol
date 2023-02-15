@@ -21,7 +21,7 @@ public class BearStats : EnemyStats
     public BearBT bearBT;
     public DamageFlash damageFlash;
     public GameObject thisBear;
-    public ButtonController buttonController;
+    public ButtonGateController buttonController;
 
     protected override void Start()
     {

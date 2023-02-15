@@ -8,8 +8,6 @@ public class DeerCharge : Node
     //Charge Vars
     private float _chargeMaxSpeed;      //How fast the charge is
     private float _chargeAccel;  //How fast the charge gets to max speed
-    private float _windupLength;        //How long the windup for the charge is
-    private float _windupTimer;         //Used internally to keep track of the windup
     private float _chargeTurning;       //How well the enemy tracks the player during windup
 
     //Used for ending the charge
@@ -25,13 +23,11 @@ public class DeerCharge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public DeerCharge(float chargeMaxSpeed, float chargeAccel, float chargeWindupLength, Transform playerTF, 
-                  Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
+    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, 
+                      Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
     {
         _chargeMaxSpeed = chargeMaxSpeed;
         _chargeAccel    = chargeAccel;
-        _windupLength   = chargeWindupLength;
-        _windupTimer    = 0;
         _playerTF       = playerTF;
         _deerTF         = deerTF;
         _deerRB         = deerRB;
@@ -44,18 +40,17 @@ public class DeerCharge : Node
     //Deer charge attack - RYAN
     public override NodeState Evaluate()
     {
-        //Charge windup, has deer look at player and stores a target position to charge towards based on the player's current position;
-        if (_windupTimer < _windupLength)
+        //Charge windup, has deer look at player and stores a target position to charge towards based on the player's current position
+        if (GetData("chargingAnim") == null && !_chargeEnding)
         {
             //Gradually turns deer to face player
             Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
-            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, (_windupTimer / _windupLength));
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, 0.1f);
             _startingPosition = _deerTF.position;
 
             //Setups/ticks up timers
             _stuckTime = 0;
             _chargeTime = 0;
-            _windupTimer += Time.deltaTime;
             _chargeEnding = false;
 
             SetData("charging", true);
@@ -75,34 +70,25 @@ public class DeerCharge : Node
             //Checks if the deer is stuck on something or has been charging too long
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
-                _deerRB.drag = 1f;
-                _hitZone.enabled = false;
-                _windupTimer = 0;
-                ClearData("charging");
-                ClearData("attacking");
-                ClearData("chargingAnim");
-                ClearData("attackHit");
-                state = NodeState.SUCCESS;
-                return state;
+                _chargeEnding = true;
             }
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position) || GetData("attackHit") != null || _chargeEnding) 
             {
-                if (!_chargeEnding)
-                {
-                    ClearData("chargingAnim");
-                }
+                
+                 ClearData("chargingAnim");
+                
                 _deerRB.drag  = 1f;
                 _chargeEnding = true;
                 //Doesn't stop charge until deer has slowed down more
                 if (_deerRB.velocity.magnitude <= 0.25f)
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
-                    _windupTimer = 0;
                     _chargeEnding = false;
                     ClearData("charging");
                     ClearData("attacking");
                     ClearData("attackHit");
+                    SetData("awoo", true);
                     state = NodeState.SUCCESS;
                     return state;
                 }
@@ -118,8 +104,6 @@ public class DeerCharge : Node
             {
                 _deerRB.velocity = Vector3.ClampMagnitude(_deerRB.velocity, _chargeMaxSpeed);
             }
-            SetData("chargingAnim", true);
-            ClearData("chargeWindupAnim");
             state = NodeState.RUNNING;
             return state;
         }

@@ -185,13 +185,7 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.CHARGE_WINDUP:
-                //Checks if the charge has started
-                if (deerBT.root.GetData("chargingAnim") != null)
-                {
-                    animController.SetTrigger("charging");
-                    state = State.CHARGING;
-                    //print("Charging");
-                }
+                //Transitions to charging anim at the end of the charge windup anim from animation event
                 return;
 
             case State.CHARGING:
@@ -283,6 +277,15 @@ public class DeerAnimation : MonoBehaviour
             headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;        
         }
         previousDirection = headTF.forward;
+    }
+
+    private void StartCharge()
+    {
+        deerBT.root.SetData("chargingAnim", true);
+        deerBT.root.ClearData("chargeWindupAnim");
+        animController.SetTrigger("charging");
+        state = State.CHARGING;
+        return;
     }
 
     //Calculates whether the deer is moving to the left or right 
