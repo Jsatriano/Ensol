@@ -1691,7 +1691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7901817734399789372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.8, y: 0, z: -10.88}
+  m_LocalPosition: {x: 116.45, y: 0, z: 0}
   m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2577,17 +2577,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
---- !u!114 &4786867215311771109 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5726197919074073204, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
-  m_PrefabInstance: {fileID: 944019749877231505}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4fa0d728b540e646a2f92cdc43cd52e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6794381729319027337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6004330584583023896, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
@@ -2655,7 +2644,11 @@ PrefabInstance:
     - target: {fileID: 4265731491905512411, guid: 987adad2b53d35448a156fafa5bbc121, type: 3}
       propertyPath: buttonController
       value: 
-      objectReference: {fileID: 4786867215311771109}
+      objectReference: {fileID: 0}
+    - target: {fileID: 4265731491905512411, guid: 987adad2b53d35448a156fafa5bbc121, type: 3}
+      propertyPath: buttonGateController
+      value: 
+      objectReference: {fileID: 8443424564300651712}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 987adad2b53d35448a156fafa5bbc121, type: 3}
 --- !u!1 &3759252853113512802 stripped
@@ -2842,6 +2835,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ElectricGate
       objectReference: {fileID: 0}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: requiredObj
+      value: 
+      objectReference: {fileID: 7901817734399789372}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: enemiesList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: enemiesList.Array.data[0]
+      value: 
+      objectReference: {fileID: 3759252853113512802}
     - target: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -2893,6 +2898,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
   m_PrefabInstance: {fileID: 3637710819380034185}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8443424564300651712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 3637710819380034185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cce3229497e9048b4338eb192331b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6569772246629695181
 PrefabInstance:
   m_ObjectHideFlags: 0

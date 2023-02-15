@@ -14,20 +14,20 @@ public class DeerStats : EnemyStats
     public float chargeCooldown;      //How long the cooldown for charge is
     public float chargeDamage;        //How much damage the charge does
     public float chargeTurning;       //How much the deer can turn while charging
-    public BoxCollider chargeHitbox;  //Hitbox for the charge
+    public BoxCollider chargeHitbox; //Hitbox for the charge
 
     [Header("Basic Attack Stats/Components")]
     public float attackCooldown;           //Cooldown between basic attacks
     public float basicAttackDuration;      //How long the hitbox is active for basic attacks
     public float basicAttackWindup;        //How long the windup is for basic attacks
     public float attackRange;              //How close the player needs to be for the enemy to basic attack
-    public BoxCollider basicAttackHitbox;  //The hitbox for the basic attack
+    public BoxCollider basicAttackHitbox;
 
     [Header("Other Things")]
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
     public DeerBT deerBT;
     public DamageFlash damageFlash;
-    public ButtonController buttonController;
+    public ButtonGateController buttonGateController;
     public GameObject thisDeer;
 
 
@@ -71,7 +71,8 @@ public class DeerStats : EnemyStats
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
+        buttonGateController.enemyKilled(thisDeer);
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
-        buttonController.enemyKilled(thisDeer);      
     }
+
 }
