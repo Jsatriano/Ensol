@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonController : MonoBehaviour
+public class ButtonGateController : MonoBehaviour
 {
     public MeshRenderer buttonMesh;
     public Collider buttonCol;
     public GameObject requiredObj;
-    public DoorController doorController;
+    public ElectricGateController gateController;
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
@@ -22,7 +22,7 @@ public class ButtonController : MonoBehaviour
             buttonMesh.material = greenMat;
 
             // opens door
-            doorController.OpenDoor();
+            gateController.OpenGate();
         }
         else
         {
