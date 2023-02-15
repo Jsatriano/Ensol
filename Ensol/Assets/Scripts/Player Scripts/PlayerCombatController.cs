@@ -8,6 +8,8 @@ public class PlayerCombatController : MonoBehaviour
     //Elizabeth
     [Header("References")]
     public GameObject weapon;
+    public GameObject weaponHead;
+    public GameObject weaponBase;
     public GameObject weaponProjectilePrefab;
     public GameObject weaponCatchTarget;
     public GameObject lightHitbox;
@@ -207,6 +209,8 @@ public class PlayerCombatController : MonoBehaviour
         throwTarget.y = activeWeaponProjectile.transform.position.y;
         activeWeaponProjectile.transform.LookAt(throwTarget);
         weapon.SetActive(false);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
 
     }
 
@@ -225,6 +229,8 @@ public class PlayerCombatController : MonoBehaviour
         hasWeapon = true;
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
