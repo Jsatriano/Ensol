@@ -15,6 +15,10 @@ public class BearBT : Tree
         {
             new Sequence(new List<Node>
             {
+                new Inverter(new List<Node>
+                {
+                    new CooldownCheck(bearStats.attackingCooldown, "idle")
+                }),
                 new PlayerSeenCheck(),
                 new ObstacleDetector(bearStats.obstacleDetectRadius, bearStats.obstacleMask, bearStats.enemyTF, bearStats.hitbox),
                 new BearAgroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.playerTF, bearStats.enemyTF, 
@@ -24,6 +28,8 @@ public class BearBT : Tree
             {
                 new CooldownCheck(bearStats.swipeCooldown, "swipe"),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.swipeRange, "swipe"),
+                new BearSwipe(bearStats.swipeHitbox, bearStats.swipeDuration, bearStats.swipeWindup, bearStats.playerTF, bearStats.enemyTF, 
+                              bearStats.enemyRB, bearStats.swipeMovement)
             }),
             new Sequence(new List<Node>
             {

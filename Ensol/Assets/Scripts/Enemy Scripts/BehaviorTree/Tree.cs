@@ -37,6 +37,7 @@ namespace BehaviorTree
 
         
         
+        /*
         private void OnDrawGizmos()
         {
             if (Application.isPlaying && root.GetData("obstacles") != null && root.GetData("playerWeights") != null)
@@ -61,6 +62,7 @@ namespace BehaviorTree
 
             }
         }
+        */
         
         
         

@@ -17,12 +17,12 @@ public class BearSwipe : Node
     private float _movement;
 
     //The bear's basic attack, has a short windup and then sticks out a hitbox for a provided length - RYAN
-    public BearSwipe(BoxCollider hitBox, float attackLength, float basicWindup, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float movement)
+    public BearSwipe(BoxCollider hitBox, float attackLength, float swipeWindup, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float movement)
     {
         _hitBox       = hitBox;
         _attackLength = attackLength;
         _attackTimer  = 0;
-        _windupLength = basicWindup;
+        _windupLength = swipeWindup;
         _windupTimer  = 0;
         _playerTF     = playerTF;
         _enemyTF      = enemyTF;
@@ -39,7 +39,7 @@ public class BearSwipe : Node
             Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
             _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, (_windupTimer / _windupLength) * 0.95f);
             _windupTimer    += Time.deltaTime;
-            SetData("basic", true);
+            SetData("swipe", true);
             SetData("attacking", true);
             SetData("swipingAnim", true);
             state = NodeState.RUNNING;
@@ -54,7 +54,7 @@ public class BearSwipe : Node
                 _windupTimer = 0;
                 _hitBox.enabled = false;
                 _enemyRB.drag = _originalDrag;
-                ClearData("basic");
+                ClearData("swipe");
                 ClearData("attacking");
                 ClearData("swipingAnim");
                 state = NodeState.SUCCESS;
