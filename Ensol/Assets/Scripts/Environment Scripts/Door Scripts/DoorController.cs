@@ -19,6 +19,7 @@ public class DoorController : MonoBehaviour
                 door.transform.localEulerAngles = Vector3.Lerp(currentRot, new Vector3(currentRot.x, openRot, currentRot.z), speed * Time.deltaTime);
             }
         }
+        
     }
 
     public void OpenDoor()
