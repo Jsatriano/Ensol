@@ -29,11 +29,15 @@ public class BearAgroMovement : Node
     {
         ChooseDirection();
 
-        //Rotates bear to face player
+        //Finds how closely the bear's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
+        float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+        speedDot = (speedDot / 2) + 0.5f;
+        speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
+
         _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
 
         //Moves bear in the desired direction (with a speed cap)
-        _enemyRB.AddForce(movingDir.normalized * _acceleration, ForceMode.Acceleration);
+        _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         if (_enemyRB.velocity.magnitude > _maxSpeed)
         {
             _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
@@ -52,6 +56,7 @@ public class BearAgroMovement : Node
             movingDir += Directions.eightDirections[i] * weights[i];
         }
         movingDir = movingDir.normalized;
+        SetData("moveDir", movingDir);
     }
 
     private float[] CalculateWeights()
@@ -66,7 +71,7 @@ public class BearAgroMovement : Node
         for (int i = 0; i < playerWeights.Length; i++)
         {
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
-            dot += 0.3f;
+            dot += 0.4f;
             float weightToAdd = Mathf.Clamp01(dot);
             if (weightToAdd > playerWeights[i])
             {
