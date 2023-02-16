@@ -18,7 +18,7 @@ public class ObstacleDetector : Node
         _detectionRadius    = obstacleDetectRadius;
         _obstacleMask       = obstacleMask;
         _enemyTF            = enemyTF;
-        _hitboxSize         = hitbox.size.z / 2;
+        _hitboxSize         = hitbox.size.z;
         _detectionRateTimer = -1;
     }
 

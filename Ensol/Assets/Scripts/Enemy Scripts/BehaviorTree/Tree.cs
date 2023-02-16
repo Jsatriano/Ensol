@@ -37,7 +37,7 @@ namespace BehaviorTree
 
         
         
-        
+        /*
         private void OnDrawGizmos()
         {
             if (Application.isPlaying && root.GetData("obstacles") != null && root.GetData("playerWeights") != null)
@@ -52,7 +52,7 @@ namespace BehaviorTree
                 for (int i = 0; i < obstacle.Length; i++)
                 {
 
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i]);
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i] * 3);
                     //print(obstacle[i]);
                 }
                 Gizmos.color = Color.magenta;
@@ -60,13 +60,14 @@ namespace BehaviorTree
                 for (int i = 0; i < pWeights.Length; i++)
                 {
 
-                    //Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 5);
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 3);
                 }
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(transform.position, moveDir * 5);
 
             }
         }
+        */
         
         
         
