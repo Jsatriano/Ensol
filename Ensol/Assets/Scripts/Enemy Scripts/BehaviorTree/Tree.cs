@@ -32,11 +32,6 @@ namespace BehaviorTree
             {
                 root.Evaluate();
             }
-            if (root.GetData("awoo") != null)
-            {
-                print("Awoooo");
-                root.ClearData("awoo");
-            }
         }
         protected abstract Node SetupTree();
 

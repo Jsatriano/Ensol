@@ -60,6 +60,10 @@ namespace BehaviorTree
         //returns the value associated with the provided key in the dictionary of the node or any ancestor of the node (else null)
         public object GetData(string key)
         {
+            if (_dataContext == null)
+            {
+                return null;
+            }
             if (_dataContext.ContainsKey(key))
             {
                 return _dataContext[key];
