@@ -11086,7 +11086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522044965}
   m_Layer: 3
-  m_Name: Lightning FX anchor
+  m_Name: Lightning FX anchor top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13266,6 +13266,8 @@ MonoBehaviour:
   weaponBase: {fileID: 1435165598}
   weaponProjectilePrefab: {fileID: 8288452640594278573, guid: 5937fbccfcbda7a4ebd62be03a648d6b, type: 3}
   weaponCatchTarget: {fileID: 546135791}
+  FX1: {fileID: 522044964}
+  FX2: {fileID: 2078645230}
   lightHitbox: {fileID: 1111981279}
   heavyHitbox: {fileID: 867737618}
   fadeOnDeath: {fileID: 1154538885}
@@ -19796,7 +19798,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa26db5228543f540943916d0f655b88, type: 2}
+  - {fileID: 2100000, guid: 8049793f20e2b17409a784f0f72774dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19825,7 +19827,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899593184}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4575378312840820631, guid: 932dd2cbe9a4cbd4092fe52c32291686, type: 3}
 --- !u!4 &1899593188
 Transform:
   m_ObjectHideFlags: 0
@@ -19835,7 +19837,7 @@ Transform:
   m_GameObject: {fileID: 1899593184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.109101, y: 4.445461, z: -7.7006674}
-  m_LocalScale: {x: 0.27, y: 0.01, z: 0.9128571}
+  m_LocalScale: {x: 27, y: 27, z: 27}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -20117,7 +20119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078645231}
   m_Layer: 3
-  m_Name: Lightning FX anchor (1)
+  m_Name: Lightning FX anchor bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21072,6 +21074,8 @@ MonoBehaviour:
   weaponBase: {fileID: 0}
   weaponProjectilePrefab: {fileID: 3249325566708063038, guid: 6d2fab60dca8efb44a11a7d50c5c5a9e, type: 3}
   weaponCatchTarget: {fileID: 247848475}
+  FX1: {fileID: 0}
+  FX2: {fileID: 0}
   lightHitbox: {fileID: 1111981279}
   heavyHitbox: {fileID: 867737618}
   fadeOnDeath: {fileID: 1154538885}
@@ -22837,7 +22841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727326795591620455, guid: 177045bfd30a6d94cb2d1b9add81b066, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727326795591620504, guid: 177045bfd30a6d94cb2d1b9add81b066, type: 3}
       propertyPath: m_RootOrder

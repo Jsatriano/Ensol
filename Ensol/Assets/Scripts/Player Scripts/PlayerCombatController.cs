@@ -12,6 +12,8 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject weaponBase;
     public GameObject weaponProjectilePrefab;
     public GameObject weaponCatchTarget;
+    public GameObject FX1;
+    public GameObject FX2;
     public GameObject lightHitbox;
     public GameObject heavyHitbox;
     private CharController charController;
@@ -211,6 +213,8 @@ public class PlayerCombatController : MonoBehaviour
         weapon.SetActive(false);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
 
     }
 
@@ -231,6 +235,8 @@ public class PlayerCombatController : MonoBehaviour
         weapon.SetActive(true);
         weaponHead.SetActive(true);
         weaponBase.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
