@@ -110,7 +110,7 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
-        if(charController.state != CharController.State.ATTACKING) {
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
             acceptingInput = true;
             isNextAttackBuffered = false;
@@ -191,6 +191,7 @@ public class PlayerCombatController : MonoBehaviour
             LookAtMouse();
             charController.animator.SetBool("isThrowing", true);
             electricVials.RemoveVials(1);
+            acceptingInput = false;
 
         }
 
@@ -241,6 +242,7 @@ public class PlayerCombatController : MonoBehaviour
     private void EndCatch() {
         print("ending catch");
         isCatching = false;
+        acceptingInput = true;
         charController.animator.SetBool("isCatching", false);
         charController.state = CharController.State.IDLE;
     }
