@@ -53,10 +53,10 @@ namespace BehaviorTree
                 {
 
                     Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i]);
-                    print(obstacle[i]);
+                    //print(obstacle[i]);
                 }
                 Gizmos.color = Color.magenta;
-                print("--------");
+                //print("--------");
                 for (int i = 0; i < pWeights.Length; i++)
                 {
 
