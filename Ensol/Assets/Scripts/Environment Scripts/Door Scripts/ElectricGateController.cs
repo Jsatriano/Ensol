@@ -14,20 +14,30 @@ public class ElectricGateController : MonoBehaviour
         Vector3 currentRot1 = gates[1].transform.localEulerAngles;
         if(opening)
         {
-            if(currentRot0.y < openRot)
+            // moves upper gate
+            if(currentRot0.x <= openRot - 0.5)
             {
+                // rotates upward
                 gates[0].transform.localEulerAngles = Vector3.Lerp(currentRot0, new Vector3(openRot, currentRot0.y, currentRot0.z), speed * Time.deltaTime);
+            }
+            else
+            {
+                // transforms down
+                Vector3 currentTF0 = gates[0].transform.position;
+                gates[0].transform.position = Vector3.Lerp(currentTF0, new Vector3(currentTF0.x, 0, currentTF0.z), speed * Time.deltaTime);
+            }
+
+            // moves lower gate
+            if(currentRot1.x <= openRot - 0.5)
+            {
+                // rotates upward
                 gates[1].transform.localEulerAngles = Vector3.Lerp(currentRot1, new Vector3(openRot, currentRot1.y, currentRot1.z), speed * Time.deltaTime);
             }
             else
             {
-                Vector3 currentTF0 = gates[0].transform.position;
+                // transforms down
                 Vector3 currentTF1 = gates[1].transform.position;
-                if(currentTF0.y > 0)
-                {
-                    gates[0].transform.position = Vector3.Lerp(currentTF0, new Vector3(currentTF0.x, openRot, currentTF0.z), speed * Time.deltaTime);
-                    gates[1].transform.position = Vector3.Lerp(currentTF1, new Vector3(currentTF1.x, openRot, currentTF1.z), speed * Time.deltaTime);
-                }
+                gates[1].transform.position = Vector3.Lerp(currentTF1, new Vector3(currentTF1.x, 0, currentTF1.z), speed * Time.deltaTime);
             }
         }
     }
