@@ -10,6 +10,7 @@ public class WeaponHitbox : MonoBehaviour
     private bool isTriggered = false;
     [HideInInspector] public GameObject[] players;
     public bool isProjectile = false;
+    private bool isMovingForward = true;
 
     void Awake()
     {
@@ -46,7 +47,7 @@ public class WeaponHitbox : MonoBehaviour
             gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
         }
-        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching) {
+        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching && isMovingForward) {
             gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * pcc.weaponThrowSpeed * Time.deltaTime;
         }
         
@@ -59,7 +60,13 @@ public class WeaponHitbox : MonoBehaviour
             }
         }
 
-        if(isProjectile && pcc.isCatching) {
+        if(isProjectile && !pcc.isCatching) {
+            if(col.gameObject.layer == 7) {
+                isMovingForward = false;
+            }
+        }
+
+        else if(isProjectile && pcc.isCatching) {
             if(col.gameObject.tag == "Player") {
                 pcc.GrabWeapon();
             }
