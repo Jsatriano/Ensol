@@ -9,8 +9,9 @@ public class WeaponHitbox : MonoBehaviour
     public DamageFlash damageFlash;
     private bool isTriggered = false;
     [HideInInspector] public GameObject[] players;
-    public bool isProjectile = false;
-    private bool isMovingForward = true;
+    [HideInInspector] public bool isProjectile = false;
+    private bool isMoving = true;
+    public GameObject damagePulseVFX;
 
     void Awake()
     {
@@ -43,11 +44,20 @@ public class WeaponHitbox : MonoBehaviour
             SearchForPlayer();
         }
 
+        if(!isMoving) {
+            gameObject.GetComponent<Collider>().enabled = false;
+        }
+        else{
+            gameObject.GetComponent<Collider>().enabled = true;
+        }
+
         if(!pcc.hasWeapon && pcc.isCatching && isProjectile) {
+            damagePulseVFX.SetActive(false);
+            isMoving = true;
             gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
         }
-        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching && isMovingForward) {
+        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching && isMoving) {
             gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * pcc.weaponThrowSpeed * Time.deltaTime;
         }
         
@@ -62,7 +72,17 @@ public class WeaponHitbox : MonoBehaviour
 
         if(isProjectile && !pcc.isCatching) {
             if(col.gameObject.layer == 7) {
-                isMovingForward = false;
+                isMoving = false;
+                Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
+                damagePulseVFX.SetActive(true);
+                pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
+                foreach(Collider c in damagePulse) {
+                    if(c.gameObject.tag == "Enemy") { 
+                        print("Damage Pulse Hit Enemy");
+                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
+                    }
+                }
+                pcc.attackPower = pcc.baseAttackPower * pcc.specialAttackMult;
             }
         }
 

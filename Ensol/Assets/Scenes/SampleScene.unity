@@ -12447,6 +12447,7 @@ MonoBehaviour:
   damageFlash: {fileID: 0}
   players: []
   isProjectile: 0
+  damagePulseVFX: {fileID: 0}
 --- !u!1 &899910302
 GameObject:
   m_ObjectHideFlags: 0
@@ -12906,6 +12907,7 @@ MonoBehaviour:
   damageFlash: {fileID: 0}
   players: []
   isProjectile: 0
+  damagePulseVFX: {fileID: 0}
 --- !u!65 &1111981281
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13637,9 +13639,11 @@ MonoBehaviour:
   light3Mult: 1.7
   heavyAttackMult: 3
   specialAttackMult: 1
-  weaponThrowSpeed: 20
-  weaponRecallSpeed: 20
+  specialDamagePulseMult: 0.5
+  weaponThrowSpeed: 25
+  weaponRecallSpeed: 25
   weaponCatchDistance: 0.3
+  damagePulseRadius: 3
   hasWeapon: 1
   isCatching: 0
   attackPower: 0
@@ -20204,7 +20208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727326795591620455, guid: 177045bfd30a6d94cb2d1b9add81b066, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727326795591620504, guid: 177045bfd30a6d94cb2d1b9add81b066, type: 3}
       propertyPath: m_RootOrder
@@ -21506,9 +21510,11 @@ MonoBehaviour:
   light3Mult: 1.7
   heavyAttackMult: 3
   specialAttackMult: 1
+  specialDamagePulseMult: 0.5
   weaponThrowSpeed: 20
   weaponRecallSpeed: 20
   weaponCatchDistance: 0.3
+  damagePulseRadius: 1
   hasWeapon: 1
   isCatching: 0
   attackPower: 0
