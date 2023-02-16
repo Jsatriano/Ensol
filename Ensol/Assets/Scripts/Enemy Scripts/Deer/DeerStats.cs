@@ -27,7 +27,7 @@ public class DeerStats : EnemyStats
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
     public DeerBT deerBT;
     public DamageFlash damageFlash;
-    public ButtonController buttonController;
+    public ButtonGateController buttonGateController;
     public GameObject thisDeer;
 
 
@@ -71,7 +71,7 @@ public class DeerStats : EnemyStats
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
-        buttonController.enemyKilled(thisDeer);
+        buttonGateController.enemyKilled(thisDeer);
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
     }
 
