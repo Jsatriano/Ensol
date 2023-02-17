@@ -28,8 +28,8 @@ public class BearBT : Tree
             {
                 new CooldownCheck(bearStats.swipeCooldown, "swipe"),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.swipeRange, "swipe"),
-                new BearSwipe(bearStats.swipeHitbox1, bearStats.swipeHitbox2, bearStats.swipeDuration, bearStats.swipeWindup, bearStats.playerTF, bearStats.enemyTF, 
-                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.swipeWindup)
+                new BearSwipe(bearStats.swipeHitbox1, bearStats.swipeHitbox2, bearStats.playerTF, bearStats.enemyTF, 
+                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.windupTurning)
             }),
             new Sequence(new List<Node>
             {
