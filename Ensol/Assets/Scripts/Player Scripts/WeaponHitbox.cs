@@ -12,6 +12,7 @@ public class WeaponHitbox : MonoBehaviour
     [HideInInspector] public bool isProjectile = false;
     private bool isMoving = true;
     public GameObject damagePulseVFX;
+    public GameObject weaponThrowVFX;
 
     void Awake()
     {
@@ -44,15 +45,16 @@ public class WeaponHitbox : MonoBehaviour
             SearchForPlayer();
         }
 
-        if(!isMoving) {
+        if(isProjectile && !isMoving) {
             gameObject.GetComponent<Collider>().enabled = false;
+            weaponThrowVFX.SetActive(false);
         }
-        else{
+        else if(isProjectile && isMoving){
             gameObject.GetComponent<Collider>().enabled = true;
+            weaponThrowVFX.SetActive(true);
         }
 
         if(!pcc.hasWeapon && pcc.isCatching && isProjectile) {
-            damagePulseVFX.SetActive(false);
             isMoving = true;
             gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
@@ -75,6 +77,7 @@ public class WeaponHitbox : MonoBehaviour
                 isMoving = false;
                 Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
                 damagePulseVFX.SetActive(true);
+                StartCoroutine(DisablePulseVFX());
                 pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
                 foreach(Collider c in damagePulse) {
                     if(c.gameObject.tag == "Enemy") { 
@@ -112,5 +115,11 @@ public class WeaponHitbox : MonoBehaviour
         else {
             print("Weapon located Player");
         }
+    }
+
+    IEnumerator DisablePulseVFX() //Elizabeth
+    {
+        yield return new WaitForSeconds(0.5f);
+        damagePulseVFX.SetActive(false);
     }
 }
