@@ -288,6 +288,16 @@ public class DeerAnimation : MonoBehaviour
         return;
     }
 
+    private void EndSwipeWindup()
+    {
+        deerBT.root.SetData("endSwipeWindup", true);
+    }
+
+    private void EndSwipe()
+    {
+        deerBT.root.SetData("endSwipe", true);
+    }
+
     //Calculates whether the deer is moving to the left or right 
     private State WalkingAnimDir()
     {

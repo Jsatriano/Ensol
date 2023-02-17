@@ -8,8 +8,6 @@ public class BearStats : EnemyStats
     public float swipeDamage;      //How much damage the swipe does
     public float swipeCooldown;     //Cooldown on the swipe ability
     public float swipeRange;        //Range at which the swipe attack is triggered
-    public float swipeDuration;    //How long the hitbox is active for basic attacks
-    public float swipeWindup;      //How long the windup is for basic attacks
     public float swipeMovement;     //How much the bear moves forward when swiping
     public float windupTurning;     //How much the bear turns towards the player during the windup
     public SphereCollider swipeHitbox1; //Hitbox of the swipe attack (Has 2 hitboxes, one on each hand)
