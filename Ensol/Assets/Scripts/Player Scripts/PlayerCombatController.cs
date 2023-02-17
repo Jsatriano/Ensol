@@ -140,13 +140,6 @@ public class PlayerCombatController : MonoBehaviour
         }
         
 
-        if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
-            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-                //print("broken combo, COMBO COUNTER " + comboCounter.ToString());
-                ResetLightAttackCombo();
-            }
-        } 
-
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
         && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) {
@@ -161,6 +154,13 @@ public class PlayerCombatController : MonoBehaviour
 
             
         }
+
+        if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
+            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
+                //print("broken combo, COMBO COUNTER " + comboCounter.ToString());
+                ResetLightAttackCombo();
+            }
+        } 
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
