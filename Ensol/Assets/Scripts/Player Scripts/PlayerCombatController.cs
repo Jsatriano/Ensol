@@ -181,7 +181,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isDead", true);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && !hasWeapon && !isCatching &&
+        if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
            // print("activated catching");
             isCatching = true;
