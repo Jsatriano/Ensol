@@ -11,8 +11,10 @@ public class OutdoorLevelManager : MonoBehaviour
     -Elizabeth
     */
     [HideInInspector] public int node;
+    [HideInInspector] public GameObject spawn_point;
 
     public Object[] nodePrefabs;
+    public GameObject player;
 
     void Start()
     {
@@ -25,6 +27,10 @@ public class OutdoorLevelManager : MonoBehaviour
         if(nodeIndex >= 0 && nodeIndex < nodePrefabs.Length) {
             Instantiate(nodePrefabs[nodeIndex]);
         }
+        /*set player to that Node's spawn point*/
+        spawn_point = GameObject.FindWithTag("Spawnpoint");
+        player.transform.position = spawn_point.transform.position;
+        player.transform.rotation = spawn_point.transform.rotation;
     }
 
     public void GoBackToMapSelection() {
