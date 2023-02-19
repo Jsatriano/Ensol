@@ -12,7 +12,7 @@ public class ElectricVials : MonoBehaviour // justin
     // Start is called before the first frame update
     void Start()
     {
-        currVial = 4; // full vials
+        currVial = 2; // full vials
         for(int i = 0; i < vials.Length; i += 1)
         {
             vials[i].SetActive(true);
@@ -22,7 +22,7 @@ public class ElectricVials : MonoBehaviour // justin
     public void AddVial()
     {
         // if vials arent full yet
-        if(currVial < 4)
+        if(currVial < 2)
         {
             currVial += 1;
             vials[currVial].SetActive(true);
@@ -32,14 +32,16 @@ public class ElectricVials : MonoBehaviour // justin
     public void RemoveVials(int numVials)
     {
         // if vials arent empty yet
-        if(currVial > 0)
+        if(currVial > -1)
         {
+            
             // remove amount of vials (can vary per attack)
             for(int i = 0; i < numVials; i += 1)
             {
                 vials[currVial].SetActive(false);
                 currVial -= 1;
             }
+            print(currVial);
         }
     }
 }

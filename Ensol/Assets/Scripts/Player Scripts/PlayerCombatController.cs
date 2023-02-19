@@ -163,7 +163,7 @@ public class PlayerCombatController : MonoBehaviour
         } 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 &&
             charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
@@ -194,7 +194,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
             charController.animator.SetBool("isThrowing", true);
-            electricVials.RemoveVials(1);
+            electricVials.RemoveVials(2);
             acceptingInput = false;
 
         }
