@@ -138,6 +138,7 @@ public class BearAnimation : MonoBehaviour
     }
     */
 
+    //Animation events
     private void EndSwipeWindup()
     {
         bearBT.root.SetData("endWindup", true);
@@ -146,5 +147,15 @@ public class BearAnimation : MonoBehaviour
     private void EndSwipe()
     {
         bearBT.root.SetData("endSwipe", true);
+    }
+
+    private void ThrowBall()
+    {
+        bearBT.root.SetData("throwJunk", true);
+    }
+
+    private void EndThrow()
+    {
+        bearBT.root.SetData("endThrow", true);
     }
 }
