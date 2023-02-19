@@ -51,7 +51,7 @@ public class JunkBallManager : MonoBehaviour
         junkBall.velocity = Vector3.zero;
 
         //Get velocity for ball
-        Vector3 throwVelocity = CalculateThrowData(playerTF.position, junkBall.position);
+        Vector3 throwVelocity = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
 
 
         //Assign which bear is throwing the ball, the damage of the ball, and then throw it
