@@ -29,13 +29,14 @@ public class BearBT : Tree
                 new CooldownCheck(bearStats.swipeCooldown, "swipe"),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.swipeRange, "swipe"),
                 new BearSwipe(bearStats.swipeHitbox1, bearStats.swipeHitbox2, bearStats.playerTF, bearStats.enemyTF, 
-                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.windupTurning)
+                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.swipeRotation)
             }),
             new Sequence(new List<Node>
             {
                 new CooldownCheck(bearStats.junkCooldown, "junk"),
                 new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkRange, "junk"),
+                new BearJunkThrow(bearStats.playerTF, bearStats.enemyTF, bearStats.junkRotation)
             })
         });
         return root;

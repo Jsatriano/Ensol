@@ -86,7 +86,7 @@ public class BearAnimation : MonoBehaviour
 
             case State.THROWING:
                 //End throwing anim (go back to walking)
-                if (bearBT.root.GetData("throwingAnim") != null)
+                if (bearBT.root.GetData("throwingAnim") == null)
                 {
                     animController.SetTrigger("Walking");
                     state = State.WALKING;

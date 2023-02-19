@@ -139,9 +139,10 @@ GameObject:
   - component: {fileID: 3805819858905312369}
   - component: {fileID: 3805819858905312370}
   - component: {fileID: 3805819858905312371}
+  - component: {fileID: 849177013564391245}
+  - component: {fileID: 3805819858905312382}
   - component: {fileID: 3805819858905312380}
   - component: {fileID: 3805819858905312381}
-  - component: {fileID: 3805819858905312382}
   m_Layer: 6
   m_Name: Bear
   m_TagString: Enemy
@@ -219,16 +220,54 @@ MonoBehaviour:
   swipeCooldown: 2
   swipeRange: 5
   swipeMovement: 25
-  windupTurning: 7
+  swipeRotation: 6
   swipeHitbox1: {fileID: 2256964044568320167}
   swipeHitbox2: {fileID: 6031588405759380040}
-  junkDamage: 0
-  junkCooldown: 0
-  junkRange: 0
+  junkDamage: 5
+  junkCooldown: 2
+  junkRange: 25
+  junkRotation: 6
+  junkMaxSpeed: 15
+  junkMinSpeed: 10
   bearBT: {fileID: 3805819858905312370}
   damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
   buttonController: {fileID: 0}
+--- !u!114 &849177013564391245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805819858905312383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad314a4ddecf114898584d261b2bbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bearBT: {fileID: 3805819858905312370}
+  ballPrefab: {fileID: 2514514262958598356, guid: 6b4124a840a257d419b2f55f249f2636, type: 3}
+  junkOrigin: {fileID: 6081881444323752399}
+  maxThrowStrength: 30
+  minThrowStrength: 0
+  playerTF: {fileID: 0}
+--- !u!114 &3805819858905312382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805819858905312383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98875482a01ed8f409c9721c0422927e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 2d2d26a0ba886f24cb598211efdf9271, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 688cd235f872f0340b3d8ca8d833414f, type: 2}
+  duration: 0.1
+  makeFlash:
+  - {fileID: 3997939264111499424}
 --- !u!54 &3805819858905312380
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -258,23 +297,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.172645, y: 2.548825, z: 3.4422827}
   m_Center: {x: -0.08465171, y: 1.2244126, z: 0.44398546}
---- !u!114 &3805819858905312382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3805819858905312383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98875482a01ed8f409c9721c0422927e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 2d2d26a0ba886f24cb598211efdf9271, type: 2}
-  originalMaterial: {fileID: 2100000, guid: 688cd235f872f0340b3d8ca8d833414f, type: 2}
-  duration: 0.1
-  makeFlash:
-  - {fileID: 3997939264111499424}
 --- !u!1001 &3805819857549971267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1219,6 +1241,11 @@ MonoBehaviour:
 --- !u!4 &5733329453164639566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -342242519933945331, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
+  m_PrefabInstance: {fileID: 3805819857549971267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6081881444323752399 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2254102137907693940, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
   m_PrefabInstance: {fileID: 3805819857549971267}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7856150122753133282 stripped

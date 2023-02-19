@@ -14,7 +14,7 @@ public class BearJunkThrow : Node
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
-        _rotation = rotation;
+        _rotation = rotation / 40;
         _junkThrown = false;
     }
 
