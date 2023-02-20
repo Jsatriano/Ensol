@@ -49,7 +49,15 @@ namespace BehaviorTree
             //if parent is null then it is the root
             if (parent == null)
             {
-                _dataContext[key] = value;
+                //add or replace the value in the dictionary
+                if (_dataContext.ContainsKey(key))
+                {
+                    _dataContext[key] = value;
+                }
+                else
+                {
+                    _dataContext.Add(key, value);
+                }
             }
             else
             {
