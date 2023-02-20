@@ -14,7 +14,7 @@ public class Interaction : MonoBehaviour
 
     public void Interact()
     {
-        Collider[] inRangeColliders = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] inRangeColliders = Physics.OverlapSphere(transform.position, 4f);
         foreach (var collider in inRangeColliders)
         {
             if(collider.gameObject.tag == "InteractablePickup")
