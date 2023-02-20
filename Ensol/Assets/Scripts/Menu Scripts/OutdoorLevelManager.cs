@@ -14,7 +14,7 @@ public class OutdoorLevelManager : MonoBehaviour
     [HideInInspector] public GameObject spawn_point;
 
     public Object[] nodePrefabs;
-    public GameObject[] grassLayouts;
+    public GameObject[] levelLocations;
     public GameObject player;
 
     void Start()
@@ -25,13 +25,13 @@ public class OutdoorLevelManager : MonoBehaviour
 
     public void Load(int node) {
 
-        foreach(GameObject grass in grassLayouts) {
-            grass.SetActive(false);
+        foreach(GameObject point in levelLocations) {
+            point.SetActive(false);
         }
         int nodeIndex = node - 1;
         if(nodeIndex >= 0 && nodeIndex < nodePrefabs.Length) {
-            Instantiate(nodePrefabs[nodeIndex]);
-            grassLayouts[nodeIndex].SetActive(true);
+            levelLocations[nodeIndex].SetActive(true);
+            Instantiate(nodePrefabs[nodeIndex], levelLocations[nodeIndex].transform);
         }
         /*set player to that Node's spawn point*/
         spawn_point = GameObject.FindWithTag("Spawnpoint");
