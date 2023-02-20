@@ -37,8 +37,7 @@ public class DeerBT : Tree
             {
                 new RangeCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.attackRange, "basic"),
                 new CooldownCheck(deerStats.attackCooldown, "basic"),
-                new DeerBasicAttack(deerStats.basicAttackHitbox, deerStats.basicAttackDuration, deerStats.basicAttackWindup, 
-                                    deerStats.playerTF, deerStats.enemyTF)
+                new DeerBasicAttack(deerStats.basicAttackHitbox, deerStats.playerTF, deerStats.enemyTF, deerStats.windupTurning)
             }),           
         });
 

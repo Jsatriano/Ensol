@@ -88,7 +88,6 @@ public class DeerCharge : Node
                     ClearData("charging");
                     ClearData("attacking");
                     ClearData("attackHit");
-                    SetData("awoo", true);
                     state = NodeState.SUCCESS;
                     return state;
                 }

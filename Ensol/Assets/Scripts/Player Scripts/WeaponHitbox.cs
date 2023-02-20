@@ -9,7 +9,10 @@ public class WeaponHitbox : MonoBehaviour
     public DamageFlash damageFlash;
     private bool isTriggered = false;
     [HideInInspector] public GameObject[] players;
-    public bool isProjectile = false;
+    [HideInInspector] public bool isProjectile = false;
+    private bool isMoving = true;
+    public GameObject damagePulseVFX;
+    public GameObject weaponThrowVFX;
 
     void Awake()
     {
@@ -42,11 +45,21 @@ public class WeaponHitbox : MonoBehaviour
             SearchForPlayer();
         }
 
+        if(isProjectile && !isMoving) {
+            gameObject.GetComponent<Collider>().enabled = false;
+            weaponThrowVFX.SetActive(false);
+        }
+        else if(isProjectile && isMoving){
+            gameObject.GetComponent<Collider>().enabled = true;
+            weaponThrowVFX.SetActive(true);
+        }
+
         if(!pcc.hasWeapon && pcc.isCatching && isProjectile) {
+            isMoving = true;
             gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
         }
-        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching) {
+        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching && isMoving) {
             gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * pcc.weaponThrowSpeed * Time.deltaTime;
         }
         
@@ -59,7 +72,24 @@ public class WeaponHitbox : MonoBehaviour
             }
         }
 
-        if(isProjectile && pcc.isCatching) {
+        if(isProjectile && !pcc.isCatching) {
+            if(col.gameObject.layer == 7) {
+                isMoving = false;
+                Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
+                damagePulseVFX.SetActive(true);
+                StartCoroutine(DisablePulseVFX());
+                pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
+                foreach(Collider c in damagePulse) {
+                    if(c.gameObject.tag == "Enemy") { 
+                        print("Damage Pulse Hit Enemy");
+                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
+                    }
+                }
+                pcc.attackPower = pcc.baseAttackPower * pcc.specialAttackMult;
+            }
+        }
+
+        else if(isProjectile && pcc.isCatching) {
             if(col.gameObject.tag == "Player") {
                 pcc.GrabWeapon();
             }
@@ -85,5 +115,11 @@ public class WeaponHitbox : MonoBehaviour
         else {
             print("Weapon located Player");
         }
+    }
+
+    IEnumerator DisablePulseVFX() //Elizabeth
+    {
+        yield return new WaitForSeconds(0.5f);
+        damagePulseVFX.SetActive(false);
     }
 }

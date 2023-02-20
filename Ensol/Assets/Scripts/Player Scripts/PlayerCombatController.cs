@@ -12,6 +12,8 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject weaponBase;
     public GameObject weaponProjectilePrefab;
     public GameObject weaponCatchTarget;
+    public GameObject FX1;
+    public GameObject FX2;
     public GameObject lightHitbox;
     public GameObject heavyHitbox;
     private CharController charController;
@@ -26,7 +28,7 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public float currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
-    [SerializeField] private float baseAttackPower = 5;
+    public float baseAttackPower = 5;
     [SerializeField] private float force = 1;
     public float invulnLength = 1;
     public float maxComboTimer = 1.0f;
@@ -43,10 +45,12 @@ public class PlayerCombatController : MonoBehaviour
     public float heavyAttackMult;
 
     [Header("Special Attack Variables")]
-    public float specialAttackMult;
+    public float specialAttackMult = 0.9f;
+    public float specialDamagePulseMult = 0.5f;
     public float weaponThrowSpeed = 4f;
     public float weaponRecallSpeed = 5f;
     public float weaponCatchDistance = 1f;
+    public float damagePulseRadius = 1f;
     [HideInInspector] public bool hasWeapon = true;
     [HideInInspector] public bool isCatching = false;
     
@@ -55,12 +59,14 @@ public class PlayerCombatController : MonoBehaviour
     private float invulnTimer = 0f;
     [HideInInspector] public bool comboChain = false;
     [HideInInspector] public int comboCounter = 0;
-    private float comboTimer = 0f;
+    private float comboTimer = -1f;
     private bool comboTimerActive = false;
     private bool acceptingInput = true;
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
+
+    [Header("VFX References")]
     public GameObject[] lightSlashVFX;
     public GameObject heavySlashVFX;
 
@@ -100,7 +106,7 @@ public class PlayerCombatController : MonoBehaviour
             Collider[] weaponSearch = Physics.OverlapSphere(weaponCatchTarget.transform.position, weaponCatchDistance);
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
-                    print("located catchable weapon");
+                    //print("located catchable weapon");
                     charController.animator.SetBool("isCatching", true);
                     isCatching = false;
                 }
@@ -108,7 +114,7 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
-        if(charController.state != CharController.State.ATTACKING) {
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
             acceptingInput = true;
             isNextAttackBuffered = false;
@@ -134,24 +140,13 @@ public class PlayerCombatController : MonoBehaviour
         }
         
 
-        if (comboChain && comboTimerActive && comboTimer != 0f) { // Harsha and Elizabeth
-            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-               // print("broken combo, COMBO COUNTER " + comboCounter.ToString());
-                ResetLightAttackCombo();
-            }
-        } 
-
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
-        && acceptingInput && hasWeapon && !isNextAttackBuffered) {
+        && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) {
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
-            if(comboCounter > 3) {
-               // print("combo counter > 3!!!! COMBO COUNTER " + comboCounter.ToString());
-                comboCounter = 0;
-            }
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
-            comboTimer = 0f;
+            comboTimer = -1f;
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
@@ -160,8 +155,15 @@ public class PlayerCombatController : MonoBehaviour
             
         }
 
+        if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
+            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
+                //print("broken combo, COMBO COUNTER " + comboCounter.ToString());
+                ResetLightAttackCombo();
+            }
+        } 
+
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 1 &&
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 &&
             charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
@@ -175,13 +177,13 @@ public class PlayerCombatController : MonoBehaviour
         }
         if(currHP <= 0) 
         {
-            print("Player is dead");
+            //print("Player is dead");
             charController.animator.SetBool("isDead", true);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && !hasWeapon && !isCatching &&
+        if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
-            print("activated catching");
+           // print("activated catching");
             isCatching = true;
         }
 
@@ -192,7 +194,8 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
             charController.animator.SetBool("isThrowing", true);
-            electricVials.RemoveVials(1);
+            electricVials.RemoveVials(2);
+            acceptingInput = false;
 
         }
 
@@ -211,6 +214,8 @@ public class PlayerCombatController : MonoBehaviour
         weapon.SetActive(false);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
 
     }
 
@@ -231,20 +236,24 @@ public class PlayerCombatController : MonoBehaviour
         weapon.SetActive(true);
         weaponHead.SetActive(true);
         weaponBase.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
     }
 
     private void EndCatch() {
-        print("ending catch");
+       // print("ending catch");
         isCatching = false;
+        acceptingInput = true;
         charController.animator.SetBool("isCatching", false);
         charController.state = CharController.State.IDLE;
     }
 
     private void EnableLightAttackHitbox() {
         comboTimerActive = false;
+        comboTimer = -1f;
         if(comboCounter == 1) {
                 comboChain = true;
                 attackPower = baseAttackPower * lightAttackMult * light1Mult;
@@ -261,9 +270,15 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void MarkComboTimer() {
-        comboTimer = Time.time;
-        comboTimerActive = true;
-      //  print("marked combo timer COMBO COUNTER " + comboCounter.ToString());
+        if(!isNextAttackBuffered) {
+           comboTimer = Time.time;
+            comboTimerActive = true;
+            //print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
+        }
+        else{
+           // print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+        }
+        
     }
 
     private void AllowInput() {
@@ -365,7 +380,7 @@ public class PlayerCombatController : MonoBehaviour
 
             // change state to limit actions
             charController.state = CharController.State.KNOCKBACK;
-            print("took damage");
+           // print("took damage");
 
         }
     }

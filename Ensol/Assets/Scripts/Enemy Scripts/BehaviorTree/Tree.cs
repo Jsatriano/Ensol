@@ -47,22 +47,28 @@ namespace BehaviorTree
                 //float[] move = (float[])root.GetData("final");
                 float[] obstacle = (float[])root.GetData("obstacles");
                 float[] pWeights = (float[])root.GetData("playerWeights");
+                Vector3 moveDir  = (Vector3)root.GetData("moveDir");
                 //Vector3 deerRight = (Vector3)root.GetData("deerRight");
                 for (int i = 0; i < obstacle.Length; i++)
                 {
 
-                Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i] * 5);
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i] * 3);
+                    //print(obstacle[i]);
                 }
                 Gizmos.color = Color.magenta;
+                //print("--------");
                 for (int i = 0; i < pWeights.Length; i++)
                 {
 
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 5);
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 3);
                 }
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay(transform.position, moveDir * 5);
 
             }
         }
         */
+        
         
         
         

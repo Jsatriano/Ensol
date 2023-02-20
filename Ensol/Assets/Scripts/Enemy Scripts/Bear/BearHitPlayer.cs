@@ -5,9 +5,24 @@ using UnityEngine;
 public class BearHitPlayer : MonoBehaviour
 {
     public BearBT bearBT;
-    [SerializeField] private float attackDamage;
+    [HideInInspector] public float attackDamage;
     [SerializeField] private Collider coll;
     [SerializeField] private bool tellBT;
+    [SerializeField] private bool swipeAttack;
+    [SerializeField] private bool junkAttack;
+
+    private void Start()
+    {
+        //Checking what bear attack it is
+        if (swipeAttack)
+        {
+            attackDamage = bearBT.bearStats.swipeDamage;
+        }
+        if (junkAttack)
+        {
+            attackDamage = bearBT.bearStats.junkDamage;
+        }
+    }
 
     void OnTriggerEnter(Collider col) // Justin/Ryan
     {

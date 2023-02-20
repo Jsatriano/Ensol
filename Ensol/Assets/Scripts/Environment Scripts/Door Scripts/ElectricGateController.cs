@@ -7,6 +7,12 @@ public class ElectricGateController : MonoBehaviour
     public GameObject[] gates;
     public float openRot, speed;
     [HideInInspector] public bool opening = false;
+    private float endY;
+
+    void Start()
+    {
+        endY = gates[0].transform.position.y - 4.3f;
+    }
 
     void Update()
     {
@@ -24,7 +30,7 @@ public class ElectricGateController : MonoBehaviour
             {
                 // transforms down
                 Vector3 currentTF0 = gates[0].transform.position;
-                gates[0].transform.position = Vector3.Lerp(currentTF0, new Vector3(currentTF0.x, 0, currentTF0.z), speed * Time.deltaTime);
+                gates[0].transform.position = Vector3.Lerp(currentTF0, new Vector3(currentTF0.x, endY, currentTF0.z), speed * Time.deltaTime);
             }
 
             // moves lower gate
@@ -37,7 +43,7 @@ public class ElectricGateController : MonoBehaviour
             {
                 // transforms down
                 Vector3 currentTF1 = gates[1].transform.position;
-                gates[1].transform.position = Vector3.Lerp(currentTF1, new Vector3(currentTF1.x, 0, currentTF1.z), speed * Time.deltaTime);
+                gates[1].transform.position = Vector3.Lerp(currentTF1, new Vector3(currentTF1.x, endY, currentTF1.z), speed * Time.deltaTime);
             }
         }
     }
