@@ -70,6 +70,7 @@ public class DeerCharge : Node
             //Checks if the deer is stuck on something or has been charging too long
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
+                SetData("this", true);
                 _chargeEnding = true;
             }
             //Checks to see if deer has charged past its target position, if so then charge is over
