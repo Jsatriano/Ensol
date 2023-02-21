@@ -138,6 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8727326795591620504}
+  - component: {fileID: 753840176601229246}
   m_Layer: 0
   m_Name: 01 Cabin Node
   m_TagString: Untagged
@@ -164,6 +165,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &753840176601229246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b60e49355b42e4f8287ceebaef0ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electricGateController: {fileID: 9057058877612210494}
+  doorController: {fileID: 9071096453838222331}
 --- !u!1001 &6661490527151335142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +241,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6004330584583023896, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
   m_PrefabInstance: {fileID: 6661490527151335142}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9071096453838222331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2418816174854313245, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
+  m_PrefabInstance: {fileID: 6661490527151335142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9ac2f26cc100a4f9b85e3e6db2a9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7850591025675606773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,6 +262,14 @@ PrefabInstance:
     - target: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_Name
       value: ElectricGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: nodeDirector
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489732100741389452, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: _01cabinNode
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_RootOrder
@@ -281,28 +315,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2489732100741389452, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
 --- !u!4 &1915285228118911531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
   m_PrefabInstance: {fileID: 7850591025675606773}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7870261184647141369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+--- !u!114 &9057058877612210494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
   m_PrefabInstance: {fileID: 7850591025675606773}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6843903017907054602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7870261184647141369}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b60e49355b42e4f8287ceebaef0ffc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8150ba1b17d5af54692d990a2158177d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateNodeMap: {fileID: 0}

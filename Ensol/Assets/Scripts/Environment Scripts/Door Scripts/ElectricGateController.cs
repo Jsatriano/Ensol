@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ElectricGateController : MonoBehaviour
 {
-    public NodeDirector nodeDirector;
     public GameObject[] gates;
     public float openRot, speed;
     [HideInInspector] public bool opening = false;
@@ -53,6 +52,5 @@ public class ElectricGateController : MonoBehaviour
     public void OpenGate()
     {
         opening = true;
-        nodeDirector.DirectToNodeScript();
     }
 }

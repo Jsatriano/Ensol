@@ -6,12 +6,21 @@ using UnityEngine.UI;
 
 public class _01CabinNode : MonoBehaviour
 {
-    public GameObject gateNodeMap;
-    public CompletedNodes completedNodes;
+    public ElectricGateController electricGateController = null;
+    public DoorController doorController = null;
 
-    public void CompletedLevel()
+    public void Update()
     {
-        print("completed cabin node");
-        completedNodes.gateNode = true;
+        if(doorController.opening)
+        {
+            print("unlocked deer node");
+            CompletedNodes.deerNode = true;
+        }
+
+        if(electricGateController.opening)
+        {
+            print("unlocked gate node");
+            CompletedNodes.gateNode = true;
+        }
     }
 }

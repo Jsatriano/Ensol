@@ -1,39 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CompletedNodes : MonoBehaviour
 {
-    public bool cabinNode, deerNode, riverNode, gateNode, riverControlNode,
+    public static bool cabinNode, deerNode, riverNode, gateNode, riverControlNode,
                 bearNode, brokenMachineNode, securityTowerNode, birdNode,
                 powerGridNode, metalFieldNode, computerNode = false;
 
-    public GameObject[] mapButton;
+    public GameObject[] mapButtons;
+    public Button[] editMapButtons;
     
     
+
     public void Start()
     {
         cabinNode = true;
-        deerNode = true;
     }
 
     public void Update()
     {
-        if(cabinNode == true)
+        if(cabinNode)
         {
-            mapButton[0].SetActive(true);
+            mapButtons[0].SetActive(true);
         }
-        if(deerNode == true)
+        if(deerNode)
         {
-            mapButton[1].SetActive(true);
+            mapButtons[1].SetActive(true);
         }
-        if(riverNode == true)
+        if(riverNode)
         {
-            mapButton[2].SetActive(true);
+            mapButtons[2].SetActive(true);
         }
-        if(gateNode == true)
+        if(gateNode)
         {
-            mapButton[3].SetActive(true);
+            mapButtons[3].SetActive(true);
+        }
+        if(riverControlNode)
+        {
+            mapButtons[4].SetActive(true);
+        }
+        if(bearNode)
+        {
+            mapButtons[5].SetActive(true);
+        }
+        if(brokenMachineNode)
+        {
+            mapButtons[6].SetActive(true);
+        }
+        if(securityTowerNode)
+        {
+            mapButtons[7].SetActive(true);
+        }
+        if(birdNode)
+        {
+            mapButtons[8].SetActive(true);
+        }
+        if(powerGridNode)
+        {
+            mapButtons[9].SetActive(true);
+        }
+        if(metalFieldNode)
+        {
+            mapButtons[10].SetActive(true);
+        }
+        if(computerNode)
+        {
+            editMapButtons[11].interactable = true;
         }
     }
 }
