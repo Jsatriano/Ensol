@@ -20,6 +20,9 @@ public class BearStats : EnemyStats
     public float junkRotation;  //How well the bear can track the player during windup
     public float junkMaxSpeed;  //Max speed junk can be thrown at
     public float junkMinSpeed;  //Min speed junk can be thrown at
+    public float explosionDamage;  //How much damage the explosion does
+    public float explosionLength;  //How long the explosion lasts
+    public float explosionSize;    //How big the explosion gets
 
 
     [Header("Other Things")]

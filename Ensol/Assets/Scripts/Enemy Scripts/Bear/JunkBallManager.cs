@@ -54,9 +54,14 @@ public class JunkBallManager : MonoBehaviour
         Vector3 throwVelocity = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
 
 
-        //Assign which bear is throwing the ball, the damage of the ball, and then throw it
-        junkBall.GetComponent<JunkBall>().bearTF     = transform;
-        junkBall.GetComponent<JunkBall>().junkDamage = bearBT.bearStats.junkDamage;
+        //Assign which bear is throwing the ball, and all the stats about the junk ball, then throws it
+        JunkBall junkBallScript = junkBall.GetComponent<JunkBall>();
+        junkBallScript.bearTF          = transform;
+        junkBallScript.junkDamage      = bearBT.bearStats.junkDamage;
+        junkBallScript.explosionDamage = bearBT.bearStats.explosionDamage;
+        junkBallScript.explosionLength = bearBT.bearStats.explosionLength;
+        Vector3 finalScale = new Vector3(1, 1, 1) * bearBT.bearStats.explosionSize;
+        junkBallScript.explosionFinalSize = finalScale;
         junkBall.velocity = throwVelocity;
     }
 
