@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class NodeDirector : MonoBehaviour
 {
-    [HideInInspector] public _01CabinNode _01cabinNode;
+    public _01CabinNode _01cabinNode;
 
     [HideInInspector] public int node;
     // Start is called before the first frame update
     void Start()
     {
-       node = NodeSelector.selectedNode; 
+        node = NodeSelector.selectedNode; 
     }
 
     public void DirectToNodeScript()
