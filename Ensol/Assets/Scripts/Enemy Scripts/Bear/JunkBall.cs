@@ -38,7 +38,7 @@ public class JunkBall : MonoBehaviour
             {
                 //Uses sin with the Lerp so that it slows down as it reaches the end
                 interpolater = explosionTimer / explosionLength;
-                interpolater = Mathf.Sin(Mathf.PI * interpolater * 0.5f) * 1.3f;
+                interpolater = Mathf.Sin(Mathf.PI * interpolater * 0.5f) * 2f;
 
                 explosionTF.localScale = Vector3.Lerp(explosionStartingSize, explosionFinalSize, interpolater);
                 explosionTimer += Time.deltaTime;

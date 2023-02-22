@@ -36,7 +36,7 @@ public class BearBT : Tree
                 new CooldownCheck(bearStats.junkCooldown, "junk"),
                 new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkRange, "junk"),
-                new BearJunkThrow(bearStats.playerTF, bearStats.enemyTF, bearStats.junkRotation)
+                new BearJunkThrow()
             })
         });
         return root;

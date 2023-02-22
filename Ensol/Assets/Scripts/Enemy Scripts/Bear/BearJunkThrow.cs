@@ -5,26 +5,19 @@ using BehaviorTree;
 
 public class BearJunkThrow : Node
 {
-    private Transform _playerTF;
-    private Transform _enemyTF;
-    private float _rotation;
-    private bool _junkThrown;
-
-    public BearJunkThrow(Transform playerTF, Transform enemyTF, float rotation)
+    public BearJunkThrow()
     {
-        _playerTF = playerTF;
-        _enemyTF = enemyTF;
-        _rotation = rotation / 40;
-        _junkThrown = false;
+
     }
+
+    //All gameplay code for this attack takes place in JunkBallManager.cs and JunkBall.cs
+    //This script just handles the animations and stages of the attack
 
     public override NodeState Evaluate()
     {
         //Windup for the attack
         if (GetData("throwJunk") == null) 
         {
-            Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotation);
             SetData("throwingAnim", true);
             SetData("attacking", true);
             SetData("junk", true);

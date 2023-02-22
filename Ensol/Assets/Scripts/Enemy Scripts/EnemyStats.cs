@@ -26,6 +26,7 @@ public class EnemyStats : MonoBehaviour
     [Header("Components")]
     public CharController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
     public Transform playerTF;         //Player transform
+    public Rigidbody playerRB;
     public Transform enemyTF;          //Enemy Transform
     public BoxCollider hitbox;         //The hitbox of the enemy
     public Rigidbody enemyRB;          //The enemy Rigidbody
@@ -67,6 +68,7 @@ public class EnemyStats : MonoBehaviour
         foreach(GameObject p in players) {
             player = p.GetComponent<CharController>();
             playerTF = p.GetComponent<Transform>();
+            playerRB = p.GetComponent<Rigidbody>();
         }
 
         if(player == null) {

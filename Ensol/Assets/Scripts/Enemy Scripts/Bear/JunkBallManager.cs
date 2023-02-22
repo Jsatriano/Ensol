@@ -10,7 +10,10 @@ public class JunkBallManager : MonoBehaviour
     private Rigidbody junkBall;
     [HideInInspector] public float maxThrowStrength;
     [HideInInspector] public float minThrowStrength;
-    [HideInInspector] public Transform playerTF;
+    private Transform playerTF;
+    private Rigidbody playerRB;
+    private Transform bearTF;
+    private float rotation;
     private bool throwingJunk;
 
     private void Start()
@@ -18,6 +21,8 @@ public class JunkBallManager : MonoBehaviour
         throwingJunk = false;
         maxThrowStrength = bearBT.bearStats.junkMaxSpeed;
         minThrowStrength = bearBT.bearStats.junkMinSpeed;
+        bearTF = bearBT.bearStats.enemyTF;
+        rotation = bearBT.bearStats.rotationSpeed / 40;
     }
 
     private void FixedUpdate()
@@ -26,13 +31,22 @@ public class JunkBallManager : MonoBehaviour
         if (playerTF == null)
         {
             playerTF = bearBT.bearStats.playerTF;
+            playerRB = bearBT.bearStats.playerRB;
             return;
         }
+
         //Throws junk when signaled by animation event
         if (!throwingJunk && bearBT.root.GetData("throwJunk") != null)
         {
             ThrowJunk();
         }
+
+        if (!throwingJunk && bearBT.root.GetData("throwingAnim") != null)
+        {
+            Vector3 toPlayer = new Vector3(playerTF.position.x - bearTF.position.x, 0, playerTF.position.z - bearTF.position.z).normalized;
+            bearTF.forward = Vector3.Lerp(bearTF.forward, toPlayer, rotation);
+        }
+
         //No longer throwing junk when junk is destroyed
         if (bearBT.root.GetData("throwJunk") == null)
         {
@@ -51,7 +65,8 @@ public class JunkBallManager : MonoBehaviour
         junkBall.velocity = Vector3.zero;
 
         //Get velocity for ball
-        Vector3 throwVelocity = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
+        ThrowData data = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
+        data = PredictThrow(data, playerTF.position, junkBall.position);
 
 
         //Assign which bear is throwing the ball, and all the stats about the junk ball, then throws it
@@ -62,15 +77,18 @@ public class JunkBallManager : MonoBehaviour
         junkBallScript.explosionLength = bearBT.bearStats.explosionLength;
         Vector3 finalScale = new Vector3(1, 1, 1) * bearBT.bearStats.explosionSize;
         junkBallScript.explosionFinalSize = finalScale;
-        junkBall.velocity = throwVelocity;
+        junkBall.velocity = data.initialVelocity;
     }
 
-    private Vector3 CalculateThrowData(Vector3 targetPosition, Vector3 startPosition)
+    private ThrowData CalculateThrowData(Vector3 targetPosition, Vector3 startPosition)
     {
+        ThrowData data = new ThrowData();
         //Calcuating displacement on XZ and Y axis
         Vector3 displacement = new Vector3(targetPosition.x - startPosition.x, 0, targetPosition.z - startPosition.z);
         float deltaY = targetPosition.y - startPosition.y;
         float deltaXZ = displacement.magnitude;
+        data.deltaY = deltaY;
+        data.deltaXZ = deltaXZ;
 
         //Physics equation to figure out optimal initial velocity
         float gravity = Mathf.Abs(Physics.gravity.y);
@@ -86,10 +104,37 @@ public class JunkBallManager : MonoBehaviour
         {
             angle = 0;
         }
+        data.angle = angle;
 
         //Finding initial velocity (how hard it needs to be launched in the XZ and Y direction seperately)
         Vector3 initialVelocity = Mathf.Cos(angle) * v * displacement.normalized
                                   + Mathf.Sin(angle) * v * Vector3.up;
-        return initialVelocity;
+        data.initialVelocity = initialVelocity;
+        return data;
     }
+
+    private ThrowData PredictThrow(ThrowData data, Vector3 targetPos, Vector3 startPosition)
+    {
+        //Find how long it will take for the ball to get to the ball
+        Vector3 velocity = data.initialVelocity;
+        velocity.y = 0;
+        float time = data.deltaXZ / velocity.magnitude;
+
+        //Predict how much the player will move in that time
+        Vector3 playerMovement = playerRB.velocity * time;
+
+        //Calculate new throw data
+        Vector3 newTarget = new Vector3(targetPos.x + playerMovement.x, targetPos.y, targetPos.z + playerMovement.z);
+        ThrowData predictData = CalculateThrowData(newTarget + Vector3.up, startPosition);
+        return predictData;
+    }
+
+    private class ThrowData
+    {
+        public float deltaY;
+        public float deltaXZ;
+        public float angle;
+        public Vector3 initialVelocity;
+    }
+
 }

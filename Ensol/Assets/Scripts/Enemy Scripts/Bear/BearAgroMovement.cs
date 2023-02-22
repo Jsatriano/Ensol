@@ -71,7 +71,9 @@ public class BearAgroMovement : Node
         for (int i = 0; i < playerWeights.Length; i++)
         {
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
-            dot += 0.3f;
+            //Favors directions the bear is already facing
+            float dot2 = Vector3.Dot(_enemyTF.forward, Directions.eightDirections[i]);
+            dot += Mathf.Clamp(dot2, 0, 0.2f);
             float weightToAdd = Mathf.Clamp01(dot);
             if (weightToAdd > playerWeights[i])
             {
