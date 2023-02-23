@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2492512939674188308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.875, y: -0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -267,6 +267,7 @@ MonoBehaviour:
   doorController: {fileID: 2418816174854313245}
   greenMat: {fileID: 2100000, guid: d3311106e394d904c892217ee1bf5493, type: 2}
   enemiesList: []
+  text: {fileID: 3987933043003426358}
 --- !u!135 &5995094820288218728
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -293,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 896655286312903229}
+  opened: 0
 --- !u!1 &5604016612217659942
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,8 +587,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.25
+  m_fontSizeBase: 0.25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
