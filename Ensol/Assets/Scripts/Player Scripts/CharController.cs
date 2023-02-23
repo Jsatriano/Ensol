@@ -174,7 +174,7 @@ public class CharController : MonoBehaviour
                 else if(Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;
-                    walkingSoundEffect.Stop();
+                    walkingSoundEffect.Pause();
 
                 }
                 else if(Input.GetButtonDown("Cancel"))
@@ -208,6 +208,7 @@ public class CharController : MonoBehaviour
                     else if(direction != zeroVector)
                     {
                         state = State.MOVING;
+                        walkingSoundEffect.UnPause();
                     }
                     else if(Input.GetButtonDown("Cancel"))
                     {
