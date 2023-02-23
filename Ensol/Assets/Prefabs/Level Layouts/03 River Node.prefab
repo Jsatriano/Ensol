@@ -2646,8 +2646,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8727326795591620504}
+  - component: {fileID: 8737013690076077563}
   m_Layer: 12
-  m_Name: Node 2
+  m_Name: 03 River Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,6 +2677,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8737013690076077563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f085008487e0445913db90ac7e237c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electricGateController: {fileID: 2066245566615585417}
 --- !u!1 &8898338872948707261
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,6 +3799,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+--- !u!114 &2066245566615585417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 1004024011094827330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8150ba1b17d5af54692d990a2158177d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5384525958982813451 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
