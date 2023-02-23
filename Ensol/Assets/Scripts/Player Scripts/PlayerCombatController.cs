@@ -430,7 +430,7 @@ public class PlayerCombatController : MonoBehaviour
         yield return new WaitForSeconds(knockbackTimer);
 
         // reset drag and end knockback
-        _rb.drag = 20;
+        _rb.drag = charController.normalDrag;
         charController.knockback = false;
     }
 }

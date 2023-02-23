@@ -11,6 +11,7 @@ public class ElectricGateController : MonoBehaviour
 
     void Start()
     {
+        opening = false;
         endY = gates[0].transform.position.y - 4.3f;
     }
 

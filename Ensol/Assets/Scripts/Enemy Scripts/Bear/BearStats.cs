@@ -70,6 +70,6 @@ public class BearStats : EnemyStats
         basicAttackHitbox.enabled = false;
         */
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
-        buttonController.enemyKilled(thisBear);      
+        //buttonController.enemyKilled(thisBear);      
     }
 }

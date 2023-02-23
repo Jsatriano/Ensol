@@ -59,29 +59,39 @@ public class JunkBall : MonoBehaviour
             //If it hits another enemy, damage that enemy
             else
             {
-                if (isExploding)
+                EnemyStats enemyScript = other.GetComponent<EnemyStats>();
+                if (enemyScript != null)
                 {
-                    other.GetComponent<EnemyStats>().TakeDamage(explosionDamage);
+                    if (isExploding)
+                    {
+                        enemyScript.TakeDamage(explosionDamage);
+                    }
+                    else
+                    {
+                        enemyScript.TakeDamage(junkDamage);
+                    }
                 }
-                else
-                {
-                    other.GetComponent<EnemyStats>().TakeDamage(junkDamage);
-                }               
+                          
             }
         }
         //Checks if the junkball hit the player
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //Damage player
-            if (isExploding)
+            PlayerCombatController playerScript = other.GetComponent<PlayerCombatController>();
+            if (playerScript != null)
             {
-                other.GetComponent<PlayerCombatController>().TakeDamage(explosionDamage, junkCollider);
+                //Damage player
+                if (isExploding)
+                {
+                    playerScript.TakeDamage(explosionDamage, junkCollider);
+                }
+                else
+                {
+                    playerScript.TakeDamage(junkDamage, junkCollider);
+                }
             }
-            else
-            {
-                other.GetComponent<PlayerCombatController>().TakeDamage(junkDamage, junkCollider);
-            }           
         }
+            
         if (!isExploding)
         {
             Explode();

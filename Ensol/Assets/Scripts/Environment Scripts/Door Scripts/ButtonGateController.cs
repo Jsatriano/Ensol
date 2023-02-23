@@ -12,6 +12,7 @@ public class ButtonGateController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
+    public GateTutorialText text;
 
     void Update()
     {
@@ -26,6 +27,7 @@ public class ButtonGateController : MonoBehaviour
 
                 // opens door
                 gateController.OpenGate();
+                text.opened = false;
             }
             else
             {
@@ -44,6 +46,7 @@ public class ButtonGateController : MonoBehaviour
 
                 // opens door
                 gateController.OpenGate();
+                text.opened = false;
             }
             else
             {

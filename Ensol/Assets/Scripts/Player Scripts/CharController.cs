@@ -40,7 +40,9 @@ public class CharController : MonoBehaviour
     
     
     [Header("Movement Vaiables")]
-    [SerializeField] private float _moveSpeed = 4f;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _acceleration;
+    public float normalDrag;
     [SerializeField] private float _rotationSpeed;
 
     [Header("Dashing Variables")]
@@ -63,6 +65,7 @@ public class CharController : MonoBehaviour
         print(gameObject.tag);
         canTakeDmg = true;
         knockback = false;
+        _rb.drag = normalDrag;
     }
 
     IEnumerator CheckforControllers() // Justin
@@ -97,7 +100,16 @@ public class CharController : MonoBehaviour
         gameObject.tag = "Player";
         StartCoroutine(CheckforControllers());
     }
-    
+
+    private void FixedUpdate()
+    {
+        //Runs Move() in fixedUpdate so that physics are consistent
+        if (state == State.MOVING)
+        {
+            Move();
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -157,7 +169,6 @@ public class CharController : MonoBehaviour
                 
                 attacking = false;
 
-                Move();
                 if (walkingSoundEffect.isPlaying == false) // Plays when walking
                 {
                     walkingSoundEffect.Play();
@@ -325,10 +336,15 @@ public class CharController : MonoBehaviour
 
             // smoothly rotates player when changeing directions (rather than abruptly)
             Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
 
             // makes our movement happen
-            transform.position += heading * _moveSpeed * Time.deltaTime;
+            //transform.position += heading * _moveSpeed;
+            _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
+            if (_rb.velocity.magnitude > _moveSpeed)
+            {
+                _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _moveSpeed);
+            }
         }        
     }
 
@@ -372,7 +388,7 @@ public class CharController : MonoBehaviour
     private void ResetDash() // Justin
     {
         // reset drag
-        _rb.drag = 20;
+        _rb.drag = normalDrag;
 
         // player isnt seen as dashing anymore
         _isDashing = false;
