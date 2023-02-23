@@ -12,7 +12,8 @@ public class CharController : MonoBehaviour
         DASHING,
         ATTACKING,
         KNOCKBACK,
-        PAUSED
+        PAUSED,
+        DEAD
     }
     public State state;
 
@@ -31,6 +32,12 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
+
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource walkingSoundEffect;
+    [SerializeField] private AudioSource dashingSoundEffect;
+    [SerializeField] private AudioSource deathSoundEffect;
+    
     
     [Header("Movement Vaiables")]
     [SerializeField] private float _moveSpeed = 4f;
@@ -151,22 +158,31 @@ public class CharController : MonoBehaviour
                 attacking = false;
 
                 Move();
+                if (walkingSoundEffect.isPlaying == false) // Plays when walking
+                {
+                    walkingSoundEffect.Play();
+                }
 
                 // if player stops moving, go idle
                 if(direction == zeroVector)
                 {
                     state = State.IDLE;
+                    walkingSoundEffect.Stop();
                 }
 
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;
+                    walkingSoundEffect.Stop();
+
                 }
                 else if(Input.GetButtonDown("Cancel"))
                 {
                     prevState = State.MOVING;
                     state = State.PAUSED;
+                    walkingSoundEffect.Stop();
+
                 }
                 break;
 
@@ -179,6 +195,7 @@ public class CharController : MonoBehaviour
                     animator.SetBool("isHeavyAttacking", false);
                     animator.SetInteger("lightAttackCombo", 0);
                     Dash();
+                    dashingSoundEffect.Play(); // Plays when dashing
                 }
 
                 // after the dash is done, change states
@@ -207,6 +224,11 @@ public class CharController : MonoBehaviour
                 //Since there is probably going to be a lot of combat code, I put it in a different script. -Elizabeth
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
+                
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
 
                 if(Input.GetButtonDown("Cancel"))
                 {
@@ -230,6 +252,10 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
                 // once knockback is over, go to idle state
                 if(knockback == false)
                 {
@@ -245,12 +271,29 @@ public class CharController : MonoBehaviour
                 
             case State.PAUSED:
                 Cursor.visible = true;
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
                     Cursor.visible = false;
                     state = prevState;
                 }
+                break;
+
+            case State.DEAD:
+                //print("Player is Dead");
+                if (deathSoundEffect.isPlaying == false) // Plays when player dies
+                {
+                    deathSoundEffect.Play();
+                }
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                Cursor.visible = true;
                 break;
         }
     }
