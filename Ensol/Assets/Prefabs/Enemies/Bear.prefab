@@ -206,6 +206,7 @@ MonoBehaviour:
   obstacleDetectRadius: 15
   player: {fileID: 0}
   playerTF: {fileID: 0}
+  playerRB: {fileID: 0}
   enemyTF: {fileID: 3805819858905312369}
   hitbox: {fileID: 3805819858905312381}
   enemyRB: {fileID: 3805819858905312380}
@@ -231,7 +232,7 @@ MonoBehaviour:
   junkMinSpeed: 11
   explosionDamage: 2
   explosionLength: 0.75
-  explosionSize: 2.5
+  explosionSize: 3.5
   bearBT: {fileID: 3805819858905312370}
   damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
@@ -251,9 +252,9 @@ MonoBehaviour:
   bearBT: {fileID: 3805819858905312370}
   ballPrefab: {fileID: 2514514262958598356, guid: 6b4124a840a257d419b2f55f249f2636, type: 3}
   junkOrigin: {fileID: 6081881444323752399}
+  maxPrediction: 7
   maxThrowStrength: 30
   minThrowStrength: 0
-  playerTF: {fileID: 0}
 --- !u!114 &3805819858905312382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 2d2d26a0ba886f24cb598211efdf9271, type: 2}
-  originalMaterial: {fileID: 2100000, guid: 688cd235f872f0340b3d8ca8d833414f, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 5087f0e6ea9ebb24b8f7517b8c4e8a20, type: 2}
   duration: 0.1
   makeFlash:
   - {fileID: 3997939264111499424}
@@ -795,6 +796,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1555475534390328571, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5087f0e6ea9ebb24b8f7517b8c4e8a20, type: 2}
     - target: {fileID: 1803563539910804681, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -16.374613

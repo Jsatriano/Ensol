@@ -7,6 +7,7 @@ public class JunkBallManager : MonoBehaviour
     public BearBT bearBT;
     public Rigidbody ballPrefab;
     public Transform junkOrigin;
+    [SerializeField] private float maxPrediction;
     private Rigidbody junkBall;
     [HideInInspector] public float maxThrowStrength;
     [HideInInspector] public float minThrowStrength;
@@ -121,6 +122,12 @@ public class JunkBallManager : MonoBehaviour
         float time = data.deltaXZ / velocity.magnitude;
 
         //Predict how much the player will move in that time
+        Vector3 playerVelocity = playerRB.velocity;
+        //Clamps how much the bear will predict
+        if (playerVelocity.magnitude > maxPrediction)
+        {
+            playerVelocity = Vector3.ClampMagnitude(playerVelocity, maxPrediction);
+        }
         Vector3 playerMovement = playerRB.velocity * time;
 
         //Calculate new throw data
