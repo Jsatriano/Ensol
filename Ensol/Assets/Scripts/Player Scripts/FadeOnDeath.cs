@@ -15,10 +15,10 @@ public class FadeOnDeath : MonoBehaviour
     if(pcc.currHP <= 0) 
         {
             Time.timeScale = 0.5f;
-            StartCoroutine(FadeBlackOutSquare(true));
+            StartCoroutine(FadeBlackOutSquare());
         }
     }
-    public IEnumerator FadeBlackOutSquare(bool dead)
+    public IEnumerator FadeBlackOutSquare()
     {
         yield return new WaitForSeconds(1f);
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
@@ -35,14 +35,7 @@ public class FadeOnDeath : MonoBehaviour
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
-                    if(dead)
-                    {
-                        SceneManager.LoadScene(sceneName:"RecloneScene");
-                    }
-                    else
-                    {
-                        SceneManager.LoadScene(sceneName:"MapScene"); 
-                    }
+                    SceneManager.LoadScene(sceneName:"RecloneScene");
                     Cursor.visible = true;
 
                 }

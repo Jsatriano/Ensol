@@ -16,6 +16,11 @@ public class DeerStats : EnemyStats
     public float chargeTurning;       //How much the deer can turn while charging
     public BoxCollider chargeHitbox;  //Hitbox for the charge
 
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource finalcutSoundEffect;
+    [SerializeField] private AudioSource cutSoundEffect;
+
+
     [Header("Basic Attack Stats/Components")]
     public float attackCooldown; //Cooldown between basic attacks
     public float attackRange;    //How close the player needs to be for the enemy to basic attack
@@ -56,9 +61,14 @@ public class DeerStats : EnemyStats
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
         print("Did " + damage + " damage to " + nameID);
-        if (currHP <= 0)
+        if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
+            finalcutSoundEffect.Play();
             Die();
+        }
+        else
+        {
+            cutSoundEffect.Play();
         }
         return;
     }

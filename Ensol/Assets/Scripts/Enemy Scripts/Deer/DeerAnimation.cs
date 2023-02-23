@@ -17,6 +17,13 @@ public class DeerAnimation : MonoBehaviour
         DYING
     }
 
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource chargingSoundEffect;
+    [SerializeField] private AudioSource walkingSoundEffect;
+    [SerializeField] private AudioSource deathSoundEffect;
+    [SerializeField] private AudioSource attackSoundEffect;
+
+
     [SerializeField] private Animator animController;
     [SerializeField] private Transform headTF;   
     [SerializeField] private float lookingSpeed;
@@ -45,7 +52,17 @@ public class DeerAnimation : MonoBehaviour
         if (!deerBT.isAlive)
         {
             state = State.DYING;
+            if (walkingSoundEffect.isPlaying == true) 
+            {
+                walkingSoundEffect.Stop();
+            }
+            else if (chargingSoundEffect.isPlaying == true)
+            {
+                chargingSoundEffect.Stop();
+            }
             animController.SetTrigger("dying");
+            deathSoundEffect.Play(); // plays when deer dies
+
             return;
         }
 
@@ -66,7 +83,12 @@ public class DeerAnimation : MonoBehaviour
                     if (deerBT.root.GetData("lookingForward") != null)
                     {
                         deerBT.root.ClearData("lookingForward");
+                        if (walkingSoundEffect.isPlaying == true) 
+                        {
+                            walkingSoundEffect.Stop();
+                        }
                         animController.SetTrigger("movingForward");
+                        walkingSoundEffect.Play(); // Plays when deer is walking
                         state = State.MOVING_FORWARD;
                         //print("movingForward");
                     }
@@ -76,12 +98,21 @@ public class DeerAnimation : MonoBehaviour
                         state = tempState;
                         if (tempState == State.MOVING_LEFT)
                         {
+                            
                             animController.SetTrigger("movingLeft");
+                            if (walkingSoundEffect.isPlaying == false) // If walking sound effect is not playing, then plays this
+                            {
+                                walkingSoundEffect.Play();
+                            }
                             //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
+                            if (walkingSoundEffect.isPlaying == false) // If walking sound effect is not playing, then plays this
+                            {
+                                walkingSoundEffect.Play();
+                            }
                             //print("MovingRight");
                         }
                     }
@@ -92,6 +123,10 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true) 
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
                     //print("Charge Windup");
@@ -99,7 +134,12 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true) 
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("swipe");
+                    attackSoundEffect.Play(); // Plays when deer does a swiping attack
                     state = State.SWIPING;
                     //print("Swiping");
                 }
@@ -110,11 +150,19 @@ public class DeerAnimation : MonoBehaviour
                     if (state == State.MOVING_LEFT)
                     {
                         animController.SetTrigger("movingLeft");
+                        if (walkingSoundEffect.isPlaying == false) // If walking sound effect is not playing, then plays this
+                        {
+                            walkingSoundEffect.Play();
+                        }
                         //print("MovingLeft");
                     }
                     else
                     {
                         animController.SetTrigger("movingRight");
+                        if (walkingSoundEffect.isPlaying == false) // If walking sound effect is not playing, then plays this
+                        {
+                            walkingSoundEffect.Play();
+                        }
                         //print("MovingRight");
                     }
                 }
@@ -124,6 +172,10 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true)  // checks if walking sfx is playing and if it is, then it stops
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
                     //print("Charge Windup");
@@ -131,7 +183,12 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true) // checks if walking sfx is playing and if it is, then it stops
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("swipe");
+                    attackSoundEffect.Play(); // Plays swiping sound effect
                     state = State.SWIPING;
                     //print("Swiping");
                 }
@@ -140,6 +197,10 @@ public class DeerAnimation : MonoBehaviour
                 {
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
+                    if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                    {
+                        walkingSoundEffect.Play();
+                    }
                     state = State.MOVING_FORWARD;
                     //print("movingForward");
                 }
@@ -147,6 +208,10 @@ public class DeerAnimation : MonoBehaviour
                 else if (tempState != state)
                 {
                     animController.SetTrigger("movingRight");
+                    if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                    {
+                        walkingSoundEffect.Play();
+                    }
                     state = tempState;
                     //print("MovingRight");
                 }
@@ -156,6 +221,10 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true) // checks if walking sfx is playing and if it is, then it stops
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
                     //print("ChargeWindup");
@@ -163,7 +232,12 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
                 {
+                    if (walkingSoundEffect.isPlaying == true) // checks if walking sfx is playing and if it is, then it stops
+                    {
+                        walkingSoundEffect.Stop();
+                    }
                     animController.SetTrigger("swipe");
+                    attackSoundEffect.Play();
                     state = State.SWIPING;
                     //print("Swipe");
                 }
@@ -172,6 +246,10 @@ public class DeerAnimation : MonoBehaviour
                 {
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
+                    if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                    {
+                        walkingSoundEffect.Play();
+                    }
                     state = State.MOVING_FORWARD;
                     //print("movingForward");
                 }
@@ -179,6 +257,10 @@ public class DeerAnimation : MonoBehaviour
                 else if (tempState != state)
                 {
                     animController.SetTrigger("movingLeft");
+                    if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                    {
+                        walkingSoundEffect.Play();
+                    }
                     state = tempState;
                     //print("MovingLeft");
                 }
@@ -197,6 +279,11 @@ public class DeerAnimation : MonoBehaviour
                     {
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
+                        if (chargingSoundEffect.isPlaying == true) 
+                        {
+                            chargingSoundEffect.Stop();
+                        }
+                        walkingSoundEffect.Play();
                         state = State.MOVING_FORWARD;
                         //print("movingForward");
                     }
@@ -207,11 +294,21 @@ public class DeerAnimation : MonoBehaviour
                         if (tempState == State.MOVING_LEFT)
                         {
                             animController.SetTrigger("movingLeft");
+                            if (chargingSoundEffect.isPlaying == true) // checks if walking sfx is playing and if it is, then it stops
+                            {
+                                chargingSoundEffect.Stop();
+                            }
+                            walkingSoundEffect.Play();
                             //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
+                            if (chargingSoundEffect.isPlaying == true) // checks if walking sfx is playing and if it is, then it stops
+                            {
+                                chargingSoundEffect.Stop();
+                            }
+                            walkingSoundEffect.Play();
                             //print("MovingRight");
                         }
                     }
@@ -227,6 +324,10 @@ public class DeerAnimation : MonoBehaviour
                     {
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
+                        if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                        {
+                            walkingSoundEffect.Play();
+                        }
                         state = State.MOVING_FORWARD;
                         //print("movingForward");
                     }
@@ -237,11 +338,19 @@ public class DeerAnimation : MonoBehaviour
                         if (tempState == State.MOVING_LEFT)
                         {
                             animController.SetTrigger("movingLeft");
+                            if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                            {
+                                walkingSoundEffect.Play();
+                            }
                             //print("MovingLeft");
                         }
                         else
                         {
                             animController.SetTrigger("movingRight");
+                            if (walkingSoundEffect.isPlaying == false) // if walking sfx not playing, then it plays it
+                            {
+                                walkingSoundEffect.Play();
+                            }
                             //print("MovingRight");
                         }
                     }
@@ -250,6 +359,7 @@ public class DeerAnimation : MonoBehaviour
 
             case State.DYING:
                 //Don't update animations anymore when dead
+                
                 return;
         }
     }
@@ -284,6 +394,7 @@ public class DeerAnimation : MonoBehaviour
         deerBT.root.SetData("chargingAnim", true);
         deerBT.root.ClearData("chargeWindupAnim");
         animController.SetTrigger("charging");
+        chargingSoundEffect.Play(); // Plays charging sound effect
         state = State.CHARGING;
         return;
     }
