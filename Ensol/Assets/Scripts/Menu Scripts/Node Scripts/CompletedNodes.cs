@@ -88,7 +88,7 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // deactivate river X
-            undiscovered[2].SetActive(true);
+            undiscovered[2].SetActive(false);
             // activate river button and scenery
             mapButtons[2].SetActive(true);
             mapScenery[2].SetActive(true);
@@ -128,7 +128,7 @@ public class CompletedNodes : MonoBehaviour
             }
 
             //deactivate river control X
-            undiscovered[4].SetActive(true);
+            undiscovered[4].SetActive(false);
             //activate river control button and scenery
             mapButtons[4].SetActive(true);
             mapScenery[4].SetActive(true);
