@@ -51,7 +51,6 @@ public class CharController : MonoBehaviour
     [SerializeField] private float _dashCD;
     private float _dashCdTimer;
     private bool _isDashing = false;
-    public bool canTakeDmg;
 
 
     // function is called in scene start
@@ -63,7 +62,6 @@ public class CharController : MonoBehaviour
         animator = GetComponent<Animator>();
         gameObject.tag = "Player";
         print(gameObject.tag);
-        canTakeDmg = true;
         knockback = false;
         _rb.drag = normalDrag;
     }
@@ -357,9 +355,6 @@ public class CharController : MonoBehaviour
         // player is now seen as dashing
         _isDashing = true;
 
-        // turn on i-frames
-        canTakeDmg = false;
-
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
         if(direction == zeroVector)
@@ -391,8 +386,5 @@ public class CharController : MonoBehaviour
 
         // player isnt seen as dashing anymore
         _isDashing = false;
-
-        // turn off i-frames
-        canTakeDmg = true;
     }
 }
