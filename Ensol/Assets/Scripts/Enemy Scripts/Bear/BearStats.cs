@@ -65,10 +65,8 @@ public class BearStats : EnemyStats
     {
         print(nameID + " is dead!");
         bearBT.isAlive = false;
-        /*
-        chargeHitbox.enabled = false;
-        basicAttackHitbox.enabled = false;
-        */
+        swipeHitbox1.enabled = false;
+        swipeHitbox2.enabled = false;
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
         //buttonController.enemyKilled(thisBear);      
     }
