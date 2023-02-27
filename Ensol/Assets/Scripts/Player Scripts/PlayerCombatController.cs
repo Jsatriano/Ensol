@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
-    //This entire class is for the most part very extremely placeholder. I intend to do some more work later to find a better system to use for attack combos.
+    //A new combat controller class where attacks are handled using ANIMATION EVENTS
     //Elizabeth
     [Header("References")]
-    public GameObject lightAttackHitbox;
-    public GameObject heavyAttackHitbox;
+    public GameObject weapon;
+    public GameObject weaponHead;
+    public GameObject weaponBase;
+    public GameObject weaponProjectilePrefab;
+    public GameObject weaponCatchTarget;
+    public GameObject FX1;
+    public GameObject FX2;
+    public GameObject lightHitbox;
+    public GameObject heavyHitbox;
     private CharController charController;
     private Rigidbody _rb;
     public FadeOnDeath fadeOnDeath;
@@ -16,49 +23,61 @@ public class PlayerCombatController : MonoBehaviour
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
 
-    [Header("Health and Attack Stats")]
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource heavySoundEffect;
+    [SerializeField] private AudioSource specialSoundEffect;
+    [SerializeField] private AudioSource lightSoundEffect;
+    [SerializeField] private AudioSource lightStabSoundEffect;
+    [SerializeField] private AudioSource minorcutSoundEffect;
+    [SerializeField] private AudioSource deathcutSoundEffect;
+
+
+    [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    public float currHP;
-    public float attackPower; //used to calculate the real damage value of different attacks
-    public float maxComboTimer = 2.0f;
+    [HideInInspector] public float currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
-    [SerializeField] private float baseAttackPower = 5;
-    [SerializeField] private float attackDelay = 0.8f;
-    [SerializeField] private float force;
+    public float baseAttackPower = 5;
+    [SerializeField] private float force = 1;
+    public float invulnLength = 1;
+    public float maxComboTimer = 1.0f;
+    public float knockbackTimer = 0.3f;
 
-    [Header("Light Attack Stats")]
-    [SerializeField] private float lightAttackSpeed;
-    [SerializeField] private float lightAttackDuration;
-    
+    [Header("Light Attack Variables")]
+    public float lightAttackAnimationResetTimer = 0.5f;
+    public float lightAttackMult = 1f;
+    public float light1Mult = 1f;
+    public float light2Mult = 1.3f;
+    public float light3Mult = 1.7f;
 
-    [Header("Heavy Attack Stats")]
-    [SerializeField] private float heavyAttackSpeed = 1.5f;
-    [SerializeField] private float heavyAttackDuration = 0.5f;
-    [SerializeField] private float heavyDelay = 0.5f;
-    [SerializeField] private float heavyMult;
-    //[SerializeField] private float heavyForce;
+    [Header("Heavy Attack Variables")]
+    public float heavyAttackMult;
 
-    [Header("Special Attack Stats")]
-    [SerializeField] private float specialAttackSpeed = 3.0f;
-    [SerializeField] private float specialAttackDuration = 1.0f;
-    [SerializeField] private float specialDelay = 0.3f;
-    [SerializeField] private float specialMult;
-    [SerializeField] private GameObject shockwaveParticles;
+    [Header("Special Attack Variables")]
+    public float specialAttackMult = 0.9f;
+    public float specialDamagePulseMult = 0.5f;
+    public float weaponThrowSpeed = 4f;
+    public float weaponRecallSpeed = 5f;
+    public float weaponCatchDistance = 1f;
+    public float damagePulseRadius = 1f;
+    [HideInInspector] public bool hasWeapon = true;
+    [HideInInspector] public bool isCatching = false;
     
     [Header("Other Variables")]
-    public float invulnLength;
+    [HideInInspector] public float attackPower;
     private float invulnTimer = 0f;
-    public int comboCounter = 0;
-    private float comboTimer = 0.0f;
-    private float lightAttackCDTimer;
-    private float heavyAttackCDTimer;
-    private float specialAttackCDTimer;
-    private float attackDurationTimer;
-    public bool comboChain = false;
-    public float lightAttackBuffer;
-    private float lightAttackBufferTimer;
-    public bool isAttacking = false;
+    [HideInInspector] public bool comboChain = false;
+    [HideInInspector] public int comboCounter = 0;
+    private float comboTimer = -1f;
+    private bool comboTimerActive = false;
+    private bool acceptingInput = true;
+    private bool isNextAttackBuffered = false;
+    private GameObject activeWeaponProjectile;
+    private Vector3 throwAim;
+
+    [Header("VFX References")]
+    public GameObject[] lightSlashVFX;
+    public GameObject heavySlashVFX;
 
     // Start is called before the first frame update
     void Start()
@@ -66,39 +85,20 @@ public class PlayerCombatController : MonoBehaviour
         currHP = maxHP;
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
-        //spearHitbox = lightAttackHitbox.GetComponent<Collider>();
-        lightAttackHitbox.SetActive(false);
-        heavyAttackHitbox.SetActive(false);
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // checks if light attack is off cooldown
-        if(lightAttackCDTimer > 0) {
-            lightAttackCDTimer -= Time.deltaTime;
+        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
+            activeWeaponProjectile.SetActive(true);
+            Destroy(activeWeaponProjectile);
         }
-
-        // checks if heavy attack is off cooldown
-        if(heavyAttackCDTimer > 0) {
-            heavyAttackCDTimer -= Time.deltaTime;
-        }
-
-        // checks if special attack is off cooldown
-        if(specialAttackCDTimer > 0) {
-            specialAttackCDTimer -= Time.deltaTime;
-        }
-
-        // checks how long is left in current attack
-        if(attackDurationTimer > 0) {
-            attackDurationTimer -= Time.deltaTime;
-        }
-
-        // adds ElectricVials over time
-
+        //Adds electric vials over time
         if(vialTimer > 0)
         {
             vialTimer -= Time.deltaTime;
@@ -109,221 +109,292 @@ public class PlayerCombatController : MonoBehaviour
             vialTimer += vialRechargeSpeed;
         }
 
-        // checks if light attack input pressed, if so buffer attack, else count down timer
-        if(Input.GetButtonDown("LightAttack"))
-        {
-            lightAttackBufferTimer = lightAttackBuffer;
-        }
-        else
-        {
-            if(lightAttackBufferTimer >= 0)
-            {
-                lightAttackBufferTimer -= Time.deltaTime;
+        charController.animator.SetBool("hasWeapon", hasWeapon);
+        
+        if(isCatching) {
+            Collider[] weaponSearch = Physics.OverlapSphere(weaponCatchTarget.transform.position, weaponCatchDistance);
+            foreach(Collider col in weaponSearch) {
+                if(col.gameObject.tag == "WeaponProjectile") {
+                    //print("located catchable weapon");
+                    charController.animator.SetBool("isCatching", true);
+                    isCatching = false;
+                }
             }
+
         }
 
-
-        if (comboChain == true) { // Harsha
-            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-                print("broken combo");
-                comboChain = false; // If the next button wasn't pressed in time, then the combo chain is set to false
-                lightAttackCDTimer += attackDelay; // Penality time to attack again is added
-                comboCounter = 0; // combos set to 0 again
-                charController.state = CharController.State.IDLE;
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
+            charController.animator.SetInteger("lightAttackCombo", 0);
+            lightSoundEffect.Play(); // Plays when doing a light attack sound effect
+            acceptingInput = true;
+            isNextAttackBuffered = false;
+            if(lightHitbox.activeSelf) {
+                lightHitbox.SetActive(false);
             }
+            if(heavyHitbox.activeSelf) {
+                heavyHitbox.SetActive(false);
+            }
+            
+
         }
 
-        // Start Light Attack
-        if(lightAttackBufferTimer > 0 && lightAttackCDTimer <= 0 && charController.state != CharController.State.PAUSED) // Harsha and Justin
-        {
+        if(charController.state == CharController.State.KNOCKBACK) {
+            ResetLightAttackCombo();
+            charController.animator.SetBool("isHeavyAttacking", false);
+        }
+
+        if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
+            ResetLightAttackCombo();
+            LookAtMouse();
+            charController.state = CharController.State.DASHING;
+        }
+        
+
+        //Start Light Attack //Harsha Justin and Elizabeth
+        if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
+        && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) {
             charController.state = CharController.State.ATTACKING;
-            lightAttackCDTimer = 0; // lightAttackCDTimer is set to 0 because it is added to later on in code instead of being set equal to a certain value
-            comboCounter++; // This counter is incremented whenever attack button is pressed and is used to check at what stage of the weak attack combo you are at
+            comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
-            if (comboCounter == 1) {
-                comboChain = true; // sets comboChain to true to initiate combo
-                print("first hit");
-                comboTimer = Time.time; // logs the time the button was pressed to check for the next time light attack button is pressed
-                LightAttack(baseAttackPower);
-                StartCoroutine(DisableWeapon());
-
+            if(comboCounter != 3) // Plays normal light attack sound effect if combo counter is less than 3, otherwise plays the stab sound effect
+            {
+                lightSoundEffect.Play();
             }
-            else if (comboCounter == 2 && comboChain == true) { // checks whether second button press in combo was accomplished within max limit for combo button press timer
-                //charController.animator.SetBool("isLightAttacking2", true);
-                print("second hit!");
-                comboTimer = Time.time; // ComboTimer is used to check if next button press is within the maxComboTimer limit
-                LightAttack(baseAttackPower * 1.3f);
-                StartCoroutine(DisableWeapon());
+            else 
+            {
+                lightStabSoundEffect.Play();
             }
-            else if (comboCounter == 3 && comboChain == true && electricVials.currVial >= 1) { // checks whether third button press in combo was accomplished within max limit for combo button press timer
-                //charController.animator.SetBool("isLightAttacking3", true);
-                print("third hit!");
-                
-                comboChain = false; // resets combo variables for next time
-                lightAttackCDTimer += attackDelay; // delay for next combo
-                lightAttackCDTimer += lightAttackSpeed;
+            comboTimer = -1f;
+            comboTimerActive = false;
+            acceptingInput = false;
+            isNextAttackBuffered = true;
+           // print("input taken COMBO COUNTER " + comboCounter.ToString());
 
-                // remove 1 electric vial
-                electricVials.RemoveVials(1);
-
-                LightAttack(baseAttackPower * 1.6f);
-                StartCoroutine(DisableWeapon());
-                
-                StartCoroutine(EndAnim());
-
-            }
-            //isAttacking = false;
+            
         }
-        // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && heavyAttackCDTimer <= 0 && electricVials.currVial >= 1 &&
-            charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED) // Harsha and Justin
-        {
-            attackDurationTimer = heavyAttackDuration;
-            charController.state = CharController.State.ATTACKING;
-            charController.animator.SetBool("isHeavyAttacking", true);
 
+        if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
+            if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
+                //print("broken combo, COMBO COUNTER " + comboCounter.ToString());
+                ResetLightAttackCombo();
+            }
+        } 
+
+        // Start heavy Attack
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 &&
+            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
+        {
+            ResetLightAttackCombo();
+
+            charController.state = CharController.State.ATTACKING;
+
+            charController.animator.SetBool("isHeavyAttacking", true);
+            heavySoundEffect.Play(); // Plays when heavy attack is clicked
+            
             // remove 1 electric vial
             electricVials.RemoveVials(1);
-
-            // start heavy attack function after 'heavyDelay' delay. This imitates a wind up feature
-            Invoke(nameof(HeavyAttack), heavyDelay);
-            StartCoroutine(DisableWeapon());
-            StartCoroutine(EndAnim());
         }
-
-        if(Input.GetButtonDown("SpecialAttack") && specialAttackCDTimer <= 0 && electricVials.currVial >= 2 &&
-           charController.state != CharController.State.ATTACKING && charController.state != CharController.State.PAUSED)
-        {
-            print("START SPECIAL ATTACK");
-            attackDurationTimer = specialAttackDuration;
-            charController.state = CharController.State.ATTACKING;
-
-            // remove 2 electric vials
-            electricVials.RemoveVials(2);
-
-            // start special attack funtion after 'specialDelay' delay. This imitates a wind up feature
-            Invoke(nameof(SpecialAttack), specialDelay);
-        }
-
-        // End Light Attack | End Heavy Attack | End Special Attack
-        if(charController.state == CharController.State.ATTACKING && attackDurationTimer <= 0) 
-        {   
-            // resets drag
-            _rb.drag = 20;
-            //charController.state = CharController.State.IDLE;
-            //lightAttackHitbox.SetActive(false);
-        }
-
-        //Checks to see if the player is dead
         if(currHP <= 0) 
         {
-            print("Player is dead");
+            //print("Player is dead");
+            charController.state = CharController.State.DEAD;
             charController.animator.SetBool("isDead", true);
-            //gameObject.SetActive(false); //do not destroy the objest, otherwise it causes an error in the enemy scripts which try to find the player - Elizabeth
+            
+        }
+
+        if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
+        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
+           // print("activated catching");
+            isCatching = true;
+        }
+
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
+        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") ) {
+            charController.state = CharController.State.ATTACKING;
+            hasWeapon = false;
+            charController.animator.SetBool("hasWeapon", hasWeapon);
+            LookAtMouse();
+            charController.animator.SetBool("isThrowing", true);
+            specialSoundEffect.Play(); // Plays when special attack is clicked
+            electricVials.RemoveVials(2);
+            acceptingInput = false;
+
         }
 
     }
 
-    private void LightAttack(float ap) 
-    {
-        //isAttacking = true;
-        lightAttackCDTimer += lightAttackSpeed;
+    private void SpawnSpecialAttackProjectile() {
+        attackPower = baseAttackPower * specialAttackMult;
 
-        // speed of animations is different
-        if(comboCounter == 3)
-        {
-            attackDurationTimer = lightAttackDuration * 1.15f;
-            comboCounter = 0;
-            StartCoroutine(AttackForce(1.25f, 0.4f));
-        }
-        else
-        {
-            attackDurationTimer = lightAttackDuration;
-            StartCoroutine(AttackForce(1f, 0.1f));
-        }
-        attackPower = ap; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
-        print(attackPower);
-        lightAttackHitbox.SetActive(true);
-        
+        LookAtMouse();
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
+        activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
+
+        Vector3 throwTarget = charController.mouseFollower.transform.position;
+        throwTarget.y = activeWeaponProjectile.transform.position.y;
+        activeWeaponProjectile.transform.LookAt(throwTarget);
+        weapon.SetActive(false);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+
     }
 
-    private void HeavyAttack() // Harsha and Justin
-    {
-        print("in heavy attack");
-        heavyAttackCDTimer = heavyAttackSpeed;
-        attackPower = baseAttackPower * heavyMult; //the Spear script references this variable when determining how much damage to do. It will use attackPower at the moment the collision starts.
-        heavyAttackHitbox.SetActive(true);
-
-        // push player forward a bit | remove drag from player
-        StartCoroutine(AttackForce(2.5f, 0.1f));
+    private void EndThrow() {
+        charController.animator.SetBool("isThrowing", false);
+        charController.state = CharController.State.IDLE;
     }
 
-    private void SpecialAttack() // Harsha and Justin
-    {
-        print("in special attack");
-        specialAttackCDTimer = specialAttackSpeed;
-        attackPower = baseAttackPower * specialMult;
+    private void BeginCatch() {
+        charController.state = CharController.State.ATTACKING;
+    }
 
-        StartCoroutine(ShockwaveEffect());
+    public void GrabWeapon() {
+        attackPower = baseAttackPower;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 4f);
-        foreach (Collider c in colliders)
-        {
-            if(c.gameObject.tag == "Enemy")
-            {
-                c.gameObject.GetComponent<EnemyStats>().currHP -= attackPower;
-                print("Did " + attackPower + " damage to " + c.gameObject.GetComponent<EnemyStats>().nameID);
+        hasWeapon = true;
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+        if(activeWeaponProjectile != null) {
+            activeWeaponProjectile.SetActive(false);
+        }
+    }
+
+    private void EndCatch() {
+       // print("ending catch");
+        isCatching = false;
+        acceptingInput = true;
+        charController.animator.SetBool("isCatching", false);
+        charController.state = CharController.State.IDLE;
+    }
+
+    private void EnableLightAttackHitbox() {
+        comboTimerActive = false;
+        comboTimer = -1f;
+        if(comboCounter == 1) {
+                comboChain = true;
+                attackPower = baseAttackPower * lightAttackMult * light1Mult;
             }
-        }
-        return;
+            else if(comboCounter == 2 && comboChain) {
+                attackPower = baseAttackPower * lightAttackMult * light2Mult;
+            }
+            else if(comboCounter == 3 && comboChain) {
+                comboChain = false;
+                attackPower = baseAttackPower * lightAttackMult * light3Mult;
+            }
+        lightHitbox.SetActive(true);
+       // print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
-    // ends the animation of light attack 3
-    IEnumerator EndAnim()
-    {
-        yield return new WaitForSeconds(attackDurationTimer);
-        if(charController.direction != charController.zeroVector)
-        {
-            charController.state = CharController.State.MOVING;
+    private void MarkComboTimer() {
+        if(!isNextAttackBuffered) {
+           comboTimer = Time.time;
+            comboTimerActive = true;
+            //print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
         }
-        else
-        {
-            charController.state = CharController.State.IDLE;
+        else{
+           // print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
         }
         
+    }
+
+    private void AllowInput() {
+        acceptingInput = true;
+        isNextAttackBuffered = false;
+       // print("allowing input COMBO COUNTER " + comboCounter.ToString());
+    }
+
+    private void DisableLightAttackHitbox() {
+        lightHitbox.SetActive(false);
+    }
+
+    private void ResetLightAttackCombo() {
+        comboCounter = 0;
+        charController.animator.SetInteger("lightAttackCombo", 0);
+        attackPower = baseAttackPower;
+        charController.state = CharController.State.IDLE;
+        comboChain = false;
+        comboTimerActive = false;
+        acceptingInput = true;
+    }
+
+    private void EnableHeavyAttackHitbox() {
+        heavyHitbox.SetActive(true);
+
+        attackPower = baseAttackPower * heavyAttackMult;
+    }
+
+    private void DisableHeavyAttackHitbox() {
+        heavyHitbox.SetActive(false);
+        
+        attackPower = baseAttackPower;
+    }
+
+    private void EndHeavyAttack() {
+        charController.animator.SetBool("isHeavyAttacking", false);
+        charController.state = CharController.State.IDLE;
+        acceptingInput = true;
+    }
+
+    private void LookAtMouse() {
+        if(!charController.controller) {
+            Vector3 toMouse = (charController.mouseFollower.transform.position - charController.transform.position);
+            charController.transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
+        }
+    }
+
+    private void SetDashDirection(){
+        charController.transform.rotation.SetLookRotation(charController.heading);
+    }
+
+    // functions for showing slashes on attacks
+    private void StartLightSlash()
+    {
+        lightSlashVFX[comboCounter - 1].SetActive(true);
+    }
+
+    private void EndLightSlash()
+    {
+        lightSlashVFX[comboCounter - 1].SetActive(false);
+    }
+
+    private void StartHeavySlash()
+    {
+        heavySlashVFX.SetActive(true);
+    }
+
+    private void EndHeavySlash()
+    {
+        heavySlashVFX.SetActive(false);
     }
 
     // how much forward force is added to every attack
-    IEnumerator AttackForce(float multiplier, float forceDelay)
+    private void AttackForce(float multiplier)
     {
-        yield return new WaitForSeconds(forceDelay);
         Vector3 forceToApply = transform.forward * force;
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
-
-    // disable hitbox after attack is over
-    IEnumerator DisableWeapon() 
-    {
-        yield return new WaitForSeconds(attackDurationTimer - 0.01f);
-        lightAttackHitbox.SetActive(false);
-        heavyAttackHitbox.SetActive(false);
-        charController.attacking = false;
-    }
-
-    private IEnumerator ShockwaveEffect() // Harsha and Justin
-    {
-        shockwaveParticles.SetActive(true);
-        yield return new WaitForSeconds(specialAttackDuration - specialDelay);
-        shockwaveParticles.SetActive(false);
-    }
-
+    
     public void TakeDamage(float dmg, Collider collider) // Justin
     {
-        if(Time.time - invulnTimer >= invulnLength && charController.canTakeDmg == true)
+        if(Time.time - invulnTimer >= invulnLength)
         {
             // does dmg
             currHP -= dmg;
+            if(currHP <= 0) // if the damage taken kills the deer, plays a death cut sound effect, otherwise it plays a regular sound effect
+            {
+                deathcutSoundEffect.Play();
+            }
+            else 
+            {
+                minorcutSoundEffect.Play();
+            }
 
             // starts invuln
             invulnTimer = Time.time;
@@ -339,7 +410,7 @@ public class PlayerCombatController : MonoBehaviour
 
             // change state to limit actions
             charController.state = CharController.State.KNOCKBACK;
-            print("took damage");
+           // print("took damage");
 
         }
     }
@@ -356,10 +427,10 @@ public class PlayerCombatController : MonoBehaviour
         // push player back
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(knockbackTimer);
 
         // reset drag and end knockback
-        _rb.drag = 20;
+        _rb.drag = charController.normalDrag;
         charController.knockback = false;
     }
 }

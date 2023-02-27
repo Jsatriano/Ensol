@@ -12,7 +12,8 @@ public class CharController : MonoBehaviour
         DASHING,
         ATTACKING,
         KNOCKBACK,
-        PAUSED
+        PAUSED,
+        DEAD
     }
     public State state;
 
@@ -21,7 +22,7 @@ public class CharController : MonoBehaviour
     public Vector3 forward, right, direction, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
-    [Header("Other Vaiables")]
+    [Header("Other Variables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
@@ -31,9 +32,17 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
+
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource walkingSoundEffect;
+    [SerializeField] private AudioSource dashingSoundEffect;
+    [SerializeField] private AudioSource deathSoundEffect;
+    
     
     [Header("Movement Vaiables")]
-    [SerializeField] private float _moveSpeed = 4f;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _acceleration;
+    public float normalDrag;
     [SerializeField] private float _rotationSpeed;
 
     [Header("Dashing Variables")]
@@ -42,19 +51,19 @@ public class CharController : MonoBehaviour
     [SerializeField] private float _dashCD;
     private float _dashCdTimer;
     private bool _isDashing = false;
-    public bool canTakeDmg;
 
 
     // function is called in scene start
     private void Start()
     {
+        Cursor.visible = false;
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         gameObject.tag = "Player";
         print(gameObject.tag);
-        canTakeDmg = true;
         knockback = false;
+        _rb.drag = normalDrag;
     }
 
     IEnumerator CheckforControllers() // Justin
@@ -67,14 +76,14 @@ public class CharController : MonoBehaviour
             {
                 if(!controller && Input.GetJoystickNames()[0].Length > 0) // controller is connected
                 {
-                    Cursor.visible = false;
+                    //Cursor.visible = false;
                     controller = true;
                     print("Connected");
                     
                 }
                 else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
                 {
-                    Cursor.visible = true;
+                    //Cursor.visible = true;
                     controller = false;
                     print("Disconnected");
                 }
@@ -89,7 +98,16 @@ public class CharController : MonoBehaviour
         gameObject.tag = "Player";
         StartCoroutine(CheckforControllers());
     }
-    
+
+    private void FixedUpdate()
+    {
+        //Runs Move() in fixedUpdate so that physics are consistent
+        if (state == State.MOVING)
+        {
+            Move();
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -104,6 +122,15 @@ public class CharController : MonoBehaviour
             _dashCdTimer -= Time.deltaTime;
         }
 
+        // in case animations dont finish, prevents bugs
+        if(state != State.ATTACKING)
+        {
+            pcc.lightSlashVFX[0].SetActive(false);
+            pcc.lightSlashVFX[1].SetActive(false);
+            pcc.lightSlashVFX[2].SetActive(false);
+            pcc.heavySlashVFX.SetActive(false);
+        }
+
         switch (state)
         {
             case State.IDLE:
@@ -111,7 +138,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
-                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+                animator.SetInteger("lightAttackCombo", 0);
 
                 attacking = false;
                 // checks if player starts to move
@@ -136,27 +163,35 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", true);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
-                animator.SetInteger("lightAttackCombo", pcc.comboCounter);
+                animator.SetInteger("lightAttackCombo", 0);
                 
                 attacking = false;
 
-                Move();
+                if (walkingSoundEffect.isPlaying == false) // Plays when walking
+                {
+                    walkingSoundEffect.Play();
+                }
 
                 // if player stops moving, go idle
                 if(direction == zeroVector)
                 {
                     state = State.IDLE;
+                    walkingSoundEffect.Stop();
                 }
 
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;
+                    walkingSoundEffect.Stop();
+
                 }
                 else if(Input.GetButtonDown("Cancel"))
                 {
                     prevState = State.MOVING;
                     state = State.PAUSED;
+                    walkingSoundEffect.Stop();
+
                 }
                 break;
 
@@ -164,8 +199,12 @@ public class CharController : MonoBehaviour
                 // make player dash if CD is done
                 if(_dashCdTimer <= 0)
                 {
+                    animator.SetBool("isRunning", false);
                     animator.SetBool("isDashing", true);
+                    animator.SetBool("isHeavyAttacking", false);
+                    animator.SetInteger("lightAttackCombo", 0);
                     Dash();
+                    dashingSoundEffect.Play(); // Plays when dashing
                 }
 
                 // after the dash is done, change states
@@ -186,11 +225,19 @@ public class CharController : MonoBehaviour
                     }
                 }
                 break;
+
             case State.ATTACKING:
                 //We will have to decide if the player can move or take other actions while attacking.
                 //This state is just to tell this script that the player is attacking, so
                 //hold other state changes. Attack combos will be handled in PlayerCombatController.
-                //Since there is probably going to be a lot of combat code, I put it in a different script.
+                //Since there is probably going to be a lot of combat code, I put it in a different script. -Elizabeth
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
 
                 if(Input.GetButtonDown("Cancel"))
                 {
@@ -207,8 +254,17 @@ public class CharController : MonoBehaviour
                 }
                 attacking = true;
                 break;
+
             case State.KNOCKBACK:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
                 // once knockback is over, go to idle state
                 if(knockback == false)
                 {
@@ -221,12 +277,32 @@ public class CharController : MonoBehaviour
                     state = State.PAUSED;
                 }
                 break;
+                
             case State.PAUSED:
+                Cursor.visible = true;
+                if (walkingSoundEffect.isPlaying == true) 
+                {
+                    walkingSoundEffect.Stop();
+                }
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
+                    Cursor.visible = false;
                     state = prevState;
                 }
+                break;
+
+            case State.DEAD:
+                //print("Player is Dead");
+                if (deathSoundEffect.isPlaying == false) // Plays when player dies
+                {
+                    deathSoundEffect.Play();
+                }
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                Cursor.visible = true;
                 break;
         }
     }
@@ -257,10 +333,15 @@ public class CharController : MonoBehaviour
 
             // smoothly rotates player when changeing directions (rather than abruptly)
             Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
 
             // makes our movement happen
-            transform.position += heading * _moveSpeed * Time.deltaTime;
+            //transform.position += heading * _moveSpeed;
+            _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
+            if (_rb.velocity.magnitude > _moveSpeed)
+            {
+                _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _moveSpeed);
+            }
         }        
     }
 
@@ -274,9 +355,6 @@ public class CharController : MonoBehaviour
         // player is now seen as dashing
         _isDashing = true;
 
-        // turn on i-frames
-        canTakeDmg = false;
-
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
         if(direction == zeroVector)
@@ -285,8 +363,12 @@ public class CharController : MonoBehaviour
         }
         else 
         {
+            if(heading != transform.forward) {
+                transform.forward = heading;
+            }
             forceToApply = heading * _dashForce;
         }
+
 
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
@@ -300,12 +382,9 @@ public class CharController : MonoBehaviour
     private void ResetDash() // Justin
     {
         // reset drag
-        _rb.drag = 20;
+        _rb.drag = normalDrag;
 
         // player isnt seen as dashing anymore
         _isDashing = false;
-
-        // turn off i-frames
-        canTakeDmg = true;
     }
 }

@@ -8,21 +8,32 @@ public class DeerStats : EnemyStats
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
 
     [Header("Charge Stats/Components")]
-    public float chargeSpeed;         //How fast the charge is
+    public float chargeMaxSpeed;      //How fast the charge is\
+    public float chargeAccel;         //How fast the deer gets to max speed when chargin
     public float chargeWindupLength;  //How long the windup of charge is
     public float chargeCooldown;      //How long the cooldown for charge is
     public float chargeDamage;        //How much damage the charge does
     public float chargeTurning;       //How much the deer can turn while charging
-    public BoxCollider chargeHitZone; //Hitbox for the charge
+    public BoxCollider chargeHitbox;  //Hitbox for the charge
+
+    [Header("Sound Effects")] // Harsha
+    [SerializeField] private AudioSource finalcutSoundEffect;
+    [SerializeField] private AudioSource cutSoundEffect;
+
 
     [Header("Basic Attack Stats/Components")]
-    public float attackCooldown;           //Cooldown between basic attacks
-    public float basicAttackDuration;      //How long the hitbox is active for basic attacks
-    public float basicAttackWindup;        //How long the windup is for basic attacks
-    public GameObject tempAttackIndicator; //Temp attack visual for basic attack
+    public float attackCooldown; //Cooldown between basic attacks
+    public float attackRange;    //How close the player needs to be for the enemy to basic attack
+    public float windupTurning;  //How much the deer can turn to face the player during winup
+    public BoxCollider basicAttackHitbox; //Hibox for the attack
 
-    [Header("Other Stats")]
+    [Header("Other Things")]
     public float distanceFromPlayer; //The distance the deer tries to stay away from the player
+    public DeerBT deerBT;
+    public DamageFlash damageFlash;
+    public ButtonGateController buttonGateController = null;
+    public ButtonDoorController buttonDoorController = null;
+    public GameObject thisDeer;
 
 
 
@@ -31,7 +42,8 @@ public class DeerStats : EnemyStats
     {
         base.Start(); //Calls the parent start function.
         nameID = "EnemyDeer";
-        numID = 0; //placeholder, idk if we even want this      
+        numID = 0; //placeholder, idk if we even want this
+        deerBT.isAlive = true;
     }
 
     // Update is called once per frame
@@ -39,4 +51,44 @@ public class DeerStats : EnemyStats
     {
         base.Update(); //calls the parent update       
     }
+
+    public override void TakeDamage(float damage)
+    {
+        if (currHP <= 0)
+        {
+            return;
+        }
+        currHP -= damage;
+        StartCoroutine(damageFlash.FlashRoutine());
+        print("Did " + damage + " damage to " + nameID);
+        if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
+        {
+            finalcutSoundEffect.Play();
+            Die();
+        }
+        else
+        {
+            cutSoundEffect.Play();
+        }
+        return;
+    }
+
+    public override void Die()
+    {
+        print(nameID + " is dead!");
+        deerBT.isAlive = false;
+        chargeHitbox.enabled = false;
+        basicAttackHitbox.enabled = false;
+        if(buttonGateController != null)
+        {
+            buttonGateController.enemyKilled(thisDeer);
+        }
+        if(buttonDoorController != null)
+        {
+            buttonDoorController.enemyKilled(thisDeer);
+        }
+        
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+    }
+
 }

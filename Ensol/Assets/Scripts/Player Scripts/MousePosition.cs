@@ -6,7 +6,8 @@ public class MousePosition : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
     [SerializeField] private LayerMask layerMask;
-
+    [SerializeField] private Transform playerTF;
+    
     private void Update() // Justin
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -14,5 +15,12 @@ public class MousePosition : MonoBehaviour
         {
             transform.position = raycastHit.point;
         }
+
+
+        Vector3 lookDir = new Vector3(playerTF.position.x, transform.position.y, playerTF.position.z);
+        transform.LookAt(lookDir);
+
     }
+    
+    
 }

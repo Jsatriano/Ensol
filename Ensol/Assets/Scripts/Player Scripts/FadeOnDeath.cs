@@ -18,11 +18,13 @@ public class FadeOnDeath : MonoBehaviour
             StartCoroutine(FadeBlackOutSquare());
         }
     }
-    public IEnumerator FadeBlackOutSquare(bool fadeToBlack = true, int fadeSpeed = 1)
+    public IEnumerator FadeBlackOutSquare()
     {
         yield return new WaitForSeconds(1f);
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
+        bool fadeToBlack = true;
+        int fadeSpeed = 1;
 
         if(fadeToBlack)
         {
@@ -34,6 +36,8 @@ public class FadeOnDeath : MonoBehaviour
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
                     SceneManager.LoadScene(sceneName:"RecloneScene");
+                    Cursor.visible = true;
+
                 }
                 yield return null;
             }
