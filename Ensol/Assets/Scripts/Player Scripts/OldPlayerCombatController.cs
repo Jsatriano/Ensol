@@ -312,7 +312,7 @@ public class OldPlayerCombatController : MonoBehaviour
 
     public void TakeDamage(float dmg, Collider collider) // Justin
     {
-        if(Time.time - invulnTimer >= invulnLength && charController.canTakeDmg == true)
+        if(Time.time - invulnTimer >= invulnLength)
         {
             // does dmg
             currHP -= dmg;

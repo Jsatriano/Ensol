@@ -20,7 +20,7 @@ public class ButtonGateController : MonoBehaviour
         if(requiredObj != null)
         {
             // opens door if button is pressed AND required obj is picked up AND there are no enemies left
-            if(!buttonCol.enabled && !requiredObj.activeInHierarchy && enemiesList.Count == 0)
+            if(!buttonCol.enabled && requiredObj.activeInHierarchy && enemiesList.Count == 0)
             {
                 // turns button green
                 buttonMesh.material = greenMat;
