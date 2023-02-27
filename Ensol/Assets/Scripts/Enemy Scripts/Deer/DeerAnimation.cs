@@ -414,7 +414,7 @@ public class DeerAnimation : MonoBehaviour
     {
         if (deerBT.root.GetData("deerRight") != null && deerBT.root.GetData("movingDir") != null)
         {
-            movingDir = (Vector3) deerBT.root.GetData("movingDir");
+            movingDir = (Vector3)deerBT.root.GetData("movingDir");
             deerRight = (Vector3)deerBT.root.GetData("deerRight");
             if (Vector3.Dot(movingDir, deerRight) > 0)
             {

@@ -36,14 +36,14 @@ namespace BehaviorTree
         }
         protected abstract Node SetupTree();
 
-        
-        
-        
+
+
+        /*
         private void OnDrawGizmos()
         {
             if (Application.isPlaying && root.GetData("obstacles") != null && root.GetData("playerWeights") != null)
             {
-                /*
+                
                
                 //float[] move = (float[])root.GetData("final");
                 float[] obstacle = (float[])root.GetData("obstacles");
@@ -79,15 +79,16 @@ namespace BehaviorTree
                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 3);
                 }
                  
-                */
+                
             }
-        }
-        
-        
-        
-        
-        
-        
+            
+    }
+*/
+
+
+
+
+
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth
         public void SearchForPlayer() {

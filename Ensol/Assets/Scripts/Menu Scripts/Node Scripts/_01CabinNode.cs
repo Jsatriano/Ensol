@@ -9,8 +9,15 @@ public class _01CabinNode : MonoBehaviour
     public ElectricGateController electricGateController = null;
     public DoorController doorController = null;
 
+    public GameObject gateTransferCube;
+
     public void Update()
     {
+        if(_02DeerNode.weaponPickedUp)
+        {
+            gateTransferCube.SetActive(true);
+        }
+
         if(doorController.opening)
         {
             print("unlocked deer node");
