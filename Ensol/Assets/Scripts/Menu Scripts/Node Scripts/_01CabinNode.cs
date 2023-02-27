@@ -6,14 +6,16 @@ using UnityEngine.UI;
 
 public class _01CabinNode : MonoBehaviour
 {
+    [Header("Scripts")]
     public ElectricGateController electricGateController = null;
     public DoorController doorController = null;
 
+    [Header("Other Variables")]
     public GameObject gateTransferCube;
 
     public void Update()
     {
-        if(_02DeerNode.weaponPickedUp)
+        if(_02DeerNode.weaponPickedUp && !gateTransferCube.activeInHierarchy)
         {
             gateTransferCube.SetActive(true);
         }
