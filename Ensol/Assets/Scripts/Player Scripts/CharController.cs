@@ -406,7 +406,6 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            print("boobies");
             _rb.drag = 0;
         }
     }
