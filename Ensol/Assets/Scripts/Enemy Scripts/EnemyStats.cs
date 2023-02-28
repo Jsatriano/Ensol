@@ -33,6 +33,7 @@ public class EnemyStats : MonoBehaviour
     public LayerMask obstacleMask;     //The layer(s) that obstacles in the arena are on (includes other enemies)
     public LayerMask environmentMask;  //The layers the environment is on
     [HideInInspector] public GameObject[] players;
+    public Renderer renderer;
 
     private void Awake() {
         gameObject.tag = "Enemy";
@@ -54,6 +55,17 @@ public class EnemyStats : MonoBehaviour
         //checks if player has been successfully located, if not, tries to locate it
         if(player == null) {
             SearchForPlayer();
+        }
+
+        if(currHP == 0) {
+            renderer.material.SetFloat("_Shader_Activation_Amount", 1.5f);
+        }
+        else if(currHP < maxHP / 2) {
+            renderer.material.SetFloat("_Shader_Activation_Amount", 1f);
+        }
+        else if(currHP < maxHP) {
+
+            renderer.material.SetFloat("_Shader_Activation_Amount", (currHP/maxHP) + 0.1f);
         }
     }
 

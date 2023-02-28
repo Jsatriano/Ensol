@@ -360,7 +360,14 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndLightSlash()
     {
-        lightSlashVFX[comboCounter - 1].SetActive(false);
+        if(comboCounter > 0 && comboCounter < 3) {
+            lightSlashVFX[comboCounter - 1].SetActive(false);
+        }
+        else{
+            foreach(GameObject vfx in lightSlashVFX) {
+                vfx.SetActive(false);
+            }
+        }
     }
 
     private void StartHeavySlash()
