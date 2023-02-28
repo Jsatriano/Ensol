@@ -376,6 +376,7 @@ public class PlayerCombatController : MonoBehaviour
     // how much forward force is added to every attack
     private void AttackForce(float multiplier)
     {
+        _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
