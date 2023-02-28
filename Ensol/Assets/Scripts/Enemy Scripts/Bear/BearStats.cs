@@ -29,7 +29,8 @@ public class BearStats : EnemyStats
     public BearBT bearBT;
     public DamageFlash damageFlash;
     public GameObject thisBear;
-    public ButtonGateController buttonController;
+    public ButtonGateController buttonGateController = null;
+    public ButtonDoorController buttonDoorController = null;
 
     protected override void Start()
     {
@@ -65,8 +66,21 @@ public class BearStats : EnemyStats
     {
         print(nameID + " is dead!");
         bearBT.isAlive = false;
-        swipeHitbox1.enabled = false;
-        swipeHitbox2.enabled = false;
+        /*
+        chargeHitbox.enabled = false;
+        basicAttackHitbox.enabled = false;
+        */
+
+        // tells door and gate scripts that this bear has died
+        if(buttonGateController != null)
+        {
+            buttonGateController.enemyKilled(thisBear);
+        }
+        if(buttonDoorController != null)
+        {
+            buttonDoorController.enemyKilled(thisBear);
+        }
+
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
         //buttonController.enemyKilled(thisBear);      
     }
