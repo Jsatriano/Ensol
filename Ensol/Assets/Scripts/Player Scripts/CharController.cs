@@ -32,11 +32,6 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
-
-    [Header("Sound Effects")] // Harsha
-    [SerializeField] private AudioSource walkingSoundEffect;
-    [SerializeField] private AudioSource dashingSoundEffect;
-    [SerializeField] private AudioSource deathSoundEffect;
     
     
     [Header("Movement Vaiables")]
@@ -44,6 +39,9 @@ public class CharController : MonoBehaviour
     [SerializeField] private float _acceleration;
     public float normalDrag;
     [SerializeField] private float _rotationSpeed;
+    private bool _isGrounded;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundMask;
 
     [Header("Dashing Variables")]
     [SerializeField] private float _dashForce;
@@ -114,10 +112,13 @@ public class CharController : MonoBehaviour
     {
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        
+
+        //Updates players drag based on whether they are in the air or on the ground
+        _isGrounded = Physics.CheckSphere(_groundCheck.position, .1f, _groundMask);
+        ControlDrag();
 
         // count down dash timer
-        if(_dashCdTimer > 0)
+        if (_dashCdTimer > 0)
         {
             _dashCdTimer -= Time.deltaTime;
         }
@@ -167,30 +168,24 @@ public class CharController : MonoBehaviour
                 
                 attacking = false;
 
-                if (walkingSoundEffect.isPlaying == false) // Plays when walking
-                {
-                    walkingSoundEffect.Play();
-                }
+
 
                 // if player stops moving, go idle
                 if(direction == zeroVector)
                 {
-                    state = State.IDLE;
-                    walkingSoundEffect.Stop();
+                    state = State.IDLE;                   
                 }
 
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
-                    state = State.DASHING;
-                    walkingSoundEffect.Stop();
+                    state = State.DASHING;                    
 
                 }
                 else if(Input.GetButtonDown("Cancel"))
                 {
                     prevState = State.MOVING;
                     state = State.PAUSED;
-                    walkingSoundEffect.Stop();
 
                 }
                 break;
@@ -204,7 +199,6 @@ public class CharController : MonoBehaviour
                     animator.SetBool("isHeavyAttacking", false);
                     animator.SetInteger("lightAttackCombo", 0);
                     Dash();
-                    dashingSoundEffect.Play(); // Plays when dashing
                 }
 
                 // after the dash is done, change states
@@ -234,10 +228,6 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
 
                 if(Input.GetButtonDown("Cancel"))
                 {
@@ -261,10 +251,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
+
                 // once knockback is over, go to idle state
                 if(knockback == false)
                 {
@@ -280,10 +267,6 @@ public class CharController : MonoBehaviour
                 
             case State.PAUSED:
                 Cursor.visible = true;
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
@@ -294,10 +277,6 @@ public class CharController : MonoBehaviour
 
             case State.DEAD:
                 //print("Player is Dead");
-                if (deathSoundEffect.isPlaying == false) // Plays when player dies
-                {
-                    deathSoundEffect.Play();
-                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -336,11 +315,14 @@ public class CharController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
 
             // makes our movement happen
-            //transform.position += heading * _moveSpeed;
+
             _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
-            if (_rb.velocity.magnitude > _moveSpeed)
+            Vector3 velocityXZ = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);           
+            if (velocityXZ.magnitude > _moveSpeed)
             {
-                _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _moveSpeed);
+                Vector3 velocityY = new Vector3(0, _rb.velocity.y, 0);
+                velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
+                _rb.velocity = velocityXZ + velocityY;
             }
         }        
     }
@@ -354,6 +336,7 @@ public class CharController : MonoBehaviour
 
         // player is now seen as dashing
         _isDashing = true;
+        _rb.velocity = Vector3.zero;
 
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
@@ -386,5 +369,17 @@ public class CharController : MonoBehaviour
 
         // player isnt seen as dashing anymore
         _isDashing = false;
+    }
+
+    private void ControlDrag()
+    {
+        if (_isGrounded)
+        {
+            _rb.drag = normalDrag;
+        }
+        else
+        {
+            _rb.drag = 0;
+        }
     }
 }

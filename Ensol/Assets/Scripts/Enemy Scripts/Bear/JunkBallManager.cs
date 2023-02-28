@@ -28,6 +28,11 @@ public class JunkBallManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Don't do anything when bear is dead
+        if (bearBT.isAlive == false)
+        {
+            return;
+        }
         //Sets playerTF using bearStats
         if (playerTF == null)
         {

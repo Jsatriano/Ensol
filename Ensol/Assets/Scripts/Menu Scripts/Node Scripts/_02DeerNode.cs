@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class _02DeerNode : MonoBehaviour
 {
+    [Header("Scripts")]
     public ElectricGateController electricGateController = null;
     
+    [Header("Weapon Pickup Variables")]
     public GameObject weaponPickup;
     public GameObject dropDeer;
     public GameObject pickupParticles;
     public static bool weaponPickedUp = false;
+    
 
     private bool dropped = false;
     private GameObject inSceneItem = null;
 
-
-    public float timerLength = 0.25f;
+    // timer to stop weaponPickup from insta-dropping
+    private float timerLength = 0.25f;
     private float timer = 0f;
 
     public void Update()

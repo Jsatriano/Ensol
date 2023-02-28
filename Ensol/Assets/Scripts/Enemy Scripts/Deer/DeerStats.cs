@@ -16,9 +16,6 @@ public class DeerStats : EnemyStats
     public float chargeTurning;       //How much the deer can turn while charging
     public BoxCollider chargeHitbox;  //Hitbox for the charge
 
-    [Header("Sound Effects")] // Harsha
-    [SerializeField] private AudioSource finalcutSoundEffect;
-    [SerializeField] private AudioSource cutSoundEffect;
 
 
     [Header("Basic Attack Stats/Components")]
@@ -63,12 +60,7 @@ public class DeerStats : EnemyStats
         print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
-            finalcutSoundEffect.Play();
             Die();
-        }
-        else
-        {
-            cutSoundEffect.Play();
         }
         return;
     }
@@ -79,6 +71,8 @@ public class DeerStats : EnemyStats
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
+
+        // tells door and gate scripts that this deer has died
         if(buttonGateController != null)
         {
             buttonGateController.enemyKilled(thisDeer);

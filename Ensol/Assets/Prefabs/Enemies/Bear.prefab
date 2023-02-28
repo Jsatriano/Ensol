@@ -196,10 +196,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameID: 
   numID: 0
-  maxHP: 25
+  maxHP: 50
   currHP: 0
   maxSpeed: 20
-  attackingCooldown: 2
+  attackingCooldown: 0.5
   acceleration: 20
   visionRange: 15
   rotationSpeed: 4
@@ -217,8 +217,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   players: []
+  renderer: {fileID: 2397837217801286584}
+  damageShaderMaterial: {fileID: 2100000, guid: 113248dc5a10ad246aacc32f4ec412d6, type: 2}
   swipeDamage: 8
-  swipeCooldown: 2
+  swipeCooldown: 1.5
   swipeRange: 5
   swipeMovement: 25
   swipeRotation: 6
@@ -236,7 +238,8 @@ MonoBehaviour:
   bearBT: {fileID: 3805819858905312370}
   damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
-  buttonController: {fileID: 0}
+  buttonGateController: {fileID: 0}
+  buttonDoorController: {fileID: 0}
 --- !u!114 &849177013564391245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,7 +802,7 @@ PrefabInstance:
     - target: {fileID: 1555475534390328571, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d42cc0e19c35a8a42884639a95d453aa, type: 2}
+      objectReference: {fileID: 2100000, guid: 113248dc5a10ad246aacc32f4ec412d6, type: 2}
     - target: {fileID: 1803563539910804681, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -16.374613
@@ -1193,6 +1196,11 @@ PrefabInstance:
 --- !u!4 &1821732347219173656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5937737629373911461, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
+  m_PrefabInstance: {fileID: 3805819857549971267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2397837217801286584 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1555475534390328571, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
   m_PrefabInstance: {fileID: 3805819857549971267}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3700346470346107048 stripped
