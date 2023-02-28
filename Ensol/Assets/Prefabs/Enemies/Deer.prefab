@@ -102,6 +102,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   players: []
+  renderer: {fileID: 5036595566845466312}
+  damageShaderMaterial: {fileID: 2100000, guid: b5f7e58696a848c42ae3e1bf318f0fd0, type: 2}
   chargeMaxSpeed: 15
   chargeAccel: 30
   chargeWindupLength: 1.1
@@ -716,6 +718,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a4a55d94ba271d4b9e0514fcd523a06, type: 3}
+--- !u!137 &5036595566845466312 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1630794972795428178, guid: 7a4a55d94ba271d4b9e0514fcd523a06, type: 3}
+  m_PrefabInstance: {fileID: 5999968537711954842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5855055354096057374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 145661420073367428, guid: 7a4a55d94ba271d4b9e0514fcd523a06, type: 3}
