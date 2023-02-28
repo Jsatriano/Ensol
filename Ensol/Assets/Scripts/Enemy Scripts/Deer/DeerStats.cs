@@ -79,6 +79,8 @@ public class DeerStats : EnemyStats
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
+
+        // tells door and gate scripts that this deer has died
         if(buttonGateController != null)
         {
             buttonGateController.enemyKilled(thisDeer);
