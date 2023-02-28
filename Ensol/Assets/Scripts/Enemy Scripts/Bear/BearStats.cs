@@ -66,13 +66,11 @@ public class BearStats : EnemyStats
     {
         print(nameID + " is dead!");
         bearBT.isAlive = false;
-        /*
-        chargeHitbox.enabled = false;
-        basicAttackHitbox.enabled = false;
-        */
+        swipeHitbox1.enabled = false;
+        swipeHitbox2.enabled = false;
 
         // tells door and gate scripts that this bear has died
-        if(buttonGateController != null)
+        if (buttonGateController != null)
         {
             buttonGateController.enemyKilled(thisBear);
         }
