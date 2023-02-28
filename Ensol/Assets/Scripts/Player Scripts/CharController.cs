@@ -44,6 +44,9 @@ public class CharController : MonoBehaviour
     [SerializeField] private float _acceleration;
     public float normalDrag;
     [SerializeField] private float _rotationSpeed;
+    private bool _isGrounded;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundMask;
 
     [Header("Dashing Variables")]
     [SerializeField] private float _dashForce;
@@ -114,10 +117,13 @@ public class CharController : MonoBehaviour
     {
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        
+
+        //Updates players drag based on whether they are in the air or on the ground
+        _isGrounded = Physics.CheckSphere(_groundCheck.position, .1f, _groundMask);
+        ControlDrag();
 
         // count down dash timer
-        if(_dashCdTimer > 0)
+        if (_dashCdTimer > 0)
         {
             _dashCdTimer -= Time.deltaTime;
         }
@@ -336,11 +342,14 @@ public class CharController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
 
             // makes our movement happen
-            //transform.position += heading * _moveSpeed;
+
             _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
-            if (_rb.velocity.magnitude > _moveSpeed)
+            Vector3 velocityXZ = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);           
+            if (velocityXZ.magnitude > _moveSpeed)
             {
-                _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, _moveSpeed);
+                Vector3 velocityY = new Vector3(0, _rb.velocity.y, 0);
+                velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
+                _rb.velocity = velocityXZ + velocityY;
             }
         }        
     }
@@ -354,6 +363,7 @@ public class CharController : MonoBehaviour
 
         // player is now seen as dashing
         _isDashing = true;
+        _rb.velocity = Vector3.zero;
 
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
@@ -386,5 +396,18 @@ public class CharController : MonoBehaviour
 
         // player isnt seen as dashing anymore
         _isDashing = false;
+    }
+
+    private void ControlDrag()
+    {
+        if (_isGrounded)
+        {
+            _rb.drag = normalDrag;
+        }
+        else
+        {
+            print("boobies");
+            _rb.drag = 0;
+        }
     }
 }
