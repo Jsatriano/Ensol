@@ -11,25 +11,25 @@ public class ToggleWalls : MonoBehaviour
     // script to toggle the walls when walking inside/outside of a building
     void Start()
     {
-
+        var object : GameObject;
     }
     void OnTriggerEnter(Collider other) // Check if Player is inside
     {
-        StartCoroutine(FadeWallsOut());
+        FadeWallsOut();
     }
 
     void OnTriggerExit(Collider other) // Check if Player is outside
     {
-        StartCoroutine(FadeWallsIn());
+        FadeWallsIn();
     }
 
-    public IEnumerator FadeWallsOut() // function to slowly fade the walls out
+    public FadeWallsOut() // function to slowly fade the walls out
     {
         object.SetActive(false);
         Debug.Log("walls off");
     }
 
-    public IEnumerator FadeWallsIn() // function to slowly fade the walls in
+    public FadeWallsIn() // function to slowly fade the walls in
     {
         object.SetActive(true);
         Debug.Log("walls on");
