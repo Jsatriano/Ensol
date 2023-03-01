@@ -9,7 +9,7 @@ public class ToggleWalls : MonoBehaviour
     // Matty
     // script to toggle the walls when walking inside/outside of a building
 
-    public static GameObject walls;
+    public GameObject walls;
 
     
     void OnTriggerEnter(Collider other) // Check if Player is inside
