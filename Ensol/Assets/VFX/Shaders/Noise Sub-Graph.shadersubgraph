@@ -4,13 +4,13 @@
     "m_ObjectId": "4fa62d936bb9438ebef99b1c867f3f35",
     "m_Properties": [
         {
-            "m_Id": "c61d7edd302e445d82253034b43f788c"
-        },
-        {
             "m_Id": "f04ee46b883440b4825d75ce9c17fdd4"
         },
         {
             "m_Id": "5fb115451d1040fab1cef936c6e933fc"
+        },
+        {
+            "m_Id": "9334fbdf0a874843b7d793395fd1d41e"
         }
     ],
     "m_Keywords": [],
@@ -55,9 +55,6 @@
             "m_Id": "a5ad49bf17e64cc4a5a4b3edabe321d7"
         },
         {
-            "m_Id": "7131c314ede34616b183d643ca02062c"
-        },
-        {
             "m_Id": "f120896d2afa4cf9a510b5d01da49a77"
         },
         {
@@ -68,6 +65,9 @@
         },
         {
             "m_Id": "7f9cdc2bffe242edb15f428b8ce41407"
+        },
+        {
+            "m_Id": "5d34e111bba7412dbdaa03ec97380637"
         }
     ],
     "m_GroupDatas": [],
@@ -118,7 +118,7 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "7131c314ede34616b183d643ca02062c"
+                    "m_Id": "5d34e111bba7412dbdaa03ec97380637"
                 },
                 "m_SlotId": 0
             },
@@ -837,6 +837,41 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "5d34e111bba7412dbdaa03ec97380637",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -664.0,
+            "y": -59.99997329711914,
+            "width": 192.99996948242188,
+            "height": 34.0000114440918
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "f3dde6b5c99e4c8080d5074596204eed"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "9334fbdf0a874843b7d793395fd1d41e"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "5d39f64632d54c34b06b62f54095153e",
     "m_Id": 4,
@@ -933,41 +968,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
-    "m_ObjectId": "7131c314ede34616b183d643ca02062c",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Property",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -645.9999389648438,
-            "y": -25.999969482421876,
-            "width": 175.0,
-            "height": 34.0000114440918
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "bb653f7046fb457186aaa0b27b9233b4"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_Property": {
-        "m_Id": "c61d7edd302e445d82253034b43f788c"
-    }
 }
 
 {
@@ -1175,6 +1175,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
+    "m_ObjectId": "9334fbdf0a874843b7d793395fd1d41e",
+    "m_Guid": {
+        "m_GuidSerialized": "23a72cee-f0e6-44b3-8f5c-5e17b5d710ad"
+    },
+    "m_Name": "Water Scroll Speed",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Water Scroll Speed",
+    "m_DefaultReferenceName": "_Water_Scroll_Speed",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "959d6223888740238fa646204ed83e56",
@@ -1362,21 +1389,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "bb653f7046fb457186aaa0b27b9233b4",
-    "m_Id": 0,
-    "m_DisplayName": "Water Scroll Speed",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "c2252065415241f39f7c9d0494ae494a",
     "m_Id": 0,
@@ -1468,33 +1480,6 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
-    }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "c61d7edd302e445d82253034b43f788c",
-    "m_Guid": {
-        "m_GuidSerialized": "22e5d02d-2951-490e-be9e-e7034ae8b1cb"
-    },
-    "m_Name": "Water Scroll Speed",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Water Scroll Speed",
-    "m_DefaultReferenceName": "_Water_Scroll_Speed",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
     }
 }
 
@@ -1704,13 +1689,13 @@
     "m_Name": "",
     "m_ChildObjectList": [
         {
-            "m_Id": "c61d7edd302e445d82253034b43f788c"
-        },
-        {
             "m_Id": "f04ee46b883440b4825d75ce9c17fdd4"
         },
         {
             "m_Id": "5fb115451d1040fab1cef936c6e933fc"
+        },
+        {
+            "m_Id": "9334fbdf0a874843b7d793395fd1d41e"
         }
     ]
 }
@@ -1884,6 +1869,27 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "f3dde6b5c99e4c8080d5074596204eed",
+    "m_Id": 0,
+    "m_DisplayName": "Water Scroll Speed",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
 }
 
 {

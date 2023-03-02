@@ -32,11 +32,6 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
-
-    [Header("Sound Effects")] // Harsha
-    [SerializeField] private AudioSource walkingSoundEffect;
-    [SerializeField] private AudioSource dashingSoundEffect;
-    [SerializeField] private AudioSource deathSoundEffect;
     
     
     [Header("Movement Vaiables")]
@@ -173,30 +168,24 @@ public class CharController : MonoBehaviour
                 
                 attacking = false;
 
-                if (walkingSoundEffect.isPlaying == false) // Plays when walking
-                {
-                    walkingSoundEffect.Play();
-                }
+
 
                 // if player stops moving, go idle
                 if(direction == zeroVector)
                 {
-                    state = State.IDLE;
-                    walkingSoundEffect.Stop();
+                    state = State.IDLE;                   
                 }
 
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
-                    state = State.DASHING;
-                    walkingSoundEffect.Stop();
+                    state = State.DASHING;                    
 
                 }
                 else if(Input.GetButtonDown("Cancel"))
                 {
                     prevState = State.MOVING;
                     state = State.PAUSED;
-                    walkingSoundEffect.Stop();
 
                 }
                 break;
@@ -210,7 +199,6 @@ public class CharController : MonoBehaviour
                     animator.SetBool("isHeavyAttacking", false);
                     animator.SetInteger("lightAttackCombo", 0);
                     Dash();
-                    dashingSoundEffect.Play(); // Plays when dashing
                 }
 
                 // after the dash is done, change states
@@ -240,10 +228,6 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
 
                 if(Input.GetButtonDown("Cancel"))
                 {
@@ -267,10 +251,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
+
                 // once knockback is over, go to idle state
                 if(knockback == false)
                 {
@@ -286,10 +267,6 @@ public class CharController : MonoBehaviour
                 
             case State.PAUSED:
                 Cursor.visible = true;
-                if (walkingSoundEffect.isPlaying == true) 
-                {
-                    walkingSoundEffect.Stop();
-                }
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
@@ -300,10 +277,6 @@ public class CharController : MonoBehaviour
 
             case State.DEAD:
                 //print("Player is Dead");
-                if (deathSoundEffect.isPlaying == false) // Plays when player dies
-                {
-                    deathSoundEffect.Play();
-                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -406,7 +379,6 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            print("boobies");
             _rb.drag = 0;
         }
     }

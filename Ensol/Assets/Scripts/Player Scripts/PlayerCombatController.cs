@@ -23,14 +23,6 @@ public class PlayerCombatController : MonoBehaviour
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
 
-    [Header("Sound Effects")] // Harsha
-    [SerializeField] private AudioSource heavySoundEffect;
-    [SerializeField] private AudioSource specialSoundEffect;
-    [SerializeField] private AudioSource lightSoundEffect;
-    [SerializeField] private AudioSource lightStabSoundEffect;
-    [SerializeField] private AudioSource minorcutSoundEffect;
-    [SerializeField] private AudioSource deathcutSoundEffect;
-
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
@@ -125,7 +117,6 @@ public class PlayerCombatController : MonoBehaviour
 
         if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
-            lightSoundEffect.Play(); // Plays when doing a light attack sound effect
             acceptingInput = true;
             isNextAttackBuffered = false;
             if(lightHitbox.activeSelf) {
@@ -156,14 +147,6 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
-            if(comboCounter != 3) // Plays normal light attack sound effect if combo counter is less than 3, otherwise plays the stab sound effect
-            {
-                lightSoundEffect.Play();
-            }
-            else 
-            {
-                lightStabSoundEffect.Play();
-            }
             comboTimer = -1f;
             comboTimerActive = false;
             acceptingInput = false;
@@ -189,7 +172,6 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
 
             charController.animator.SetBool("isHeavyAttacking", true);
-            heavySoundEffect.Play(); // Plays when heavy attack is clicked
             
             // remove 1 electric vial
             electricVials.RemoveVials(1);
@@ -215,7 +197,6 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
             charController.animator.SetBool("isThrowing", true);
-            specialSoundEffect.Play(); // Plays when special attack is clicked
             electricVials.RemoveVials(2);
             acceptingInput = false;
 
@@ -385,6 +366,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
+        print(force);
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
@@ -395,14 +377,6 @@ public class PlayerCombatController : MonoBehaviour
         {
             // does dmg
             currHP -= dmg;
-            if(currHP <= 0) // if the damage taken kills the deer, plays a death cut sound effect, otherwise it plays a regular sound effect
-            {
-                deathcutSoundEffect.Play();
-            }
-            else 
-            {
-                minorcutSoundEffect.Play();
-            }
 
             // starts invuln
             invulnTimer = Time.time;
