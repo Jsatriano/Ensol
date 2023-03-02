@@ -66,6 +66,7 @@ public class PlayerCombatController : MonoBehaviour
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
+    private bool dying = false;
 
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
@@ -152,7 +153,12 @@ public class PlayerCombatController : MonoBehaviour
             acceptingInput = false;
             isNextAttackBuffered = true;
            // print("input taken COMBO COUNTER " + comboCounter.ToString());
-
+           //sfx
+           if (comboCounter < 3){
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            } else {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            }
             
         }
 
@@ -175,13 +181,22 @@ public class PlayerCombatController : MonoBehaviour
             
             // remove 1 electric vial
             electricVials.RemoveVials(1);
+
+            //sfx
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
         }
         if(currHP <= 0) 
         {
             //print("Player is dead");
             charController.state = CharController.State.DEAD;
             charController.animator.SetBool("isDead", true);
-            
+            //sfx
+            if (dying == false){
+                dying = true;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);            
+            }
+        } else {
+            dying = false;
         }
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
@@ -199,6 +214,8 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isThrowing", true);
             electricVials.RemoveVials(2);
             acceptingInput = false;
+            //sfx
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
 
         }
 

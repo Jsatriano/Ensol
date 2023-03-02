@@ -338,6 +338,9 @@ public class CharController : MonoBehaviour
         _isDashing = true;
         _rb.velocity = Vector3.zero;
 
+        //sfx
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDodge, this.transform.position);
+
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
         if(direction == zeroVector)
