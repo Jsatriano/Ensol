@@ -8,6 +8,7 @@ public class JunkBallManager : MonoBehaviour
     public Rigidbody ballPrefab;
     public Transform junkOrigin;
     [SerializeField] private float maxPrediction;
+    [SerializeField] private float rotationSpeed;
     private Rigidbody junkBall;
     [HideInInspector] public float maxThrowStrength;
     [HideInInspector] public float minThrowStrength;
@@ -70,6 +71,7 @@ public class JunkBallManager : MonoBehaviour
         junkBall.transform.rotation = junkOrigin.rotation;
         junkBall.velocity = Vector3.zero;
 
+
         //Get velocity for ball
         ThrowData data = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
         data = PredictThrow(data, playerTF.position, junkBall.position);
@@ -84,6 +86,7 @@ public class JunkBallManager : MonoBehaviour
         Vector3 finalScale = new Vector3(1, 1, 1) * bearBT.bearStats.explosionSize;
         junkBallScript.explosionFinalSize = finalScale;
         junkBall.velocity = data.initialVelocity;
+        junkBall.AddTorque(junkBall.transform.right * rotationSpeed, ForceMode.Impulse);
     }
 
     private ThrowData CalculateThrowData(Vector3 targetPosition, Vector3 startPosition)
@@ -128,12 +131,12 @@ public class JunkBallManager : MonoBehaviour
 
         //Predict how much the player will move in that time
         Vector3 playerVelocity = playerRB.velocity;
-        //Clamps how much the bear will predict
+        //Clamps how much the bear will change their current trajectory
         if (playerVelocity.magnitude > maxPrediction)
         {
             playerVelocity = Vector3.ClampMagnitude(playerVelocity, maxPrediction);
         }
-        Vector3 playerMovement = playerRB.velocity * time;
+        Vector3 playerMovement = playerVelocity * time;
 
         //Calculate new throw data
         Vector3 newTarget = new Vector3(targetPos.x + playerMovement.x, targetPos.y, targetPos.z + playerMovement.z);
