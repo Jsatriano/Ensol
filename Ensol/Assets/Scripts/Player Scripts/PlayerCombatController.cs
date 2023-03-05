@@ -22,6 +22,7 @@ public class PlayerCombatController : MonoBehaviour
     public HealthBar healthBar;
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
+    public Material backpackVialMaterial;
 
 
     [Header("Player Stats & Variables")]
@@ -101,6 +102,8 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.AddVial();
             vialTimer += vialRechargeSpeed;
         }
+
+        ManageVialShader();
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
@@ -225,7 +228,7 @@ public class PlayerCombatController : MonoBehaviour
         attackPower = baseAttackPower * specialAttackMult;
 
         LookAtMouse();
-        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, charController.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
 
         Vector3 throwTarget = charController.mouseFollower.transform.position;
@@ -431,5 +434,20 @@ public class PlayerCombatController : MonoBehaviour
         // reset drag and end knockback
         _rb.drag = charController.normalDrag;
         charController.knockback = false;
+    }
+
+    private void ManageVialShader() {
+        if(electricVials.currVial + 1 >= 3) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 1f);
+        }
+        else if(electricVials.currVial + 1 == 2) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.2f);
+        }
+        else if(electricVials.currVial + 1 == 1) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
+        }
+        else {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
+        }
     }
 }
