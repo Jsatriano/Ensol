@@ -56,7 +56,7 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Submit"))
         {
             ContinueStory();
         }
