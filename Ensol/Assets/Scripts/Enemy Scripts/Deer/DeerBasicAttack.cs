@@ -8,7 +8,7 @@ public class DeerBasicAttack : Node
     private Transform _playerTF; //Player transform
     private Transform _enemyTF;  //Enemy transform
     private BoxCollider _hitBox; //Hitbox of attack
-    private float _rotation;
+    private float _rotation;     //Controls the deer's rotation speed
 
     //The deer's basic attack, has a short windup and then sticks out a hitbox for a provided length - RYAN
     public DeerBasicAttack(BoxCollider hitBox, Transform playerTF, Transform enemyTF, float rotation)

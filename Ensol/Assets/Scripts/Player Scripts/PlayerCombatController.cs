@@ -383,7 +383,6 @@ public class PlayerCombatController : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
-        print(force);
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }

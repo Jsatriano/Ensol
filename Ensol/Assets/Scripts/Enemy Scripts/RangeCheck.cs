@@ -37,7 +37,9 @@ public class RangeCheck : Node
         else
         {
             //Calculates the distance between the enemy and the player, returning success if they are within attack range otherwise failure
-            float distToPlayer = (_playerTF.position - _enemyTF.position).magnitude;
+            //float distToPlayer = (_playerTF.position - _enemyTF.position).magnitude;
+            Vector3 dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
+            float distToPlayer = dirToPlayer.magnitude;
             if (distToPlayer <= _attackRange)
             {
                 state = NodeState.SUCCESS;
