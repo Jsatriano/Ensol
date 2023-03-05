@@ -22,14 +22,7 @@ public class PlayerCombatController : MonoBehaviour
     public HealthBar healthBar;
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
-
-    [Header("Sound Effects")] // Harsha
-    [SerializeField] private AudioSource heavySoundEffect;
-    [SerializeField] private AudioSource specialSoundEffect;
-    [SerializeField] private AudioSource lightSoundEffect;
-    [SerializeField] private AudioSource lightStabSoundEffect;
-    [SerializeField] private AudioSource minorcutSoundEffect;
-    [SerializeField] private AudioSource deathcutSoundEffect;
+    public Material backpackVialMaterial;
 
 
     [Header("Player Stats & Variables")]
@@ -74,6 +67,7 @@ public class PlayerCombatController : MonoBehaviour
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
+    private bool dying = false;
 
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
@@ -109,6 +103,8 @@ public class PlayerCombatController : MonoBehaviour
             vialTimer += vialRechargeSpeed;
         }
 
+        ManageVialShader();
+
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
         if(isCatching) {
@@ -125,7 +121,6 @@ public class PlayerCombatController : MonoBehaviour
 
         if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
-            lightSoundEffect.Play(); // Plays when doing a light attack sound effect
             acceptingInput = true;
             isNextAttackBuffered = false;
             if(lightHitbox.activeSelf) {
@@ -156,20 +151,17 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
-            if(comboCounter != 3) // Plays normal light attack sound effect if combo counter is less than 3, otherwise plays the stab sound effect
-            {
-                lightSoundEffect.Play();
-            }
-            else 
-            {
-                lightStabSoundEffect.Play();
-            }
             comboTimer = -1f;
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
            // print("input taken COMBO COUNTER " + comboCounter.ToString());
-
+           //sfx
+           if (comboCounter < 3){
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            } else {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            }
             
         }
 
@@ -189,17 +181,25 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
 
             charController.animator.SetBool("isHeavyAttacking", true);
-            heavySoundEffect.Play(); // Plays when heavy attack is clicked
             
             // remove 1 electric vial
             electricVials.RemoveVials(1);
+
+            //sfx
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
         }
         if(currHP <= 0) 
         {
             //print("Player is dead");
             charController.state = CharController.State.DEAD;
             charController.animator.SetBool("isDead", true);
-            
+            //sfx
+            if (dying == false){
+                dying = true;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);            
+            }
+        } else {
+            dying = false;
         }
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
@@ -215,9 +215,10 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
             charController.animator.SetBool("isThrowing", true);
-            specialSoundEffect.Play(); // Plays when special attack is clicked
             electricVials.RemoveVials(2);
             acceptingInput = false;
+            //sfx
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
 
         }
 
@@ -227,7 +228,7 @@ public class PlayerCombatController : MonoBehaviour
         attackPower = baseAttackPower * specialAttackMult;
 
         LookAtMouse();
-        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weapon.transform.position, charController.transform.rotation);
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, charController.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
 
         Vector3 throwTarget = charController.mouseFollower.transform.position;
@@ -360,7 +361,14 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndLightSlash()
     {
-        lightSlashVFX[comboCounter - 1].SetActive(false);
+        if(comboCounter > 0 && comboCounter < 3) {
+            lightSlashVFX[comboCounter - 1].SetActive(false);
+        }
+        else{
+            foreach(GameObject vfx in lightSlashVFX) {
+                vfx.SetActive(false);
+            }
+        }
     }
 
     private void StartHeavySlash()
@@ -376,7 +384,9 @@ public class PlayerCombatController : MonoBehaviour
     // how much forward force is added to every attack
     private void AttackForce(float multiplier)
     {
+        _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
+        print(force);
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
@@ -387,14 +397,6 @@ public class PlayerCombatController : MonoBehaviour
         {
             // does dmg
             currHP -= dmg;
-            if(currHP <= 0) // if the damage taken kills the deer, plays a death cut sound effect, otherwise it plays a regular sound effect
-            {
-                deathcutSoundEffect.Play();
-            }
-            else 
-            {
-                minorcutSoundEffect.Play();
-            }
 
             // starts invuln
             invulnTimer = Time.time;
@@ -432,5 +434,20 @@ public class PlayerCombatController : MonoBehaviour
         // reset drag and end knockback
         _rb.drag = charController.normalDrag;
         charController.knockback = false;
+    }
+
+    private void ManageVialShader() {
+        if(electricVials.currVial + 1 >= 3) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 1f);
+        }
+        else if(electricVials.currVial + 1 == 2) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.2f);
+        }
+        else if(electricVials.currVial + 1 == 1) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
+        }
+        else {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
+        }
     }
 }

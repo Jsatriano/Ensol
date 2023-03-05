@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class _11MetalFieldNode : MonoBehaviour
 {
+    [Header("Scripts")]
     public ElectricGateController electricGateController = null;
 
     public void Update()
