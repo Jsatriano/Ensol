@@ -6,9 +6,10 @@ using BehaviorTree;
 public class DeerCharge : Node
 {
     //Charge Vars
-    private float _chargeMaxSpeed;      //How fast the charge is
-    private float _chargeAccel;  //How fast the charge gets to max speed
-    private float _chargeTurning;       //How well the enemy tracks the player during windup
+    private float _chargeMaxSpeed; //How fast the charge is
+    private float _chargeAccel;    //How fast the charge gets to max speed
+    private float _chargeTurning;  //How well the enemy tracks the player during windup
+    private float _rotation;       //How much the deer rotates to face the player during windup
 
     //Used for ending the charge
     private Vector3 _startingPosition; //Used to check if the enemy has passed the player
@@ -23,8 +24,8 @@ public class DeerCharge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, 
-                      Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, float chargeTurning, LayerMask obstacleMask)
+    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, 
+                      float chargeTurning, float rotation, LayerMask obstacleMask)
     {
         _chargeMaxSpeed = chargeMaxSpeed;
         _chargeAccel    = chargeAccel;
@@ -33,8 +34,9 @@ public class DeerCharge : Node
         _deerRB         = deerRB;
         _hitZone        = hitZone;
         _chargeTurning  = chargeTurning / 1000;
+        _rotation       = rotation / 10;
         _obstacleMask   = obstacleMask;
-        _chargeEnding    = false;
+        _chargeEnding   = false;
     }
 
     //Deer charge attack - RYAN
@@ -45,7 +47,8 @@ public class DeerCharge : Node
         {
             //Gradually turns deer to face player
             Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
-            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, 0.1f);
+            float rotationMultiplier = Mathf.Clamp(Vector3.Dot(_deerTF.forward, toPlayer), 0.5f, 1);
+            _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _rotation * rotationMultiplier);
             _startingPosition = _deerTF.position;
 
             //Setups/ticks up timers
@@ -70,14 +73,16 @@ public class DeerCharge : Node
             //Checks if the deer is stuck on something or has been charging too long
             if (_stuckTime > 0.75f || _chargeTime > 4)
             {
-                SetData("this", true);
                 _chargeEnding = true;
             }
             //Checks to see if deer has charged past its target position, if so then charge is over
             if (Vector3.Distance(_startingPosition, _deerTF.position) > Vector3.Distance(_startingPosition, _playerTF.position) || GetData("attackHit") != null || _chargeEnding) 
             {
-                
-                 ClearData("chargingAnim");
+                //Stops the charging anim once the deer slows down enough (so they play the anim when barely moving)
+                if (_deerRB.velocity.magnitude <= 6f)
+                {
+                    ClearData("chargingAnim");
+                }
                 
                 _deerRB.drag  = 1f;
                 _chargeEnding = true;

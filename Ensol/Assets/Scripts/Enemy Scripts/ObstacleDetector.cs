@@ -65,7 +65,7 @@ public class ObstacleDetector : Node
                 {
                     weight = (_detectionRadius - distToObstacle) / _detectionRadius;
                 }
-                weight = Mathf.Clamp(weight, 0.15f, 1);
+                weight = Mathf.Clamp(weight, 0, 1);
 
                 //Checks how close each of the 8 directions is to the direction to the obstacle           
                 for (int i = 0; i < Directions.eightDirections.Count; i++)

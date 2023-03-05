@@ -103,19 +103,17 @@ MonoBehaviour:
     m_Bits: 128
   players: []
   renderer: {fileID: 5036595566845466312}
-  damageShaderMaterial: {fileID: 2100000, guid: b5f7e58696a848c42ae3e1bf318f0fd0, type: 2}
   chargeMaxSpeed: 15
   chargeAccel: 30
   chargeWindupLength: 1.1
   chargeCooldown: 4
+  windupRotation: 2
   chargeDamage: 5
-  chargeTurning: 20
+  chargeTurning: 10
   chargeHitbox: {fileID: 6081231337202509091}
-  finalcutSoundEffect: {fileID: 0}
-  cutSoundEffect: {fileID: 0}
   attackCooldown: 2
-  attackRange: 6.5
-  windupTurning: 4
+  attackRange: 5
+  windupTurning: 2
   basicAttackHitbox: {fileID: 2531082468550991690}
   distanceFromPlayer: 4
   deerBT: {fileID: 4265731491905512404}
@@ -775,10 +773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de80268977d05b94085b07a18de38bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargingSoundEffect: {fileID: 0}
-  walkingSoundEffect: {fileID: 0}
-  deathSoundEffect: {fileID: 0}
-  attackSoundEffect: {fileID: 0}
   animController: {fileID: 1988855284389044734}
   headTF: {fileID: 5855055354096057374}
   lookingSpeed: 3

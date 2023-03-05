@@ -12,6 +12,7 @@ public class DeerStats : EnemyStats
     public float chargeAccel;         //How fast the deer gets to max speed when chargin
     public float chargeWindupLength;  //How long the windup of charge is
     public float chargeCooldown;      //How long the cooldown for charge is
+    public float windupRotation;      //How much the deer rotates to face the player during windup
     public float chargeDamage;        //How much damage the charge does
     public float chargeTurning;       //How much the deer can turn while charging
     public BoxCollider chargeHitbox;  //Hitbox for the charge
@@ -21,7 +22,7 @@ public class DeerStats : EnemyStats
     [Header("Basic Attack Stats/Components")]
     public float attackCooldown; //Cooldown between basic attacks
     public float attackRange;    //How close the player needs to be for the enemy to basic attack
-    public float windupTurning;  //How much the deer can turn to face the player during winup
+    public float windupTurning;  //How much the deer can turn to face the player during windup
     public BoxCollider basicAttackHitbox; //Hibox for the attack
 
     [Header("Other Things")]
