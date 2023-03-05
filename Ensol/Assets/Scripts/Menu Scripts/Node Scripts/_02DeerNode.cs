@@ -10,7 +10,6 @@ public class _02DeerNode : MonoBehaviour
     [Header("Weapon Pickup Variables")]
     public GameObject weaponPickup;
     public GameObject dropDeer;
-    public GameObject pickupParticles;
     public static bool weaponPickedUp = false;
     
 
@@ -30,7 +29,7 @@ public class _02DeerNode : MonoBehaviour
         {
             if(dropDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
             {
-                StartCoroutine(DropAfterDelay(weaponPickup, dropDeer, pickupParticles));
+                StartCoroutine(DropAfterDelay(weaponPickup, dropDeer));
                 dropped = true;
             }
         }
@@ -49,12 +48,11 @@ public class _02DeerNode : MonoBehaviour
         }
     }
 
-    public IEnumerator DropAfterDelay(GameObject item, GameObject enemy, GameObject particles)
+    public IEnumerator DropAfterDelay(GameObject item, GameObject enemy)
     {
         yield return new WaitForSeconds(1f);
 
         // spawn item, spawn particles and parent item
         inSceneItem = Instantiate(item, enemy.transform.position, enemy.transform.rotation);
-        Instantiate(particles, inSceneItem.transform.position, particles.transform.rotation, inSceneItem.transform);
     }
 }
