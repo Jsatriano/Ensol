@@ -22,7 +22,7 @@ public class CharController : MonoBehaviour
     public Vector3 forward, right, direction, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
-    [Header("Other Variables")]
+    [Header("References & Other Variables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
@@ -337,6 +337,9 @@ public class CharController : MonoBehaviour
         // player is now seen as dashing
         _isDashing = true;
         _rb.velocity = Vector3.zero;
+
+        //sfx
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDodge, this.transform.position);
 
         // find out how much force to apply to player (also check if player is moving or not)
         Vector3 forceToApply;
