@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 1213566982312935966}
   - component: {fileID: 9068476471640263748}
   - component: {fileID: 8161359417763176994}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waterfall Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5651,7 +5651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137944914698205056}
   m_LocalRotation: {x: -0, y: 0.6821239, z: -0, w: 0.7312366}
-  m_LocalPosition: {x: 149.66, y: 7, z: -18.81}
+  m_LocalPosition: {x: -9.63, y: 7, z: 54.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5863,7 +5863,7 @@ GameObject:
   - component: {fileID: 9091608480772023545}
   - component: {fileID: 5439688801079155934}
   - component: {fileID: 8464922245320977428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waterfall Ripples Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11258,7 +11258,7 @@ Transform:
   - {fileID: 2365826227283845551}
   - {fileID: 5927585003771403677}
   m_Father: {fileID: 8727326795591620504}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 69.3, z: 0}
 --- !u!1 &2389192104206394425
 GameObject:
@@ -11591,7 +11591,7 @@ Transform:
   - {fileID: 8409528902031510430}
   - {fileID: 236534438768503916}
   m_Father: {fileID: 8727326795591620504}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4044516730495400410
 GameObject:
@@ -11608,7 +11608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6083487053586736307
 Transform:
   m_ObjectHideFlags: 0
@@ -11633,7 +11633,7 @@ Transform:
   - {fileID: 8614938829915739977}
   - {fileID: 5201903477039126904}
   m_Father: {fileID: 8727326795591620504}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4156766610919096750
 GameObject:
@@ -12353,7 +12353,7 @@ Transform:
   - {fileID: 1017923380076400386}
   - {fileID: 8562393213235953978}
   m_Father: {fileID: 8727326795591620504}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 46.7, z: 0}
 --- !u!1 &6364162781199975131
 GameObject:
@@ -12442,7 +12442,7 @@ Transform:
   - {fileID: 3974848457086428464}
   - {fileID: 8226430799127296674}
   m_Father: {fileID: 8727326795591620504}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6412019498240558027
 GameObject:
@@ -12552,7 +12552,7 @@ GameObject:
   - component: {fileID: 9153309953788206222}
   - component: {fileID: 2493848843556809303}
   - component: {fileID: 3228801236100238117}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waterfall Foam Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18002,7 +18002,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5786971817764447467}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waterfall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18136,7 +18136,7 @@ GameObject:
   - component: {fileID: 1638479725537606484}
   - component: {fileID: 405329526487730405}
   - component: {fileID: 8494216779591549787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waterfall Current Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23026,11 +23026,11 @@ Transform:
   m_Children:
   - {fileID: 3336980065619699542}
   - {fileID: 2593351725844800122}
+  - {fileID: 6083487053586736307}
   - {fileID: 3751429092964428000}
   - {fileID: 2340071337031423467}
   - {fileID: 3236702166724956021}
   - {fileID: 8692574554362727816}
-  - {fileID: 6083487053586736307}
   - {fileID: 6795844255545742670}
   - {fileID: 6094918953043629170}
   - {fileID: 509155068048877798}
@@ -23053,6 +23053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electricGateController: {fileID: 4137372698087376475}
   controlsCollider: {fileID: 4686262521303508455}
+  screen: {fileID: 9162054664230703591}
   water: {fileID: 1999210607927907097}
   waterBounds:
   - {fileID: 5324700433492032581}
@@ -29387,6 +29388,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 584296880368075699, guid: 33486d5241b618a4fa0e2a88a27a96a5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 584296880368075699, guid: 33486d5241b618a4fa0e2a88a27a96a5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
     - target: {fileID: 919132149155446097, guid: 33486d5241b618a4fa0e2a88a27a96a5, type: 3}
       propertyPath: m_Name
       value: river_control_tower
