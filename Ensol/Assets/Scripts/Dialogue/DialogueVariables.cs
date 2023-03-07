@@ -8,7 +8,7 @@ public class DialogueVariables
     public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
 
     private Story globalVariablesStory;
-    // public static string saveFile;
+    public static string saveFile;
     
     public DialogueVariables(TextAsset loadGlobalsJSON)
     {
