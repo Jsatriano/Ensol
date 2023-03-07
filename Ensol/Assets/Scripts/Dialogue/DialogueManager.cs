@@ -4,9 +4,13 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Globals Ink File")]
+    [SerializeField] private InkFile globalsInkFile;
+
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -15,12 +19,18 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
+    private CharController charController;
+
+    public bool donePlaying;
+
 
     private Story currentStory;
 
     public bool dialogueisPlaying { get; private set; }
 
     private static DialogueManager instance;
+
+    private DialogueVariables dialogueVariables;
 
     private void Awake()
     {
@@ -29,6 +39,8 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("Found more than on Dialogue Manager in the scene");
         }
         instance = this;
+
+        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
     }
 
     public static DialogueManager GetInstance()
@@ -39,10 +51,14 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueisPlaying = false;
+        donePlaying = false;
         dialoguePanel.SetActive(false);
 
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
+
+        charController = gameObject.GetComponent<CharController>();
+
         foreach (GameObject choice in choices)
         {
             choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
@@ -68,13 +84,18 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = true;
         dialoguePanel.SetActive(true);
 
+        dialogueVariables.StartListening(currentStory);
+
+        //charController.state = CharController.State.PAUSED;
         ContinueStory();
     }
 
     private IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
+        dialogueVariables.StopListening(currentStory);
         dialogueisPlaying = false;
+        donePlaying = true;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
     }
@@ -90,6 +111,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            print("can exit");
             StartCoroutine(ExitDialogueMode());
         }
     }
@@ -110,11 +132,13 @@ public class DialogueManager : MonoBehaviour
         // enables and initializes the choices up to the amount of choices for this dialogue
         foreach(Choice choice in currentChoices)
         {
+            
             choices[index].gameObject.SetActive(true);
             choicesText[index].text = choice.text;
             index++;
         }
-
+        print(index);
+        // sets unneccesary choices in UI to hidden
         for (int i = index; i < choices.Length; i++)
         {
             choices[i].gameObject.SetActive(false);
@@ -133,6 +157,18 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
+        print(choiceIndex);
         currentStory.ChooseChoiceIndex(choiceIndex);
+    }
+
+    public Ink.Runtime.Object GetVariableState(string variableName)
+    {
+        Ink.Runtime.Object variableValue = null;
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        if (variableValue == null)
+        {
+            Debug.LogWarning("Ink Variable was found to be null" + variableName);
+        }
+        return variableValue;
     }
 }
