@@ -1,4 +1,6 @@
-VAR abletoleave = false
+INCLUDE globals.ink
+
+{ abletoleave == false: -> Intro | -> Over}
 
 -> Intro
 
@@ -23,5 +25,10 @@ Plush: You don’t remember me? I’m P1-USH, your at-home entertainment and soc
 
 * {abletoleave} [Just need to walk around for a little.]
 Plush: Okay! If you need anything let me know.
+-> END
+
+=== Over ===
+Plush: Thats all I have to say.
+
 -> END
 

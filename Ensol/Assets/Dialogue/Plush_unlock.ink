@@ -1,6 +1,4 @@
-VAR dear_defeated = false
-VAR footprints_found = false
-VAR bear_defeated = false
+INCLUDE globals.ink
 
 -> Intro
 
