@@ -19,39 +19,43 @@ public class ButtonGateController : MonoBehaviour
         // if there IS a pickup required to open gate
         if(requiredObj != null)
         {
-            // opens door if button is pressed AND required obj is picked up AND there are no enemies left
-            if(!buttonCol.enabled && requiredObj.activeInHierarchy && enemiesList.Count == 0)
+            if(requiredObj.activeInHierarchy && enemiesList.Count == 0)
             {
                 // turns button green
                 buttonMesh.material = greenMat;
 
-                // opens door
-                gateController.OpenGate();
-                text.opened = false;
-            }
-            else
-            {
-                // if button was pressed but other conditionals aren't met, turn collider back on
-                buttonCol.enabled = true;
+                if(!buttonCol.enabled)
+                {
+                    // opens door
+                    gateController.OpenGate();
+                    text.opened = false;
+                }
+                else
+                {
+                    // if button was pressed but other conditionals aren't met, turn collider back on
+                    buttonCol.enabled = true;
+                }
             }
         }
         // if there ISNT a pickup required to open gate
         else
         {
-            // opens door if button is pressed AND required obj is picked up AND there are no enemies left
-            if(!buttonCol.enabled && enemiesList.Count == 0)
+            if(enemiesList.Count == 0)
             {
                 // turns button green
                 buttonMesh.material = greenMat;
 
-                // opens door
-                gateController.OpenGate();
-                text.opened = false;
-            }
-            else
-            {
-                // if button was pressed but other conditionals aren't met, turn collider back on
-                buttonCol.enabled = true;
+                if(!buttonCol.enabled)
+                {
+                    // opens door
+                    gateController.OpenGate();
+                    text.opened = false;
+                }
+                else
+                {
+                    // if button was pressed but other conditionals aren't met, turn collider back on
+                    buttonCol.enabled = true;
+                }
             }
         }
     }
