@@ -69,6 +69,7 @@ public class WeaponHitbox : MonoBehaviour
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
             }
         }
 

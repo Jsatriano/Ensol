@@ -202,7 +202,8 @@ public class PlayerCombatController : MonoBehaviour
             //sfx
             if (dying == false){
                 dying = true;
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);            
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
             }
         } else {
             dying = false;
@@ -417,7 +418,9 @@ public class PlayerCombatController : MonoBehaviour
 
             // change state to limit actions
             charController.state = CharController.State.KNOCKBACK;
-           // print("took damage");
+            // print("took damage");
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
         }
     }
