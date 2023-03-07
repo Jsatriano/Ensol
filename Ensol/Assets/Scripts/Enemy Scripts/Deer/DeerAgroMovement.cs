@@ -43,7 +43,9 @@ public class DeerAgroMovement : Node
         //Makes the deer try to face diagonally between the dir it is moving and the dir to the player
         //Plays the normal walking anim if they are walking towards/away from the player as opposed to perpendicular
         Vector3 lookingDirection = (_dirToPlayer.normalized + movingDir.normalized).normalized;
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, _rotationSpeed / 100);
+        //Multiplier makes it so that the rotation starts slow and then speeds up
+        float rotationMultiplier = Mathf.Clamp(Vector3.Dot(_enemyTF.forward, lookingDirection), 0.5f, 1);
+        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, lookingDirection, (_rotationSpeed * rotationMultiplier) / 100);
         float lookingDot = Vector3.Dot(_dirToPlayer.normalized, lookingDirection);
         if (lookingDot > .8f || lookingDot < -.8f)
         {

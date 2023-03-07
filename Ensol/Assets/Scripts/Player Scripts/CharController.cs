@@ -359,6 +359,7 @@ public class CharController : MonoBehaviour
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
+        print(_rb.drag);
 
 
         // invoke RestDash function after dash is done
@@ -376,7 +377,7 @@ public class CharController : MonoBehaviour
 
     private void ControlDrag()
     {
-        if (_isGrounded)
+        if (_isGrounded && state != State.DASHING && state != State.ATTACKING)
         {
             _rb.drag = normalDrag;
         }

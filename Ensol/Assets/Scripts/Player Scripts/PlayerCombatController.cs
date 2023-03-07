@@ -146,8 +146,12 @@ public class PlayerCombatController : MonoBehaviour
         
 
         //Start Light Attack //Harsha Justin and Elizabeth
-        if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
-        && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) {
+        if(Input.GetButtonDown("LightAttack") 
+           && charController.state != CharController.State.PAUSED 
+           && charController.state != CharController.State.DASHING
+           && !charController.animator.GetBool("isHeavyAttacking")
+           && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
+        {
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -173,8 +177,10 @@ public class PlayerCombatController : MonoBehaviour
         } 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 &&
-            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
+            && charController.state != CharController.State.PAUSED 
+            && charController.state != CharController.State.ATTACKING 
+            && charController.state != CharController.State.DASHING && hasWeapon) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -386,7 +392,6 @@ public class PlayerCombatController : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
-        print(force);
         _rb.drag = 0;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
