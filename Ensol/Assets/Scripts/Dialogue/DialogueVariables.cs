@@ -1,18 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Ink.Runtime;
-using System.IO;
 
 public class DialogueVariables
 {
     public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
+
+    private Story globalVariablesStory;
+    // public static string saveFile;
     
-    public DialogueVariables(string globalsFilePath)
+    public DialogueVariables(TextAsset loadGlobalsJSON)
     {
-        string inkFileContents = File.ReadAllText(globalsFilePath);
-        Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
-        Story globalVariablesStory = compiler.Compile();
+        globalVariablesStory = new Story(loadGlobalsJSON.text);
+        // if (saveFile != "")
+        // {
+        //     globalVariablesStory.state.LoadJson(saveFile);
+        // }
+
 
         variables = new Dictionary<string, Ink.Runtime.Object>();
         foreach (string name in globalVariablesStory.variablesState)
@@ -20,6 +25,15 @@ public class DialogueVariables
             Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
             variables.Add(name, value);
             Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+        }
+    }
+
+    public void SaveVariables()
+    {
+        if (globalVariablesStory != null)
+        {
+            VariablesToStory(globalVariablesStory);
+            // saveFile = globalVariablesStory.state.ToJson();
         }
     }
 

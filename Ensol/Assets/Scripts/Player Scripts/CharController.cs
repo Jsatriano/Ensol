@@ -13,7 +13,8 @@ public class CharController : MonoBehaviour
         ATTACKING,
         KNOCKBACK,
         PAUSED,
-        DEAD
+        DEAD,
+        DIALOGUE
     }
     public State state;
 
@@ -277,6 +278,14 @@ public class CharController : MonoBehaviour
 
             case State.DEAD:
                 //print("Player is Dead");
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                Cursor.visible = true;
+                break;
+                
+            case State.DIALOGUE:
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);

@@ -4,12 +4,11 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
-using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
-    [Header("Globals Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    [Header("Load Globals JSON")]
+    [SerializeField] private TextAsset loadGlobalsJSON;
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
@@ -19,7 +18,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    private CharController charController;
+    public CharController charController;
 
     public bool donePlaying;
 
@@ -40,7 +39,7 @@ public class DialogueManager : MonoBehaviour
         }
         instance = this;
 
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
 
     public static DialogueManager GetInstance()
@@ -57,7 +56,6 @@ public class DialogueManager : MonoBehaviour
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
 
-        charController = gameObject.GetComponent<CharController>();
 
         foreach (GameObject choice in choices)
         {
@@ -82,11 +80,11 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory = new Story(inkJSON.text);
         dialogueisPlaying = true;
+        charController.state = CharController.State.DIALOGUE;
         dialoguePanel.SetActive(true);
 
         dialogueVariables.StartListening(currentStory);
 
-        //charController.state = CharController.State.PAUSED;
         ContinueStory();
     }
 
@@ -96,8 +94,13 @@ public class DialogueManager : MonoBehaviour
         dialogueVariables.StopListening(currentStory);
         dialogueisPlaying = false;
         donePlaying = true;
+        charController.state = CharController.State.IDLE;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        // if (dialogueVariables != null)
+        // {
+        //     dialogueVariables.SaveVariables();
+        // }
     }
 
     private void ContinueStory()
