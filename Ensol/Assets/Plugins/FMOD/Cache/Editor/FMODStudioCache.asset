@@ -62,7 +62,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/PlayerSFX.bank
   Name: PlayerSFX
   StudioPath: bank:/PlayerSFX
-  lastModified: 638137856001159105
+  lastModified: 638137929464697044
   FileSizes: []
   Exists: 1
 --- !u!114 &-6269811503357810111
@@ -179,9 +179,36 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638137855999879088
+  lastModified: 638133593863293886
   FileSizes: []
   Exists: 1
+--- !u!114 &-4389763504204590420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerMove
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerMove
+  Guid:
+    Data1: -2104935696
+    Data2: 1099368106
+    Data3: 270180274
+    Data4: -1467431993
+  Banks:
+  - {fileID: -2240055174365445283}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4196246913373315872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +352,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638137920484003342
+  lastModified: 638137929463089088
   FileSizes:
   - Name: 
     Value: 1628
@@ -345,7 +372,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/NeutralSFX.bank
   Name: NeutralSFX
   StudioPath: bank:/NeutralSFX
-  lastModified: 638137856000869099
+  lastModified: 638137929463523274
   FileSizes: []
   Exists: 1
 --- !u!114 &-3064870193139588262
@@ -443,8 +470,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/AudioBanks/Desktop/DeerSFX.bank
   Name: DeerSFX
-  StudioPath: 
-  lastModified: 638137855998879298
+  StudioPath: bank:/DeerSFX
+  lastModified: 638137929463084015
   FileSizes: []
   Exists: 1
 --- !u!114 &-1872644004709748390
@@ -588,12 +615,15 @@ MonoBehaviour:
   - {fileID: -3064870193139588262}
   - {fileID: -714541041185832534}
   - {fileID: 883392114901363772}
+  - {fileID: 2355779080713069891}
+  - {fileID: 5690173598976181181}
+  - {fileID: -4389763504204590420}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5010309579565379793}
   StringsBanks:
   - {fileID: -3287663656890817644}
-  cacheTime: 638137920484218608
+  cacheTime: 638137929464846682
   cacheVersion: 131601
 --- !u!114 &743254066351960105
 MonoBehaviour:
@@ -694,6 +724,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 274337
+--- !u!114 &2355779080713069891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerAttack
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerAttack
+  Guid:
+    Data1: -1905693009
+    Data2: 1108176824
+    Data3: -135620190
+    Data4: -174690736
+  Banks:
+  - {fileID: -2240055174365445283}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2469982879037755526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +820,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Soundtrack.bank
   Name: Soundtrack
   StudioPath: bank:/Soundtrack
-  lastModified: 638137920484218608
+  lastModified: 638137929464846682
   FileSizes: []
   Exists: 1
 --- !u!114 &4525384965628841509
@@ -842,6 +899,33 @@ MonoBehaviour:
   - {fileID: 7480951164952217689}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5690173598976181181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerDeath
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerDeath
+  Guid:
+    Data1: -461766985
+    Data2: 1326358068
+    Data3: -1562530643
+    Data4: 387807047
+  Banks:
+  - {fileID: -2240055174365445283}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
