@@ -151,6 +151,9 @@ public class CharController : MonoBehaviour
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
+                    if(pcc.comboTimerActive) {
+                        pcc.ResetLightAttackCombo();
+                    }
                     state = State.DASHING;
                 }
                 else if(Input.GetButtonDown("Cancel"))

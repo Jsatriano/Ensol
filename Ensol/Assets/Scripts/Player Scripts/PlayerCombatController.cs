@@ -62,7 +62,7 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public bool comboChain = false;
     [HideInInspector] public int comboCounter = 0;
     private float comboTimer = -1f;
-    private bool comboTimerActive = false;
+    [HideInInspector] public bool comboTimerActive = false;
     private bool acceptingInput = true;
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
@@ -130,8 +130,6 @@ public class PlayerCombatController : MonoBehaviour
             if(heavyHitbox.activeSelf) {
                 heavyHitbox.SetActive(false);
             }
-            
-
         }
 
         if(charController.state == CharController.State.KNOCKBACK) {
@@ -161,13 +159,6 @@ public class PlayerCombatController : MonoBehaviour
             acceptingInput = false;
             isNextAttackBuffered = true;
            // print("input taken COMBO COUNTER " + comboCounter.ToString());
-           //sfx
-           if (comboCounter < 3){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
-            } else {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
-            }
-            
         }
 
         if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
@@ -211,13 +202,15 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
-        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
+        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
+        && charController.state != CharController.State.DASHING) {
            // print("activated catching");
             isCatching = true;
         }
 
         if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
-        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") ) {
+        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
+        && charController.state != CharController.State.DASHING) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -285,6 +278,13 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void EnableLightAttackHitbox() {
+        //sfx
+        if (comboCounter < 3){
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+        } else {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+        }
+            
         comboTimerActive = false;
         comboTimer = -1f;
         if(comboCounter == 1) {
@@ -303,6 +303,7 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void MarkComboTimer() {
+        charController.state = CharController.State.IDLE;
         if(!isNextAttackBuffered) {
            comboTimer = Time.time;
             comboTimerActive = true;
@@ -324,11 +325,13 @@ public class PlayerCombatController : MonoBehaviour
         lightHitbox.SetActive(false);
     }
 
-    private void ResetLightAttackCombo() {
+    public void ResetLightAttackCombo() {
         comboCounter = 0;
         charController.animator.SetInteger("lightAttackCombo", 0);
         attackPower = baseAttackPower;
-        charController.state = CharController.State.IDLE;
+        if(charController.state == CharController.State.ATTACKING) {
+            charController.state = CharController.State.IDLE;
+        }
         comboChain = false;
         comboTimerActive = false;
         acceptingInput = true;
