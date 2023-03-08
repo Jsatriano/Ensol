@@ -68,6 +68,7 @@ public class PlayerCombatController : MonoBehaviour
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
+    [HideInInspector] public bool isMidGrab = false;
 
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
@@ -252,9 +253,11 @@ public class PlayerCombatController : MonoBehaviour
     private void EndThrow() {
         charController.animator.SetBool("isThrowing", false);
         charController.state = CharController.State.IDLE;
+        isMidGrab = false;
     }
 
     private void BeginCatch() {
+        isMidGrab = true;
         charController.state = CharController.State.ATTACKING;
     }
 
@@ -363,7 +366,12 @@ public class PlayerCombatController : MonoBehaviour
     // functions for showing slashes on attacks
     private void StartLightSlash()
     {
-        lightSlashVFX[comboCounter - 1].SetActive(true);
+        if(comboCounter > 0 && comboCounter <= 3) {
+            lightSlashVFX[comboCounter - 1].SetActive(true);
+        }
+        else{
+            lightSlashVFX[2].SetActive(true);
+        }
     }
 
     private void EndLightSlash()
