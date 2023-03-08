@@ -41,13 +41,13 @@ public class DeerAnimation : MonoBehaviour
         //Stops all animation once deer is dead
         if (state == State.DYING)
         {
+            animController.SetBool("dying", true);
             return;
         }
         if (!deerBT.isAlive)
         {
             state = State.DYING;
-            animController.SetTrigger("dying");
-
+            animController.SetBool("dying", true);
             return;
         }
 
