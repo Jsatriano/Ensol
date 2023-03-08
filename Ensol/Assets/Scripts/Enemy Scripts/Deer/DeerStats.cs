@@ -72,6 +72,8 @@ public class DeerStats : EnemyStats
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deerDeath, this.transform.position);
 
         // tells door and gate scripts that this deer has died
         if(buttonGateController != null)

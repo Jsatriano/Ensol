@@ -5,6 +5,7 @@ using FMODUnity;
 
 public class FMODEvents : MonoBehaviour
 {
+    [field: Header("Player SFX")]
     [field: Header("playerWeaponLightStab")]
     [field: SerializeField] public EventReference playerWeaponLightStab { get; private set; }
     [field: Header("playerWeaponSpecial")]
@@ -17,6 +18,22 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerDodge { get; private set; }
     [field: Header("playerDeath")]
     [field: SerializeField] public EventReference playerDeath { get; private set; }
+    [field: Header("playerWalk")]
+    [field: SerializeField] public EventReference playerWalk { get; private set; }
+
+    [field: Header("Deer")]
+    [field: Header("deerDeath")]
+    [field: SerializeField] public EventReference deerDeath { get; private set; }
+    [field: Header("deerAttack")]
+    [field: SerializeField] public EventReference deerAttack { get; private set; }
+    [field: Header("deerMove")]
+    [field: SerializeField] public EventReference deerMove { get; private set; }
+
+    [field: Header("Neutral")]
+    [field: Header("minorCut")]
+    [field: SerializeField] public EventReference minorCut { get; private set; }
+    [field: Header("deathCut")]
+    [field: SerializeField] public EventReference deathCut { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

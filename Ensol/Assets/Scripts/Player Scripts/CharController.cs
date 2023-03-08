@@ -13,7 +13,8 @@ public class CharController : MonoBehaviour
         ATTACKING,
         KNOCKBACK,
         PAUSED,
-        DEAD
+        DEAD,
+        DIALOGUE
     }
     public State state;
 
@@ -22,7 +23,7 @@ public class CharController : MonoBehaviour
     public Vector3 forward, right, direction, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
-    [Header("Other Variables")]
+    [Header("References & Other Variables")]
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
@@ -150,6 +151,9 @@ public class CharController : MonoBehaviour
                 // if player hits space, dash
                 else if(Input.GetButtonDown("Dash"))
                 {
+                    if(pcc.comboTimerActive) {
+                        pcc.ResetLightAttackCombo();
+                    }
                     state = State.DASHING;
                 }
                 else if(Input.GetButtonDown("Cancel"))
@@ -246,11 +250,17 @@ public class CharController : MonoBehaviour
                 break;
 
             case State.KNOCKBACK:
+                if(pcc.isMidGrab) {
+                    knockback = false;
+                    state = State.ATTACKING;
+                    print("Prioritized weapon catch over knockback");
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
+
 
                 // once knockback is over, go to idle state
                 if(knockback == false)
@@ -277,6 +287,14 @@ public class CharController : MonoBehaviour
 
             case State.DEAD:
                 //print("Player is Dead");
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                Cursor.visible = true;
+                break;
+                
+            case State.DIALOGUE:
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -359,6 +377,7 @@ public class CharController : MonoBehaviour
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
+        print(_rb.drag);
 
 
         // invoke RestDash function after dash is done
@@ -376,7 +395,7 @@ public class CharController : MonoBehaviour
 
     private void ControlDrag()
     {
-        if (_isGrounded)
+        if (_isGrounded && state != State.DASHING && state != State.ATTACKING)
         {
             _rb.drag = normalDrag;
         }

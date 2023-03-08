@@ -259,6 +259,7 @@ public class DeerAnimation : MonoBehaviour
     private void EndSwipeWindup()
     {
         deerBT.root.SetData("endSwipeWindup", true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deerAttack, this.transform.position);
     }
 
     private void EndSwipe()
