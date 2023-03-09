@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class MenuButtons : MonoBehaviour
 {
     public GameObject playButton, controlsButton, exitButton;
+    public NodeSelector nodeSelector;
 
     private void Start()
     {
@@ -19,7 +20,8 @@ public class MenuButtons : MonoBehaviour
     public void StartGame()
     {
         // will need to change this to the cabin once its created
-        SceneManager.LoadScene(sceneName:"MapScene");
+        //SceneManager.LoadScene(sceneName:"MapScene");
+        nodeSelector.OpenScene();
     }
 
     public void Controls()
