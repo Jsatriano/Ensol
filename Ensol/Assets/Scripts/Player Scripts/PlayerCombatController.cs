@@ -184,7 +184,7 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.RemoveVials(1);
 
             //sfx
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
         }
         if(currHP <= 0) 
         {

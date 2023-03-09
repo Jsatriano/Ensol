@@ -8,6 +8,7 @@ public class ElectricGateController : MonoBehaviour
     public float openRot, speed;
     [HideInInspector] public bool opening = false;
     private float endY;
+    private bool audioPlayed = false;
 
     void Start()
     {
@@ -52,5 +53,9 @@ public class ElectricGateController : MonoBehaviour
     public void OpenGate()
     {
         opening = true;
+        if (audioPlayed == false){
+            audioPlayed = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envGateOpen, this.transform.position);
+        }
     }
 }

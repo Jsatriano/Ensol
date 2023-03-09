@@ -34,7 +34,7 @@ public class BearBT : Tree
             new Sequence(new List<Node>
             {
                 new CooldownCheck(bearStats.junkCooldown, "junk"),
-                new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask),
+                new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask, 2),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkRange, "junk"),
                 new BearJunkThrow()
             })
