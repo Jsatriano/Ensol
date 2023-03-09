@@ -13,7 +13,6 @@ public class DialogueTrigger : MonoBehaviour
     {
         if(DialogueManager.GetInstance().donePlaying == true && c.enabled != true) 
         {
-            print("its done playing");
             c.enabled = true;
             DialogueManager.GetInstance().donePlaying = false;
         }

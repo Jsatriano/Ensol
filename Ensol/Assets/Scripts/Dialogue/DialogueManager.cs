@@ -97,10 +97,11 @@ public class DialogueManager : MonoBehaviour
         charController.state = CharController.State.IDLE;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        // if (dialogueVariables != null)
-        // {
-        //     dialogueVariables.SaveVariables();
-        // }
+        if (dialogueVariables != null)
+        {
+            dialogueVariables.SaveVariables();
+            print("saved");
+        }
     }
 
     private void ContinueStory()
@@ -114,7 +115,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            print("can exit");
             StartCoroutine(ExitDialogueMode());
         }
     }
