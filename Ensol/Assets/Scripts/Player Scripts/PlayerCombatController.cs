@@ -219,7 +219,7 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.RemoveVials(2);
             acceptingInput = false;
             //sfx
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
 
         }
 
@@ -392,6 +392,7 @@ public class PlayerCombatController : MonoBehaviour
     private void StartHeavySlash()
     {
         heavySlashVFX.SetActive(true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
     }
 
     private void EndHeavySlash()
