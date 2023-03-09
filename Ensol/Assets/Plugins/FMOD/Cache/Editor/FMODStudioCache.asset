@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8745005096960948649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/HudSFX.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/AudioBanks/Desktop/HudSFX.bank
+  Name: HudSFX
+  StudioPath: bank:/HudSFX
+  lastModified: 638138985282849561
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-8190747263621322637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_hudBatteryCharge
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_hudBatteryCharge
+  Guid:
+    Data1: -453217568
+    Data2: 1138883870
+    Data3: -2037166193
+    Data4: -1951991911
+  Banks:
+  - {fileID: -8745005096960948649}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8158772443066242493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerWeaponHeavy2
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerWeaponHeavy2
+  Guid:
+    Data1: -2089506432
+    Data2: 1239666120
+    Data3: -628878417
+    Data4: -1342500107
+  Banks:
+  - {fileID: -6346736829617072019}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7708898177585598142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,6 +119,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6971762136989643485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_envGateOpen
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_envGateOpen
+  Guid:
+    Data1: -378304594
+    Data2: 1287172765
+    Data3: -773328201
+    Data4: 1439007006
+  Banks:
+  - {fileID: 723385292083999274}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-6346736829617072019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +161,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/PlayerSFX.bank
   Name: PlayerSFX
   StudioPath: bank:/PlayerSFX
-  lastModified: 638137989380101463
+  lastModified: 638138985283041217
   FileSizes: []
   Exists: 1
 --- !u!114 &-6269811503357810111
@@ -137,6 +236,33 @@ MonoBehaviour:
   lastModified: 638135507595321186
   FileSizes: []
   Exists: 1
+--- !u!114 &-5685658382100543523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerWeaponHeavyPrepare
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerWeaponHeavyPrepare
+  Guid:
+    Data1: 1250327302
+    Data2: 1285062656
+    Data3: 1152619175
+    Data4: 1121510191
+  Banks:
+  - {fileID: -6346736829617072019}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5393973174531370825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,10 +478,10 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638137920484003342
+  lastModified: 638138985282977779
   FileSizes:
   - Name: 
-    Value: 1628
+    Value: 2058
   Exists: 1
 --- !u!114 &-3284278251977115772
 MonoBehaviour:
@@ -416,10 +542,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/sfx_playerWeaponHeavy
   Guid:
-    Data1: -1662142072
-    Data2: 1120006774
-    Data3: -221401978
-    Data4: -1305616883
+    Data1: -1248884715
+    Data2: 1089267165
+    Data3: 901492616
+    Data4: -1919590239
   Banks:
   - {fileID: -6346736829617072019}
   IsStream: 0
@@ -456,6 +582,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2587912998072269873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerSpin
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerSpin
+  Guid:
+    Data1: -158340655
+    Data2: 1127334718
+    Data3: -1679044989
+    Data4: 1498206156
+  Banks:
+  - {fileID: -6346736829617072019}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2240055174365445283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +624,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/DeerSFX.bank
   Name: DeerSFX
   StudioPath: bank:/DeerSFX
-  lastModified: 638137989380021459
+  lastModified: 638138985282779400
   FileSizes: []
   Exists: 1
 --- !u!114 &-1872644004709748390
@@ -523,6 +676,60 @@ MonoBehaviour:
   - {fileID: -6199941915176888660}
   IsStream: 0
   Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1823398021653448732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerWeaponHum
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerWeaponHum
+  Guid:
+    Data1: -314946827
+    Data2: 1079205954
+    Data3: 1833694885
+    Data4: -958787131
+  Banks:
+  - {fileID: -6346736829617072019}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 53629
+--- !u!114 &-1458763492212981114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerAlerted
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerAlerted
+  Guid:
+    Data1: -2019711363
+    Data2: 1180891128
+    Data3: 2044213902
+    Data4: 1780558258
+  Banks:
+  - {fileID: -2240055174365445283}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -601,6 +808,8 @@ MonoBehaviour:
   - {fileID: -2240055174365445283}
   - {fileID: -3284278251977115772}
   - {fileID: 3420594760000693020}
+  - {fileID: 723385292083999274}
+  - {fileID: -8745005096960948649}
   EditorEvents:
   - {fileID: -3575475772785008579}
   - {fileID: 2469982879037755526}
@@ -618,13 +827,39 @@ MonoBehaviour:
   - {fileID: 2355779080713069891}
   - {fileID: 5690173598976181181}
   - {fileID: -4389763504204590420}
+  - {fileID: -1458763492212981114}
+  - {fileID: -6971762136989643485}
+  - {fileID: -8190747263621322637}
+  - {fileID: -5685658382100543523}
+  - {fileID: 3872625145703135114}
+  - {fileID: -8158772443066242493}
+  - {fileID: -2587912998072269873}
+  - {fileID: -1823398021653448732}
   EditorParameters: []
   MasterBanks:
   - {fileID: -5010309579565379793}
   StringsBanks:
   - {fileID: -3287663656890817644}
-  cacheTime: 638138037460571237
+  cacheTime: 638138985283041217
   cacheVersion: 131601
+--- !u!114 &723385292083999274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/EnvironmentSFX.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/AudioBanks/Desktop/EnvironmentSFX.bank
+  Name: EnvironmentSFX
+  StudioPath: bank:/EnvironmentSFX
+  lastModified: 638138985282809408
+  FileSizes: []
+  Exists: 1
 --- !u!114 &743254066351960105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,6 +1058,33 @@ MonoBehaviour:
   lastModified: 638138037460571237
   FileSizes: []
   Exists: 1
+--- !u!114 &3872625145703135114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerWeaponSpecialPrepare
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerWeaponSpecialPrepare
+  Guid:
+    Data1: 988049737
+    Data2: 1178731394
+    Data3: -1855017855
+    Data4: 632005917
+  Banks:
+  - {fileID: -6346736829617072019}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &4525384965628841509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,10 +1207,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/sfx_playerWeaponSpecial
   Guid:
-    Data1: 528122696
-    Data2: 1287397105
-    Data3: 29701793
-    Data4: -651862049
+    Data1: 1191544273
+    Data2: 1266887187
+    Data3: -557827660
+    Data4: 1401390694
   Banks:
   - {fileID: -6346736829617072019}
   IsStream: 0
