@@ -103,7 +103,6 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.AddVial();
             vialTimer += vialRechargeSpeed;
         }
-
         ManageVialShader();
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
