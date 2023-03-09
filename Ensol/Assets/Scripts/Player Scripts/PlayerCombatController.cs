@@ -228,6 +228,8 @@ public class PlayerCombatController : MonoBehaviour
     private void SpawnSpecialAttackProjectile() {
         attackPower = baseAttackPower * specialAttackMult;
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
+
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, charController.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;

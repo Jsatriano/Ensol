@@ -26,6 +26,7 @@ public class ElectricVials : MonoBehaviour // justin
         {
             currVial += 1;
             vials[currVial].SetActive(true);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudBatteryCharge, this.transform.position);
         }
     }
 
