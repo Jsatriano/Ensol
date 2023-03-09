@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using Ink.Runtime;
 
@@ -13,10 +13,10 @@ public class DialogueVariables
     public DialogueVariables(TextAsset loadGlobalsJSON)
     {
         globalVariablesStory = new Story(loadGlobalsJSON.text);
-        // if (saveFile != "")
-        // {
-        //     globalVariablesStory.state.LoadJson(saveFile);
-        // }
+        if (saveFile != null)
+        {
+            globalVariablesStory.state.LoadJson(saveFile);
+        }
 
 
         variables = new Dictionary<string, Ink.Runtime.Object>();
@@ -33,7 +33,8 @@ public class DialogueVariables
         if (globalVariablesStory != null)
         {
             VariablesToStory(globalVariablesStory);
-            // saveFile = globalVariablesStory.state.ToJson();
+            saveFile = globalVariablesStory.state.ToJson();
+            Debug.Log(saveFile);
         }
     }
 
