@@ -4,3 +4,6 @@ VAR river_controls = false
 VAR dear_defeated = false
 VAR footprints_found = false
 VAR bear_defeated = false
+VAR cloning_seen = false
+VAR conveyer_seen = false
+VAR window_seen = false
