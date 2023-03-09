@@ -1,32 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using FMOD.Studio;
 
 
 public class MusicController : MonoBehaviour
 {
     private EventInstance zone1;
-    public PlayerCombatController pcc;
+    private int song;
+    public int nodeType;
 
     // Start is called before the first frame update
     void Start()
     {
         zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
-        //zone1.start();
-        //AudioManager.instance.PlayOneShot(FMODMusicEvents.instance.zone1, this.transform.position);
+        
+
+        if(nodeType == 1){
+            zone1.start();
+            song = 1;
+        }
 
     }
 
-    void Update()
+    void OnDestroy()
     {
-        PLAYBACK_STATE playbackState;
-        zone1.getPlaybackState(out playbackState);
+        print("destroyed");
+        PLAYBACK_STATE ZplaybackState;
+        zone1.getPlaybackState(out ZplaybackState);
 
-        if(playbackState.Equals(PLAYBACK_STATE.STOPPED) && pcc.currHP > 0){
-            zone1.start();
-        }
-        if (pcc.currHP <= 0){
+        if(song == 1){
+            print("stop song");
             zone1.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
