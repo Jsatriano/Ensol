@@ -53,7 +53,7 @@ public class _02DeerNode : MonoBehaviour
         // spawns weapon pickup item after short delay if dropDeer is dead
         if (timer >= timerLength)
         {
-            if (!PlayerData.hasSolarUpgrade && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
+            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
             {
                 StartCoroutine(DropAfterDelay(weaponPickup, normalDeer));
                 dropped = true;
