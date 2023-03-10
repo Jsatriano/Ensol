@@ -9,6 +9,7 @@ public class ElectricVials : MonoBehaviour // justin
     public GameObject[] vials;
 
     public int currVial;
+    public GameObject toggler;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,12 @@ public class ElectricVials : MonoBehaviour // justin
         {
             vials[i].SetActive(true);
         }
+    }
+
+    private void Update()
+    {
+        //Doesn't show UI if player doesn't have solar upgrade yet
+        toggler.SetActive(PlayerData.hasSolarUpgrade);
     }
 
     public void AddVial()

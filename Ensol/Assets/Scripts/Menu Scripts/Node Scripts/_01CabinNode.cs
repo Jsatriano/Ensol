@@ -12,12 +12,24 @@ public class _01CabinNode : MonoBehaviour
 
     [Header("Other Variables")]
     public GameObject gateTransferCube;
+    public GameObject broom;
+    public GameObject[] players = null;
+    private PlayerCombatController combatController = null;
 
     public void Update()
     {
+        if (combatController == null)
+        {
+            SearchForPlayer();
+        }
         if(_02DeerNode.weaponPickedUp && !gateTransferCube.activeInHierarchy)
         {
             gateTransferCube.SetActive(true);
+        }
+        //Player picking up broom
+        if (broom.activeInHierarchy == false && !PlayerData.hasBroom)
+        {
+            combatController.PickedUpBroom();
         }
 
         if(doorController.opening)
@@ -30,6 +42,27 @@ public class _01CabinNode : MonoBehaviour
         {
             print("unlocked gate node");
             CompletedNodes.gateNode = true;
+        }
+    }
+
+    private void SearchForPlayer()
+    {
+        if (players.Length == 0)
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
+        foreach (GameObject p in players)
+        {
+            combatController = p.GetComponent<PlayerCombatController>();
+        }
+
+        if (combatController == null)
+        {
+            print("Cabin Node Script Failed to find player");
+        }
+        else
+        {
+            print("Cabin Node Script located Player");
         }
     }
 }

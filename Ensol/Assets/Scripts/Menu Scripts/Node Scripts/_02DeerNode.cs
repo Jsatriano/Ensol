@@ -20,14 +20,22 @@ public class _02DeerNode : MonoBehaviour
     private float timerLength = 0.25f;
     private float timer = 0f;
 
+    public GameObject[] players = null;
+    private PlayerCombatController combatController = null;
+    private bool pickedUpUpgrade;
+
     public void Update()
     {
         timer += Time.deltaTime;
-        
-        // spawns weapon pickup item after short delay if dropDeer is dead
-        if(timer >= timerLength)
+        if (combatController == null)
         {
-            if(dropDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
+            SearchForPlayer();
+        }
+
+        // spawns weapon pickup item after short delay if dropDeer is dead
+        if (timer >= timerLength)
+        {
+            if(dropDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && !PlayerData.hasSolarUpgrade)
             {
                 StartCoroutine(DropAfterDelay(weaponPickup, dropDeer));
                 dropped = true;
@@ -35,9 +43,10 @@ public class _02DeerNode : MonoBehaviour
         }
 
         // checks if weapon has been spawned, and picked up
-        if(inSceneItem != null && inSceneItem.activeInHierarchy == false)
+        if(inSceneItem != null && inSceneItem.activeInHierarchy == false && !PlayerData.hasSolarUpgrade)
         {
             weaponPickedUp = true;
+            combatController.PickedUpSolarUpgrade();
         }
 
         // unlocks next node if door is opened
@@ -54,5 +63,26 @@ public class _02DeerNode : MonoBehaviour
 
         // spawn item, spawn particles and parent item
         inSceneItem = Instantiate(item, enemy.transform.position, enemy.transform.rotation);
+    }
+
+    private void SearchForPlayer()
+    {
+        if (players.Length == 0)
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
+        foreach (GameObject p in players)
+        {
+            combatController = p.GetComponent<PlayerCombatController>();
+        }
+
+        if (combatController == null)
+        {
+            print("Cabin Node Script Failed to find player");
+        }
+        else
+        {
+            print("Cabin Node Script located Player");
+        }
     }
 }
