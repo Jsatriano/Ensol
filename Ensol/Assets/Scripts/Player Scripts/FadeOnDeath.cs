@@ -8,6 +8,7 @@ public class FadeOnDeath : MonoBehaviour
 {
     public GameObject blackOutSquare;
     public PlayerCombatController pcc;
+    public NodeSelector nodeSelector;
 
     void Update()
     {
@@ -35,9 +36,19 @@ public class FadeOnDeath : MonoBehaviour
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
-                    SceneManager.LoadScene(sceneName:"RecloneScene");
-                    Cursor.visible = true;
-
+                    //Takes player straight back to cabin instead of respawn screen if they haven't gotten the broom yet (crack deer death)
+                    if (PlayerData.hasBroom)
+                    {
+                        SceneManager.LoadScene(sceneName:"RecloneScene");
+                        Cursor.visible = true;
+                    }
+                    else
+                    {
+                        PlayerData.diedToCrackDeer = true;
+                        nodeSelector.node = 1;
+                        Time.timeScale = 1f;
+                        nodeSelector.OpenScene();
+                    }
                 }
                 yield return null;
             }

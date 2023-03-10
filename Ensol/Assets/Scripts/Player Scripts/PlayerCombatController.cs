@@ -27,7 +27,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    [HideInInspector] public float currHP;
+    public float currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
@@ -83,13 +83,43 @@ public class PlayerCombatController : MonoBehaviour
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        
+        if (!PlayerData.hasBroom)
+        {
+            charController.animator.SetBool("hasBroom", false);
+            charController.animator.SetBool("hasWeapon", false);
+            hasWeapon = false;
+            weapon.SetActive(false);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        {
+            charController.animator.SetBool("hasBroom", true);
+            charController.animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else
+        {
+            charController.animator.SetBool("hasBroom", true);
+            charController.animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(true);
+            weaponBase.SetActive(true);
+            FX1.SetActive(true);
+            FX2.SetActive(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
+        if (activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
         }
@@ -103,7 +133,6 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.AddVial();
             vialTimer += vialRechargeSpeed;
         }
-
         ManageVialShader();
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -172,7 +201,7 @@ public class PlayerCombatController : MonoBehaviour
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
             && charController.state != CharController.State.PAUSED 
             && charController.state != CharController.State.ATTACKING 
-            && charController.state != CharController.State.DASHING && hasWeapon) // Harsha and Justin and Elizabeth
+            && charController.state != CharController.State.DASHING && hasWeapon && PlayerData.hasSolarUpgrade) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -203,14 +232,14 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
-        && charController.state != CharController.State.DASHING) {
+        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
         }
 
         if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-        && charController.state != CharController.State.DASHING) {
+        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -223,6 +252,36 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
+    }
+
+    public void PickedUpBroom()
+    {
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        hasWeapon = true;
+        PlayerData.hasBroom = true;
+        weapon.SetActive(true);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+    }
+
+    public void PickedUpThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = true;
+    }
+
+    public void PickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
     }
 
     private void SpawnSpecialAttackProjectile() {

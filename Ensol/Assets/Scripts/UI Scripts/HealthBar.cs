@@ -7,6 +7,12 @@ public class HealthBar : MonoBehaviour // justin
 {
 
     public Slider slider;
+    public GameObject toggler;
+
+    private void Update()
+    {
+        toggler.SetActive(PlayerData.hasBroom);
+    }
 
     public void SetMaxHealth(float health)
     {
