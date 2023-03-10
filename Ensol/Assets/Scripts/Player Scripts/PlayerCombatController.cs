@@ -83,7 +83,28 @@ public class PlayerCombatController : MonoBehaviour
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        
+        if (!PlayerData.hasBroom)
+        {
+            charController.animator.SetBool("hasBroom", false);
+            charController.animator.SetBool("hasWeapon", false);
+            hasWeapon = false;
+            weapon.SetActive(false);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else
+        {
+            charController.animator.SetBool("hasBroom", true);
+            charController.animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(true);
+            weaponBase.SetActive(true);
+            FX1.SetActive(true);
+            FX2.SetActive(true);
+        }
+
     }
 
     // Update is called once per frame

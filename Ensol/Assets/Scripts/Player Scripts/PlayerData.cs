@@ -4,8 +4,7 @@ using UnityEngine;
 
 public static class PlayerData
 {
-    public static bool justLaunched;
-    public static bool hasBroom;
-    public static int currentNode;
+    public static bool hasBroom = false;
+    public static int currentNode = 1;
 
 }
