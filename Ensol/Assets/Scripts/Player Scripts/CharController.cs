@@ -149,7 +149,7 @@ public class CharController : MonoBehaviour
                     state = State.MOVING;
                 }
                 // if player hits space, dash
-                else if(Input.GetButtonDown("Dash"))
+                else if(PlayerData.hasBroom && Input.GetButtonDown("Dash"))
                 {
                     if(pcc.comboTimerActive) {
                         pcc.ResetLightAttackCombo();
