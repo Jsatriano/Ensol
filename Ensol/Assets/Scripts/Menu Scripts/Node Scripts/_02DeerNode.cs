@@ -11,7 +11,10 @@ public class _02DeerNode : MonoBehaviour
     public GameObject weaponPickup;
     public GameObject dropDeer;
     public static bool weaponPickedUp = false;
-    
+
+    [Header("Deer")]
+    public GameObject normalDeer;
+    public GameObject crackDeer;
 
     private bool dropped = false;
     private GameObject inSceneItem = null;
@@ -24,6 +27,21 @@ public class _02DeerNode : MonoBehaviour
     private PlayerCombatController combatController = null;
     private bool pickedUpUpgrade;
 
+    private void Start()
+    {
+        //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
+        if (PlayerData.hasBroom)
+        {
+            normalDeer.SetActive(true);
+            crackDeer.SetActive(false);
+        }
+        else
+        {
+            normalDeer.SetActive(false);
+            crackDeer.SetActive(true);
+        }
+    }
+
     public void Update()
     {
         timer += Time.deltaTime;
@@ -35,9 +53,9 @@ public class _02DeerNode : MonoBehaviour
         // spawns weapon pickup item after short delay if dropDeer is dead
         if (timer >= timerLength)
         {
-            if(dropDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && !PlayerData.hasSolarUpgrade)
+            if (!PlayerData.hasSolarUpgrade && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
             {
-                StartCoroutine(DropAfterDelay(weaponPickup, dropDeer));
+                StartCoroutine(DropAfterDelay(weaponPickup, normalDeer));
                 dropped = true;
             }
         }

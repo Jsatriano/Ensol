@@ -27,7 +27,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    [HideInInspector] public float currHP;
+    public float currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;

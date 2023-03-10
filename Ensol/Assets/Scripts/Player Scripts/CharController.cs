@@ -181,7 +181,7 @@ public class CharController : MonoBehaviour
                 }
 
                 // if player hits space, dash
-                else if(Input.GetButtonDown("Dash"))
+                else if(PlayerData.hasBroom && Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;                    
 

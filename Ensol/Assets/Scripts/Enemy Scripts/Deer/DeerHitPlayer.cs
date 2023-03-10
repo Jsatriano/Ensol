@@ -5,9 +5,23 @@ using UnityEngine;
 public class DeerHitPlayer : MonoBehaviour
 {
     public DeerBT deerBT;
-    [SerializeField] private float attackDamage;
+    public float attackDamage;
     [SerializeField] private Collider coll;
     [SerializeField] private bool tellBT;
+    [SerializeField] private bool swipeAttack;
+    [SerializeField] private bool chargeAttack;
+
+    private void Start()
+    {
+        if (swipeAttack)
+        {
+            attackDamage = deerBT.deerStats.basicDamage;
+        }
+        if (chargeAttack)
+        {
+            attackDamage = deerBT.deerStats.chargeDamage;
+        }
+    }
 
     void OnTriggerEnter(Collider col) // Justin/Ryan
     {
