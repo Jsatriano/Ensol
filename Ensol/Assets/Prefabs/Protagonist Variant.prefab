@@ -5591,8 +5591,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9602496, y: 0.963532, z: 1.0118577}
-  m_Center: {x: 0.027017046, y: 0.01812324, z: -0.0050239414}
+  m_Size: {x: 2.5, y: 1.0379117, z: 1.5652807}
+  m_Center: {x: 0, y: 0.118955694, z: 0.2826404}
 --- !u!114 &1111981280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6678,7 +6678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6054637541639468199}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2247508441235150287
 BoxCollider:
@@ -7563,7 +7563,7 @@ MonoBehaviour:
   electricVials: {fileID: 0}
   damageFlash: {fileID: 1360605719}
   backpackVialMaterial: {fileID: 2100000, guid: a521fba0889c02d46988047d3f0d2f59, type: 2}
-  maxHP: 10
+  maxHP: 13
   currHP: 0
   vialRechargeSpeed: 5
   baseAttackPower: 5
@@ -7588,10 +7588,7 @@ MonoBehaviour:
   attackPower: 0
   comboChain: 0
   comboCounter: 0
-  comboTimer: -1
   comboTimerActive: 0
-  acceptingInput: 1
-  isNextAttackBuffered: 0
   isMidGrab: 0
   lightSlashVFX:
   - {fileID: 1809872276}
