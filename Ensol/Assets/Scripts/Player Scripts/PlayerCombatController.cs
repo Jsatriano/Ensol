@@ -59,12 +59,12 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
     private float invulnTimer = 0f;
-    [HideInInspector] public bool comboChain = false;
-    [HideInInspector] public int comboCounter = 0;
-    private float comboTimer = -1f;
-    [HideInInspector] public bool comboTimerActive = false;
-    private bool acceptingInput = true;
-    private bool isNextAttackBuffered = false;
+    /*[HideInInspector]*/ public bool comboChain = false;
+    /*[HideInInspector]*/ public int comboCounter = 0;
+    public float comboTimer = -1f;
+    /*[HideInInspector]*/ public bool comboTimerActive = false;
+    public bool acceptingInput = true;
+    public bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
@@ -156,18 +156,6 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isThrowing", false);
         } 
 
-        if(charController.state != CharController.State.ATTACKING && hasWeapon && !comboChain) {
-            charController.animator.SetInteger("lightAttackCombo", 0);
-            acceptingInput = true;
-            isNextAttackBuffered = false;
-            if(lightHitbox.activeSelf) {
-                lightHitbox.SetActive(false);
-            }
-            if(heavyHitbox.activeSelf) {
-                heavyHitbox.SetActive(false);
-            }
-        }
-
         if(charController.state == CharController.State.KNOCKBACK) {
             ResetLightAttackCombo();
             charController.animator.SetBool("isHeavyAttacking", false);
@@ -175,9 +163,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
             ResetLightAttackCombo();
-            LookAtMouse();
-            charController.state = CharController.State.DASHING;
         }
+
         
 
         //Start Light Attack //Harsha Justin and Elizabeth
@@ -190,7 +177,6 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
-            print("ANIMATOR COMBO COUNTER IS NOW " + charController.animator.GetInteger("lightAttackCombo"));
             comboTimer = -1f;
             comboTimerActive = false;
             acceptingInput = false;
@@ -204,6 +190,20 @@ public class PlayerCombatController : MonoBehaviour
                 ResetLightAttackCombo();
             }
         } 
+
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
+            charController.animator.SetInteger("lightAttackCombo", 0);
+            if(!isNextAttackBuffered) {
+                acceptingInput = true;
+            }
+            if(lightHitbox.activeSelf) {
+                lightHitbox.SetActive(false);
+            }
+            if(heavyHitbox.activeSelf) {
+                heavyHitbox.SetActive(false);
+            }
+        }
+
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
@@ -350,6 +350,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EnableLightAttackHitbox() {
         isNextAttackBuffered = false;
+        acceptingInput = false;
         if (comboCounter < 3){
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
         } else {
@@ -382,8 +383,16 @@ public class PlayerCombatController : MonoBehaviour
         }
         else{
             print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            if(comboCounter == 3) {
+                ResetLightAttackCombo();
+                print("reset because we wanted the next attack coming from the third hit of the combo");
+            }
         }
         
+    }
+
+    private void ShitsBroke() {
+        print("IF YOU DO NOT SEE THIS MESSAGE, THE CODE IS HAUNTED");
     }
 
     private void AllowInput() {
@@ -452,7 +461,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndLightSlash()
     {
-        if(comboCounter > 0 && comboCounter < 3) {
+        if(comboCounter > 0 && comboCounter <= 3) {
             lightSlashVFX[comboCounter - 1].SetActive(false);
         }
         else{
