@@ -59,12 +59,12 @@ public class PlayerCombatController : MonoBehaviour
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
     private float invulnTimer = 0f;
-    /*[HideInInspector]*/ public bool comboChain = false;
-    /*[HideInInspector]*/ public int comboCounter = 0;
-    public float comboTimer = -1f;
-    /*[HideInInspector]*/ public bool comboTimerActive = false;
-    public bool acceptingInput = true;
-    public bool isNextAttackBuffered = false;
+    [HideInInspector] public bool comboChain = false;
+    [HideInInspector] public int comboCounter = 0;
+    private float comboTimer = -1f;
+    [HideInInspector] public bool comboTimerActive = false;
+    private bool acceptingInput = true;
+    private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
@@ -181,19 +181,19 @@ public class PlayerCombatController : MonoBehaviour
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
-            print("input taken COMBO COUNTER " + comboCounter.ToString());
+            //print("input taken COMBO COUNTER " + comboCounter.ToString());
         }
 
         if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
             if (Time.time - comboTimer >= maxComboTimer) { // If the combo chain is activated (as in a combo was started), this checks if the next button was pressed within the time window alloted
-                print("broken combo, COMBO COUNTER " + comboCounter.ToString());
+                //print("broken combo, COMBO COUNTER " + comboCounter.ToString());
                 ResetLightAttackCombo();
             }
         } 
 
         if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
-            if(!isNextAttackBuffered) {
+            if(!isNextAttackBuffered || !comboChain) {
                 acceptingInput = true;
             }
             if(lightHitbox.activeSelf) {
@@ -202,6 +202,7 @@ public class PlayerCombatController : MonoBehaviour
             if(heavyHitbox.activeSelf) {
                 heavyHitbox.SetActive(false);
             }
+            isCatching = false;
         }
 
 
@@ -371,7 +372,7 @@ public class PlayerCombatController : MonoBehaviour
                 attackPower = baseAttackPower * lightAttackMult * light3Mult;
             }
         lightHitbox.SetActive(true);
-        print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
+        //print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void MarkComboTimer() {
@@ -379,26 +380,23 @@ public class PlayerCombatController : MonoBehaviour
         if(!isNextAttackBuffered) {
            comboTimer = Time.time;
             comboTimerActive = true;
-            print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
+            //print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
         }
         else{
-            print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            //print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
             if(comboCounter == 3) {
                 ResetLightAttackCombo();
-                print("reset because we wanted the next attack coming from the third hit of the combo");
+                //print("reset because we wanted the next attack coming from the third hit of the combo");
             }
         }
         
     }
 
-    private void ShitsBroke() {
-        print("IF YOU DO NOT SEE THIS MESSAGE, THE CODE IS HAUNTED");
-    }
 
     private void AllowInput() {
         acceptingInput = true;
         isNextAttackBuffered = false;
-        print("allowing input COMBO COUNTER " + comboCounter.ToString());
+        //print("allowing input COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void DisableLightAttackHitbox() {
@@ -406,7 +404,7 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     public void ResetLightAttackCombo() {
-        print("reset light attack combo- start func- COMBO COUNTER " + comboCounter.ToString());
+        //print("reset light attack combo- start func- COMBO COUNTER " + comboCounter.ToString());
         comboCounter = 0;
         charController.animator.SetInteger("lightAttackCombo", 0);
         attackPower = baseAttackPower;
@@ -469,7 +467,7 @@ public class PlayerCombatController : MonoBehaviour
                 vfx.SetActive(false);
             }
         }
-        print("ended light slash vfx COMBO COUNTER " + comboCounter.ToString());
+       // print("ended light slash vfx COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void StartHeavySlash()
