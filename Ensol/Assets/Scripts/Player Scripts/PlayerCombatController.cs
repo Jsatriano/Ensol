@@ -149,6 +149,13 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
+        if(charController.animator.GetBool("isCatching") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isCatching", false);
+        } 
+        if(charController.animator.GetBool("isThrowing") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isThrowing", false);
+        } 
+
         if(charController.state != CharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
             acceptingInput = true;
