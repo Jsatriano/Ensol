@@ -91,7 +91,7 @@ public class WeaponHitbox : MonoBehaviour
         }
 
         else if(isProjectile && pcc.isCatching) {
-            if(col.gameObject.tag == "Player") {
+            if(col.gameObject.layer == 13) {
                 pcc.GrabWeapon();
             }
         }

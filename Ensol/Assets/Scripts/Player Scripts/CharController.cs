@@ -33,6 +33,7 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
+    public bool testMode = false;
     
     
     [Header("Movement Vaiables")]
@@ -96,6 +97,13 @@ public class CharController : MonoBehaviour
     {
         gameObject.tag = "Player";
         StartCoroutine(CheckforControllers());
+
+        if(testMode) {
+            PlayerData.hasBroom = true;
+            PlayerData.hasSolarUpgrade = true;
+            PlayerData.hasThrowUpgrade = true;
+            PlayerData.diedToCrackDeer = true;
+        }
     }
 
     private void FixedUpdate()

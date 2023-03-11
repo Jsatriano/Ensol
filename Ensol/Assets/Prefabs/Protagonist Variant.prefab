@@ -6648,6 +6648,51 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8789558727620192705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7374597584875634409}
+  - component: {fileID: 2247508441235150287}
+  m_Layer: 13
+  m_Name: Weapon Catch Collision Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7374597584875634409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789558727620192705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6054637541639468199}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2247508441235150287
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789558727620192705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.7233686, y: 13.147317, z: 7.5681047}
+  m_Center: {x: 0.3687034, y: 6.07366, z: 0.66037494}
 --- !u!1001 &6020430612544312140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7480,6 +7525,7 @@ MonoBehaviour:
   controller: 0
   knockback: 0
   knockbackForce: 6
+  testMode: 0
   _moveSpeed: 5
   _acceleration: 300
   normalDrag: 20
@@ -7542,7 +7588,10 @@ MonoBehaviour:
   attackPower: 0
   comboChain: 0
   comboCounter: 0
+  comboTimer: -1
   comboTimerActive: 0
+  acceptingInput: 1
+  isNextAttackBuffered: 0
   isMidGrab: 0
   lightSlashVFX:
   - {fileID: 1809872276}

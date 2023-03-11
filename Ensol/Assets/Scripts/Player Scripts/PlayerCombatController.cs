@@ -149,17 +149,12 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
-        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
-            charController.animator.SetInteger("lightAttackCombo", 0);
-            acceptingInput = true;
-            isNextAttackBuffered = false;
-            if(lightHitbox.activeSelf) {
-                lightHitbox.SetActive(false);
-            }
-            if(heavyHitbox.activeSelf) {
-                heavyHitbox.SetActive(false);
-            }
-        }
+        if(charController.animator.GetBool("isCatching") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isCatching", false);
+        } 
+        if(charController.animator.GetBool("isThrowing") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isThrowing", false);
+        } 
 
         if(charController.state == CharController.State.KNOCKBACK) {
             ResetLightAttackCombo();
@@ -168,9 +163,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
             ResetLightAttackCombo();
-            LookAtMouse();
-            charController.state = CharController.State.DASHING;
         }
+
         
 
         //Start Light Attack //Harsha Justin and Elizabeth
@@ -187,7 +181,7 @@ public class PlayerCombatController : MonoBehaviour
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
-           // print("input taken COMBO COUNTER " + comboCounter.ToString());
+            //print("input taken COMBO COUNTER " + comboCounter.ToString());
         }
 
         if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
@@ -196,6 +190,21 @@ public class PlayerCombatController : MonoBehaviour
                 ResetLightAttackCombo();
             }
         } 
+
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
+            charController.animator.SetInteger("lightAttackCombo", 0);
+            if(!isNextAttackBuffered || !comboChain) {
+                acceptingInput = true;
+            }
+            if(lightHitbox.activeSelf) {
+                lightHitbox.SetActive(false);
+            }
+            if(heavyHitbox.activeSelf) {
+                heavyHitbox.SetActive(false);
+            }
+            isCatching = false;
+        }
+
 
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
@@ -235,6 +244,7 @@ public class PlayerCombatController : MonoBehaviour
         && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
         }
 
         if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
@@ -340,7 +350,8 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void EnableLightAttackHitbox() {
-        //sfx
+        isNextAttackBuffered = false;
+        acceptingInput = false;
         if (comboCounter < 3){
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
         } else {
@@ -361,7 +372,7 @@ public class PlayerCombatController : MonoBehaviour
                 attackPower = baseAttackPower * lightAttackMult * light3Mult;
             }
         lightHitbox.SetActive(true);
-       // print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
+        //print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void MarkComboTimer() {
@@ -372,15 +383,20 @@ public class PlayerCombatController : MonoBehaviour
             //print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
         }
         else{
-           // print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            //print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            if(comboCounter == 3) {
+                ResetLightAttackCombo();
+                //print("reset because we wanted the next attack coming from the third hit of the combo");
+            }
         }
         
     }
 
+
     private void AllowInput() {
         acceptingInput = true;
         isNextAttackBuffered = false;
-       // print("allowing input COMBO COUNTER " + comboCounter.ToString());
+        //print("allowing input COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void DisableLightAttackHitbox() {
@@ -388,6 +404,7 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     public void ResetLightAttackCombo() {
+        //print("reset light attack combo- start func- COMBO COUNTER " + comboCounter.ToString());
         comboCounter = 0;
         charController.animator.SetInteger("lightAttackCombo", 0);
         attackPower = baseAttackPower;
@@ -397,6 +414,7 @@ public class PlayerCombatController : MonoBehaviour
         comboChain = false;
         comboTimerActive = false;
         acceptingInput = true;
+        isNextAttackBuffered = false;
     }
 
     private void EnableHeavyAttackHitbox() {
@@ -441,7 +459,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndLightSlash()
     {
-        if(comboCounter > 0 && comboCounter < 3) {
+        if(comboCounter > 0 && comboCounter <= 3) {
             lightSlashVFX[comboCounter - 1].SetActive(false);
         }
         else{
@@ -449,6 +467,7 @@ public class PlayerCombatController : MonoBehaviour
                 vfx.SetActive(false);
             }
         }
+       // print("ended light slash vfx COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void StartHeavySlash()
