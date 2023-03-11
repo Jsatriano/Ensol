@@ -10,6 +10,17 @@ public class ElectricVials : MonoBehaviour // justin
 
     public int currVial;
     public GameObject toggler;
+    public RectTransform rectTransform;
+    public RectTransform vial1;
+    public RectTransform vial2;
+    public RectTransform vial3;
+    public RectTransform center;
+    private float interpolator;
+    public Vector3 startingPos, endingPos1, endingPos2, endingPos3;
+    private float transitionTimer;
+    public float transitionTime;
+    public HealthBar healthUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +29,23 @@ public class ElectricVials : MonoBehaviour // justin
         {
             vials[i].SetActive(true);
         }
+        transitionTimer = 0;
+        toggler.SetActive(false);
+        endingPos1 = vial1.localPosition;
+        endingPos2 = vial2.localPosition;
+        endingPos3 = vial3.localPosition;
+
     }
 
     private void Update()
     {
-        //Doesn't show UI if player doesn't have solar upgrade yet
-        toggler.SetActive(PlayerData.hasSolarUpgrade);
+        //Moves the energyUI onto the screen if the player has the solar upgrade at the start of every scene and the health has finished transitioning onto screen
+        if (PlayerData.hasSolarUpgrade && healthUI.finishedTransition && transitionTimer < transitionTime)
+        {
+            slideIn(startingPos, endingPos1, center.localPosition, vial1);
+            slideIn(startingPos, endingPos2, center.localPosition, vial2);
+            slideIn(startingPos, endingPos3, center.localPosition, vial3);
+        }
     }
 
     public void AddVial()
@@ -41,15 +63,31 @@ public class ElectricVials : MonoBehaviour // justin
     {
         // if vials arent empty yet
         if(currVial > -1)
-        {
-            
+        {   
             // remove amount of vials (can vary per attack)
             for(int i = 0; i < numVials; i += 1)
             {
                 vials[currVial].SetActive(false);
                 currVial -= 1;
             }
-            print(currVial);
         }
+    }
+
+    private void slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
+    {
+        toggler.SetActive(true);
+        Vector3 relativeStart = startPos - centerPos;
+        Vector3 relativeEnd = endPos - centerPos;
+        
+        //Moves the energy bar in a circle around the healthUI until it reaches its position
+        interpolator = transitionTimer / transitionTime;
+        interpolator = Mathf.Sin(interpolator * Mathf.PI * 0.5f);
+        vial.localPosition = Vector3.Slerp(relativeStart, relativeEnd, interpolator) + centerPos;
+
+        //Updates rotation of energy bar
+        Vector3 dirToCenter = (centerPos - vial.localPosition).normalized;
+        vial.up = dirToCenter;
+
+        transitionTimer += Time.deltaTime;
     }
 }
