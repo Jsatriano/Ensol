@@ -123,15 +123,15 @@ public class PlayerCombatController : MonoBehaviour
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
         }
-        //Adds electric vials over time
-        if(vialTimer > 0)
+        //Adds electric vials over time (when vials are currently expended)
+        if(vialTimer > 0 && electricVials.currVial < 2)
         {
             vialTimer -= Time.deltaTime;
         }
         else
         {
             electricVials.AddVial();
-            vialTimer += vialRechargeSpeed;
+            vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();
 
