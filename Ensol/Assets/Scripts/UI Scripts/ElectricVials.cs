@@ -16,7 +16,8 @@ public class ElectricVials : MonoBehaviour // justin
     public RectTransform vial3;
     public RectTransform center;
     private float interpolator;
-    public Vector3 startingPos, endingPos1, endingPos2, endingPos3;
+    public Vector3 startingPos;
+    private Vector3 endingPos1, endingPos2, endingPos3;
     private float transitionTimer;
     public float transitionTime;
     public HealthBar healthUI;
