@@ -126,11 +126,12 @@ public class PlayerCombatController : MonoBehaviour
         //Adds electric vials over time (when vials are currently expended)
         if(vialTimer > 0 && electricVials.currVial < 2)
         {
+            electricVials.UpdateVial(1 - (vialTimer / vialRechargeSpeed), electricVials.currVial + 1);
             vialTimer -= Time.deltaTime;
         }
         else
         {
-            electricVials.AddVial();
+            electricVials.AddVial(1);
             vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();

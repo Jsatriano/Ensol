@@ -11,10 +11,8 @@ public class ElectricVials : MonoBehaviour // justin
     public int currVial;
     public GameObject toggler;
     public RectTransform rectTransform;
-    public RectTransform vial1;
-    public RectTransform vial2;
-    public RectTransform vial3;
-    public RectTransform center;
+    public RectTransform vial1, vial2, vial3, center;
+    public Slider[] sliders;
     private float interpolator;
     public Vector3 startingPos;
     private Vector3 endingPos1, endingPos2, endingPos3;
@@ -29,6 +27,8 @@ public class ElectricVials : MonoBehaviour // justin
         for (int i = 0; i < vials.Length; i += 1)
         {
             vials[i].SetActive(true);
+            UpdateVial(1, i);
+            
         }
         transitionTimer = 0;
         
@@ -60,15 +60,31 @@ public class ElectricVials : MonoBehaviour // justin
         }
     }
 
-    public void AddVial()
+    public void AddVial(float percent)
     {
         // if vials arent full yet
         if (currVial < 2)
         {
             currVial += 1;
-            vials[currVial].SetActive(true);
+            //vials[currVial].SetActive(true);
+            sliders[currVial].value = 1;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.hudBatteryCharge, this.transform.position);
         }
+    }
+
+    public void UpdateVial(float percent, int vial)
+    {
+        //Updates the fill percentage of the currently refilling energy vial
+        if (currVial < 3)
+        {
+            sliders[vial].maxValue = 1;
+            sliders[vial].value = percent;
+            //Makes sure all of the vials above this vial are empty. (For when the player uses vials halfway through a vial refilling)
+            for (int i = vial + 1; i < sliders.Length; i++)
+            {
+                sliders[i].value = 0;
+            }
+        }      
     }
 
     public void RemoveVials(int numVials)
@@ -79,7 +95,8 @@ public class ElectricVials : MonoBehaviour // justin
             // remove amount of vials (can vary per attack)
             for (int i = 0; i < numVials; i += 1)
             {
-                vials[currVial].SetActive(false);
+                //vials[currVial].SetActive(false);
+                sliders[currVial].value = 0;
                 currVial -= 1;
             }
         }
