@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class _01CabinNode : MonoBehaviour
 {
     [Header("Scripts")]
-    public ElectricGateController electricGateController = null;
-    public DoorController doorController = null;
+    public ElectricGateController electricGateToDeer = null;
+    public ElectricGateController electricGateToGate = null;
+    
 
     [Header("Other Variables")]
     public GameObject gateTransferCube;
@@ -54,13 +55,13 @@ public class _01CabinNode : MonoBehaviour
             combatController.PickedUpBroom();
         }
 
-        if(doorController.opening)
+        if(electricGateToDeer.opening)
         {
             print("unlocked deer node");
             CompletedNodes.deerNode = true;
         }
 
-        if(electricGateController.opening)
+        if(electricGateToGate.opening)
         {
             print("unlocked gate node");
             CompletedNodes.gateNode = true;
