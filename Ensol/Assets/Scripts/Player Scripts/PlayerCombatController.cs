@@ -126,7 +126,10 @@ public class PlayerCombatController : MonoBehaviour
         //Adds electric vials over time
         if(vialTimer > 0)
         {
-            vialTimer -= Time.deltaTime;
+            if(electricVials.currVial < 2)
+            {
+                vialTimer -= Time.deltaTime;
+            }
         }
         else
         {
