@@ -103,7 +103,7 @@ public class DeerCharge : Node
             //Steers deer towards player, keeps the hitzone enabled, and pushes deer forward
             ChangeDirection();
             _hitZone.enabled = true;
-            _deerRB.drag = 0.5f;
+            _deerRB.drag = 1;
             _deerRB.AddForce(_deerTF.forward * _chargeAccel, ForceMode.Acceleration);
             if (_deerRB.velocity.magnitude > _chargeMaxSpeed)
             {

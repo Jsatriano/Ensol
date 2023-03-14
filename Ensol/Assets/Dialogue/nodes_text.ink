@@ -1,5 +1,4 @@
-VAR footprints = false
-VAR river_controls = false
+INCLUDE globals.ink
 
 -> Intro
 

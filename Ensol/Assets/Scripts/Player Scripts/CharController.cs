@@ -13,7 +13,8 @@ public class CharController : MonoBehaviour
         ATTACKING,
         KNOCKBACK,
         PAUSED,
-        DEAD
+        DEAD,
+        DIALOGUE
     }
     public State state;
 
@@ -32,6 +33,7 @@ public class CharController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     public float knockbackForce;
+    public bool testMode = false;
     
     
     [Header("Movement Vaiables")]
@@ -95,6 +97,13 @@ public class CharController : MonoBehaviour
     {
         gameObject.tag = "Player";
         StartCoroutine(CheckforControllers());
+
+        if(testMode) {
+            PlayerData.hasBroom = true;
+            PlayerData.hasSolarUpgrade = true;
+            PlayerData.hasThrowUpgrade = true;
+            PlayerData.diedToCrackDeer = true;
+        }
     }
 
     private void FixedUpdate()
@@ -110,6 +119,7 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(_rb.drag);
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
@@ -148,8 +158,11 @@ public class CharController : MonoBehaviour
                     state = State.MOVING;
                 }
                 // if player hits space, dash
-                else if(Input.GetButtonDown("Dash"))
+                else if(PlayerData.hasBroom && Input.GetButtonDown("Dash"))
                 {
+                    if(pcc.comboTimerActive) {
+                        pcc.ResetLightAttackCombo();
+                    }
                     state = State.DASHING;
                 }
                 else if(Input.GetButtonDown("Cancel"))
@@ -177,7 +190,7 @@ public class CharController : MonoBehaviour
                 }
 
                 // if player hits space, dash
-                else if(Input.GetButtonDown("Dash"))
+                else if(PlayerData.hasBroom && Input.GetButtonDown("Dash"))
                 {
                     state = State.DASHING;                    
 
@@ -246,11 +259,17 @@ public class CharController : MonoBehaviour
                 break;
 
             case State.KNOCKBACK:
+                if(pcc.isMidGrab) {
+                    knockback = false;
+                    state = State.ATTACKING;
+                    print("Prioritized weapon catch over knockback");
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 print(knockback);
+
 
                 // once knockback is over, go to idle state
                 if(knockback == false)
@@ -283,12 +302,20 @@ public class CharController : MonoBehaviour
                 animator.SetInteger("lightAttackCombo", 0);
                 Cursor.visible = true;
                 break;
+                
+            case State.DIALOGUE:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                Cursor.visible = true;
+                break;
         }
     }
 
     void Move() // Justin
     {
-         // forward vector is going to equal our camera's forward vector 
+        // forward vector is going to equal our camera's forward vector 
         forward = Camera.main.transform.forward;
         forward.y = 0;
 
@@ -324,7 +351,9 @@ public class CharController : MonoBehaviour
                 velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
                 _rb.velocity = velocityXZ + velocityY;
             }
-        }        
+        } 
+
+             
     }
 
 
@@ -359,6 +388,7 @@ public class CharController : MonoBehaviour
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
+        print(_rb.drag);
 
 
         // invoke RestDash function after dash is done
@@ -376,13 +406,13 @@ public class CharController : MonoBehaviour
 
     private void ControlDrag()
     {
-        if (_isGrounded)
+        if (_isGrounded && state != State.DASHING && state != State.ATTACKING)
         {
             _rb.drag = normalDrag;
         }
         else
         {
-            _rb.drag = 0;
+            _rb.drag = 1;
         }
     }
 }

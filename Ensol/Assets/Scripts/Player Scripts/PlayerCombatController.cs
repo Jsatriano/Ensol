@@ -27,7 +27,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    [HideInInspector] public float currHP;
+    public float currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
@@ -62,12 +62,13 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public bool comboChain = false;
     [HideInInspector] public int comboCounter = 0;
     private float comboTimer = -1f;
-    private bool comboTimerActive = false;
+    [HideInInspector] public bool comboTimerActive = false;
     private bool acceptingInput = true;
     private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
+    [HideInInspector] public bool isMidGrab = false;
 
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
@@ -82,27 +83,57 @@ public class PlayerCombatController : MonoBehaviour
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        
+        if (!PlayerData.hasBroom)
+        {
+            charController.animator.SetBool("hasBroom", false);
+            charController.animator.SetBool("hasWeapon", false);
+            hasWeapon = false;
+            weapon.SetActive(false);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        {
+            charController.animator.SetBool("hasBroom", true);
+            charController.animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else
+        {
+            charController.animator.SetBool("hasBroom", true);
+            charController.animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(true);
+            weaponBase.SetActive(true);
+            FX1.SetActive(true);
+            FX2.SetActive(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
+        if (activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
         }
-        //Adds electric vials over time
-        if(vialTimer > 0)
+        //Adds electric vials over time (when vials are currently expended)
+        if(vialTimer > 0 && electricVials.currVial < 2)
         {
+            electricVials.UpdateVial(1 - (vialTimer / vialRechargeSpeed), electricVials.currVial + 1);
             vialTimer -= Time.deltaTime;
         }
         else
         {
-            electricVials.AddVial();
-            vialTimer += vialRechargeSpeed;
+            electricVials.AddVial(1);
+            vialTimer = vialRechargeSpeed;
         }
-
         ManageVialShader();
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -119,19 +150,12 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
-        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
-            charController.animator.SetInteger("lightAttackCombo", 0);
-            acceptingInput = true;
-            isNextAttackBuffered = false;
-            if(lightHitbox.activeSelf) {
-                lightHitbox.SetActive(false);
-            }
-            if(heavyHitbox.activeSelf) {
-                heavyHitbox.SetActive(false);
-            }
-            
-
-        }
+        if(charController.animator.GetBool("isCatching") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isCatching", false);
+        } 
+        if(charController.animator.GetBool("isThrowing") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+            charController.animator.SetBool("isThrowing", false);
+        } 
 
         if(charController.state == CharController.State.KNOCKBACK) {
             ResetLightAttackCombo();
@@ -140,14 +164,17 @@ public class PlayerCombatController : MonoBehaviour
 
         if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
             ResetLightAttackCombo();
-            LookAtMouse();
-            charController.state = CharController.State.DASHING;
         }
+
         
 
         //Start Light Attack //Harsha Justin and Elizabeth
-        if(Input.GetButtonDown("LightAttack") && charController.state != CharController.State.PAUSED && !charController.animator.GetBool("isHeavyAttacking")
-        && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) {
+        if(Input.GetButtonDown("LightAttack") 
+           && charController.state != CharController.State.PAUSED 
+           && charController.state != CharController.State.DASHING
+           && !charController.animator.GetBool("isHeavyAttacking")
+           && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
+        {
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -155,14 +182,7 @@ public class PlayerCombatController : MonoBehaviour
             comboTimerActive = false;
             acceptingInput = false;
             isNextAttackBuffered = true;
-           // print("input taken COMBO COUNTER " + comboCounter.ToString());
-           //sfx
-           if (comboCounter < 3){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
-            } else {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
-            }
-            
+            //print("input taken COMBO COUNTER " + comboCounter.ToString());
         }
 
         if (comboChain && comboTimerActive && comboTimer != -1f) { // Harsha and Elizabeth
@@ -172,9 +192,26 @@ public class PlayerCombatController : MonoBehaviour
             }
         } 
 
+        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
+            charController.animator.SetInteger("lightAttackCombo", 0);
+            if(!isNextAttackBuffered || !comboChain) {
+                acceptingInput = true;
+            }
+            if(lightHitbox.activeSelf) {
+                lightHitbox.SetActive(false);
+            }
+            if(heavyHitbox.activeSelf) {
+                heavyHitbox.SetActive(false);
+            }
+            isCatching = false;
+        }
+
+
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 &&
-            charController.state != CharController.State.PAUSED && charController.state != CharController.State.ATTACKING && hasWeapon) // Harsha and Justin and Elizabeth
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
+            && charController.state != CharController.State.PAUSED 
+            && charController.state != CharController.State.ATTACKING 
+            && charController.state != CharController.State.DASHING && hasWeapon && PlayerData.hasSolarUpgrade) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -186,7 +223,7 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.RemoveVials(1);
 
             //sfx
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
         }
         if(currHP <= 0) 
         {
@@ -196,20 +233,24 @@ public class PlayerCombatController : MonoBehaviour
             //sfx
             if (dying == false){
                 dying = true;
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);            
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
             }
         } else {
             dying = false;
         }
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
-        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")) {
+        !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
+        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
         }
 
         if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
-        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") ) {
+        !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
+        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -218,14 +259,47 @@ public class PlayerCombatController : MonoBehaviour
             electricVials.RemoveVials(2);
             acceptingInput = false;
             //sfx
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
 
         }
 
     }
 
+    public void PickedUpBroom()
+    {
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        hasWeapon = true;
+        PlayerData.hasBroom = true;
+        weapon.SetActive(true);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+    }
+
+    public void PickedUpThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = true;
+    }
+
+    public void PickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.hasThrowUpgrade = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
     private void SpawnSpecialAttackProjectile() {
         attackPower = baseAttackPower * specialAttackMult;
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
 
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, charController.transform.rotation);
@@ -245,9 +319,11 @@ public class PlayerCombatController : MonoBehaviour
     private void EndThrow() {
         charController.animator.SetBool("isThrowing", false);
         charController.state = CharController.State.IDLE;
+        isMidGrab = false;
     }
 
     private void BeginCatch() {
+        isMidGrab = true;
         charController.state = CharController.State.ATTACKING;
     }
 
@@ -275,6 +351,14 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void EnableLightAttackHitbox() {
+        isNextAttackBuffered = false;
+        acceptingInput = false;
+        if (comboCounter < 3){
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+        } else {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+        }
+            
         comboTimerActive = false;
         comboTimer = -1f;
         if(comboCounter == 1) {
@@ -289,39 +373,49 @@ public class PlayerCombatController : MonoBehaviour
                 attackPower = baseAttackPower * lightAttackMult * light3Mult;
             }
         lightHitbox.SetActive(true);
-       // print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
+        //print("enabled attack hitbox COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void MarkComboTimer() {
+        charController.state = CharController.State.IDLE;
         if(!isNextAttackBuffered) {
            comboTimer = Time.time;
             comboTimerActive = true;
             //print("marked combo timer COMBO COUNTER " + comboCounter.ToString()); 
         }
         else{
-           // print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            //print("combo timer not needed COMBO COUNTER " + comboCounter.ToString());
+            if(comboCounter == 3) {
+                ResetLightAttackCombo();
+                //print("reset because we wanted the next attack coming from the third hit of the combo");
+            }
         }
         
     }
 
+
     private void AllowInput() {
         acceptingInput = true;
         isNextAttackBuffered = false;
-       // print("allowing input COMBO COUNTER " + comboCounter.ToString());
+        //print("allowing input COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void DisableLightAttackHitbox() {
         lightHitbox.SetActive(false);
     }
 
-    private void ResetLightAttackCombo() {
+    public void ResetLightAttackCombo() {
+        //print("reset light attack combo- start func- COMBO COUNTER " + comboCounter.ToString());
         comboCounter = 0;
         charController.animator.SetInteger("lightAttackCombo", 0);
         attackPower = baseAttackPower;
-        charController.state = CharController.State.IDLE;
+        if(charController.state == CharController.State.ATTACKING) {
+            charController.state = CharController.State.IDLE;
+        }
         comboChain = false;
         comboTimerActive = false;
         acceptingInput = true;
+        isNextAttackBuffered = false;
     }
 
     private void EnableHeavyAttackHitbox() {
@@ -356,12 +450,17 @@ public class PlayerCombatController : MonoBehaviour
     // functions for showing slashes on attacks
     private void StartLightSlash()
     {
-        lightSlashVFX[comboCounter - 1].SetActive(true);
+        if(comboCounter > 0 && comboCounter <= 3) {
+            lightSlashVFX[comboCounter - 1].SetActive(true);
+        }
+        else{
+            lightSlashVFX[2].SetActive(true);
+        }
     }
 
     private void EndLightSlash()
     {
-        if(comboCounter > 0 && comboCounter < 3) {
+        if(comboCounter > 0 && comboCounter <= 3) {
             lightSlashVFX[comboCounter - 1].SetActive(false);
         }
         else{
@@ -369,11 +468,13 @@ public class PlayerCombatController : MonoBehaviour
                 vfx.SetActive(false);
             }
         }
+       // print("ended light slash vfx COMBO COUNTER " + comboCounter.ToString());
     }
 
     private void StartHeavySlash()
     {
         heavySlashVFX.SetActive(true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
     }
 
     private void EndHeavySlash()
@@ -386,7 +487,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
-        _rb.drag = 0;
+        _rb.drag = 1;
         _rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
     
@@ -411,7 +512,9 @@ public class PlayerCombatController : MonoBehaviour
 
             // change state to limit actions
             charController.state = CharController.State.KNOCKBACK;
-           // print("took damage");
+            // print("took damage");
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
         }
     }

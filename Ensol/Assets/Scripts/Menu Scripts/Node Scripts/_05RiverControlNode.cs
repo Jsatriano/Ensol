@@ -11,6 +11,7 @@ public class _05RiverControlNode : MonoBehaviour
 
     [Header("Control Tower Variables")]
     public Collider controlsCollider;
+    public GameObject screen;
 
     [Header("Water Variables")]
     public GameObject water;
@@ -23,6 +24,9 @@ public class _05RiverControlNode : MonoBehaviour
         // if player interacted with river control tower
         if(controlsCollider.enabled == false && water.transform.position.y > endY)
         {  
+            // removes highlight material from mesh
+            Destroy(screen.GetComponent<MeshRenderer>().materials[1]);
+
             // moves water down to look like its draining
             water.transform.position = Vector3.Lerp(water.transform.position, 
                                        new Vector3(water.transform.position.x, water.transform.position.y - 1, water.transform.position.z), 

@@ -7,14 +7,27 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
 
-    public Collider c;
+    public Collider dialogue;
+    public Collider Mesh;
 
     private void Update()
     {
-        if(c.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying) 
+        if(DialogueManager.GetInstance().donePlaying == true && dialogue.enabled != true) 
         {
+            if (Mesh != null)
+            {
+                Mesh.enabled = true;
+            }
+            dialogue.enabled = true;
+            DialogueManager.GetInstance().donePlaying = false;
+        }
+
+        if(dialogue.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
+        {
+            print("start dialogue");
             //Debug.Log(inkJSON.text);
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
         }
+        
     }
 }

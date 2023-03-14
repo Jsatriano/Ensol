@@ -17,7 +17,10 @@ public class SceneSwitch : MonoBehaviour
     }
     void OnTriggerEnter(Collider other) // Check if Player has reached exit area
     {
-        StartCoroutine(FadeBlackOutSquare()); 
+        if (other.gameObject.tag == "Player")
+        {
+            StartCoroutine(FadeBlackOutSquare()); 
+        }
     }
 
     public IEnumerator FadeBlackOutSquare() // function to slowly fade the screen to black and load map scene

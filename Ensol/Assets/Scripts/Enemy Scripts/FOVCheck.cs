@@ -9,14 +9,16 @@ public class FOVCheck : Node
     private Transform _playerTF;     //Player transform
     private float _visionRange;      //Detection range of the enemy
     private string _attackName;      //Name of the attack this check is for
+    private int _enemyType;          //The enemy type
 
-    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName, LayerMask envLayerMask)
+    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName, LayerMask envLayerMask, int enemyType)
     {
         _enemyTF      = enemyTF;
         _playerTF     = playerTF;
         _visionRange  = visionRange;
         _attackName   = attackName;
         _envLayerMask = envLayerMask;
+        _enemyType    = enemyType;
     }
 
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
@@ -49,6 +51,9 @@ public class FOVCheck : Node
                     {
                         SetData("player", _playerTF);
                         state = NodeState.SUCCESS;
+                        if (_enemyType == 1){
+                            AudioManager.instance.PlayOneShot(FMODEvents.instance.deerAlerted, _enemyTF.position);
+                        }
                         return state;
                     }  
                 }

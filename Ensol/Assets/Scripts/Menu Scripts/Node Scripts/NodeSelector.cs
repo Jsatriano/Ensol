@@ -12,6 +12,7 @@ public class NodeSelector : MonoBehaviour
 
     public void OpenScene() {
         selectedNode = node;
+        PlayerData.currentNode = node;
         SceneManager.LoadScene("SampleScene");
     }
 }

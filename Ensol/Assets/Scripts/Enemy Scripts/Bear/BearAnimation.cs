@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BearAnimation : MonoBehaviour
 {
-
     public enum State
     {
         IDLE,
@@ -34,6 +33,7 @@ public class BearAnimation : MonoBehaviour
         //Stops all animation once bear is dead
         if (state == State.DYING)
         {
+            animController.SetTrigger("Dying");
             return;
         }
         if (!bearBT.isAlive)

@@ -28,7 +28,7 @@ public class DeerBT : Tree
             }),
             new Sequence(new List<Node>
             {
-                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask),
+                new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask, 1),
                 new CooldownCheck(deerStats.chargeCooldown, "charging"),
                 new DeerCharge(deerStats.chargeMaxSpeed, deerStats.chargeAccel, deerStats.playerTF,
                                deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitbox, deerStats.chargeTurning, deerStats.windupRotation, deerStats.obstacleMask)

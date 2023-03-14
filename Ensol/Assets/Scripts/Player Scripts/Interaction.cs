@@ -25,6 +25,10 @@ public class Interaction : MonoBehaviour
             else if(collider.gameObject.tag == "InteractableStory")
             {
                 print("inspected story element");
+                // if (collider != MeshCollider) 
+                // {
+                //     print("hello");
+                // }
                 collider.enabled = false;
             }
         }
