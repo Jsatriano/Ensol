@@ -119,6 +119,7 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(_rb.drag);
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
@@ -314,7 +315,7 @@ public class CharController : MonoBehaviour
 
     void Move() // Justin
     {
-         // forward vector is going to equal our camera's forward vector 
+        // forward vector is going to equal our camera's forward vector 
         forward = Camera.main.transform.forward;
         forward.y = 0;
 
@@ -350,7 +351,9 @@ public class CharController : MonoBehaviour
                 velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
                 _rb.velocity = velocityXZ + velocityY;
             }
-        }        
+        } 
+
+             
     }
 
 
@@ -409,7 +412,7 @@ public class CharController : MonoBehaviour
         }
         else
         {
-            _rb.drag = 0;
+            _rb.drag = 1;
         }
     }
 }
