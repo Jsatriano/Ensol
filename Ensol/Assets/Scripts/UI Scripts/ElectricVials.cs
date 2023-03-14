@@ -20,9 +20,23 @@ public class ElectricVials : MonoBehaviour // justin
     public float transitionTime;
     public HealthBar healthUI;
 
+    [Header("Flicker Variables")]
+    [SerializeField] private Image[] borders;
+    [SerializeField] private float flickerLength;
+    private float flickerLengthTimer;
+    [SerializeField] private float flickerTime;
+    private float flickerTimer;
+    [SerializeField] private Color flickerColor;
+    private Color originalColor;
+    private bool flickerState;
+    private bool isFlickering;
+
     // Start is called before the first frame update
     void Start()
     {
+        isFlickering = false;
+        originalColor = borders[0].color;
+
         currVial = 2; // full vials
         for (int i = 0; i < vials.Length; i += 1)
         {
@@ -58,6 +72,47 @@ public class ElectricVials : MonoBehaviour // justin
             slideIn(startingPos, endingPos2, center.localPosition, vial2);
             slideIn(startingPos, endingPos3, center.localPosition, vial3);
         }
+
+        //Resets all the colors once flickering is over
+        if (flickerLengthTimer >= flickerLength && borders[0].color == originalColor)
+        {
+            isFlickering = false;
+            for (int i = 0; i < borders.Length; i++)
+            {
+                borders[i].color = originalColor;
+            }
+        }
+
+        if (isFlickering)
+        {
+            print("hewwo");
+            //Checks if it needs to start flickering in the other direction
+            if (flickerTimer >= flickerTime)
+            {
+
+                flickerState = !flickerState;
+                flickerTimer = 0;
+            }
+            flickerLengthTimer += Time.deltaTime;
+            flickerTimer += Time.deltaTime;
+            //Transitions towards the flicker color
+            if (flickerState)
+            {
+                for (int i = 0; i < borders.Length; i++)
+                {
+                    borders[i].color = Color.Lerp(originalColor, flickerColor, flickerTimer / flickerTime);
+                }
+            }
+            //Transitions back to original color;
+            else
+            {
+                for (int i = 0; i < borders.Length; i++)
+                {
+                    borders[i].color = Color.Lerp(flickerColor, originalColor, flickerTimer / flickerTime);
+                }
+            }
+        }
+
     }
 
     public void AddVial(float percent)
@@ -100,6 +155,25 @@ public class ElectricVials : MonoBehaviour // justin
                 currVial -= 1;
             }
         }
+    }
+
+    public int GetVials()
+    {
+        if (currVial < 0)
+        {
+            if (isFlickering)
+            {
+                flickerLengthTimer = 0;
+            }
+            else
+            {
+                flickerLengthTimer = 0;
+                flickerTimer = 0;
+                isFlickering = true;
+                flickerState = true;
+            }
+        }
+        return currVial;
     }
 
     private void slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
