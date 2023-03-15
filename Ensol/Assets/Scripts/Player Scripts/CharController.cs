@@ -119,7 +119,7 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(_rb.drag);
+        // print(_rb.drag);
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
