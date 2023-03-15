@@ -9,6 +9,9 @@ public class SceneSwitch : MonoBehaviour
 {
     // Harsha
     public static GameObject blackOutSquare {get; private set;}
+
+    public bool GameFinished = false;
+
     void Start()
     {
         if(blackOutSquare == null){
@@ -40,8 +43,13 @@ public class SceneSwitch : MonoBehaviour
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
-                    SceneManager.LoadScene(sceneName:"MapScene"); 
                     Cursor.visible = true;
+
+                    if (GameFinished == false){
+                        SceneManager.LoadScene(sceneName:"MapScene"); 
+                    } else {
+                        SceneManager.LoadScene(sceneName:"CreditScene");
+                    }
 
                 }
                 yield return null;

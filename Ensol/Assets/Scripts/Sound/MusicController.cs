@@ -26,12 +26,10 @@ public class MusicController : MonoBehaviour
 
     void OnDestroy()
     {
-        print("destroyed");
         PLAYBACK_STATE ZplaybackState;
         zone1.getPlaybackState(out ZplaybackState);
 
         if(song == 1){
-            print("stop song");
             zone1.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
