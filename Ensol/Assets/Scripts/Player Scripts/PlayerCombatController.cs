@@ -10,6 +10,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject weapon;
     public GameObject weaponHead;
     public GameObject weaponBase;
+    public GameObject backpack;
     public GameObject weaponProjectilePrefab;
     public GameObject weaponCatchTarget;
     public GameObject FX1;
@@ -91,6 +92,7 @@ public class PlayerCombatController : MonoBehaviour
             weapon.SetActive(false);
             weaponHead.SetActive(false);
             weaponBase.SetActive(false);
+            backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
@@ -101,6 +103,7 @@ public class PlayerCombatController : MonoBehaviour
             weapon.SetActive(true);
             weaponHead.SetActive(false);
             weaponBase.SetActive(false);
+            backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
@@ -111,6 +114,7 @@ public class PlayerCombatController : MonoBehaviour
             weapon.SetActive(true);
             weaponHead.SetActive(true);
             weaponBase.SetActive(true);
+            backpack.SetActive(true);
             FX1.SetActive(true);
             FX2.SetActive(true);
         }
@@ -208,10 +212,9 @@ public class PlayerCombatController : MonoBehaviour
 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.enoughVials(1) 
-            && charController.state != CharController.State.PAUSED 
-            && charController.state != CharController.State.ATTACKING 
-            && charController.state != CharController.State.DASHING && hasWeapon && PlayerData.hasSolarUpgrade) // Harsha and Justin and Elizabeth
+        if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
+            && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
+            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
 
@@ -248,9 +251,9 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.enoughVials(2) && hasWeapon && !isCatching && 
+        if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -292,6 +295,7 @@ public class PlayerCombatController : MonoBehaviour
         weapon.SetActive(true);
         weaponHead.SetActive(true);
         weaponBase.SetActive(true);
+        backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
     }
