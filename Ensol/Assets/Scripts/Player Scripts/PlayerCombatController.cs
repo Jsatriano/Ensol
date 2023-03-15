@@ -208,7 +208,7 @@ public class PlayerCombatController : MonoBehaviour
 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.GetVials() >= 0 
+        if (Input.GetButtonDown("HeavyAttack") && electricVials.enoughVials(1) 
             && charController.state != CharController.State.PAUSED 
             && charController.state != CharController.State.ATTACKING 
             && charController.state != CharController.State.DASHING && hasWeapon && PlayerData.hasSolarUpgrade) // Harsha and Justin and Elizabeth
@@ -248,7 +248,7 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.GetVials() >= 1 && hasWeapon && !isCatching && 
+        if(Input.GetButtonDown("SpecialAttack") && electricVials.enoughVials(2) && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
         && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
             charController.state = CharController.State.ATTACKING;

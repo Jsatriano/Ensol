@@ -83,6 +83,7 @@ public class ElectricVials : MonoBehaviour // justin
             }
         }
 
+        //UI Flickering
         if (isFlickering)
         {
             print("hewwo");
@@ -157,9 +158,11 @@ public class ElectricVials : MonoBehaviour // justin
         }
     }
 
-    public int GetVials()
+    //Takes in number of vials needed to use an ability, returns if the player currently has enough vials
+    public bool enoughVials(int neededVials)
     {
-        if (currVial < 0)
+        //Activates the UI flashing effect if player doesn't have enough vials
+        if (currVial + 1 < neededVials)
         {
             if (isFlickering)
             {
@@ -172,8 +175,9 @@ public class ElectricVials : MonoBehaviour // justin
                 isFlickering = true;
                 flickerState = true;
             }
+            return false;
         }
-        return currVial;
+        return true;
     }
 
     private void slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
