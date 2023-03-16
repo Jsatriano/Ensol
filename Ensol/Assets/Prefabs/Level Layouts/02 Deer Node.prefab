@@ -2294,6 +2294,7 @@ MonoBehaviour:
   players: []
   deadDear: {fileID: 758564553308371988, guid: 56b7c1f4f41071d45987b76303c98b1b, type: 3}
   guttedDeer: {fileID: 4776352040201978847, guid: ceda4068b0e208b4f957a46610775c27, type: 3}
+  transferCube: {fileID: 4797789194457776968}
 --- !u!1 &9056107377206823156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2525,10 @@ PrefabInstance:
       propertyPath: buttonCol
       value: 
       objectReference: {fileID: 3329708251400000086}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: requiredObj
+      value: 
+      objectReference: {fileID: 4797789194457776968}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 1
@@ -2960,7 +2965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 219.6
+      value: 212.37
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2968,11 +2973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5
+      value: -4.34
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.95319074
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2980,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.3023699
+      value: -0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2992,7 +2997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -35.2
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -3006,11 +3011,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7836840978457139292, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
 --- !u!4 &2507542803463375099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+  m_PrefabInstance: {fileID: 3339179994830379796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4797789194457776968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7836840978457139292, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
   m_PrefabInstance: {fileID: 3339179994830379796}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3901123575807784148

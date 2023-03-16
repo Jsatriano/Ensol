@@ -44,8 +44,15 @@ public class CabinDoor : MonoBehaviour
         {
             if(!buttonCol.enabled)
             {
-                // opens door
-                doorController.OpenDoor();
+                if(PlayerData.hasBroom)
+                {
+                    // opens door
+                    doorController.OpenDoor();
+                }
+                else
+                {
+                    buttonCol.enabled = true;
+                }
             }
         }
         
