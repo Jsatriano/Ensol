@@ -338,9 +338,12 @@ public class CharController : MonoBehaviour
             heading = Vector3.Normalize(rightMovement + upMovement);
 
             // smoothly rotates player when changeing directions (rather than abruptly)
-            Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
-
+            if (heading != Vector3.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
+            }
+           
             // makes our movement happen
 
             _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
@@ -390,7 +393,6 @@ public class CharController : MonoBehaviour
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
-        print(_rb.drag);
 
 
         // invoke RestDash function after dash is done
