@@ -14,7 +14,6 @@ public class DoorController : MonoBehaviour
         Vector3 currentRot = door.transform.localEulerAngles;
         if(opening)
         {
-            print("door should be opening");
             if(currentRot.y < openRot)
             {
                 door.transform.localEulerAngles = Vector3.Lerp(currentRot, new Vector3(currentRot.x, openRot, currentRot.z), speed * Time.deltaTime);
@@ -26,6 +25,5 @@ public class DoorController : MonoBehaviour
     public void OpenDoor()
     {
         opening = true;
-        print("OpenDoor was called");
     }
 }

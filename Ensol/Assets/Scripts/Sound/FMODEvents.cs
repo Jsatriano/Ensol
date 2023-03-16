@@ -24,6 +24,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deerAttack { get; private set; }
     [field: SerializeField] public EventReference deerMove { get; private set; }
     [field: SerializeField] public EventReference deerAlerted { get; private set; }
+    [field: SerializeField] public EventReference deerGutted { get; private set; }
 
     [field: Header("Bear")]
     [field: SerializeField] public EventReference BearDeath { get; private set; }
@@ -37,7 +38,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference minorCut { get; private set; }
     [field: SerializeField] public EventReference deathCut { get; private set; }
     [field: SerializeField] public EventReference envGateOpen { get; private set; }
-    [field: SerializeField] public EventReference envbeepboop { get; private set; }
+    [field: SerializeField] public EventReference envBroomBreak { get; private set; }
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }

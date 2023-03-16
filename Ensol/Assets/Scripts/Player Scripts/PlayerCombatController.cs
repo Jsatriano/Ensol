@@ -344,6 +344,7 @@ public class PlayerCombatController : MonoBehaviour
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialReturn, this.transform.position);
     }
 
     private void EndCatch() {
@@ -361,6 +362,7 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
         } else {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerSpin, this.transform.position);
         }
             
         comboTimerActive = false;
