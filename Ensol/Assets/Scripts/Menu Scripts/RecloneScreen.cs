@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class RecloneScreen : MonoBehaviour
 {
     public GameObject recloneButton;
+    public NodeSelector nodeSelector;
 
     private void Start()
     {
@@ -18,8 +19,9 @@ public class RecloneScreen : MonoBehaviour
     public void ResetGame()
     {
         Time.timeScale = 1f;
-        // will need to change this to the cabin once its created
-        SceneManager.LoadScene(sceneName:"SampleScene");
+        // Respawns at cabin
+        nodeSelector.node = 1;
+        nodeSelector.OpenScene();
     }
 
     public void ExitToMenu()

@@ -10,6 +10,10 @@ public static class PlayerData
     public static bool hasThrowUpgrade = false;
     public static bool diedToCrackDeer = false;
 
+    //Player Death Stuff
+    public static bool currentlyHasBroom = false;
+    public static bool currentlyHasSolar = false;
+
     //Player Progress
     public static int currentNode = 1;
 
