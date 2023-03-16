@@ -46,7 +46,7 @@ public class ElectricVials : MonoBehaviour // justin
         }
         transitionTimer = 0;
         
-        if (PlayerData.hasSolarUpgrade && healthUI.finishedTransition)
+        if (PlayerData.currentlyHasSolar && healthUI.finishedTransition)
         {
             transitionTimer = transitionTime;
             toggler.SetActive(true);
@@ -66,7 +66,7 @@ public class ElectricVials : MonoBehaviour // justin
     private void Update()
     {
         //Moves the energyUI onto the screen if the player has the solar upgrade at the start of every scene and the health has finished transitioning onto screen
-        if (PlayerData.hasSolarUpgrade && healthUI.finishedTransition && transitionTimer < transitionTime)
+        if (PlayerData.currentlyHasSolar && healthUI.finishedTransition && transitionTimer < transitionTime)
         {
             slideIn(startingPos, endingPos1, center.localPosition, vial1);
             slideIn(startingPos, endingPos2, center.localPosition, vial2);
