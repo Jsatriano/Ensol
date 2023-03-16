@@ -13,9 +13,11 @@ public class _01CabinNode : MonoBehaviour
 
     [Header("Other Variables")]
     public GameObject gateTransferCube;
-    public GameObject interactBroom;
-    public GameObject normalBroom;
-    public GameObject[] players = null;
+    [SerializeField] private GameObject broom;
+    [SerializeField] private MeshRenderer broomMesh;
+    [SerializeField] private Material[] interactMat;
+    [SerializeField] private Material[] broomMat;
+    [HideInInspector] public GameObject[] players = null;
     private PlayerCombatController combatController = null;
     public GameObject[] cabinInteractables;
     public Collider[] cabinInteractCols;
@@ -28,19 +30,18 @@ public class _01CabinNode : MonoBehaviour
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
         {
-            interactBroom.SetActive(false);
-            normalBroom.SetActive(false);
+            broom.SetActive(false);
         }
         //Only load the interactable broom once the player has died to the crack deer
         else if (PlayerData.diedToCrackDeer)
         {
-            interactBroom.SetActive(true);
-            normalBroom.SetActive(false);
+            broom.tag = "InteractablePickup";
+            broomMesh.materials = interactMat;
         }
         else
         {
-            interactBroom.SetActive(false);
-            normalBroom.SetActive(true);
+            broom.tag = "Untagged";
+            broomMesh.materials = broomMat;
         }
     }
 
@@ -55,7 +56,7 @@ public class _01CabinNode : MonoBehaviour
             gateTransferCube.SetActive(true);
         }
         //Player picking up broom
-        if (normalBroom.activeInHierarchy == false && interactBroom.activeInHierarchy == false && !PlayerData.hasBroom)
+        if (broom.activeInHierarchy == false && broom.activeInHierarchy == false && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
         }
