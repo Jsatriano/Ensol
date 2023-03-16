@@ -40,6 +40,14 @@ public class CabinDoor : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if(!buttonCol.enabled)
+            {
+                // opens door
+                doorController.OpenDoor();
+            }
+        }
         
     }
 }

@@ -11,12 +11,14 @@ public class _01CabinNode : MonoBehaviour
     public ElectricGateController electricGateToGate = null;
 
     [Header("Interactable Objects")]
+    public GameObject doorInteractable;
     public GameObject podInteractable;
     public GameObject windowInteractable;
     public GameObject conveyerInteractable;
     public GameObject plushInteractable;
     
     [Header("Interactable Object Interactors")]
+    public CabinDoor doorInteractor;
     public DialogueTrigger podInteractor;
     public DialogueTrigger windowInteractor;
     public DialogueTrigger conveyerInteractor;
@@ -82,6 +84,15 @@ public class _01CabinNode : MonoBehaviour
         }
 
         /* -------------------- Interactable Handling --------------------- */
+
+        // Door
+        if(doorInteractor.interacted || PlayerData.doorInteracted)
+        {
+            PlayerData.doorInteracted = true;
+            doorInteractor.interacted = true;
+            Destroy(doorInteractable.GetComponent<MeshRenderer>().materials[1]);
+            
+        }
 
         // Cloning Pod
         if(podInteractor.interacted || PlayerData.podInteracted)

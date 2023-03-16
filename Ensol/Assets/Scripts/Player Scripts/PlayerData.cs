@@ -29,6 +29,7 @@ public static class PlayerData
     public static float throwAttacks = 0;
 
     //Interactable Item States
+    public static bool doorInteracted = false;
     public static bool podInteracted = false;
     public static bool conveyerInteracted = false;
     public static bool windowInteracted = false;

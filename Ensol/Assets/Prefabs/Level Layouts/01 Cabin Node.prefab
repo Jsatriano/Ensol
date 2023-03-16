@@ -5021,10 +5021,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electricGateToDeer: {fileID: 493687138490777118}
   electricGateToGate: {fileID: 9057058877612210494}
+  doorInteractable: {fileID: 1417320337119716606}
   podInteractable: {fileID: 985208361347618960}
   windowInteractable: {fileID: 6849652257281111716}
   conveyerInteractable: {fileID: 8206655392907077556}
   plushInteractable: {fileID: 6819528551446342250}
+  doorInteractor: {fileID: 8083172775091945792}
   podInteractor: {fileID: 1316013270231937948}
   windowInteractor: {fileID: 4863384633551288070}
   conveyerInteractor: {fileID: 2079749985545913578}
@@ -12597,6 +12599,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6640940293452557243, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640940293452557243, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
 --- !u!4 &563336973622592392 stripped
@@ -12604,6 +12614,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6004330584583023896, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
   m_PrefabInstance: {fileID: 6089699183567826576}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417320337119716606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5127806065638820462, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
+  m_PrefabInstance: {fileID: 6089699183567826576}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8083172775091945792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2643551320249544656, guid: 5be64ebebe8f79d4897b4d0c8c3ef03e, type: 3}
+  m_PrefabInstance: {fileID: 6089699183567826576}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fb3e2fc414ff942afb30803a5329d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6300139270824905849
 PrefabInstance:
   m_ObjectHideFlags: 0
