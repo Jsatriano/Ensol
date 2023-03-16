@@ -72,7 +72,7 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact"))
         {
             ContinueStory();
         }
@@ -92,7 +92,7 @@ public class DialogueManager : MonoBehaviour
             openSesame = true;
         });
 
-        ContinueStory();
+        //ContinueStory();
     }
 
     private IEnumerator ExitDialogueMode()
@@ -109,7 +109,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueVariables != null)
         {
             dialogueVariables.SaveVariables();
-            print("saved");
+            //print("saved");
         }
     }
 
@@ -117,7 +117,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            print("hello from line 120");
+            print("continue story tried to continue");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -125,7 +125,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ExitDialogueMode());
+            print("continue story tried to exit");
+            //StartCoroutine(ExitDialogueMode());
         }
     }
 
@@ -136,7 +137,7 @@ public class DialogueManager : MonoBehaviour
         var curPos = dialoguePos.anchoredPosition;
         if (currentChoices.Count > 0)
         {
-            print("hello from line 137");
+            //print("hello from line 137");
 
             dialoguePos.anchoredPosition = new Vector2(curPos.x, 383.96f);
             choicesPanel.SetActive(true);
@@ -164,7 +165,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[index].text = choice.text;
             index++;
         }
-        print(index);
+        //print(index);
         // sets unneccesary choices in UI to hidden
         for (int i = index; i < choices.Length; i++)
         {
@@ -177,7 +178,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator SelectFirstChoice()
     {
-        print("hello from line 177");
+        //print("hello from line 177");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
@@ -185,7 +186,7 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        print(choiceIndex);
+        //print(choiceIndex);
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 

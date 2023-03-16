@@ -6,7 +6,7 @@ public class Interaction : MonoBehaviour
 {
     public void Update()
     {
-        if(Input.GetButtonDown("Interact"))
+        if(Input.GetButtonDown("Interact") && DialogueManager.GetInstance().dialogueisPlaying == false)
         {
             Interact();
         }
@@ -14,6 +14,7 @@ public class Interaction : MonoBehaviour
 
     public void Interact()
     {
+        print("interact played anyways");
         Collider[] inRangeColliders = Physics.OverlapSphere(transform.position, 0.5f);
         foreach (var collider in inRangeColliders)
         {
