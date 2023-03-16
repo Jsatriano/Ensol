@@ -23,4 +23,10 @@ public static class PlayerData
     public static float dashes = 0;
     public static float heavyAttacks = 0;
     public static float throwAttacks = 0;
+
+    //Interactable Item States
+    public static bool podInteracted = false;
+    public static bool conveyerInteracted = false;
+    public static bool windowInteracted = false;
+    public static bool plushInteracted = false;
 }

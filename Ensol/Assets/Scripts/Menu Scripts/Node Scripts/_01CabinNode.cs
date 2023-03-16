@@ -9,6 +9,18 @@ public class _01CabinNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateToDeer = null;
     public ElectricGateController electricGateToGate = null;
+
+    [Header("Interactable Objects")]
+    public GameObject podInteractable;
+    public GameObject windowInteractable;
+    public GameObject conveyerInteractable;
+    public GameObject plushInteractable;
+    
+    [Header("Interactable Object Interactors")]
+    public DialogueTrigger podInteractor;
+    public DialogueTrigger windowInteractor;
+    public DialogueTrigger conveyerInteractor;
+    public DialogueTrigger plushInteractor;
     
 
     [Header("Other Variables")]
@@ -17,10 +29,6 @@ public class _01CabinNode : MonoBehaviour
     public GameObject normalBroom;
     public GameObject[] players = null;
     private PlayerCombatController combatController = null;
-    public GameObject[] cabinInteractables;
-    public Collider[] cabinInteractCols;
-    public GameObject plush;
-    public Collider plushInteractCol;
 
 
     private void Start()
@@ -72,22 +80,42 @@ public class _01CabinNode : MonoBehaviour
             CompletedNodes.gateNode = true;
         }
 
-        // handles cabin interactables highlight shader removal
-        for(int i = 0; i < cabinInteractables.Length; i += 1)
+        /* -------------------- Interactable Handling --------------------- */
+
+        // Cloning Pod
+        if(podInteractor.interacted || PlayerData.podInteracted)
         {
-            if(cabinInteractCols[i].enabled == false)
-            {
-                // removes highlight material from mesh
-                Destroy(cabinInteractables[i].GetComponent<MeshRenderer>().materials[1]);
-            }
+            PlayerData.podInteracted = true;
+            podInteractor.interacted = true;
+            Destroy(podInteractable.GetComponent<MeshRenderer>().materials[1]);
+            
         }
 
-        //handles plush highlight shader removal
-        if(plushInteractCol.enabled == false)
+        // Window
+        if(windowInteractor.interacted || PlayerData.windowInteracted)
         {
-            // removes highlight material from mesh
-            Destroy(plush.GetComponent<SkinnedMeshRenderer>().materials[1]);
+            PlayerData.windowInteracted = true;
+            windowInteractor.interacted = true;
+            Destroy(windowInteractable.GetComponent<MeshRenderer>().materials[1]);
         }
+
+        // Conveyer
+        if(conveyerInteractor.interacted || PlayerData.conveyerInteracted)
+        {
+            PlayerData.conveyerInteracted = true;
+            conveyerInteractor.interacted = true;
+            Destroy(conveyerInteractable.GetComponent<MeshRenderer>().materials[1]);
+        }
+
+        // Plush
+        if(plushInteractor.interacted || PlayerData.plushInteracted)
+        {
+            PlayerData.plushInteracted = true;
+            plushInteractor.interacted = true;
+            Destroy(plushInteractable.GetComponent<MeshRenderer>().materials[1]);
+        }
+
+        /* ------------------------------------------------------------------ */
         
     }
 
