@@ -17,6 +17,11 @@ public class _01CabinNode : MonoBehaviour
     public GameObject normalBroom;
     public GameObject[] players = null;
     private PlayerCombatController combatController = null;
+    public GameObject[] cabinInteractables;
+    public Collider[] cabinInteractCols;
+    public GameObject plush;
+    public Collider plushInteractCol;
+
 
     private void Start()
     {
@@ -66,6 +71,24 @@ public class _01CabinNode : MonoBehaviour
             print("unlocked gate node");
             CompletedNodes.gateNode = true;
         }
+
+        // handles cabin interactables highlight shader removal
+        for(int i = 0; i < cabinInteractables.Length; i += 1)
+        {
+            if(cabinInteractCols[i].enabled == false)
+            {
+                // removes highlight material from mesh
+                Destroy(cabinInteractables[i].GetComponent<MeshRenderer>().materials[1]);
+            }
+        }
+
+        //handles plush highlight shader removal
+        if(plushInteractCol.enabled == false)
+        {
+            // removes highlight material from mesh
+            Destroy(plush.GetComponent<SkinnedMeshRenderer>().materials[1]);
+        }
+        
     }
 
     private void SearchForPlayer()
