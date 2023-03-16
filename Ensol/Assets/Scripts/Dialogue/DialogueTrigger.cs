@@ -27,6 +27,7 @@ public class DialogueTrigger : MonoBehaviour
             print("start dialogue");
             //Debug.Log(inkJSON.text);
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+            AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         }
         
     }

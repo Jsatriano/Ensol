@@ -142,6 +142,7 @@ public class BearAnimation : MonoBehaviour
     private void EndSwipeWindup()
     {
         bearBT.root.SetData("endWindup", true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearSwipe, this.transform.position);
     }
 
     private void EndSwipe()
@@ -152,6 +153,7 @@ public class BearAnimation : MonoBehaviour
     private void ThrowBall()
     {
         bearBT.root.SetData("throwJunk", true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearThrow, this.transform.position);
     }
 
     private void EndThrow()

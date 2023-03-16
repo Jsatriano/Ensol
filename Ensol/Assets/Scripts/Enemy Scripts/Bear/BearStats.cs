@@ -68,6 +68,8 @@ public class BearStats : EnemyStats
         bearBT.isAlive = false;
         swipeHitbox1.enabled = false;
         swipeHitbox2.enabled = false;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearDeath, this.transform.position);
 
         // tells door and gate scripts that this bear has died
         if (buttonGateController != null)

@@ -27,11 +27,13 @@ public class MenuButtons : MonoBehaviour
 
     public void Controls()
     {
+        AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         SceneManager.LoadScene(sceneName:"ControlScene");
     }
 
     public void ExitGame()
     {
+        AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         Application.Quit();
     }
 }

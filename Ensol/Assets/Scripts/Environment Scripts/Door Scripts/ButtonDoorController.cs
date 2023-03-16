@@ -27,6 +27,7 @@ public class ButtonDoorController : MonoBehaviour
                 {
                     // opens door
                     doorController.OpenDoor();
+                    AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
                     text.opened = true;
                 }
             }

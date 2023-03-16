@@ -107,7 +107,8 @@ public class JunkBall : MonoBehaviour
         explosionTF.localScale = explosionStartingSize;
         interpolater   = 0;
         explosionTimer = 0;
-        isExploding    = true;        
+        isExploding    = true;    
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position); 
     }
 }
 

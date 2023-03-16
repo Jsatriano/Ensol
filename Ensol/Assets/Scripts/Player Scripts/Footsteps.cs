@@ -32,6 +32,9 @@ public class Footsteps : MonoBehaviour
         } else if (other.tag == "Floor" && footType == 2){
             //touchingGrass = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerMove, this.transform.position);
+        } else if (other.tag == "Floor" && footType == 3){
+            //touchingGrass = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.bearMove, this.transform.position);
         }
     }
 

@@ -53,6 +53,8 @@ public class FOVCheck : Node
                         state = NodeState.SUCCESS;
                         if (_enemyType == 1){
                             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerAlerted, _enemyTF.position);
+                        } else if (_enemyType == 2){
+                            AudioManager.instance.PlayOneShot(FMODEvents.instance.bearAlerted, _enemyTF.position);
                         }
                         return state;
                     }  
