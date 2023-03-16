@@ -363,6 +363,8 @@ public class CharController : MonoBehaviour
         if(_dashCdTimer > 0) return;
         else _dashCdTimer = _dashCD;
 
+        PlayerData.dashes += 1;
+
         // player is now seen as dashing
         _isDashing = true;
         _rb.velocity = Vector3.zero;

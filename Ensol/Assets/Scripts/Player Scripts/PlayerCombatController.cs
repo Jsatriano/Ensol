@@ -179,6 +179,7 @@ public class PlayerCombatController : MonoBehaviour
            && !charController.animator.GetBool("isHeavyAttacking")
            && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
         {
+            PlayerData.lightAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -217,6 +218,7 @@ public class PlayerCombatController : MonoBehaviour
             && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
+            PlayerData.heavyAttacks += 1;
 
             charController.state = CharController.State.ATTACKING;
 
@@ -254,6 +256,7 @@ public class PlayerCombatController : MonoBehaviour
         if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
         && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
+            PlayerData.throwAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -265,7 +268,6 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
 
         }
-
     }
 
     public void PickedUpBroom()
