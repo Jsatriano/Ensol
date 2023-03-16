@@ -84,7 +84,7 @@ public class PlayerCombatController : MonoBehaviour
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        if (!PlayerData.hasBroom)
+        if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", false);
             charController.animator.SetBool("hasWeapon", false);
@@ -96,7 +96,7 @@ public class PlayerCombatController : MonoBehaviour
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
-        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", true);
             charController.animator.SetBool("hasWeapon", true);
@@ -234,6 +234,8 @@ public class PlayerCombatController : MonoBehaviour
         {
             //print("Player is dead");
             charController.state = CharController.State.DEAD;
+            PlayerData.currentlyHasBroom = false;
+            PlayerData.currentlyHasSolar = false;
             charController.animator.SetBool("isDead", true);
             //sfx
             if (dying == false){
@@ -276,6 +278,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.animator.SetBool("hasWeapon", true);
         hasWeapon = true;
         PlayerData.hasBroom = true;
+        PlayerData.currentlyHasBroom = true;
         weapon.SetActive(true);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
@@ -292,6 +295,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);

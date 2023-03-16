@@ -9,14 +9,19 @@ public class _01CabinNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateToDeer = null;
     public ElectricGateController electricGateToGate = null;
-    
 
-    [Header("Other Variables")]
-    public GameObject gateTransferCube;
+    [Header("Broom")]
     [SerializeField] private GameObject broom;
     [SerializeField] private MeshRenderer broomMesh;
     [SerializeField] private Material[] interactMat;
     [SerializeField] private Material[] broomMat;
+
+    [Header("Weapon Pile")]
+    [SerializeField] private GameObject stick;
+    [SerializeField] private GameObject weaponPile;
+
+    [Header("Other Variables")]
+    public GameObject gateTransferCube;
     [HideInInspector] public GameObject[] players = null;
     private PlayerCombatController combatController = null;
     public GameObject[] cabinInteractables;
@@ -43,6 +48,24 @@ public class _01CabinNode : MonoBehaviour
             broom.tag = "Untagged";
             broomMesh.materials = broomMat;
         }
+
+        weaponPile.SetActive(false);
+        stick.SetActive(false);
+        //Have the correct weapon appear on floor when the player dies
+        if (PlayerData.hasSolarUpgrade)
+        {
+            if (!PlayerData.currentlyHasSolar)
+            {
+                weaponPile.SetActive(true);
+            }
+        }
+        else if (PlayerData.hasBroom)
+        {
+            if (!PlayerData.currentlyHasBroom)
+            {
+                stick.SetActive(true);
+            }
+        }
     }
 
     public void Update()
@@ -56,12 +79,24 @@ public class _01CabinNode : MonoBehaviour
             gateTransferCube.SetActive(true);
         }
         //Player picking up broom
-        if (broom.activeInHierarchy == false && broom.activeInHierarchy == false && !PlayerData.hasBroom)
+        if (broom.activeInHierarchy == false && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
         }
 
-        if(electricGateToDeer.opening)
+        //re-picking up weapon pile
+        if (weaponPile.activeInHierarchy == false && !PlayerData.currentlyHasSolar && PlayerData.hasSolarUpgrade)
+        {
+            combatController.PickedUpSolarUpgrade();
+        }
+
+        //re-picking up broom stick
+        if (stick.activeInHierarchy == false && !PlayerData.currentlyHasBroom && PlayerData.hasBroom)
+        {
+            combatController.PickedUpBroom();
+        }
+
+        if (electricGateToDeer.opening)
         {
             print("unlocked deer node");
             CompletedNodes.deerNode = true;
