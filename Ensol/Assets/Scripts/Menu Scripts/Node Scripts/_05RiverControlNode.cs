@@ -16,6 +16,7 @@ public class _05RiverControlNode : MonoBehaviour
     [Header("Water Variables")]
     public GameObject water;
     public GameObject[] waterBounds;
+    public GameObject waterfalls;
     public float endY;
     public float speed;
 
@@ -26,6 +27,9 @@ public class _05RiverControlNode : MonoBehaviour
         {  
             // removes highlight material from mesh
             Destroy(screen.GetComponent<MeshRenderer>().materials[1]);
+
+            //turns off waterfalls
+            waterfalls.SetActive(false);
 
             // moves water down to look like its draining
             water.transform.position = Vector3.Lerp(water.transform.position, 
