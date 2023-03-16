@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject choicesPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [Header("Choices UI")]
@@ -21,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     public CharController charController;
 
     public bool donePlaying;
+    public bool openSesame;
 
 
     private Story currentStory;
@@ -29,7 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueManager instance;
 
-    private DialogueVariables dialogueVariables;
+    private static DialogueVariables dialogueVariables;
 
     private void Awake()
     {
@@ -52,7 +54,7 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = false;
         donePlaying = false;
         dialoguePanel.SetActive(false);
-
+        choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
 
@@ -82,8 +84,13 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = true;
         charController.state = CharController.State.DIALOGUE;
         dialoguePanel.SetActive(true);
-
+        
         dialogueVariables.StartListening(currentStory);
+
+        currentStory.BindExternalFunction("openDoor", () => {
+            Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
+            openSesame = true;
+        });
 
         ContinueStory();
     }
@@ -92,10 +99,12 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
+        currentStory.UnbindExternalFunction("openDoor");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = CharController.State.IDLE;
         dialoguePanel.SetActive(false);
+        choicesPanel.SetActive(false);
         dialogueText.text = "";
         if (dialogueVariables != null)
         {
@@ -108,6 +117,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
+            print("hello from line 120");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -122,6 +132,17 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        if (currentChoices.Count > 0)
+        {
+            print("hello from line 137");
+            dialoguePanel.transform.position = new Vector3(1280f, 500, 0f);
+            choicesPanel.SetActive(true);
+        }
+        else
+        {
+            dialoguePanel.transform.position = new Vector3(1280f, 200f, 0f);
+            choicesPanel.SetActive(false);
+        }
 
         // checks to see if UI can support number of choices
         if (currentChoices.Count > choices.Length)
@@ -153,6 +174,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator SelectFirstChoice()
     {
+        print("hello from line 177");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
@@ -164,7 +186,7 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 
-    public Ink.Runtime.Object GetVariableState(string variableName)
+    public static bool GetVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
         dialogueVariables.variables.TryGetValue(variableName, out variableValue);
@@ -172,6 +194,8 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Ink Variable was found to be null" + variableName);
         }
-        return variableValue;
+        // return variableValue;
+        bool b = (bool) variableValue;
+        return b;
     }
 }
