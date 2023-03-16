@@ -13,6 +13,8 @@ public class WeaponHitbox : MonoBehaviour
     private bool isMoving = true;
     public GameObject damagePulseVFX;
     public GameObject weaponThrowVFX;
+    public GameObject weaponHitVFX;
+    private Queue<GameObject> activeHitVFX = new Queue<GameObject>();
 
     void Awake()
     {
@@ -70,6 +72,15 @@ public class WeaponHitbox : MonoBehaviour
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                print("Should be spawning hit vfx");
+                Transform hitVFXTargetLocation = null;
+                hitVFXTargetLocation = col.gameObject.transform.Find("Hit VFX Target Location");
+                if(hitVFXTargetLocation == null) {
+                    hitVFXTargetLocation = col.gameObject.transform;
+                }
+                GameObject hitVFX = Instantiate(weaponHitVFX, hitVFXTargetLocation);
+                activeHitVFX.Enqueue(hitVFX);
+                StartCoroutine(DestroyHitVFX());
             }
         }
 
@@ -116,6 +127,13 @@ public class WeaponHitbox : MonoBehaviour
         else {
             print("Weapon located Player");
         }
+    }
+
+    IEnumerator DestroyHitVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject hitVFXToDestroy = activeHitVFX.Dequeue();
+        Destroy(hitVFXToDestroy);
+        print("destroyed a hit vfx");
     }
 
     IEnumerator DisablePulseVFX() //Elizabeth
