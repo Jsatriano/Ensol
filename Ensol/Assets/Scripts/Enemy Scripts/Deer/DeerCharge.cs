@@ -59,6 +59,7 @@ public class DeerCharge : Node
             SetData("charging", true);
             SetData("attacking", true);
             SetData("chargeWindupAnim", true);
+            ClearData("movingForward");
             state = NodeState.RUNNING;
             return state;
         }

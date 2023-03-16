@@ -132,15 +132,18 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        var dialoguePos = dialoguePanel.GetComponent<RectTransform>();
+        var curPos = dialoguePos.anchoredPosition;
         if (currentChoices.Count > 0)
         {
             print("hello from line 137");
-            dialoguePanel.transform.position = new Vector3(1280f, 500, 0f);
+
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 383.96f);
             choicesPanel.SetActive(true);
         }
         else
         {
-            dialoguePanel.transform.position = new Vector3(1280f, 200f, 0f);
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 145);
             choicesPanel.SetActive(false);
         }
 
