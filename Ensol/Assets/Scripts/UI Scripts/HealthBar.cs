@@ -18,8 +18,8 @@ public class HealthBar : MonoBehaviour // justin
 
     private void Start()
     {
-        toggler.SetActive(PlayerData.hasBroom);
-        if (PlayerData.hasBroom)
+        toggler.SetActive(PlayerData.currentlyHasBroom);
+        if (PlayerData.currentlyHasBroom)
         {
             finishedTransition = true;
             transitionTimer = transitionTime;
@@ -36,7 +36,7 @@ public class HealthBar : MonoBehaviour // justin
     private void Update()
     {
         //Moves the health bar onto the screen if the player has the broom at the start of every scene
-        if (PlayerData.hasBroom && transitionTimer < transitionTime)
+        if (PlayerData.currentlyHasBroom && transitionTimer < transitionTime)
         {
             slideIn();
         }
