@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class ButtonDoorController : MonoBehaviour
 {
@@ -8,11 +9,24 @@ public class ButtonDoorController : MonoBehaviour
     public Collider buttonCol;
     public GameObject requiredObj = null;
     public DoorController doorController;
+    //GameObject dialogueController;// = GameObject.FindWithTag("DialogueManager");
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
     public GateTutorialText text;
+    public bool cabin = false;
+
+    public TextAsset InkDoorStory;
+    public Story door;
+
+    void Start()
+    {
+        if (InkDoorStory != null)
+        {
+            door = new Story(InkDoorStory.text);
+        }
+    }
 
     void Update()
     {
@@ -22,13 +36,14 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
-
                 if(!buttonCol.enabled)
                 {
                     // opens door
                     doorController.OpenDoor();
                     text.opened = true;
-                }
+                } 
+                
+                
             }
             else
             {
@@ -42,13 +57,28 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
-
-                if(!buttonCol.enabled)
+                if (cabin == false)
                 {
-                    // opens door
-                    doorController.OpenDoor();
-                    text.opened = true;
+                    if(!buttonCol.enabled)
+                    {
+                        // opens door
+                        doorController.OpenDoor();
+                        text.opened = true;
+                    }
                 }
+                else 
+                {
+                    if (DialogueManager.GetInstance().openSesame == true)
+                    {
+                        if(!buttonCol.enabled)
+                        {
+                            // opens door
+                            doorController.OpenDoor();
+                            text.opened = true;
+                        }
+                    }
+                }
+                
             }
             else
             {

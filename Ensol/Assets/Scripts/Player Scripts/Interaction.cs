@@ -17,18 +17,20 @@ public class Interaction : MonoBehaviour
         Collider[] inRangeColliders = Physics.OverlapSphere(transform.position, 0.5f);
         foreach (var collider in inRangeColliders)
         {
+            print(collider);
             if(collider.gameObject.tag == "InteractablePickup")
             {
                 print("picked up object");
                 collider.gameObject.SetActive(false);
             }
-            else if(collider.gameObject.tag == "InteractableStory")
+            else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
             {
                 print("inspected story element");
-                // if (collider != MeshCollider) 
-                // {
-                //     print("hello");
-                // }
+                collider.enabled = false;
+            }
+            else if (collider.gameObject.tag == "Interactable")
+            {
+                print("inspected interactable");
                 collider.enabled = false;
             }
         }

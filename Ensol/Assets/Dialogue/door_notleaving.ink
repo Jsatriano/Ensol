@@ -1,4 +1,5 @@
 INCLUDE globals.ink
+EXTERNAL openDoor()
 { window_seen == true && conveyer_seen == true && cloning_seen == true: -> Over | -> Intro}
 
 -> Intro
@@ -11,11 +12,14 @@ INCLUDE globals.ink
  === Over ===
 Plush: Wait! Do you remember what’s out there?
 
+
 *[What’s out there?]
 
  Plush: You shouldn’t be out in the forest. You should stay here where it’s safe. If you need anything, you can let me know and the cabin can make it.
  ->2nd_part
 
 ===2nd_part ===
-*[I see…]
+~openDoor()
+I see…
+
 -> END
