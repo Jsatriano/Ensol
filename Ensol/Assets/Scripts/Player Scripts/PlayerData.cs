@@ -29,4 +29,5 @@ public static class PlayerData
     public static bool conveyerInteracted = false;
     public static bool windowInteracted = false;
     public static bool plushInteracted = false;
+    public static bool footstepsInteracted = false;
 }
