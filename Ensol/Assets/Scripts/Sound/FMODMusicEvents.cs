@@ -12,6 +12,10 @@ public class FMODMusicEvents : MonoBehaviour
     [field: SerializeField] public EventReference zone2 { get; private set; }
     [field: Header("zone3")]
     [field: SerializeField] public EventReference zone3 { get; private set; }
+    [field: Header("Menu")]
+    [field: SerializeField] public EventReference mainMenu { get; private set; }
+    [field: Header("Cabin")]
+    [field: SerializeField] public EventReference cabin { get; private set; }
     
 
     public static FMODMusicEvents instance { get; private set; }
