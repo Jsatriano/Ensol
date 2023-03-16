@@ -28,17 +28,22 @@ public class DeerHitPlayer : MonoBehaviour
         if(col.gameObject.tag == "Player") 
         {
             //Does damage to the player based on provided attack damage
-            col.gameObject.GetComponent<PlayerCombatController>().TakeDamage(attackDamage, coll);
-            if (tellBT)
+            PlayerCombatController combatController = col.gameObject.GetComponent<PlayerCombatController>();
+            if (combatController != null)
             {
-                deerBT.root.SetData("attackHit", true);
-            }
+                combatController.TakeDamage(attackDamage, coll);
+                if (tellBT)
+                {
+                    deerBT.root.SetData("attackHit", true);
+                }
+            }          
             return;
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy") || col.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
+            print(col.tag);
             if (tellBT)
-            {
+            {             
                 deerBT.root.SetData("attackHit", true);
             }
         }

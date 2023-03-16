@@ -52,7 +52,7 @@ public class JunkBall : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             //Ignores collision if it is with the bear that threw it
-            if (other.transform == bearTF)
+            if (other.transform == bearTF || other.tag == "Sound")
             {
                 return;
             }

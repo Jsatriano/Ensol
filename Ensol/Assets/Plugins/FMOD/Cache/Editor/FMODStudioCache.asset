@@ -135,33 +135,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-7328171611935488744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_envBeepBoop
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_envBeepBoop
-  Guid:
-    Data1: 2076228823
-    Data2: 1305692153
-    Data3: -1830045274
-    Data4: 21182930
-  Banks:
-  - {fileID: 1631890824335270702}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-7129878571262133769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +177,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Soundtrack.bank
   Name: Soundtrack
   StudioPath: bank:/Soundtrack
-  lastModified: 638144942403047970
+  lastModified: 638145578992307106
   FileSizes: []
   Exists: 1
 --- !u!114 &-5856486047151787011
@@ -276,7 +249,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638145150795968552
+  lastModified: 638145578991654577
   FileSizes:
   - Name: 
     Value: 2870
@@ -323,7 +296,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/BearSFX.bank
   Name: BearSFX
   StudioPath: bank:/BearSFX
-  lastModified: 638144942401915732
+  lastModified: 638145578991308669
   FileSizes: []
   Exists: 1
 --- !u!114 &-4600649559169043864
@@ -395,7 +368,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/DeerSFX.bank
   Name: DeerSFX
   StudioPath: bank:/DeerSFX
-  lastModified: 638145150795553688
+  lastModified: 638145578991574874
   FileSizes: []
   Exists: 1
 --- !u!114 &-3617276210513692146
@@ -575,7 +548,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/CatSFX.bank
   Name: CatSFX
   StudioPath: bank:/CatSFX
-  lastModified: 638144942401955730
+  lastModified: 638145578991408671
   FileSizes: []
   Exists: 1
 --- !u!114 &-1656007253588604282
@@ -632,6 +605,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 62981
+--- !u!114 &-434931221190877139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_hudBeepBoop
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_hudBeepBoop
+  Guid:
+    Data1: -1968099728
+    Data2: 1325420120
+    Data3: -891105369
+    Data4: -1642179380
+  Banks:
+  - {fileID: 4617548462931571792}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-305587607690029781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,7 +724,6 @@ MonoBehaviour:
   - {fileID: 4134298011995410227}
   - {fileID: -3516345477879515338}
   - {fileID: -1729078212646041504}
-  - {fileID: -7328171611935488744}
   - {fileID: 7216548553576897422}
   - {fileID: -7546168246953632967}
   - {fileID: 6340086362839846963}
@@ -751,12 +750,13 @@ MonoBehaviour:
   - {fileID: 4914394077912137696}
   - {fileID: 5667961875311869955}
   - {fileID: 8249984434320709639}
+  - {fileID: -434931221190877139}
   EditorParameters: []
   MasterBanks:
   - {fileID: 713193578852634009}
   StringsBanks:
   - {fileID: -4963178098323885307}
-  cacheTime: 638145150795968552
+  cacheTime: 638145578992307106
   cacheVersion: 131601
 --- !u!114 &354500788617512491
 MonoBehaviour:
@@ -827,7 +827,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638145150795826923
+  lastModified: 638145578991654577
   FileSizes: []
   Exists: 1
 --- !u!114 &1631890824335270702
@@ -845,7 +845,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/EnvironmentSFX.bank
   Name: EnvironmentSFX
   StudioPath: bank:/EnvironmentSFX
-  lastModified: 638145150795796927
+  lastModified: 638145578991594868
   FileSizes: []
   Exists: 1
 --- !u!114 &3306745437054678028
@@ -971,7 +971,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/HudSFX.bank
   Name: HudSFX
   StudioPath: bank:/HudSFX
-  lastModified: 638144942402095731
+  lastModified: 638145578991604565
   FileSizes: []
   Exists: 1
 --- !u!114 &4914394077912137696
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/NeutralSFX.bank
   Name: NeutralSFX
   StudioPath: bank:/NeutralSFX
-  lastModified: 638137989380061463
+  lastModified: 638138207737886250
   FileSizes: []
   Exists: 1
 --- !u!114 &5376315135598912618
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/PlayerSFX.bank
   Name: PlayerSFX
   StudioPath: bank:/PlayerSFX
-  lastModified: 638144942402587275
+  lastModified: 638145578991704869
   FileSizes: []
   Exists: 1
 --- !u!114 &5667961875311869955
