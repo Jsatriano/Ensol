@@ -60,7 +60,6 @@ public class TutorialText : MonoBehaviour
         }
         else if (PlayerData.hasSolarUpgrade && !PlayerData.shownSolarText)
         {
-            print("HEY");
             state = State.SOLAR;
             PlayerData.shownSolarText = true;
             textMesh.text = solarText;

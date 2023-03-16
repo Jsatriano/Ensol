@@ -41,7 +41,6 @@ public class DeerHitPlayer : MonoBehaviour
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy") || col.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
-            print(col.tag);
             if (tellBT)
             {             
                 deerBT.root.SetData("attackHit", true);
