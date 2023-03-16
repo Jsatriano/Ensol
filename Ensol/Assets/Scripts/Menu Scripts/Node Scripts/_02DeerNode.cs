@@ -58,9 +58,9 @@ public class _02DeerNode : MonoBehaviour
         // spawns weapon pickup item after short delay if dropDeer is dead
         if (timer >= timerLength)
         {
-            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
+            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
-                StartCoroutine(ReplaceDeadDeer(deadDear, normalDeer));
+                ReplaceDeadDeer(deadDear, normalDeer);
                 dropped = true;
             }
         }
@@ -81,15 +81,13 @@ public class _02DeerNode : MonoBehaviour
         }
     }
 
-    public IEnumerator ReplaceDeadDeer(GameObject item, GameObject enemy)
+    private void ReplaceDeadDeer(GameObject item, GameObject enemy)
     {
-        yield return new WaitForSeconds(1.1f);
-
         // spawn item, spawn particles and parent item
-        Vector3 offset = new Vector3(0.0972f, 0.7787f, 0.2264f);
-        inSceneItem = Instantiate(item, enemy.transform.position + offset, enemy.transform.rotation);
-        inSceneItem.transform.Rotate(-90, 0, 0);
+        Vector3 offset = new Vector3(-.0529f, 0.7787f, -.22846f);
         normalDeer.SetActive(false);
+        inSceneItem = Instantiate(item, enemy.transform.position + offset, enemy.transform.rotation);
+        inSceneItem.transform.Rotate(-90, 0, 0);    
     }
 
     private void SearchForPlayer()

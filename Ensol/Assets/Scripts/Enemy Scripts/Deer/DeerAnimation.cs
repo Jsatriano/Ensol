@@ -30,10 +30,12 @@ public class DeerAnimation : MonoBehaviour
     private Vector3 deerRight;
     State state;
     State tempState;
+    public bool finishedDeathAnim;
 
     void Start()
     {
         state = State.IDLE;
+        finishedDeathAnim = false;
     }
 
     void FixedUpdate()
@@ -267,6 +269,12 @@ public class DeerAnimation : MonoBehaviour
     {
         deerBT.root.SetData("endSwipe", true);
     }
+
+    private void DeathFinished()
+    {
+        finishedDeathAnim = true;
+    }
+
 
     //Calculates whether the deer is moving to the left or right 
     private State WalkingAnimDir()
