@@ -56,6 +56,7 @@ public class ElectricGateController : MonoBehaviour
         if (audioPlayed == false){
             audioPlayed = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.envGateOpen, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         }
     }
 }
