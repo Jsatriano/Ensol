@@ -28,7 +28,6 @@ public class ButtonGateController : MonoBehaviour
                 {
                     // opens door
                     gateController.OpenGate();
-                    AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
                     text.opened = false;
                 }
                 else
