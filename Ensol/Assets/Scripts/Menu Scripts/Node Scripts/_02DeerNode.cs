@@ -23,9 +23,14 @@ public class _02DeerNode : MonoBehaviour
     private float timerLength = 0.25f;
     private float timer = 0f;
 
-    public GameObject[] players = null;
+    [HideInInspector] public GameObject[] players = null;
     private PlayerCombatController combatController = null;
     private bool pickedUpUpgrade;
+
+    [Header("Weapon Upgrade")]
+    [SerializeField] private GameObject deadDear;
+    [SerializeField] private GameObject guttedDeer;
+
 
     private void Start()
     {
@@ -53,9 +58,9 @@ public class _02DeerNode : MonoBehaviour
         // spawns weapon pickup item after short delay if dropDeer is dead
         if (timer >= timerLength)
         {
-            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false)
+            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
-                StartCoroutine(DropAfterDelay(weaponPickup, normalDeer));
+                ReplaceDeadDeer(deadDear, normalDeer);
                 dropped = true;
             }
         }
@@ -65,6 +70,7 @@ public class _02DeerNode : MonoBehaviour
         {
             weaponPickedUp = true;
             combatController.PickedUpSolarUpgrade();
+            Instantiate(guttedDeer, inSceneItem.transform.position, inSceneItem.transform.rotation);
         }
 
         // unlocks next node if door is opened
@@ -75,12 +81,13 @@ public class _02DeerNode : MonoBehaviour
         }
     }
 
-    public IEnumerator DropAfterDelay(GameObject item, GameObject enemy)
+    private void ReplaceDeadDeer(GameObject item, GameObject enemy)
     {
-        yield return new WaitForSeconds(1f);
-
         // spawn item, spawn particles and parent item
-        inSceneItem = Instantiate(item, enemy.transform.position, enemy.transform.rotation);
+        Vector3 offset = new Vector3(-.0529f, 0.7787f, -.22846f);
+        normalDeer.SetActive(false);
+        inSceneItem = Instantiate(item, enemy.transform.position + offset, enemy.transform.rotation);
+        inSceneItem.transform.Rotate(-90, 0, 0);    
     }
 
     private void SearchForPlayer()

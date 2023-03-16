@@ -5463,6 +5463,7 @@ MonoBehaviour:
   isProjectile: 0
   damagePulseVFX: {fileID: 0}
   weaponThrowVFX: {fileID: 0}
+  weaponHitVFX: {fileID: 189898985647363563, guid: f80724f25fc26aa4194d63d26b77be11, type: 3}
 --- !u!1 &937417640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5612,6 +5613,7 @@ MonoBehaviour:
   isProjectile: 0
   damagePulseVFX: {fileID: 0}
   weaponThrowVFX: {fileID: 0}
+  weaponHitVFX: {fileID: 189898985647363563, guid: f80724f25fc26aa4194d63d26b77be11, type: 3}
 --- !u!1 &1256099941
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,6 +7118,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2918007061440450739, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2967994049542872791, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -24.359936
@@ -7553,6 +7559,7 @@ MonoBehaviour:
   weapon: {fileID: 847835172604655736}
   weaponHead: {fileID: 3637181781950234843}
   weaponBase: {fileID: 7517376848999336124}
+  backpack: {fileID: 8931212319051613183}
   weaponProjectilePrefab: {fileID: 8288452640594278573, guid: 5937fbccfcbda7a4ebd62be03a648d6b, type: 3}
   weaponCatchTarget: {fileID: 546135791}
   FX1: {fileID: 522044964}
@@ -7622,5 +7629,10 @@ GameObject:
 --- !u!4 &7526959006302733570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4901608643267570098, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
+  m_PrefabInstance: {fileID: 6020430612544312140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8931212319051613183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2918007061440450739, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
   m_PrefabInstance: {fileID: 6020430612544312140}
   m_PrefabAsset: {fileID: 0}
