@@ -296,6 +296,8 @@ public class PlayerCombatController : MonoBehaviour
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
         PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);

@@ -53,7 +53,7 @@ public class DeerAnimation : MonoBehaviour
             return;
         }
 
-        if (playerTF == null && deerBT.root.GetData("player") != null)
+        if (playerTF == null && deerBT != null && deerBT.root.GetData("player") != null)
         {
             playerTF = (Transform)deerBT.root.GetData("player");
         }
@@ -245,6 +245,10 @@ public class DeerAnimation : MonoBehaviour
         //Rotates deers head towards player when walking around
         if (state == State.MOVING_FORWARD || state == State.MOVING_LEFT || state == State.MOVING_RIGHT)
         {
+            if (playerTF == null)
+            {
+                return;
+            }
             //Finds the direction to the player and then checks if that is greater than 90 degrees from the current head position
             _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z).normalized;
             if (Vector3.Dot(_dirToPlayer, transform.forward) < 0)
