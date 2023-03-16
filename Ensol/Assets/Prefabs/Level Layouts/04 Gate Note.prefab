@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameFinished: 0
 --- !u!1 &508023089284704777
 GameObject:
   m_ObjectHideFlags: 0
@@ -9549,6 +9550,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_TagString
+      value: InteractableStory
+      objectReference: {fileID: 0}
     - target: {fileID: 777573114983403055, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -9581,6 +9586,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: buttonCol
+      value: 
+      objectReference: {fileID: 6890279830029880130}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 9
@@ -9699,6 +9708,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cce3229497e9048b4338eb192331b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &6890279830029880130 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3040466056553951242, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 8479951797652273992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7272489703820204163 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}

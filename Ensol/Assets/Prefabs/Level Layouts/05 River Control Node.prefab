@@ -17909,6 +17909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameFinished: 0
 --- !u!1 &8105270064998826391
 GameObject:
   m_ObjectHideFlags: 0
@@ -25782,6 +25783,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ElectricGate
       objectReference: {fileID: 0}
+    - target: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_TagString
+      value: InteractableStory
+      objectReference: {fileID: 0}
     - target: {fileID: 2602925256908634512, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -25790,6 +25795,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: buttonCol
+      value: 
+      objectReference: {fileID: 151086818316391834}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 11
@@ -25884,6 +25893,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+--- !u!135 &151086818316391834 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3040466056553951242, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 2893883190168642960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4137372698087376475 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
@@ -29630,10 +29644,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9162054664230703591}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.021427432, y: 0.014332378, z: 0.014332339}
+  m_Size: {x: -0.03, y: 0.19, z: 0.04}
   m_Center: {x: -0.00017350068, y: -0.000000019790605, z: 0.00017349189}
 --- !u!1001 &6052748495513693534
 PrefabInstance:

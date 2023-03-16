@@ -108,33 +108,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 14811
---- !u!114 &-8005699177134851397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/ReconnectingWithAquaintances
-  m_EditorClassIdentifier: 
-  Path: event:/ReconnectingWithAquaintances
-  Guid:
-    Data1: 1304295485
-    Data2: 1107602295
-    Data3: -1684241511
-    Data4: 817730556
-  Banks:
-  - {fileID: 713193578852634009}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 274337
 --- !u!114 &-7546168246953632967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,10 +276,10 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638144942402496960
+  lastModified: 638145150795968552
   FileSizes:
   - Name: 
-    Value: 2790
+    Value: 2870
   Exists: 1
 --- !u!114 &-4825382376701779643
 MonoBehaviour:
@@ -422,7 +395,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/DeerSFX.bank
   Name: DeerSFX
   StudioPath: bank:/DeerSFX
-  lastModified: 638138985282779400
+  lastModified: 638145150795553688
   FileSizes: []
   Exists: 1
 --- !u!114 &-3617276210513692146
@@ -754,7 +727,6 @@ MonoBehaviour:
   - {fileID: -7328171611935488744}
   - {fileID: 7216548553576897422}
   - {fileID: -7546168246953632967}
-  - {fileID: -8005699177134851397}
   - {fileID: 6340086362839846963}
   - {fileID: 6920543723067278097}
   - {fileID: -1656007253588604282}
@@ -776,12 +748,15 @@ MonoBehaviour:
   - {fileID: -5856486047151787011}
   - {fileID: 8227599132724459906}
   - {fileID: -8628056780821251847}
+  - {fileID: 4914394077912137696}
+  - {fileID: 5667961875311869955}
+  - {fileID: 8249984434320709639}
   EditorParameters: []
   MasterBanks:
   - {fileID: 713193578852634009}
   StringsBanks:
   - {fileID: -4963178098323885307}
-  cacheTime: 638144942403047970
+  cacheTime: 638145150795968552
   cacheVersion: 131601
 --- !u!114 &354500788617512491
 MonoBehaviour:
@@ -852,7 +827,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638144942402466646
+  lastModified: 638145150795826923
   FileSizes: []
   Exists: 1
 --- !u!114 &1631890824335270702
@@ -870,7 +845,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/EnvironmentSFX.bank
   Name: EnvironmentSFX
   StudioPath: bank:/EnvironmentSFX
-  lastModified: 638144942402015737
+  lastModified: 638145150795796927
   FileSizes: []
   Exists: 1
 --- !u!114 &3306745437054678028
@@ -999,6 +974,33 @@ MonoBehaviour:
   lastModified: 638144942402095731
   FileSizes: []
   Exists: 1
+--- !u!114 &4914394077912137696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerDamaged
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerDamaged
+  Guid:
+    Data1: 852862250
+    Data2: 1233519229
+    Data3: -2103829607
+    Data4: -1505629753
+  Banks:
+  - {fileID: -4362786108753646623}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 30
+  Length: 0
 --- !u!114 &5073014092553206654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,6 +1091,33 @@ MonoBehaviour:
   lastModified: 638144942402587275
   FileSizes: []
   Exists: 1
+--- !u!114 &5667961875311869955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_deerGutted
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_deerGutted
+  Guid:
+    Data1: -669083601
+    Data2: 1200522446
+    Data3: -1172715615
+    Data4: 542167841
+  Banks:
+  - {fileID: -4362786108753646623}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5799590286556217891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,6 +1307,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 62981
+--- !u!114 &8249984434320709639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_envBroomBreak
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_envBroomBreak
+  Guid:
+    Data1: -1623389634
+    Data2: 1244065794
+    Data3: -614700623
+    Data4: -460008934
+  Banks:
+  - {fileID: 1631890824335270702}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8441298741939950092
 MonoBehaviour:
   m_ObjectHideFlags: 0
