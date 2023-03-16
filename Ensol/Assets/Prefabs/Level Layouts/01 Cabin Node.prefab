@@ -5021,6 +5021,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electricGateToDeer: {fileID: 493687138490777118}
   electricGateToGate: {fileID: 9057058877612210494}
+  podInteractable: {fileID: 985208361347618960}
+  windowInteractable: {fileID: 6849652257281111716}
+  conveyerInteractable: {fileID: 8206655392907077556}
+  plushInteractable: {fileID: 6819528551446342250}
+  podInteractor: {fileID: 1316013270231937948}
+  windowInteractor: {fileID: 4863384633551288070}
+  conveyerInteractor: {fileID: 2079749985545913578}
+  plushInteractor: {fileID: 997202736811314863}
+  gateTransferCube: {fileID: 6509421039113638419}
   broom: {fileID: 4150059357555431515}
   broomMesh: {fileID: 4694701997918029817}
   interactMat:
@@ -5028,20 +5037,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
   broomMat:
   - {fileID: -7814305760874211578, guid: f20e439f40e796a48a3139ef07e30582, type: 3}
-  stick: {fileID: 2992939933963738075}
-  weaponPile: {fileID: 834045201718983742}
-  gateTransferCube: {fileID: 6509421039113638419}
   players: []
-  cabinInteractables:
-  - {fileID: 985208361347618960}
-  - {fileID: 8206655392907077556}
-  - {fileID: 6849652257281111716}
-  cabinInteractCols:
-  - {fileID: 4789856605588862662}
-  - {fileID: 1658725790101889629}
-  - {fileID: 716739813722828314}
-  plush: {fileID: 6819528551446342250}
-  plushInteractCol: {fileID: 6982241726830521018}
 --- !u!1 &8910291984872247610
 GameObject:
   m_ObjectHideFlags: 0
@@ -8644,11 +8640,6 @@ PrefabInstance:
 --- !u!4 &61026321612170884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2426124006177111651, guid: dbefc17f0fa1f114e8921d8218a52166, type: 3}
-  m_PrefabInstance: {fileID: 2410443880976586983}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &834045201718983742 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3089612561864959193, guid: dbefc17f0fa1f114e8921d8218a52166, type: 3}
   m_PrefabInstance: {fileID: 2410443880976586983}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2442279394437402229
