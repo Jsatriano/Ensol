@@ -26,7 +26,7 @@ public class _05RiverControlNode : MonoBehaviour
         if(controlsCollider.enabled == false && water.transform.position.y > endY)
         {  
             // removes highlight material from mesh
-            Destroy(screen.GetComponent<MeshRenderer>().materials[1]);
+            screen.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
 
             //turns off waterfalls
             waterfalls.SetActive(false);

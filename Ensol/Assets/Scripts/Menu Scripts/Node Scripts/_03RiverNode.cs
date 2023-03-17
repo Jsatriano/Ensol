@@ -38,7 +38,8 @@ public class _03RiverNode : MonoBehaviour
             footstepsInteractor.interacted = true;
             foreach(GameObject footstep in footstepsInteractable)
             {
-                Destroy(footstep.GetComponent<MeshRenderer>().materials[1]);
+                // removes highlight material from mesh
+                footstep.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
             }
             
         }
@@ -52,7 +53,7 @@ public class _03RiverNode : MonoBehaviour
         if(electricGateController.opening)
         {
             print("unlocked bird node");
-            CompletedNodes.birdNode = true;
+            //CompletedNodes.birdNode = true;      TURN BACK ON WHEN WE WANT BIRD NODE TO SHOW
             print("unlocked bird node");
             CompletedNodes.bearNode = true;
         }
