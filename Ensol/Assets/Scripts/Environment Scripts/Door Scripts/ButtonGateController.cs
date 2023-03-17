@@ -30,11 +30,11 @@ public class ButtonGateController : MonoBehaviour
                     gateController.OpenGate();
                     text.opened = false;
                 }
-                else
-                {
-                    // if button was pressed but other conditionals aren't met, turn collider back on
-                    buttonCol.enabled = true;
-                }
+            }
+            else
+            {
+                // if button was pressed but other conditionals aren't met, turn collider back on
+                buttonCol.enabled = true;
             }
         }
         // if there ISNT a pickup required to open gate
@@ -51,11 +51,11 @@ public class ButtonGateController : MonoBehaviour
                     gateController.OpenGate();
                     text.opened = false;
                 }
-                else
-                {
-                    // if button was pressed but other conditionals aren't met, turn collider back on
-                    buttonCol.enabled = true;
-                }
+            }
+            else
+            {
+                // if button was pressed but other conditionals aren't met, turn collider back on
+                buttonCol.enabled = true;
             }
         }
     }

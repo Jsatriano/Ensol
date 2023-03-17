@@ -31,6 +31,9 @@ public class _02DeerNode : MonoBehaviour
     [SerializeField] private GameObject deadDear;
     [SerializeField] private GameObject guttedDeer;
 
+    [Header("Other Variables")]
+    public GameObject transferCube;
+
 
     private void Start()
     {
@@ -71,12 +74,12 @@ public class _02DeerNode : MonoBehaviour
             weaponPickedUp = true;
             combatController.PickedUpSolarUpgrade();
             Instantiate(guttedDeer, inSceneItem.transform.position, inSceneItem.transform.rotation);
+            transferCube.SetActive(true);
         }
 
         // unlocks next node if door is opened
         if(electricGateController.opening)
         {
-            print("unlocked river node");
             CompletedNodes.riverNode = true;
         }
     }
