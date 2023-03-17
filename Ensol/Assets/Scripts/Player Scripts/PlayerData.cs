@@ -27,6 +27,7 @@ public static class PlayerData
     public static float dashes = 0;
     public static float heavyAttacks = 0;
     public static float throwAttacks = 0;
+    public static float deaths = 0;
 
     //Interactable Item States
     public static bool doorInteracted = false;

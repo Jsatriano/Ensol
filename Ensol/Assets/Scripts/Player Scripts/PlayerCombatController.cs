@@ -245,6 +245,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isDead", true);
             //sfx
             if (dying == false){
+                PlayerData.deaths += 1;
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
