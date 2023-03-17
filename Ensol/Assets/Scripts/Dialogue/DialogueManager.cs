@@ -98,7 +98,7 @@ public class DialogueManager : MonoBehaviour
             openSesame = true;
         });
 
-        //ContinueStory();
+        ContinueStory();
     }
 
     private IEnumerator ExitDialogueMode()
