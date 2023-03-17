@@ -125,7 +125,8 @@ public class _01CabinNode : MonoBehaviour
         {
             PlayerData.doorInteracted = true;
             doorInteractor.interacted = true;
-            Destroy(doorInteractable.GetComponent<MeshRenderer>().materials[1]);
+            // removes highlight material from mesh
+            doorInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
             
         }
 
@@ -134,7 +135,8 @@ public class _01CabinNode : MonoBehaviour
         {
             PlayerData.podInteracted = true;
             podInteractor.interacted = true;
-            Destroy(podInteractable.GetComponent<MeshRenderer>().materials[1]);
+            // removes highlight material from mesh
+            podInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
             
         }
 
@@ -143,7 +145,8 @@ public class _01CabinNode : MonoBehaviour
         {
             PlayerData.windowInteracted = true;
             windowInteractor.interacted = true;
-            Destroy(windowInteractable.GetComponent<MeshRenderer>().materials[1]);
+            // removes highlight material from mesh
+            windowInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
         }
 
         // Conveyer
@@ -151,7 +154,8 @@ public class _01CabinNode : MonoBehaviour
         {
             PlayerData.conveyerInteracted = true;
             conveyerInteractor.interacted = true;
-            Destroy(conveyerInteractable.GetComponent<MeshRenderer>().materials[1]);
+            // removes highlight material from mesh
+            conveyerInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
         }
 
         // Plush
@@ -159,7 +163,8 @@ public class _01CabinNode : MonoBehaviour
         {
             PlayerData.plushInteracted = true;
             plushInteractor.interacted = true;
-            Destroy(plushInteractable.GetComponent<MeshRenderer>().materials[1]);
+            // removes highlight material from mesh
+            plushInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
         }
 
         /* ------------------------------------------------------------------ */
