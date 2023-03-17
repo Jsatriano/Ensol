@@ -10,7 +10,7 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
 
     private Button _button;
 
-    public DialogueManager dm;
+    public static GameObject highlightedChoice;
 
     void Awake()
     {
@@ -19,13 +19,13 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
-        dm.highlightedChoice = this.gameObject;
+        highlightedChoice = this.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(dm.highlightedChoice == this.gameObject && Input.GetKeyDown(_key)){
+        if(highlightedChoice == this.gameObject && Input.GetKeyDown(_key)){
             print("button pressed by E");
             _button.onClick.Invoke();
         }

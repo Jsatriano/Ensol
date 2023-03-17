@@ -18,7 +18,6 @@ public class DialogueManager : MonoBehaviour
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
-    public GameObject highlightedChoice;
 
 
     public CharController charController;
@@ -76,9 +75,14 @@ public class DialogueManager : MonoBehaviour
         }
         if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact"))
         {
-            ContinueStory();
+            StartCoroutine(Delay());
         }
     }
+
+    private IEnumerator Delay(){
+        yield return new WaitForSeconds(0.0001f);
+        ContinueStory();
+    } 
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
@@ -119,7 +123,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            print("continue story tried to continue");
+            //print("continue story tried to continue");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -127,8 +131,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            print("continue story tried to exit");
-            //StartCoroutine(ExitDialogueMode());
+            //print("continue story tried to exit");
+            StartCoroutine(ExitDialogueMode());
         }
     }
 
