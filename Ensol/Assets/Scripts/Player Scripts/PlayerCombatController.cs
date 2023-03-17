@@ -374,9 +374,22 @@ public class PlayerCombatController : MonoBehaviour
         isNextAttackBuffered = false;
         acceptingInput = false;
         if (comboCounter < 3){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            } else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
         } else {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
             //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerSpin, this.transform.position);
         }
             
