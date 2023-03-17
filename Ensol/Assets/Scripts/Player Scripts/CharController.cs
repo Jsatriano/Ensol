@@ -103,6 +103,8 @@ public class CharController : MonoBehaviour
             PlayerData.hasSolarUpgrade = true;
             PlayerData.hasThrowUpgrade = true;
             PlayerData.diedToCrackDeer = true;
+            PlayerData.currentlyHasBroom = true;
+            PlayerData.currentlyHasSolar = true;
         }
     }
 

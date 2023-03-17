@@ -147,7 +147,12 @@ public class PlayerCombatController : MonoBehaviour
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
                     //print("located catchable weapon");
-                    charController.animator.SetBool("isCatching", true);
+                    if(charController.state != CharController.State.DASHING) {
+                        charController.animator.SetBool("isCatching", true);
+                    }
+                    else {
+                        GrabWeapon();
+                    }
                     isCatching = false;
                 }
             }

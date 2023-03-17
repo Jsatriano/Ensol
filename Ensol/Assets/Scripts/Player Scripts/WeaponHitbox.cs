@@ -85,7 +85,7 @@ public class WeaponHitbox : MonoBehaviour
         }
 
         if(isProjectile && !pcc.isCatching) {
-            if(col.gameObject.layer == 7) {
+            if(col.gameObject.layer == 3) {
                 isMoving = false;
                 Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
                 damagePulseVFX.SetActive(true);
