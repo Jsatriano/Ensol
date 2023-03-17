@@ -236,6 +236,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.state = CharController.State.DEAD;
             PlayerData.currentlyHasBroom = false;
             PlayerData.currentlyHasSolar = false;
+            PlayerData.currentNode = 1;
             charController.animator.SetBool("isDead", true);
             //sfx
             if (dying == false){
