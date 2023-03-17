@@ -6,9 +6,11 @@ public class Interaction : MonoBehaviour
 {
     public void Update()
     {
-        if(Input.GetButtonDown("Interact") && DialogueManager.GetInstance().dialogueisPlaying == false)
+        if(DialogueManager.GetInstance().dialogueisPlaying == false)
         {
-            Interact();
+            if(Input.GetButtonDown("Interact")){
+                Interact();
+            }
         }
     }
 

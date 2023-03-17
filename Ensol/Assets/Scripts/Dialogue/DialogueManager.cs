@@ -18,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
+    public GameObject highlightedChoice;
+
 
     public CharController charController;
 
@@ -186,7 +188,7 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        //print(choiceIndex);
+        print("made a choice");
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 
