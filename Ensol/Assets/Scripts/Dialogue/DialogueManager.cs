@@ -192,7 +192,7 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        print("made a choice");
+        //print("made a choice");
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 

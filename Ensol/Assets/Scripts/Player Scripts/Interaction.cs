@@ -16,7 +16,7 @@ public class Interaction : MonoBehaviour
 
     public void Interact()
     {
-        print("interact played anyways");
+        //print("interact played anyways");
         Collider[] inRangeColliders = Physics.OverlapSphere(transform.position, 0.5f);
         foreach (var collider in inRangeColliders)
         {

@@ -26,7 +26,7 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
     void Update()
     {
         if(highlightedChoice == this.gameObject && Input.GetKeyDown(_key)){
-            print("button pressed by E");
+            //print("button pressed by E");
             _button.onClick.Invoke();
         }
     }
