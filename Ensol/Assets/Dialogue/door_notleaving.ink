@@ -5,8 +5,8 @@ EXTERNAL openDoor()
 -> Intro
 
 ===Intro ===
+ It would be a good idea to see what you can recall from around the cabin before going outside. ({interactables_seen}/3 items have been discovered).
 
- It would be a good idea to see what you can recall from around the cabin before going outside.
  -> END
  
  === Over ===
@@ -23,3 +23,4 @@ P1-USH: Wait! Do you remember what’s out there?
 I see…
 
 -> END
+
