@@ -182,7 +182,8 @@ public class PlayerCombatController : MonoBehaviour
 
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") 
-           && charController.state != CharController.State.PAUSED 
+           && charController.state != CharController.State.PAUSED
+           && charController.state != CharController.State.DIALOGUE 
            && charController.state != CharController.State.DASHING
            && !charController.animator.GetBool("isHeavyAttacking")
            && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
@@ -259,7 +260,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
@@ -267,7 +269,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
             PlayerData.throwAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
