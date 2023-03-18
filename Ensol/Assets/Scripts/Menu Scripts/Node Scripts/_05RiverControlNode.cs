@@ -23,7 +23,7 @@ public class _05RiverControlNode : MonoBehaviour
     public void Update()
     {
         // if player interacted with river control tower
-        if(controlsHit || (controlsCollider.enabled == false && water.transform.position.y > endY))
+        if((controlsHit && water.transform.position.y > endY) || (controlsCollider.enabled == false && water.transform.position.y > endY))
         {  
             // removes highlight material from mesh
             screen.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
