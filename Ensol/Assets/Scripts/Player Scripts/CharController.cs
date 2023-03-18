@@ -356,9 +356,8 @@ public class CharController : MonoBehaviour
                 velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
                 _rb.velocity = velocityXZ + velocityY;
             }
-        } 
-
-             
+            PlayerData.distanceMoved += _rb.velocity.magnitude * Time.deltaTime;
+        }    
     }
 
 
