@@ -56,7 +56,7 @@ public class CharController : MonoBehaviour
     // function is called in scene start
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -287,11 +287,11 @@ public class CharController : MonoBehaviour
                 break;
                 
             case State.PAUSED:
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
-                    Cursor.visible = false;
+                    //Cursor.visible = false;
                     state = prevState;
                 }
                 break;
@@ -302,7 +302,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 break;
                 
             case State.DIALOGUE:
@@ -310,7 +310,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 break;
         }
     }
