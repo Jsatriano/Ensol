@@ -11,7 +11,6 @@ public class _04GateNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            print("unlocked river control node");
             CompletedNodes.riverControlNode = true;
         }
     }
