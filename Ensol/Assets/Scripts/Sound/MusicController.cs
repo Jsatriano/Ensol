@@ -17,13 +17,15 @@ public class MusicController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nodeType = NodeSelector.selectedNode;
-        cabin = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.cabin);
-        zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
-        zone2 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone2);
-        zone3 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone3);
+
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
+            nodeType = NodeSelector.selectedNode;
+            cabin = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.cabin);
+            zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
+            zone2 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone2);
+            zone3 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone3);
+            
             if (nodeType == 1)
             {
                 cabin.start();
