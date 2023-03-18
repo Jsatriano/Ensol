@@ -76,6 +76,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject[] lightSlashVFX;
     public GameObject heavySlashVFX;
     public GameObject damageVFX;
+    public Transform damageVFXLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -553,7 +554,7 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
             //play the damage vfx
-            GameObject newDamageVFX = Instantiate(damageVFX, charController.transform);
+            GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
             activeDamageVFX.Enqueue(newDamageVFX);
             StartCoroutine(DeleteDamageVFX());
 
