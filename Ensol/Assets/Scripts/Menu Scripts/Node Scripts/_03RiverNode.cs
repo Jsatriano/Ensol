@@ -52,9 +52,7 @@ public class _03RiverNode : MonoBehaviour
         
         if(electricGateController.opening)
         {
-            print("unlocked bird node");
             //CompletedNodes.birdNode = true;      TURN BACK ON WHEN WE WANT BIRD NODE TO SHOW
-            print("unlocked bird node");
             CompletedNodes.bearNode = true;
         }
 

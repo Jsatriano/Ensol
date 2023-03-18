@@ -74,6 +74,11 @@ public class _02DeerNode : MonoBehaviour
             weaponPickedUp = true;
             combatController.PickedUpSolarUpgrade();
             Instantiate(guttedDeer, inSceneItem.transform.position, inSceneItem.transform.rotation);
+            //transferCube.SetActive(true);
+        }
+
+        if(PlayerData.hasSolarUpgrade)
+        {
             transferCube.SetActive(true);
         }
 

@@ -108,13 +108,11 @@ public class _01CabinNode : MonoBehaviour
 
         if (electricGateToDeer.opening)
         {
-            print("unlocked deer node");
             CompletedNodes.deerNode = true;
         }
 
         if(electricGateToGate.opening)
         {
-            print("unlocked gate node");
             CompletedNodes.gateNode = true;
         }
 

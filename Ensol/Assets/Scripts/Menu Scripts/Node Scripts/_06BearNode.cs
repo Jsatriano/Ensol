@@ -11,7 +11,6 @@ public class _06BearNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            print("unlocked broken machine node");
             CompletedNodes.brokenMachineNode = true;
         }
     }
