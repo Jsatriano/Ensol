@@ -14,7 +14,7 @@ public class ButtonDoorController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
-    public GateTutorialText text;
+    public InteractTutorialText text;
     public bool cabin = false;
 
     public TextAsset InkDoorStory;
@@ -36,20 +36,19 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
+                text.canBeInteracted = true;
                 if(!buttonCol.enabled)
                 {
                     // opens door
                     doorController.OpenDoor();
                     AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
-                    text.opened = true;
                 } 
-                
-                
             }
             else
             {
                 // if button was pressed but conditionals aren't met, turn collider back on
                 buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
         else
@@ -58,13 +57,13 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
+                text.canBeInteracted = true;
                 if (cabin == false)
                 {
                     if(!buttonCol.enabled)
                     {
                         // opens door
                         doorController.OpenDoor();
-                        text.opened = true;
                     }
                 }
                 else 
@@ -75,16 +74,15 @@ public class ButtonDoorController : MonoBehaviour
                         {
                             // opens door
                             doorController.OpenDoor();
-                            text.opened = true;
                         }
                     }
-                }
-                
+                }           
             }
             else
             {
                 // if button was pressed but conditionals aren't met, turn collider back on
                 buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
         /*
