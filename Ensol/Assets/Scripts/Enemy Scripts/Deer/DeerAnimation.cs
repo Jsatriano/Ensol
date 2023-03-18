@@ -38,7 +38,7 @@ public class DeerAnimation : MonoBehaviour
         finishedDeathAnim = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //Stops all animation once deer is dead
         if (state == State.DYING)
