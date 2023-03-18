@@ -14,7 +14,22 @@ public class CabinDoor : MonoBehaviour
 
     void Update()
     {
-        if (interacted == false)
+        if (PlayerData.diedToCrackDeer)
+        {
+            if(!buttonCol.enabled)
+            {
+                if(PlayerData.hasBroom)
+                {
+                    // opens door
+                    doorController.OpenDoor();
+                }
+                else
+                {
+                    buttonCol.enabled = true;
+                }
+            }
+        }
+        else
         {
             if(DialogueManager.GetInstance().donePlaying == true && buttonCol.enabled != true) 
             {
@@ -40,21 +55,5 @@ public class CabinDoor : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            if(!buttonCol.enabled)
-            {
-                if(PlayerData.hasBroom)
-                {
-                    // opens door
-                    doorController.OpenDoor();
-                }
-                else
-                {
-                    buttonCol.enabled = true;
-                }
-            }
-        }
-        
     }
 }
