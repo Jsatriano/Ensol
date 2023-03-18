@@ -121,7 +121,7 @@ public class CompletedNodes : MonoBehaviour
         if(securityTowerNode)
         {
             // activate security tower X
-            undiscovered[7].SetActive(true);
+            //undiscovered[7].SetActive(true); // UNCOMMENT DURING Q2
             if(lastNode != 5 && lastNode != 7)
             {
                 lastNode = 7;
