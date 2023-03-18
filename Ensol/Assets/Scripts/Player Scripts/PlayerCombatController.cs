@@ -24,6 +24,7 @@ public class PlayerCombatController : MonoBehaviour
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
     public Material backpackVialMaterial;
+    private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
 
 
     [Header("Player Stats & Variables")]
@@ -74,6 +75,8 @@ public class PlayerCombatController : MonoBehaviour
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
     public GameObject heavySlashVFX;
+    public GameObject damageVFX;
+    public Transform damageVFXLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -550,7 +553,19 @@ public class PlayerCombatController : MonoBehaviour
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
+            //play the damage vfx
+            GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+
+
         }
+    }
+
+    private IEnumerator DeleteDamageVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject damageVFXToDelete = activeDamageVFX.Dequeue();
+        Destroy(damageVFXToDelete);
     }
 
     private IEnumerator Knockback(Collider collider)
