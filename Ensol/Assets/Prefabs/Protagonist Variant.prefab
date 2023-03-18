@@ -4822,7 +4822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 516459460}
   - component: {fileID: 516459461}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: OverHeadText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4859,6 +4859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMesh: {fileID: 643763846}
   cam: {fileID: 0}
+  walkText: 'Move: WASD'
   broomText: 'Light Attack Combo: LMB -> LMB -> LMB
 
     Dash: Space'
@@ -4866,10 +4867,11 @@ MonoBehaviour:
 
     Throw Attack: Q then Q to recall'
   throwText: 'Throw Attack: Q then Q to recall'
-  lights: 5
-  dashes: 2
+  distMoved: 5
+  lights: 3
+  dashes: 1
   heavies: 1
-  throws: 2
+  throws: 1
   fadeLength: 2
 --- !u!1 &522044964
 GameObject:
@@ -5229,7 +5231,7 @@ GameObject:
   - component: {fileID: 643763845}
   - component: {fileID: 643763847}
   - component: {fileID: 643763846}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: TutorialText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5291,8 +5293,8 @@ MonoBehaviour:
     Dash:
     Space'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cc9ac2a0c3806a44f89e5444bfa031ee, type: 2}
+  m_sharedMaterial: {fileID: -2677729058286800060, guid: cc9ac2a0c3806a44f89e5444bfa031ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5723,7 +5725,7 @@ GameObject:
   - component: {fileID: 1433005277}
   m_Layer: 3
   m_Name: Footstepper
-  m_TagString: Untagged
+  m_TagString: Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5831,7 +5833,7 @@ GameObject:
   - component: {fileID: 1433604020}
   - component: {fileID: 1433604019}
   - component: {fileID: 1433604018}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6093,7 +6095,7 @@ GameObject:
   - component: {fileID: 1472869441}
   m_Layer: 3
   m_Name: Footstepper
-  m_TagString: Untagged
+  m_TagString: Sound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6679,7 +6681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7374597584875634409
 Transform:
   m_ObjectHideFlags: 0
@@ -7602,7 +7604,7 @@ MonoBehaviour:
   specialDamagePulseMult: 0.5
   weaponThrowSpeed: 30
   weaponRecallSpeed: 30
-  weaponCatchDistance: 0.3
+  weaponCatchDistance: 0.4
   damagePulseRadius: 3
   hasWeapon: 1
   isCatching: 0
@@ -7616,6 +7618,8 @@ MonoBehaviour:
   - {fileID: 587443638}
   - {fileID: 937417640}
   heavySlashVFX: {fileID: 583276505}
+  damageVFX: {fileID: 8847664339404160576, guid: 300b6d5498e00f042967c14a0f03c105, type: 3}
+  damageVFXLocation: {fileID: 7663431665704294774}
 --- !u!114 &1360605725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7642,6 +7646,11 @@ GameObject:
 --- !u!4 &7526959006302733570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4901608643267570098, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
+  m_PrefabInstance: {fileID: 6020430612544312140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7663431665704294774 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4167280743394806330, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
   m_PrefabInstance: {fileID: 6020430612544312140}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8931212319051613183 stripped

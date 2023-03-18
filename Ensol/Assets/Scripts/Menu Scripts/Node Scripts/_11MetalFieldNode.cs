@@ -11,7 +11,6 @@ public class _11MetalFieldNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            print("unlocked Computer node");
             CompletedNodes.computerNode = true;
         }
     }

@@ -121,7 +121,7 @@ public class CompletedNodes : MonoBehaviour
         if(securityTowerNode)
         {
             // activate security tower X
-            undiscovered[7].SetActive(true);
+            //undiscovered[7].SetActive(true); // UNCOMMENT DURING Q2
             if(lastNode != 5 && lastNode != 7)
             {
                 lastNode = 7;
@@ -141,8 +141,8 @@ public class CompletedNodes : MonoBehaviour
             // deactivate river X
             undiscovered[2].SetActive(false);
             // activate river button and scenery
-            mapButtons[8].SetActive(true);
-            mapScenery[8].SetActive(true);
+            mapButtons[2].SetActive(true);
+            mapScenery[2].SetActive(true);
         }
         if(powerGridNode)
         {

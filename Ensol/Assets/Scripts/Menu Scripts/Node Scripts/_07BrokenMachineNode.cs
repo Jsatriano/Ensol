@@ -11,7 +11,6 @@ public class _07BrokenMachineNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            print("unlocked metal field node");
             CompletedNodes.metalFieldNode = true;
         }
     }

@@ -17,30 +17,41 @@ public class MusicController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nodeType = NodeSelector.selectedNode;
-        cabin = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.cabin);
-        zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
-        zone2 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone2);
-        zone3 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone3);
-        
-        if(nodeType == 1){
-            cabin.start();
-            song = 0;
-        } else if(nodeType > 1 && nodeType < 6){
-            zone1.start();
-            song = 1;
-        } else if(nodeType > 5 && nodeType < 11){
-            zone2.start();
-            song = 2;
-        } else if(nodeType > 10){
-            zone3.start();
-            song = 1;
-        }
 
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            nodeType = NodeSelector.selectedNode;
+            cabin = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.cabin);
+            zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
+            zone2 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone2);
+            zone3 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone3);
+            
+            if (nodeType == 1)
+            {
+                cabin.start();
+                song = 0;
+            }
+            else if (nodeType > 1 && nodeType < 6)
+            {
+                zone1.start();
+                song = 1;
+            }
+            else if (nodeType > 5 && nodeType < 11)
+            {
+                zone2.start();
+                song = 2;
+            }
+            else if (nodeType > 10)
+            {
+                zone3.start();
+                song = 1;
+            }
+        }   
     }
 
     void OnDestroy()
     {
+        print("music destroyed");
         //PLAYBACK_STATE ZplaybackState;
         //zone1.getPlaybackState(out ZplaybackState);
 

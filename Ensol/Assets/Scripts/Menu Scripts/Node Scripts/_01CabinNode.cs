@@ -9,33 +9,72 @@ public class _01CabinNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateToDeer = null;
     public ElectricGateController electricGateToGate = null;
+
+    [Header("Interactable Objects")]
+    public GameObject doorInteractable;
+    public GameObject podInteractable;
+    public GameObject windowInteractable;
+    public GameObject conveyerInteractable;
+    public GameObject plushInteractable;
     
+    [Header("Interactable Object Interactors")]
+    public CabinDoor doorInteractor;
+    public DialogueTrigger podInteractor;
+    public DialogueTrigger windowInteractor;
+    public DialogueTrigger conveyerInteractor;
+    public DialogueTrigger plushInteractor;
+
+    [Header("Broom Stuff")]
+    [SerializeField] private MeshRenderer broomMesh;
+    [SerializeField] private Material[] interactMat;
+    [SerializeField] private Material[] broomMat;
+
+    [Header("Re-Picking up Weapons")]
+    [SerializeField] private GameObject stick;
+    [SerializeField] private GameObject weaponPile;
+
 
     [Header("Other Variables")]
     public GameObject gateTransferCube;
-    public GameObject interactBroom;
-    public GameObject normalBroom;
-    public GameObject[] players = null;
+    [SerializeField] private GameObject broom;   
+    [HideInInspector] public GameObject[] players = null;
     private PlayerCombatController combatController = null;
+
 
     private void Start()
     {
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
         {
-            interactBroom.SetActive(false);
-            normalBroom.SetActive(false);
+            broom.SetActive(false);
         }
         //Only load the interactable broom once the player has died to the crack deer
         else if (PlayerData.diedToCrackDeer)
         {
-            interactBroom.SetActive(true);
-            normalBroom.SetActive(false);
+            broom.tag = "InteractablePickup";
+            broomMesh.materials = interactMat;
         }
         else
         {
-            interactBroom.SetActive(false);
-            normalBroom.SetActive(true);
+            broom.tag = "Untagged";
+            broomMesh.materials = broomMat;
+        }
+        weaponPile.SetActive(false);
+        stick.SetActive(false);
+
+        if (PlayerData.hasSolarUpgrade)
+        {
+            if (!PlayerData.currentlyHasSolar)
+            {
+                weaponPile.SetActive(true);
+            }
+        }
+        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        {
+            if (!PlayerData.currentlyHasBroom)
+            {
+                stick.SetActive(true);
+            }
         }
     }
 
@@ -50,22 +89,84 @@ public class _01CabinNode : MonoBehaviour
             gateTransferCube.SetActive(true);
         }
         //Player picking up broom
-        if (normalBroom.activeInHierarchy == false && interactBroom.activeInHierarchy == false && !PlayerData.hasBroom)
+        if (broom.activeInHierarchy == false && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
         }
 
-        if(electricGateToDeer.opening)
+        //re-picking up weapon pile
+        if (weaponPile.activeInHierarchy == false && !PlayerData.currentlyHasSolar && PlayerData.hasSolarUpgrade && stick.activeInHierarchy == false)
         {
-            print("unlocked deer node");
+            combatController.PickedUpSolarUpgrade();
+        }
+
+        //re-picking up broom stick
+        if (stick.activeInHierarchy == false && !PlayerData.currentlyHasBroom && PlayerData.hasBroom && weaponPile.activeInHierarchy == false)
+        {        
+            combatController.PickedUpBroom();
+        }
+
+        if (electricGateToDeer.opening)
+        {
             CompletedNodes.deerNode = true;
         }
 
         if(electricGateToGate.opening)
         {
-            print("unlocked gate node");
             CompletedNodes.gateNode = true;
         }
+
+        /* -------------------- Interactable Handling --------------------- */
+
+        // Door
+        if(doorInteractor.interacted || PlayerData.doorInteracted)
+        {
+            PlayerData.doorInteracted = true;
+            doorInteractor.interacted = true;
+            // removes highlight material from mesh
+            doorInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            
+        }
+
+        // Cloning Pod
+        if(podInteractor.interacted || PlayerData.podInteracted)
+        {
+            PlayerData.podInteracted = true;
+            podInteractor.interacted = true;
+            // removes highlight material from mesh
+            podInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            
+        }
+
+        // Window
+        if(windowInteractor.interacted || PlayerData.windowInteracted)
+        {
+            PlayerData.windowInteracted = true;
+            windowInteractor.interacted = true;
+            // removes highlight material from mesh
+            windowInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+        }
+
+        // Conveyer
+        if(conveyerInteractor.interacted || PlayerData.conveyerInteracted)
+        {
+            PlayerData.conveyerInteracted = true;
+            conveyerInteractor.interacted = true;
+            // removes highlight material from mesh
+            conveyerInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+        }
+
+        // Plush
+        if(plushInteractor.interacted || PlayerData.plushInteracted)
+        {
+            PlayerData.plushInteracted = true;
+            plushInteractor.interacted = true;
+            // removes highlight material from mesh
+            plushInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+        }
+
+        /* ------------------------------------------------------------------ */
+        
     }
 
     private void SearchForPlayer()

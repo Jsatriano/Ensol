@@ -7,3 +7,4 @@ VAR bear_defeated = false
 VAR cloning_seen = false
 VAR conveyer_seen = false
 VAR window_seen = false
+VAR interactables_seen = 0

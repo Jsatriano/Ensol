@@ -10,6 +10,7 @@ public class TutorialText : MonoBehaviour
     private enum State
     {
         NONE,
+        WALK,
         BROOM,
         SOLAR,
         THROW
@@ -20,12 +21,15 @@ public class TutorialText : MonoBehaviour
     private State state;
 
     [Header("Tutorial Texts")]
+    [TextArea] public string walkText;
     [TextArea] public string broomText;
     [TextArea] public string solarText;
     [TextArea] public string throwText;
     private string noText = "";
 
     [Header("Requirements")] //The things the player needs to do to make the text go away
+    //Walking Requirements
+    [SerializeField] private float distMoved;
     //BroomText Requirements
     [SerializeField] private float lights;
     [SerializeField] private float dashes;
@@ -50,8 +54,16 @@ public class TutorialText : MonoBehaviour
         //Makes the text face the camera
         transform.LookAt(cam.transform.position);
 
+        //Shows walking controls first time in cabin node
+        if (!PlayerData.shownWalkText)
+        {
+            state = State.WALK;
+            PlayerData.shownWalkText = true;
+            textMesh.text = walkText;
+            textMesh.color = originalColor;
+        }
         //Displays the correct text over the player's head when they get a weapon upgrade for the first time
-        if (PlayerData.hasBroom && !PlayerData.shownBroomText)
+        else if (PlayerData.hasBroom && !PlayerData.shownBroomText)
         {
             state = State.BROOM;
             PlayerData.shownBroomText = true;
@@ -60,7 +72,6 @@ public class TutorialText : MonoBehaviour
         }
         else if (PlayerData.hasSolarUpgrade && !PlayerData.shownSolarText)
         {
-            print("HEY");
             state = State.SOLAR;
             PlayerData.shownSolarText = true;
             textMesh.text = solarText;
@@ -75,6 +86,13 @@ public class TutorialText : MonoBehaviour
         //Checks if the player has met the requirements to get rid of the current text
         switch (state)
         {
+            case State.WALK:
+                if (PlayerData.distanceMoved >= distMoved)
+                {
+                    StartCoroutine(FadeText());
+                }
+                break;
+
             case State.BROOM:
                 if (PlayerData.lightAttacks >= lights && PlayerData.dashes >= dashes)
                 {

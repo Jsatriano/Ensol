@@ -24,6 +24,7 @@ public class PlayerCombatController : MonoBehaviour
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
     public Material backpackVialMaterial;
+    private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
 
 
     [Header("Player Stats & Variables")]
@@ -74,6 +75,8 @@ public class PlayerCombatController : MonoBehaviour
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
     public GameObject heavySlashVFX;
+    public GameObject damageVFX;
+    public Transform damageVFXLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +87,7 @@ public class PlayerCombatController : MonoBehaviour
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        if (!PlayerData.hasBroom)
+        if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", false);
             charController.animator.SetBool("hasWeapon", false);
@@ -96,7 +99,7 @@ public class PlayerCombatController : MonoBehaviour
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
-        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", true);
             charController.animator.SetBool("hasWeapon", true);
@@ -147,7 +150,12 @@ public class PlayerCombatController : MonoBehaviour
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
                     //print("located catchable weapon");
-                    charController.animator.SetBool("isCatching", true);
+                    if(charController.state != CharController.State.DASHING) {
+                        charController.animator.SetBool("isCatching", true);
+                    }
+                    else {
+                        GrabWeapon();
+                    }
                     isCatching = false;
                 }
             }
@@ -174,7 +182,8 @@ public class PlayerCombatController : MonoBehaviour
 
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") 
-           && charController.state != CharController.State.PAUSED 
+           && charController.state != CharController.State.PAUSED
+           && charController.state != CharController.State.DIALOGUE 
            && charController.state != CharController.State.DASHING
            && !charController.animator.GetBool("isHeavyAttacking")
            && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
@@ -234,9 +243,13 @@ public class PlayerCombatController : MonoBehaviour
         {
             //print("Player is dead");
             charController.state = CharController.State.DEAD;
+            PlayerData.currentlyHasBroom = false;
+            PlayerData.currentlyHasSolar = false;
+            PlayerData.currentNode = 1;
             charController.animator.SetBool("isDead", true);
             //sfx
             if (dying == false){
+                PlayerData.deaths += 1;
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
@@ -247,7 +260,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
@@ -255,7 +269,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
             PlayerData.throwAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
@@ -276,6 +291,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.animator.SetBool("hasWeapon", true);
         hasWeapon = true;
         PlayerData.hasBroom = true;
+        PlayerData.currentlyHasBroom = true;
         weapon.SetActive(true);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
@@ -292,6 +308,9 @@ public class PlayerCombatController : MonoBehaviour
     {
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
@@ -361,9 +380,22 @@ public class PlayerCombatController : MonoBehaviour
         isNextAttackBuffered = false;
         acceptingInput = false;
         if (comboCounter < 3){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            } else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
         } else {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
             //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerSpin, this.transform.position);
         }
             
@@ -524,7 +556,19 @@ public class PlayerCombatController : MonoBehaviour
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
+            //play the damage vfx
+            GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+
+
         }
+    }
+
+    private IEnumerator DeleteDamageVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject damageVFXToDelete = activeDamageVFX.Dequeue();
+        Destroy(damageVFXToDelete);
     }
 
     private IEnumerator Knockback(Collider collider)

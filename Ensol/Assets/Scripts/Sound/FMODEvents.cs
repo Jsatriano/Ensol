@@ -12,6 +12,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerWeaponSpecialReturn { get; private set; }
     [field: SerializeField] public EventReference playerWeaponSpecialThunk { get; private set; }
     [field: SerializeField] public EventReference playerWeaponLight { get; private set; }
+    [field: SerializeField] public EventReference playerWeaponLightNormal { get; private set; }
     [field: SerializeField] public EventReference playerWeaponHeavy { get; private set; }
     [field: SerializeField] public EventReference playerWeaponHeavyPrep { get; private set; }
     [field: SerializeField] public EventReference playerDodge { get; private set; }

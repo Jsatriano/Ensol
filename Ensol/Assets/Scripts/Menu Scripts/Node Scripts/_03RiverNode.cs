@@ -7,6 +7,12 @@ public class _03RiverNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateController = null;
 
+    [Header("Interactable Objects")]
+    public GameObject[] footstepsInteractable;
+    
+    [Header("Interactable Object Interactors")]
+    public DialogueTrigger footstepsInteractor;
+
     [Header("Water Variables")]
     public GameObject water;
     public GameObject[] waterBounds;
@@ -23,12 +29,32 @@ public class _03RiverNode : MonoBehaviour
             }
         }
 
+        /* -------------------- Interactable Handling --------------------- */
+
+        // Footsteps
+        if(footstepsInteractor.interacted || PlayerData.footstepsInteracted)
+        {
+            PlayerData.footstepsInteracted = true;
+            footstepsInteractor.interacted = true;
+            foreach(GameObject footstep in footstepsInteractable)
+            {
+                // removes highlight material from mesh
+                footstep.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            }
+            
+        }
+
+        /* ------------------------------------------------------------------ */
+        
+        
+        
+        
+        
         if(electricGateController.opening)
         {
-            print("unlocked bird node");
-            CompletedNodes.birdNode = true;
-            print("unlocked bird node");
+            //CompletedNodes.birdNode = true;      TURN BACK ON WHEN WE WANT BIRD NODE TO SHOW
             CompletedNodes.bearNode = true;
         }
+
     }
 }

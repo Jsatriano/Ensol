@@ -11,10 +11,7 @@ public class _08SecurityTowerNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            print("unlocked broken machine node");
             CompletedNodes.brokenMachineNode = true;
-            
-            print("unlocked power grid node");
             CompletedNodes.powerGridNode = true;
         }
     }
