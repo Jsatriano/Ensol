@@ -21,6 +21,7 @@ public class DeerAnimation : MonoBehaviour
     [SerializeField] private Animator animController;
     [SerializeField] private Transform headTF;   
     [SerializeField] private float lookingSpeed;
+    [SerializeField] private Rigidbody deerRB;
     private Transform playerTF;
     public DeerBT deerBT;
 
@@ -32,6 +33,9 @@ public class DeerAnimation : MonoBehaviour
     private State walkingState;   //Used to check which walking anim should be playing
     private State debugState;
     public bool finishedDeathAnim;
+
+    private float maxWalkSpeed;
+    private float maxChargeSpeed;
 
     void Start()
     {
@@ -66,6 +70,8 @@ public class DeerAnimation : MonoBehaviour
         if (playerTF == null && deerBT != null && deerBT.root.GetData("player") != null)
         {
             playerTF = (Transform)deerBT.root.GetData("player");
+            maxWalkSpeed = deerBT.deerStats.maxSpeed;
+            maxChargeSpeed = deerBT.deerStats.chargeMaxSpeed;
         }
 
         walkingState = WalkingAnimDir();
@@ -100,6 +106,9 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_FORWARD:
+
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
@@ -128,6 +137,8 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_LEFT:
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
@@ -156,6 +167,8 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_RIGHT:
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
@@ -198,6 +211,8 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.CHARGING:
+                animController.SetFloat("animSpeed", Mathf.Clamp01(deerRB.velocity.magnitude / maxChargeSpeed));
+                //print(deerRB.velocity.magnitude / maxChargeSpeed);
                 //Checks if the charge has ended
                 if (deerBT.root.GetData("chargingAnim") == null)
                 {
