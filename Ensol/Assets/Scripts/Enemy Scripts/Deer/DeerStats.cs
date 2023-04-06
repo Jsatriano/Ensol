@@ -55,7 +55,7 @@ public class DeerStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
-        print("Did " + damage + " damage to " + nameID);
+        //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
             Die();
@@ -65,7 +65,7 @@ public class DeerStats : EnemyStats
 
     public override void Die()
     {
-        print(nameID + " is dead!");
+       // print(nameID + " is dead!");
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;

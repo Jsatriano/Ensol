@@ -33,14 +33,14 @@ public class CabinDoor : MonoBehaviour
         {
             if(DialogueManager.GetInstance().donePlaying == true && buttonCol.enabled != true) 
             {
-                print("line 21");
+                //print("line 21");
                 buttonCol.enabled = true;
                 DialogueManager.GetInstance().donePlaying = false;
             }
 
             if(buttonCol.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
             {
-                print("start dialogue");
+               // print("start dialogue");
                 //Debug.Log(inkJSON.text);
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);

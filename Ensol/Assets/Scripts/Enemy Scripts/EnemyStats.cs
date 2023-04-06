@@ -83,11 +83,11 @@ public class EnemyStats : MonoBehaviour
             playerRB = p.GetComponent<Rigidbody>();
         }
 
-        if(player == null) {
+       /* if(player == null) {
             print("EnemyStats failed to locate Player");
         }
         else {
             print("EnemyStats located Player");
-        }
+        }*/
     }
 }
