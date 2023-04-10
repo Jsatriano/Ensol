@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BehaviorTree;
 
-public class BearBT : Tree
+public class BearBT : BT
 {
     public BearStats bearStats;
     protected override Node SetupTree()

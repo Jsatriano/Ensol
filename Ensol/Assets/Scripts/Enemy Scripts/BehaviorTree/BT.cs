@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public abstract class Tree : MonoBehaviour
+    public abstract class BT : MonoBehaviour
     {
         public Node root = null;
         public GameObject player;
