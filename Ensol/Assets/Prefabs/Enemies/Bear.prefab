@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 3805819858905312382}
   - component: {fileID: 3805819858905312380}
   - component: {fileID: 3805819858905312381}
+  - component: {fileID: 975495119133406490}
   m_Layer: 6
   m_Name: Bear
   m_TagString: Enemy
@@ -402,6 +403,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  breadcrumb: {fileID: 2189663410012607496, guid: 330657310bee5b64ca6f398fe91793a7, type: 3}
+  breadcrumbFreq: 2
+  numBreadcrumbs: 5
   isAlive: 0
   players: []
   bearStats: {fileID: 3805819858905312371}
@@ -449,7 +453,7 @@ MonoBehaviour:
   swipeHitbox1: {fileID: 2256964044568320167}
   swipeHitbox2: {fileID: 6031588405759380040}
   junkDamage: 5
-  junkCooldown: 2
+  junkCooldown: 50
   junkRange: 25
   junkRotation: 6
   junkMaxSpeed: 20
@@ -512,7 +516,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &3805819858905312381
 BoxCollider:
@@ -523,10 +527,24 @@ BoxCollider:
   m_GameObject: {fileID: 3805819858905312383}
   m_Material: {fileID: 13400000, guid: 0ae7207aef2fbee4687c5fdf22ad8766, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.172645, y: 2.548825, z: 3.4422827}
   m_Center: {x: -0.08465171, y: 1.2244126, z: 0.44398546}
+--- !u!136 &975495119133406490
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805819858905312383}
+  m_Material: {fileID: 13400000, guid: 0ae7207aef2fbee4687c5fdf22ad8766, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.1996427
+  m_Height: 3.8083978
+  m_Direction: 2
+  m_Center: {x: 0, y: 1.1245456, z: 0.26034045}
 --- !u!1 &4775196006452615801
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.096
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: af331b616a8c0714b98e03b143af8e21, type: 3}
       propertyPath: m_LocalPosition.y
