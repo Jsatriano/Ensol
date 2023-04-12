@@ -21,6 +21,7 @@ public class DeerAnimation : MonoBehaviour
     [SerializeField] private Animator animController;
     [SerializeField] private Transform headTF;   
     [SerializeField] private float lookingSpeed;
+    [SerializeField] private Rigidbody deerRB;
     private Transform playerTF;
     public DeerBT deerBT;
 
@@ -28,18 +29,31 @@ public class DeerAnimation : MonoBehaviour
     private Vector3 _dirToPlayer;
     private Vector3 movingDir;
     private Vector3 deerRight;
-    State state;
-    State tempState;
+    private State state;          //Current animation the deer is playing
+    private State walkingState;   //Used to check which walking anim should be playing
+    private State debugState;
     public bool finishedDeathAnim;
+
+    private float maxWalkSpeed;
+    private float maxChargeSpeed;
 
     void Start()
     {
         state = State.IDLE;
         finishedDeathAnim = false;
+        debugState = state;
     }
 
     void FixedUpdate()
     {
+        /*
+        if (debugState != state)
+        {
+            debugState = state;
+            print(debugState);
+        }
+        */
+
         //Stops all animation once deer is dead
         if (state == State.DYING)
         {
@@ -56,10 +70,11 @@ public class DeerAnimation : MonoBehaviour
         if (playerTF == null && deerBT != null && deerBT.root.GetData("player") != null)
         {
             playerTF = (Transform)deerBT.root.GetData("player");
+            maxWalkSpeed = deerBT.deerStats.maxSpeed;
+            maxChargeSpeed = deerBT.deerStats.chargeMaxSpeed;
         }
 
-        //print(state);
-        tempState = WalkingAnimDir();
+        walkingState = WalkingAnimDir();
         switch (state)
         {
             case State.IDLE:
@@ -70,7 +85,6 @@ public class DeerAnimation : MonoBehaviour
                     //Transitions into movingForward if the deer isn't moving sideways
                     if (deerBT.root.GetData("lookingForward") != null)
                     {
-                        //print("forward1");
                         deerBT.root.ClearData("lookingForward");                      
                         animController.SetTrigger("movingForward");
                         state = State.MOVING_FORWARD;
@@ -78,15 +92,13 @@ public class DeerAnimation : MonoBehaviour
                     //Picks whether it transitions into movingLeft or movingRight
                     else
                     {
-                        state = tempState;
-                        if (tempState == State.MOVING_LEFT)
+                        state = walkingState;
+                        if (walkingState == State.MOVING_LEFT)
                         {
-                            //print("left1");
                             animController.SetTrigger("movingLeft");
                         }
                         else
                         {
-                            //print("right1");
                             animController.SetTrigger("movingRight");
                         }
                     }
@@ -94,12 +106,14 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_FORWARD:
+
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    //print("windup1");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
@@ -110,27 +124,26 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is now moving sideways
                 else if (deerBT.root.GetData("lookingForward") == null)
                 {
-                    state = tempState;
+                    state = walkingState;
                     if (state == State.MOVING_LEFT)
                     {
-                       //print("left2");
                         animController.SetTrigger("movingLeft");
                     }
                     else
                     {
-                        //print("right2");
                         animController.SetTrigger("movingRight");
                     }
                 }
                 break;
 
             case State.MOVING_LEFT:
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    //print("windup2");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
@@ -141,27 +154,26 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is no longer moving sideways
                 else if (deerBT.root.GetData("lookingForward") != null)
                 {
-                    //print("forward2");
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
                 }
                 //Checks if the deer is now moving sideways in the other direction
-                else if (tempState != state)
+                else if (walkingState != state)
                 {
-                    //print("right3");
                     animController.SetTrigger("movingRight");
-                    state = tempState;
+                    state = State.MOVING_RIGHT;
                 }
                 break;
 
             case State.MOVING_RIGHT:
+                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
                     animController.SetTrigger("chargeWindup");
                     state = State.CHARGE_WINDUP;
-                    //print("Windup3");
                 }
                 //Checks if the deer is starting a swiping attack
                 else if (deerBT.root.GetData("swipingAnim") != null)
@@ -172,33 +184,41 @@ public class DeerAnimation : MonoBehaviour
                 //Checks if the deer is no longer moving sideways
                 else if (deerBT.root.GetData("lookingForward") != null)
                 {
-                    //print("forward3");
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
                 }
                 //Checks if the deer is now moving sideways in the other direction
-                else if (tempState != state)
+                else if (walkingState != state)
                 {
-                    //print("left3");
                     animController.SetTrigger("movingLeft");
-                    state = tempState;
+                    state = State.MOVING_LEFT;
                 }
                 break;
 
             case State.CHARGE_WINDUP:
                 //Transitions to charging anim at the end of the charge windup anim from animation event
+                if (deerBT.root.GetData("chargingAnim") != null)
+                {
+                    //Ensures that no walking triggers are currently active
+                    animController.ResetTrigger("movingForward");
+                    animController.ResetTrigger("movingLeft");
+                    animController.ResetTrigger("movingRight");
+
+                    animController.SetTrigger("charging");
+                    state = State.CHARGING;
+                }
                 break;
 
             case State.CHARGING:
+                animController.SetFloat("animSpeed", Mathf.Clamp01(deerRB.velocity.magnitude / maxChargeSpeed));
+                //print(deerRB.velocity.magnitude / maxChargeSpeed);
                 //Checks if the charge has ended
                 if (deerBT.root.GetData("chargingAnim") == null)
                 {
-                    //print("CHARGE ENDED!!");
                     //Transitions into movingForward if the deer isn't moving sideways
                     if (deerBT.root.GetData("lookingForward") != null)
                     {
-                        //print("forward4");
                         deerBT.root.ClearData("lookingForward");
                         animController.SetTrigger("movingForward");
                         state = State.MOVING_FORWARD;
@@ -206,18 +226,14 @@ public class DeerAnimation : MonoBehaviour
                     //Picks whether it transitions into movingLeft or movingRight
                     else
                     {
-                        state = tempState;
-                        if (tempState == State.MOVING_LEFT)
+                        state = walkingState;
+                        if (walkingState == State.MOVING_LEFT)
                         {
-                            //print("left4");
                             animController.SetTrigger("movingLeft");
-                            //print("MovingLeft");
                         }
                         else
                         {
-                            //print("right4");
                             animController.SetTrigger("movingRight");
-                            //print("MovingRight");
                         }
                     }
                 }
@@ -226,7 +242,12 @@ public class DeerAnimation : MonoBehaviour
             case State.SWIPING:
                 //Checks if the swiping attack has ended
                 if (deerBT.root.GetData("swipingAnim") == null)
-                { 
+                {
+                    //Ensures that no walking triggers are currently active
+                    animController.ResetTrigger("movingForward");
+                    animController.ResetTrigger("movingLeft");
+                    animController.ResetTrigger("movingRight");
+
                     deerBT.root.ClearData("lookingForward");
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
@@ -273,9 +294,6 @@ public class DeerAnimation : MonoBehaviour
     {
         deerBT.root.SetData("chargingAnim", true);
         deerBT.root.ClearData("chargeWindupAnim");
-        animController.SetTrigger("charging");
-        state = State.CHARGING;
-        return;
     }
 
     private void EndSwipeWindup()

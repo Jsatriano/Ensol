@@ -86,7 +86,7 @@ public class ElectricVials : MonoBehaviour // justin
         //UI Flickering
         if (isFlickering)
         {
-            print("hewwo");
+           // print("hewwo");
             //Checks if it needs to start flickering in the other direction
             if (flickerTimer >= flickerTime)
             {

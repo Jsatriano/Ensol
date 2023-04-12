@@ -61,7 +61,7 @@ public class CharController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         gameObject.tag = "Player";
-        print(gameObject.tag);
+        //print(gameObject.tag);
         knockback = false;
         _rb.drag = normalDrag;
     }
@@ -78,14 +78,14 @@ public class CharController : MonoBehaviour
                 {
                     //Cursor.visible = false;
                     controller = true;
-                    print("Connected");
+                   // print("Connected");
                     
                 }
                 else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
                 {
                     //Cursor.visible = true;
                     controller = false;
-                    print("Disconnected");
+                   // print("Disconnected");
                 }
             }
 
@@ -264,13 +264,13 @@ public class CharController : MonoBehaviour
                 if(pcc.isMidGrab) {
                     knockback = false;
                     state = State.ATTACKING;
-                    print("Prioritized weapon catch over knockback");
+                  //  print("Prioritized weapon catch over knockback");
                 }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                print(knockback);
+                //print(knockback);
 
 
                 // once knockback is over, go to idle state

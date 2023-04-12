@@ -72,7 +72,7 @@ public class WeaponHitbox : MonoBehaviour
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
-                print("Should be spawning hit vfx");
+                //print("Should be spawning hit vfx");
                 Transform hitVFXTargetLocation = null;
                 hitVFXTargetLocation = col.gameObject.transform.Find("Hit VFX Target Location");
                 if(hitVFXTargetLocation == null) {
@@ -93,7 +93,7 @@ public class WeaponHitbox : MonoBehaviour
                 pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
                 foreach(Collider c in damagePulse) {
                     if(c.gameObject.tag == "Enemy") { 
-                        print("Damage Pulse Hit Enemy");
+                       // print("Damage Pulse Hit Enemy");
                         c.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
                     }
                 }
@@ -122,10 +122,10 @@ public class WeaponHitbox : MonoBehaviour
         }
 
         if(player == null) {
-            print("Weapon failed to locate Player");
+            //print("Weapon failed to locate Player");
         }
         else {
-            print("Weapon located Player");
+           // print("Weapon located Player");
         }
     }
 
@@ -133,7 +133,7 @@ public class WeaponHitbox : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameObject hitVFXToDestroy = activeHitVFX.Dequeue();
         Destroy(hitVFXToDestroy);
-        print("destroyed a hit vfx");
+       // print("destroyed a hit vfx");
     }
 
     IEnumerator DisablePulseVFX() //Elizabeth
