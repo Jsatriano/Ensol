@@ -11,7 +11,6 @@ namespace BehaviorTree
         public Node root = null;
         public GameObject player;
         private List<Vector3> playerBreadcrumbs = new List<Vector3>();
-        private List<GameObject> test = new List<GameObject>();
         [SerializeField] private GameObject breadcrumb;
         [SerializeField] private float breadcrumbFreq;
         [SerializeField] private float numBreadcrumbs;
@@ -38,12 +37,6 @@ namespace BehaviorTree
                 ManageBreadcrumbs();
                 root.Evaluate();
             }
-            if (root.GetData("AYO") != null)
-            {
-                root.ClearData("AYO");
-                print("AYO");
-            }
-
         }
         protected abstract Node SetupTree();
 
@@ -54,8 +47,6 @@ namespace BehaviorTree
                 //Makes sure there is always at least 1 breadcrumb
                 if (playerBreadcrumbs.Count <= 0)
                 {
-                    GameObject newCrumb = Instantiate(breadcrumb, player.transform.position, player.transform.rotation);
-                    test.Add(newCrumb);
                     playerBreadcrumbs.Add(player.transform.position);
                 }
                 //Creates a new breadcrumb when the player has moved far enough away from the previous one
@@ -65,11 +56,7 @@ namespace BehaviorTree
                     if (playerBreadcrumbs.Count >= numBreadcrumbs)
                     {
                         playerBreadcrumbs.RemoveAt(0);
-                        Destroy(test[0]);
-                        test.RemoveAt(0);
                     }
-                    GameObject newCrumb = Instantiate(breadcrumb, player.transform.position, player.transform.rotation);
-                    test.Add(newCrumb);
                     playerBreadcrumbs.Add(player.transform.position);
                     root.SetData("breadcrumbs", playerBreadcrumbs);
                 }
@@ -123,11 +110,6 @@ namespace BehaviorTree
             
     }
 */
-
-
-
-
-
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth
         public void SearchForPlayer() {

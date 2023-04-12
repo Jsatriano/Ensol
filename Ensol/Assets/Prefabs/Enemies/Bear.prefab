@@ -404,10 +404,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   breadcrumb: {fileID: 2189663410012607496, guid: 330657310bee5b64ca6f398fe91793a7, type: 3}
-  breadcrumbFreq: 2
-  numBreadcrumbs: 5
+  breadcrumbFreq: 2.5
+  numBreadcrumbs: 6
   isAlive: 0
   players: []
+  _envLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   bearStats: {fileID: 3805819858905312371}
 --- !u!114 &3805819858905312371
 MonoBehaviour:
@@ -425,7 +428,7 @@ MonoBehaviour:
   numID: 0
   maxHP: 50
   currHP: 0
-  maxSpeed: 20
+  maxSpeed: 25
   attackingCooldown: 0.5
   acceleration: 20
   visionRange: 15

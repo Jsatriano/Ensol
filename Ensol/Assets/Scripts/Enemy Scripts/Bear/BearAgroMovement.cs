@@ -80,7 +80,7 @@ public class BearAgroMovement : Node
     {
         //Sets up array and calcuates the distance and direction to the player
         float[] playerWeights = new float[8];
-        Vector3 target;
+        Vector3 target = _playerTF.position;
 
         List<Vector3> breadcrumbs = (List<Vector3>)GetData("breadcrumbs");
         //Uses player's current position as the target if they are currently in FOV
@@ -91,18 +91,29 @@ public class BearAgroMovement : Node
         //Else use the breadcrumbs
         else
         {
+            bool foundTarget = false;
             //Check if any of the breadcrumbs are in FOV, starting at the most recent one
             for (int i = breadcrumbs.Count - 1; i >= 0; i--)
             {
                 if (!Physics.Linecast(_enemyTF.position, breadcrumbs[i], _envLayerMask))
                 {
                     target = breadcrumbs[i];
+                    foundTarget = true;
                     break;
                 }
             }
             //Use oldest breadcrumb as target if none are within FOV
-            target = breadcrumbs[0];
-            SetData("AYO", true);
+            if (!foundTarget)
+            {
+                if (breadcrumbs.Count <= 0)
+                {
+                    target = _playerTF.position;
+                }
+                else
+                {
+                    target = breadcrumbs[0];
+                }               
+            }
         }
 
         _dirToPlayer = new Vector3(target.x - _enemyTF.position.x, 0, target.z - _enemyTF.position.z);
