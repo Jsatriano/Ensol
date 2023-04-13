@@ -43,6 +43,8 @@ public class _01CabinNode : MonoBehaviour
 
     private void Start()
     {
+        CompletedNodes.prevNode = "cabin";
+
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
         {

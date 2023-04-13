@@ -34,7 +34,6 @@ public class _02DeerNode : MonoBehaviour
     [Header("Other Variables")]
     public GameObject transferCube;
 
-
     private void Start()
     {
         //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
