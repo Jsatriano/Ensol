@@ -23,8 +23,8 @@ public class RabbitStats : EnemyStats
     protected override void Start()
     {
         base.Start(); //Calls the parent start function.
-        nameID = "EnemyBear";
-        numID = 1; //placeholder, idk if we even want this
+        nameID = "EnemyRabbit";
+        numID = 3; //placeholder, idk if we even want this
         rabbitBT.isAlive = true;
     }
 

@@ -11,7 +11,6 @@ namespace BehaviorTree
         public Node root = null;
         public GameObject player;
         private List<Vector3> playerBreadcrumbs = new List<Vector3>();
-        [SerializeField] private GameObject breadcrumb;
         [SerializeField] private float breadcrumbFreq;
         [SerializeField] private float numBreadcrumbs;
         public bool isAlive; //Determines whether the behavior tree should be running/Animations should be changing

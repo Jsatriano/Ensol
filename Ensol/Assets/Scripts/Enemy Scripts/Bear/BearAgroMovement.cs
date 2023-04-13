@@ -11,7 +11,7 @@ public class BearAgroMovement : Node
     private float _acceleration;  //How fast the bear gets to max speed
     private float _maxSpeed;      //Speed of the enemy
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
-    private Vector3 movingDir;   //The bears direction of movement
+    private Vector3 movingDir;    //The bears direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
 
@@ -39,10 +39,15 @@ public class BearAgroMovement : Node
         _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
 
         //Moves bear in the desired direction (with a speed cap)
-        _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         if (_enemyRB.velocity.magnitude > _maxSpeed)
         {
+            //Keep moving bear at max speed
             _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
+        }
+        else
+        {
+            //Accelerate bear when not at max speed
+            _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         }
         state = NodeState.SUCCESS;
         return state;
