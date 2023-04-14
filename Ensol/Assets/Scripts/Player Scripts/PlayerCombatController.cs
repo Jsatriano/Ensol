@@ -25,6 +25,7 @@ public class PlayerCombatController : MonoBehaviour
     public DamageFlash damageFlash;
     public Material backpackVialMaterial;
     private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
+    public GameObject shieldVisual;
 
 
     [Header("Player Stats & Variables")]
@@ -57,6 +58,14 @@ public class PlayerCombatController : MonoBehaviour
     public float damagePulseRadius = 1f;
     [HideInInspector] public bool hasWeapon = true;
     [HideInInspector] public bool isCatching = false;
+
+    [Header("Shield Variables")]
+    public float shieldDuration = 2f;
+    public float shieldMaxHealth = 10f;
+    private float shieldCurrHealth = 0f;
+    public float shieldCooldown = 10f;
+    public bool shieldCanActivate = true;
+    private bool shieldIsActive = false;
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -143,6 +152,13 @@ public class PlayerCombatController : MonoBehaviour
         }
         ManageVialShader();
 
+        if(shieldIsActive) {
+            if(shieldCurrHealth == 0) {
+                shieldIsActive = false;
+                shieldVisual.SetActive(false);
+            }
+        }
+
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
         if(isCatching) {
@@ -176,6 +192,17 @@ public class PlayerCombatController : MonoBehaviour
 
         if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
             ResetLightAttackCombo();
+        }
+
+        //Activate Shield- Elizabeth
+        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2)) {
+            shieldCanActivate = false; 
+            shieldIsActive = true;
+            shieldCurrHealth = shieldMaxHealth;
+            shieldVisual.SetActive(true);
+            StartCoroutine(ShieldCooldown());
+            StartCoroutine(DisableShield());
+            electricVials.RemoveVials(2);
         }
 
         
@@ -535,32 +562,43 @@ public class PlayerCombatController : MonoBehaviour
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
-            // does dmg
-            currHP -= dmg;
+            if(!shieldIsActive) {
+                // does dmg
+                currHP -= dmg;
 
-            // starts invuln
-            invulnTimer = Time.time;
+                // starts invuln
+                invulnTimer = Time.time;
 
-            // updates UI healthbar
-            healthBar.SetHealth(currHP);
+                // updates UI healthbar
+                healthBar.SetHealth(currHP);
 
-            // damage flash
-            StartCoroutine(damageFlash.FlashRoutine());
+                // damage flash
+                StartCoroutine(damageFlash.FlashRoutine());
 
-            // knockback player
-            StartCoroutine(Knockback(collider));
+                // knockback player
+                StartCoroutine(Knockback(collider));
 
-            // change state to limit actions
-            charController.state = CharController.State.KNOCKBACK;
-            // print("took damage");
+                // change state to limit actions
+                charController.state = CharController.State.KNOCKBACK;
+                // print("took damage");
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
-            //play the damage vfx
-            GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
-            activeDamageVFX.Enqueue(newDamageVFX);
-            StartCoroutine(DeleteDamageVFX());
-
+                //play the damage vfx
+                GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+            }
+            else{
+                shieldCurrHealth -= dmg;
+                if(shieldCurrHealth <= 0) {
+                    shieldIsActive = false;
+                    shieldVisual.SetActive(false);
+                    if(shieldCurrHealth < 0) {
+                        TakeDamage(Mathf.Abs(shieldCurrHealth), collider);
+                    }
+                }
+            }
 
         }
     }
@@ -588,6 +626,17 @@ public class PlayerCombatController : MonoBehaviour
         // reset drag and end knockback
         _rb.drag = charController.normalDrag;
         charController.knockback = false;
+    }
+
+    private IEnumerator ShieldCooldown() {
+        yield return new WaitForSeconds(shieldCooldown);
+        shieldCanActivate = true;
+    }
+    
+    private IEnumerator DisableShield() {
+        yield return new WaitForSeconds(shieldDuration);
+        shieldIsActive = false;
+        shieldVisual.SetActive(false);
     }
 
     private void ManageVialShader() {

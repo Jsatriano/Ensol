@@ -1,32 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9160533483162759834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_envCabinDoorOpen
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_envCabinDoorOpen
-  Guid:
-    Data1: 615353681
-    Data2: 1309184206
-    Data3: 114709691
-    Data4: -729518468
-  Banks:
-  - {fileID: 5993612953667584468}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-9016573526929377320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8396700056373464172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_playerShield
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_playerShield
+  Guid:
+    Data1: -1583934469
+    Data2: 1219852502
+    Data3: -1474110018
+    Data4: -1962301307
+  Banks:
+  - {fileID: -1626821101958394724}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 15151
 --- !u!114 &-8282607514025613701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/CatSFX.bank
   Name: CatSFX
   StudioPath: bank:/CatSFX
-  lastModified: 638144942401955730
+  lastModified: 638144974073929808
   FileSizes: []
   Exists: 1
 --- !u!114 &-7434395483634643589
@@ -146,6 +146,33 @@ MonoBehaviour:
     Data4: 389382415
   Banks:
   - {fileID: -1453358446172559285}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7136788178049262653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_bunnyAlterted
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_bunnyAlterted
+  Guid:
+    Data1: -304648612
+    Data2: 1317754016
+    Data3: -1499908987
+    Data4: -1022412604
+  Banks:
+  - {fileID: 6979196660272671589}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -249,7 +276,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/NeutralSFX.bank
   Name: NeutralSFX
   StudioPath: bank:/NeutralSFX
-  lastModified: 638137989380061463
+  lastModified: 638138007288829271
   FileSizes: []
   Exists: 1
 --- !u!114 &-3807272498580146395
@@ -267,7 +294,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638145150795826923
+  lastModified: 638145166116939767
   FileSizes: []
   Exists: 1
 --- !u!114 &-3652264176555968941
@@ -324,6 +351,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 62981
+--- !u!114 &-3527355692027471043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_envFenceGateOpen
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_envFenceGateOpen
+  Guid:
+    Data1: 1794245213
+    Data2: 1238913523
+    Data3: 943953322
+    Data4: 417277033
+  Banks:
+  - {fileID: 5993612953667584468}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3485791011631477710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +474,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/HudSFX.bank
   Name: HudSFX
   StudioPath: bank:/HudSFX
-  lastModified: 638145633190447402
+  lastModified: 638146013144035659
   FileSizes: []
   Exists: 1
 --- !u!114 &-2424729731310684842
@@ -438,7 +492,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638169177069093230
+  lastModified: 638168319721564369
   FileSizes:
   - Name: 
     Value: 3242
@@ -458,7 +512,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/DeerSFX.bank
   Name: DeerSFX
   StudioPath: bank:/DeerSFX
-  lastModified: 638145150795553688
+  lastModified: 638145166116919759
   FileSizes: []
   Exists: 1
 --- !u!114 &-2300574769867808548
@@ -530,7 +584,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/PlayerSFX.bank
   Name: PlayerSFX
   StudioPath: bank:/PlayerSFX
-  lastModified: 638169177069193826
+  lastModified: 638168319721702628
   FileSizes: []
   Exists: 1
 --- !u!114 &-1453358446172559285
@@ -548,7 +602,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/BearSFX.bank
   Name: BearSFX
   StudioPath: bank:/BearSFX
-  lastModified: 638169177069024155
+  lastModified: 638168319721524363
   FileSizes: []
   Exists: 1
 --- !u!114 &-1168285047536226993
@@ -659,33 +713,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-243953977056232148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_playerShield
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_playerShield
-  Guid:
-    Data1: -1583934469
-    Data2: 1219852502
-    Data3: -1474110018
-    Data4: -1962301307
-  Banks:
-  - {fileID: -1626821101958394724}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 15151
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +736,7 @@ MonoBehaviour:
   - {fileID: -4012388489032053303}
   - {fileID: -1626821101958394724}
   - {fileID: 8657104274104728241}
-  - {fileID: 6201406402951570320}
+  - {fileID: 6979196660272671589}
   EditorEvents:
   - {fileID: 4966827623887512533}
   - {fileID: 1084018556244073917}
@@ -752,47 +779,20 @@ MonoBehaviour:
   - {fileID: 649455668375896382}
   - {fileID: -3580086538918289205}
   - {fileID: 8055850761585005260}
-  - {fileID: 1888547441311302572}
-  - {fileID: 230080122055422105}
-  - {fileID: 7454794172830773834}
-  - {fileID: 3677591376289469541}
-  - {fileID: -9160533483162759834}
-  - {fileID: 1517249109524971903}
-  - {fileID: -243953977056232148}
+  - {fileID: -7136788178049262653}
+  - {fileID: 5756404756910643042}
+  - {fileID: 2182875094747937462}
+  - {fileID: 3751535626956333362}
+  - {fileID: 8432374830141770473}
+  - {fileID: -3527355692027471043}
+  - {fileID: -8396700056373464172}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3807272498580146395}
   StringsBanks:
   - {fileID: -2424729731310684842}
-  cacheTime: 638169177069193826
+  cacheTime: 638168319721702628
   cacheVersion: 131601
---- !u!114 &230080122055422105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_bunnyDeath
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_bunnyDeath
-  Guid:
-    Data1: -1016399523
-    Data2: 1095304444
-    Data3: 691120031
-    Data4: -1734664290
-  Banks:
-  - {fileID: 6201406402951570320}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &649455668375896382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,60 +840,6 @@ MonoBehaviour:
     Data4: -1257932314
   Banks:
   - {fileID: -1453358446172559285}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1517249109524971903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_envFenceGateOpen
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_envFenceGateOpen
-  Guid:
-    Data1: 1794245213
-    Data2: 1238913523
-    Data3: 943953322
-    Data4: 417277033
-  Banks:
-  - {fileID: 5993612953667584468}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &1888547441311302572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_bunnyAlterted
-  m_EditorClassIdentifier: 
-  Path: event:/sfx_bunnyAlterted
-  Guid:
-    Data1: -304648612
-    Data2: 1317754016
-    Data3: -1499908987
-    Data4: -1022412604
-  Banks:
-  - {fileID: 6201406402951570320}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -955,6 +901,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2182875094747937462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_bunnyMove
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_bunnyMove
+  Guid:
+    Data1: -1253390221
+    Data2: 1317822758
+    Data3: -1385966441
+    Data4: 484087289
+  Banks:
+  - {fileID: 6979196660272671589}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2598553105856326118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,7 +982,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &3677591376289469541
+--- !u!114 &3751535626956333362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1028,7 +1001,7 @@ MonoBehaviour:
     Data3: -281036668
     Data4: -818188515
   Banks:
-  - {fileID: 6201406402951570320}
+  - {fileID: 6979196660272671589}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1225,6 +1198,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5756404756910643042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_bunnyDeath
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_bunnyDeath
+  Guid:
+    Data1: -1016399523
+    Data2: 1095304444
+    Data3: 691120031
+    Data4: -1734664290
+  Banks:
+  - {fileID: 6979196660272671589}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5829186101524778332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,25 +1267,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/EnvironmentSFX.bank
   Name: EnvironmentSFX
   StudioPath: bank:/EnvironmentSFX
-  lastModified: 638169177069073060
-  FileSizes: []
-  Exists: 1
---- !u!114 &6201406402951570320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/BunnySFX.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/AudioBanks/Desktop/BunnySFX.bank
-  Name: BunnySFX
-  StudioPath: bank:/BunnySFX
-  lastModified: 638169177069043183
+  lastModified: 638168319721554367
   FileSizes: []
   Exists: 1
 --- !u!114 &6405467877980239437
@@ -1369,7 +1351,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7454794172830773834
+--- !u!114 &6979196660272671589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1378,24 +1360,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/sfx_bunnyMove
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/BunnySFX.bank
   m_EditorClassIdentifier: 
-  Path: event:/sfx_bunnyMove
-  Guid:
-    Data1: -1253390221
-    Data2: 1317822758
-    Data3: -1385966441
-    Data4: 484087289
-  Banks:
-  - {fileID: 6201406402951570320}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  Path: Assets/AudioBanks/Desktop/BunnySFX.bank
+  Name: BunnySFX
+  StudioPath: bank:/BunnySFX
+  lastModified: 638168319721534364
+  FileSizes: []
+  Exists: 1
 --- !u!114 &7756678782645906199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,6 +1450,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 65097
+--- !u!114 &8432374830141770473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_envCabinDoorOpen
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_envCabinDoorOpen
+  Guid:
+    Data1: 615353681
+    Data2: 1309184206
+    Data3: 114709691
+    Data4: -729518468
+  Banks:
+  - {fileID: 5993612953667584468}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8472630110739020589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Soundtrack.bank
   Name: Soundtrack
   StudioPath: bank:/Soundtrack
-  lastModified: 638144942403047970
+  lastModified: 638144974075110065
   FileSizes: []
   Exists: 1
 --- !u!114 &8695586207918490300
