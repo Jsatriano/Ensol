@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeerHitPlayer : MonoBehaviour
+public class RabbitHitPlayer : MonoBehaviour
 {
-    public DeerBT deerBT;
+    public RabbitBT rabbitBT;
     private float attackDamage;
     [SerializeField] private Collider coll;
     [SerializeField] private bool tellBT;
@@ -13,19 +13,12 @@ public class DeerHitPlayer : MonoBehaviour
 
     private void Start()
     {
-        if (swipeAttack)
-        {
-            attackDamage = deerBT.deerStats.basicDamage;
-        }
-        if (chargeAttack)
-        {
-            attackDamage = deerBT.deerStats.chargeDamage;
-        }
+          attackDamage = rabbitBT.rabbitStats.attackDamage;
     }
 
     void OnTriggerEnter(Collider col) // Justin/Ryan
     {
-        if(col.gameObject.tag == "Player") 
+        if (col.gameObject.tag == "Player")
         {
             //Does damage to the player based on provided attack damage
             PlayerCombatController combatController = col.gameObject.GetComponent<PlayerCombatController>();
@@ -34,16 +27,16 @@ public class DeerHitPlayer : MonoBehaviour
                 combatController.TakeDamage(attackDamage, coll);
                 if (tellBT)
                 {
-                    deerBT.root.SetData("attackHit", true);
+                    rabbitBT.root.SetData("attackHit", true);
                 }
-            }          
+            }
             return;
         }
         else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy") || col.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             if (tellBT)
-            {             
-                deerBT.root.SetData("attackHit", true);
+            {
+                rabbitBT.root.SetData("attackHit", true);
             }
         }
     }
