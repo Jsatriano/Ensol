@@ -7,6 +7,7 @@ public class CabinDoor : MonoBehaviour
 {
     public Collider buttonCol;
     public DoorController doorController;
+    private bool opened = false;
 
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
@@ -50,6 +51,11 @@ public class CabinDoor : MonoBehaviour
                 if(!buttonCol.enabled)
                 {
                     // opens door
+                    if(opened == false)
+                    {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envFenceGateOpen, this.transform.position);
+                        opened = true;
+                    }
                     doorController.OpenDoor();
                     interacted = true;
                 }
