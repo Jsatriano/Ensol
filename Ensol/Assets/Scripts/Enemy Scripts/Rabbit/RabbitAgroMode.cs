@@ -36,13 +36,24 @@ public class RabbitAgroMode : Node
 
     public override NodeState Evaluate()
     {
-        _enemyRB.drag = 1;
+        SetData("Aggro", true);
+        SetData("attacking", true);
+
         SetData("agro", true);
+        if (GetData("attackHit") != null)
+        {        
+            _agroTimer = _agroDuration;
+            ClearData("attackHit");
+            ClearData("agro");
+            ClearData("attacking");
+            state = NodeState.SUCCESS;
+            return state;
+        }
         if (_agroTimer <= 0)
         {
-            _enemyRB.drag = 5;
             _agroTimer = _agroDuration;
             ClearData("agro");
+            ClearData("attacking");
             state = NodeState.SUCCESS;
             return state;
         }

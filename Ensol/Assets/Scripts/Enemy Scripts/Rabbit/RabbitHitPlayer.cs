@@ -8,8 +8,6 @@ public class RabbitHitPlayer : MonoBehaviour
     private float attackDamage;
     [SerializeField] private Collider coll;
     [SerializeField] private bool tellBT;
-    [SerializeField] private bool swipeAttack;
-    [SerializeField] private bool chargeAttack;
 
     private void Start()
     {

@@ -32,6 +32,8 @@ public class RabbitEvadeMode : Node
     {
         ChooseDirection();
 
+        SetData("Evade", true);
+
         //Makes the rabbit move slower the less it is facing the direction it wants to move
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
@@ -75,9 +77,8 @@ public class RabbitEvadeMode : Node
 
         //Caculates the perpendicular direction to the direction to the player for sideways movement
         Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
-        SetData("deerRight", movingCross);
 
-        //If there are no obstacles nearby, deer picks between moving left/right based on which direction is
+        //If there are no obstacles nearby, rabbit picks between moving left/right based on which direction is
         //closest to the direction it is already facing
         if (movingDir == Vector3.zero)
         {

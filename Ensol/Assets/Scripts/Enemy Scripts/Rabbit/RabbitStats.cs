@@ -12,6 +12,7 @@ public class RabbitStats : EnemyStats
 
     [Header("Evade Behavior")]
     public float evadeDuration; //How long the rabbit stays in the evade behavior
+    public float evadeDistance; //How far away from the player the rabbit tries to stay when evading
 
     [Header("Other Scripts")]
     [SerializeField] private RabbitBT rabbitBT;
@@ -56,6 +57,8 @@ public class RabbitStats : EnemyStats
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         //Play rabbit death sound here
 
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+
         // tells door and gate scripts that this rabbit has died
         if (buttonGateController != null)
         {
@@ -64,8 +67,6 @@ public class RabbitStats : EnemyStats
         if (buttonDoorController != null)
         {
             buttonDoorController.enemyKilled(thisRabbit);
-        }
-
-        gameObject.layer = LayerMask.NameToLayer("DeadEnemy");   
+        }     
     }
 }

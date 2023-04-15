@@ -14,7 +14,7 @@ public class RabbitBT : BT
         }
         Node root = new Selector(new List<Node>
         {
-            /*
+            
             new Sequence(new List<Node>
             {
                 new PlayerSeenCheck(),
@@ -23,12 +23,11 @@ public class RabbitBT : BT
                     new CooldownCheck(rabbitStats.attackingCooldown, "idle")
                 }),       
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitEvadeMode(rabbitStats.maxSpeed)
+                new RabbitEvadeMode(rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.evadeDistance, rabbitStats.rotationSpeed)
             }),
-            */
+            
             new Sequence(new List<Node>
             {
-                new CooldownCheck(rabbitStats.evadeDuration, "agro"),
                 new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "agro", rabbitStats.environmentMask, 3),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
                 new RabbitAgroMode(rabbitStats.attackHitbox, rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, 

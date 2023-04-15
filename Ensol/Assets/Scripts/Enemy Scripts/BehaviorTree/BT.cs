@@ -36,6 +36,16 @@ namespace BehaviorTree
                 ManageBreadcrumbs();
                 root.Evaluate();
             }
+            if (root.GetData("Evade") != null)
+            {
+                print("evade");
+                root.ClearData("Evade");
+            }
+            if (root.GetData("Aggro") != null)
+            {
+                print("agro");
+                root.ClearData("Aggro");
+            }
         }
         protected abstract Node SetupTree();
 
@@ -59,6 +69,15 @@ namespace BehaviorTree
                     playerBreadcrumbs.Add(player.transform.position);
                     root.SetData("breadcrumbs", playerBreadcrumbs);
                 }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying && root.GetData("movingDir") != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawRay(transform.position, (Vector3)root.GetData("movingDir") * 5);
             }
         }
 

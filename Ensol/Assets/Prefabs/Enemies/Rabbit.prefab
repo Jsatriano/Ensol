@@ -72,8 +72,8 @@ MonoBehaviour:
   numID: 0
   maxHP: 1
   currHP: 0
-  maxSpeed: 80
-  attackingCooldown: 3
+  maxSpeed: 60
+  attackingCooldown: 4
   acceleration: 50
   visionRange: 15
   rotationSpeed: 15
@@ -91,12 +91,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   players: []
-  renderer: {fileID: 0}
+  renderer: {fileID: 3388887060922006534}
   attackDamage: 3
   agroDuration: 3
   attackHitbox: {fileID: 0}
   agroRange: 5
   evadeDuration: 3
+  evadeDistance: 0
   rabbitBT: {fileID: 326271069814499013}
   damageFlash: {fileID: 5722747691111790481}
   buttonGateController: {fileID: 0}
@@ -175,7 +176,7 @@ GameObject:
   - component: {fileID: 2194372744990556284}
   m_Layer: 6
   m_Name: AttackHitbox
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,11 +204,11 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7712586609551910228}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.039750237
+  m_Center: {x: -3.3962131e-15, y: 0.018525038, z: 0.012765256}
 --- !u!114 &2194372744990556284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,11 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rabbitBT: {fileID: 326271069814499013}
-  attackDamage: 0
   coll: {fileID: 4916987083957525703}
-  tellBT: 0
-  swipeAttack: 0
-  chargeAttack: 0
+  tellBT: 1
 --- !u!1001 &6605755903508173020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,6 +422,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4884672620945402967, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
   m_PrefabInstance: {fileID: 6605755903508173020}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &3388887060922006534 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8407065112995114202, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
+  m_PrefabInstance: {fileID: 6605755903508173020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6299746632036937101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
+  m_PrefabInstance: {fileID: 6605755903508173020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9116403322475012029
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299746632036937101}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &6640243755745425207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
