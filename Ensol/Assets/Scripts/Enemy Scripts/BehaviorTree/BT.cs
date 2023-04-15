@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public abstract class Tree : MonoBehaviour
+    public abstract class BT : MonoBehaviour
     {
         public Node root = null;
         public GameObject player;
+        private List<Vector3> playerBreadcrumbs = new List<Vector3>();
+        [SerializeField] private float breadcrumbFreq;
+        [SerializeField] private float numBreadcrumbs;
         public bool isAlive; //Determines whether the behavior tree should be running/Animations should be changing
         [HideInInspector] public GameObject[] players;
 
@@ -30,11 +33,34 @@ namespace BehaviorTree
             }
             if (root != null && player != null && isAlive)
             {
+                ManageBreadcrumbs();
                 root.Evaluate();
             }
-
         }
         protected abstract Node SetupTree();
+
+        private void ManageBreadcrumbs()
+        {
+            if (root.GetData("player") != null)
+            {
+                //Makes sure there is always at least 1 breadcrumb
+                if (playerBreadcrumbs.Count <= 0)
+                {
+                    playerBreadcrumbs.Add(player.transform.position);
+                }
+                //Creates a new breadcrumb when the player has moved far enough away from the previous one
+                if (Vector3.Distance(player.transform.position, playerBreadcrumbs[playerBreadcrumbs.Count - 1]) > breadcrumbFreq)
+                {
+                    //Inserts a new breadcrumb, replacing an old one if at the max
+                    if (playerBreadcrumbs.Count >= numBreadcrumbs)
+                    {
+                        playerBreadcrumbs.RemoveAt(0);
+                    }
+                    playerBreadcrumbs.Add(player.transform.position);
+                    root.SetData("breadcrumbs", playerBreadcrumbs);
+                }
+            }
+        }
 
 
 
@@ -84,11 +110,6 @@ namespace BehaviorTree
             
     }
 */
-
-
-
-
-
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth
         public void SearchForPlayer() {

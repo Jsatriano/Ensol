@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class BearAgroMovement : Node
+public class RabbitAgroMode : Node
 {
     private Transform _playerTF;  //Player transform
     private Transform _enemyTF;   //Enemy transform
     private Rigidbody _enemyRB;   //Enemy rigidbody
-    private float _acceleration;  //How fast the bear gets to max speed
+    private float _acceleration;  //How fast the rabbit gets to max speed
     private float _maxSpeed;      //Speed of the enemy
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
-    private Vector3 movingDir;    //The bears direction of movement
+    private Vector3 movingDir;    //The enemy's direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
+    private SphereCollider _hitbox;  //Attack hitbox
+    private float _agroDuration;
+    private float _agroTimer;
 
-    public BearAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
+    public RabbitAgroMode(SphereCollider hitbox, float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
+                          LayerMask envLayerMask, float agroDuration)
     {
+        _hitbox = hitbox;
         _playerTF = playerTF;
         _enemyTF = enemyTF;
         _enemyRB = enemyRB;
@@ -25,28 +30,55 @@ public class BearAgroMovement : Node
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
         _envLayerMask = envLayerMask;
+        _agroDuration = agroDuration;
+        _agroTimer = agroDuration;
     }
 
     public override NodeState Evaluate()
     {
+        SetData("attacking", true);
+
+        SetData("agro", true);
+        if (GetData("attackHit") != null)
+        {        
+            _agroTimer = _agroDuration;
+            ClearData("attackHit");
+            ClearData("agro");
+            ClearData("attacking");
+            state = NodeState.SUCCESS;
+            return state;
+        }
+        if (_agroTimer <= 0)
+        {
+            _agroTimer = _agroDuration;
+            ClearData("agro");
+            ClearData("attacking");
+            state = NodeState.SUCCESS;
+            return state;
+        }
+        else
+        {          
+            _agroTimer -= Time.deltaTime;
+        }
+
         ChooseDirection();
 
-        //Finds how closely the bear's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
+        //Finds how closely the rabbit's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
         _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
 
-        //Moves bear in the desired direction (with a speed cap)
+        //Moves rabbit in the desired direction (with a speed cap)
         if (_enemyRB.velocity.magnitude > _maxSpeed)
         {
-            //Keep moving bear at max speed
+            //Keep moving rabbit at max speed
             _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
         }
         else
         {
-            //Accelerate bear when not at max speed
+            //Accelerate rabbit when not at max speed
             _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         }
         state = NodeState.SUCCESS;
@@ -70,7 +102,7 @@ public class BearAgroMovement : Node
     {
         float[] playerWeights = CalculatePlayerWeights();
         float[] obstacleWeights = (float[])GetData("obstacles");
-        float[] finalWeights    = new float[8];
+        float[] finalWeights = new float[8];
         //Substracts the interest weights by the danger weights to get the final weights
         for (int i = 0; i < playerWeights.Length; i++)
         {
@@ -117,7 +149,7 @@ public class BearAgroMovement : Node
                 else
                 {
                     target = breadcrumbs[0];
-                }               
+                }
             }
         }
 
@@ -130,9 +162,9 @@ public class BearAgroMovement : Node
         for (int i = 0; i < playerWeights.Length; i++)
         {
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
-            //Favors directions the bear is already facing
+            //Favors directions the rabbit is already facing
             float dot2 = Vector3.Dot(_enemyTF.forward, Directions.eightDirections[i]);
-            dot += Mathf.Clamp(dot2, 0, 0.2f);
+            //dot += Mathf.Clamp(dot2, 0, 0.2f);
             float weightToAdd = Mathf.Clamp01(dot);
             if (weightToAdd > playerWeights[i])
             {
