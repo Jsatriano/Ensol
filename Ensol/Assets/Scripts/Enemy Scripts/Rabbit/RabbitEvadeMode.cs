@@ -32,8 +32,6 @@ public class RabbitEvadeMode : Node
     {
         ChooseDirection();
 
-        SetData("Evade", true);
-
         //Makes the rabbit move slower the less it is facing the direction it wants to move
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;

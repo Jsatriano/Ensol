@@ -36,7 +36,6 @@ public class RabbitAgroMode : Node
 
     public override NodeState Evaluate()
     {
-        SetData("Aggro", true);
         SetData("attacking", true);
 
         SetData("agro", true);
