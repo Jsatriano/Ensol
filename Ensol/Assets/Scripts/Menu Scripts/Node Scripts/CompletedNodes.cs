@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CompletedNodes : MonoBehaviour
 {
-    public static string prevNode = "";
+    public static int prevNode = 999;
 
     public static bool cabinNode, deerNode, riverNode, gateNode, riverControlNode,
                 bearNode, brokenMachineNode, securityTowerNode, birdNode,
@@ -160,7 +160,137 @@ public class CompletedNodes : MonoBehaviour
             mapScenery[10].SetActive(true);
 
         }
+        /* 
+    ------  KEY  ------
+    mapButton[0] = cabin
+    mapButton[1] = deer
+    mapButton[2] = river
+    mapButton[3] = gate
+    mapButton[4] = river control
+    mapButton[5] = bear
+    mapButton[6] = broken machine
+    mapButton[7] = security tower
+    mapButton[8] = bird
+    mapButton[9] = power grid
+    mapButton[10] = metal field
+    mapButton[11] = computer
+    */
 
+        // ----------- CHECK WHAT NODE WE ARE AT, AND WHERE WE CAN GO -------------
+        // no node yet visited
+        if(prevNode == 999)
+        {
+            UninteractAll();
+            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+        }
+        // last at cabin
+        else if(prevNode == 0)
+        {
+            UninteractAll();
+            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+            mapButton[1].GetComponent<Button>().interactable = true; //deer
+            mapButton[3].GetComponent<Button>().interactable = true; //gate
+        }
+        // last at deer
+        else if(prevNode == 1)
+        {
+            UninteractAll();
+            mapButton[1].GetComponent<Button>().interactable = true; //deer
+            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+            mapButton[2].GetComponent<Button>().interactable = true; //river
+        }
+        // last at river
+        else if(prevNode == 2)
+        {
+            UninteractAll();
+            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[1].GetComponent<Button>().interactable = true; //deer
+            mapButton[5].GetComponent<Button>().interactable = true; //bear
+            mapButton[8].GetComponent<Button>().interactable = true; //bird
+        }
+        // last at gate
+        else if(prevNode == 3)
+        {
+            UninteractAll();
+            mapButton[3].GetComponent<Button>().interactable = true; //gate
+            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+            mapButton[4].GetComponent<Button>().interactable = true; //river control
+        }
+        // last at river control
+        else if(prevNode == 4)
+        {
+            UninteractAll();
+            mapButton[4].GetComponent<Button>().interactable = true; //river control
+            mapButton[3].GetComponent<Button>().interactable = true; //gate
+            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+        }
+        // last at bear
+        else if(prevNode == 5)
+        {
+            UninteractAll();
+            mapButton[5].GetComponent<Button>().interactable = true; //bear
+            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+        }
+        // last at broken machine
+        else if(prevNode == 6)
+        {
+            UninteractAll();
+            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[5].GetComponent<Button>().interactable = true; //bear
+            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+        }
+        // last at security tower
+        else if(prevNode == 7)
+        {
+            UninteractAll();
+            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[4].GetComponent<Button>().interactable = true; //river control
+            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+        }
+        // last at bird
+        else if(prevNode == 8)
+        {
+            UninteractAll();
+            mapButton[8].GetComponent<Button>().interactable = true; //bird
+            mapButton[2].GetComponent<Button>().interactable = true; //river
+        }
+        // last at power grid
+        else if(prevNode == 9)
+        {
+            UninteractAll();
+            mapButton[9].GetComponent<Button>().interactable = true; //power grid
+            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+        }
+        // last at metal field
+        else if(prevNode == 10)
+        {
+            UninteractAll();
+            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            if(computerNode)
+            {
+                mapButton[11].GetComponent<Button>().interactable = true;//computer
+            }
+        }
+        // last at computer
+        else if(prevNode == 11)
+        {
+            UninteractAll();
+            mapButton[11].GetComponent<Button>().interactable = true;//computer
+            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+        }
+        
     
+    }
+
+    // resets interactable buttons
+    private void UninteractAll()
+    {
+        foreach (GameObject button in mapButton)
+        {
+            button.GetComponent<Button>().interactable = false;
+        }
     }
 }
