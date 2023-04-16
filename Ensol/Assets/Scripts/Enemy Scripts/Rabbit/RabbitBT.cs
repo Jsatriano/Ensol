@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using BehaviorTree;
 
 public class RabbitBT : BT
@@ -36,4 +37,21 @@ public class RabbitBT : BT
         });
         return root;
     }
+
+    /*
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying && player != null && root.GetData("prevWeights") != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(player.transform.position, rabbitStats.evadeDistance);
+            float[] pweights = (float[])root.GetData("prevWeights");
+            Gizmos.color = Color.red;
+            for (int i = 0; i < pweights.Length; i++)
+            {
+                Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pweights[i] * 3);
+            }
+        }
+    }
+    */
 }

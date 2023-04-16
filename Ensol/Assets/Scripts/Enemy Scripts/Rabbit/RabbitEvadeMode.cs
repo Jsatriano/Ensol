@@ -98,19 +98,35 @@ public class RabbitEvadeMode : Node
         float[] playerWeights = new float[8];
         _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
         float distanceToPlayer = _dirToPlayer.magnitude;
+        float distanceOffset = _idealDistance - distanceToPlayer;
         _dirToPlayer = _dirToPlayer.normalized;
 
         //Calculates a weight for all 8 directions based on how close it is to being perpindicular to player.
         //Results in the enemy circling the player instead of chasing them
         for (int i = 0; i < playerWeights.Length; i++)
         {
+            //Modifying weight based on how perpindicular it is
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
-            float weightToAdd = 1 - (Mathf.Abs(dot) * 0.9f);
+            float weightToAdd = 1 - Mathf.Clamp01((Mathf.Abs(dot) + Mathf.Clamp01(Mathf.Abs(distanceOffset * 0.25f))) * 0.9f);
             weightToAdd = Mathf.Clamp(weightToAdd, 0.3f, 1);
+
+            if (Mathf.Abs(distanceOffset) >= 2)
+            {
+                if (distanceOffset >= 0)
+                {
+                    weightToAdd += Mathf.Clamp01(dot * -1 * (distanceOffset * 0.25f)) * 0.9f;
+                }
+                else
+                {
+                    weightToAdd += Mathf.Clamp01(dot * Mathf.Abs(distanceOffset * 0.25f)) * 0.9f;
+                }
+            }
+            //Modifying weight based on distance           
+            weightToAdd = Mathf.Clamp01(weightToAdd);
             if (weightToAdd > playerWeights[i])
             {
                 playerWeights[i] = weightToAdd;
-            }
+            }          
         }
         //SetData("playerWeights", playerWeights);
         float[] obstacleWeights = (float[])GetData("obstacles");
