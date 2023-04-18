@@ -9,6 +9,8 @@ public class SceneSwitch : MonoBehaviour
 {
     // Harsha
     public static GameObject blackOutSquare {get; private set;}
+    public bool Entrance = false;
+    public static bool exitFrom = false;
 
     public bool GameFinished = false;
 
@@ -22,6 +24,14 @@ public class SceneSwitch : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            if (Entrance == true) 
+            {
+                exitFrom = true;
+            }
+            else 
+            {
+                exitFrom = false;
+            }
             StartCoroutine(FadeBlackOutSquare()); 
         }
     }

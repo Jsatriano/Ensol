@@ -39,11 +39,12 @@ public class _00CabinNode : MonoBehaviour
     [SerializeField] private GameObject broom;   
     [HideInInspector] public GameObject[] players = null;
     private PlayerCombatController combatController = null;
-
+    
 
     private void Start()
     {
         CompletedNodes.prevNode = 0;
+        CompletedNodes.lNode = 0;
 
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)

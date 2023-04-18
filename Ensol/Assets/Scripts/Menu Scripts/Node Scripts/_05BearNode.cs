@@ -9,6 +9,15 @@ public class _05BearNode : MonoBehaviour
 
     private void Start()
     {
+        if (CompletedNodes.lNode == 4)
+        {
+            SpawnPoint.First = true;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+        CompletedNodes.lNode = 5;
         CompletedNodes.prevNode = 5;
     }
 

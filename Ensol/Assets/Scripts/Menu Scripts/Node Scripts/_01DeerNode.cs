@@ -34,8 +34,27 @@ public class _01DeerNode : MonoBehaviour
     [Header("Other Variables")]
     public GameObject transferCube;
 
+    private void Awake() 
+    {
+        print("lnode is " + CompletedNodes.lNode);
+        if (CompletedNodes.lNode == 0)
+        {
+            SpawnPoint.First = true;
+        }
+        else if (CompletedNodes.lNode == 2)
+        {
+            SpawnPoint.First = false;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+        CompletedNodes.lNode = 1;
+    }
+
     private void Start()
     {
+        
         CompletedNodes.prevNode = 1;
 
         //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
