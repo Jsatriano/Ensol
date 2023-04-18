@@ -17,8 +17,28 @@ public class _02RiverNode : MonoBehaviour
     public GameObject water;
     public GameObject[] waterBounds;
 
+    private void Awake() 
+    {
+        print("lnode is " + CompletedNodes.lNode);
+        if (CompletedNodes.lNode == 1)
+        {
+            SpawnPoint.First = true;
+        }
+        else if (CompletedNodes.lNode == 5 || CompletedNodes.lNode == 8)
+        {
+            SpawnPoint.First = false;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+            print(SpawnPoint.First);
+        }
+        CompletedNodes.lNode = 2;
+    }
+
     private void Start()
     {
+        
         CompletedNodes.prevNode = 2;
     }
 
