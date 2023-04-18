@@ -9,6 +9,11 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject resumeButton;
+    public GameObject playtestMenu;
+    public bool amInPlaytestScene = false;
+    public GameObject[] EnemyPrefabs;
+
+
 
     private void Start()
     {
@@ -27,15 +32,24 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseUnpause()
     {
-        if(!pauseMenu.activeInHierarchy)
+        if(!pauseMenu.activeInHierarchy && !playtestMenu.activeInHierarchy)
         {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0f;
+            if(amInPlaytestScene) {
+                playtestMenu.SetActive(true);
+                Time.timeScale = 0f;
+                print("enabled playtest scene");
+            }
+            else {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
         else
         {
+            playtestMenu.SetActive(false);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
+            print("it should be unpaused now");
         }
     }
 
@@ -43,11 +57,37 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName:"MenuScene");
+        amInPlaytestScene = false;
     }
 
     public void ReturnToNodeSelect() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName:"MapScene");
+    }
+
+    public void EnterPlaytestMenu() {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName: "PlaytestingScene");
+        amInPlaytestScene = true;
+
+        PlayerData.hasBroom = true;
+        PlayerData.hasHeavyAttack = true;
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.diedToCrackDeer = true;
+        PlayerData.hasHeavyAttack = true;
+    }
+
+    //Playtesting menu functions
+    public void ToggleHeavyAttack(bool toggle) {
+        PlayerData.hasHeavyAttack = toggle;
+    }
+
+    public void ToggleThrowAttack(bool toggle) {
+        PlayerData.hasThrowUpgrade = toggle;
+    }
+
+    public void ToggleShield(bool toggle) {
+        PlayerData.hasShield = toggle;
     }
 
 }

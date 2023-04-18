@@ -195,7 +195,7 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         //Activate Shield- Elizabeth
-        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2)) {
+        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2) && PlayerData.hasShield) {
             shieldCanActivate = false; 
             shieldIsActive = true;
             shieldCurrHealth = shieldMaxHealth;
@@ -251,7 +251,7 @@ public class PlayerCombatController : MonoBehaviour
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
             && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
-            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1)) // Harsha and Justin and Elizabeth
+            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1) && PlayerData.hasHeavyAttack) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
             PlayerData.heavyAttacks += 1;
