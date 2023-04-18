@@ -6,7 +6,6 @@ public static class PlayerData
 {
     //Weapon Upgrades
     public static bool hasBroom = false;
-    public static bool hasHeavyAttack = true;
     public static bool hasSolarUpgrade = false;
     public static bool hasThrowUpgrade = false;
     public static bool diedToCrackDeer = false;

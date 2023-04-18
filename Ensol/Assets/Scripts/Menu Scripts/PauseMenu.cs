@@ -11,14 +11,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject resumeButton;
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
-    public GameObject[] EnemyPrefabs;
-
-
+    public GameObject[] enemyPrefabs;
+    public PlayerCombatController combatController;
+    public static bool isPaused;
+    public Transform enemySpawnPoint;
 
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
+        isPaused = false;
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
@@ -34,10 +37,10 @@ public class PauseMenu : MonoBehaviour
     {
         if(!pauseMenu.activeInHierarchy && !playtestMenu.activeInHierarchy)
         {
+            isPaused = true;
             if(amInPlaytestScene) {
                 playtestMenu.SetActive(true);
                 Time.timeScale = 0f;
-                print("enabled playtest scene");
             }
             else {
                 pauseMenu.SetActive(true);
@@ -46,10 +49,10 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            isPaused = false;
             playtestMenu.SetActive(false);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
-            print("it should be unpaused now");
         }
     }
 
@@ -68,26 +71,76 @@ public class PauseMenu : MonoBehaviour
     public void EnterPlaytestMenu() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName: "PlaytestingScene");
+        InitializePlatestVars();
+    }
+
+    public void InitializePlatestVars()
+    {
         amInPlaytestScene = true;
 
         PlayerData.hasBroom = true;
-        PlayerData.hasHeavyAttack = true;
         PlayerData.hasSolarUpgrade = true;
-        PlayerData.diedToCrackDeer = true;
-        PlayerData.hasHeavyAttack = true;
+        PlayerData.hasThrowUpgrade = true;
+        PlayerData.hasShield = true;
+        PlayerData.currentlyHasBroom = true;
+        PlayerData.currentlyHasSolar = true;
     }
 
     //Playtesting menu functions
     public void ToggleHeavyAttack(bool toggle) {
-        PlayerData.hasHeavyAttack = toggle;
+        if (!PlayerData.hasSolarUpgrade)
+        {
+            combatController.TestPickedUpSolarUpgrade();
+        }
+        else
+        {
+            combatController.RemoveSolarUpgrade();
+        }     
     }
 
     public void ToggleThrowAttack(bool toggle) {
-        PlayerData.hasThrowUpgrade = toggle;
+        if (!PlayerData.hasThrowUpgrade)
+        {
+            combatController.PickedUpThrowUpgrade();
+        }
+        else
+        {        
+            combatController.RemoveThrowUpgrade();
+        }
     }
 
     public void ToggleShield(bool toggle) {
-        PlayerData.hasShield = toggle;
+        if (PlayerData.hasShield)
+        {
+            PlayerData.hasShield = false;
+        }
+        else
+        {
+            PlayerData.hasShield = true;
+        }
+        
+    }
+
+    public void SpawnDeer()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Deer")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
+
+    public void SpawnBear()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Bear")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
     }
 
 }
