@@ -53,7 +53,7 @@ public class CabinDoor : MonoBehaviour
                     // opens door
                     if(opened == false)
                     {
-                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envFenceGateOpen, this.transform.position);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envCabinDoorOpen, this.transform.position);
                         opened = true;
                     }
                     doorController.OpenDoor();
