@@ -35,7 +35,8 @@ public class RabbitAnimation : MonoBehaviour
                 //Exits idle once rabbit has seen player
                 if (playerTF != null)
                 {
-                    animController.SetTrigger("Walking");
+                    animController.SetBool("Sitting", false);
+                    animController.SetBool("Leaping", true);
                     state = State.LEAPING;
                 }
                 break;
@@ -44,8 +45,9 @@ public class RabbitAnimation : MonoBehaviour
                 //Checks if rabbit has died
                 if (!rabbitBT.isAlive)
                 {
+                    animController.SetBool("Leaping", false);
+                    animController.SetBool("Dying", true);
                     state = State.DYING;
-                    animController.SetTrigger("Dying");
                     return;
                 }
                 break;
@@ -62,8 +64,14 @@ public class RabbitAnimation : MonoBehaviour
         rabbitBT.root.SetData("feetOnGround", true);
     }
 
+    //Called when the rabbits hind legs leave the ground. Signals to stop accelerating the rabbit
     private void StopPushingOffGround()
     {
         rabbitBT.root.SetData("feetOnGround", false);
+    }
+
+    private void ApplyLandingDrag()
+    {
+        rabbitBT.root.SetData("applyLandingDrag", true);
     }
 }

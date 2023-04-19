@@ -9,10 +9,13 @@ public class RabbitStats : EnemyStats
     public float agroDuration;  //How long the rabbit stays in the agro behavior
     public SphereCollider attackHitbox;
     public float agroRange;
+    public float aggroLeaps;
 
     [Header("Evade Behavior")]
     public float evadeDuration; //How long the rabbit stays in the evade behavior
     public float evadeDistance; //How far away from the player the rabbit tries to stay when evading
+    public float landingDrag;   //The drag to be applied when the rabbit is landing from a leap
+    public float normalDrag;    //The rabbit's normal drag
 
     [Header("Other Scripts")]
     [SerializeField] private RabbitBT rabbitBT;
@@ -27,6 +30,7 @@ public class RabbitStats : EnemyStats
         nameID = "EnemyRabbit";
         numID = 3; //placeholder, idk if we even want this
         rabbitBT.isAlive = true;
+        enemyRB.drag = normalDrag;
     }
 
     protected override void Update()

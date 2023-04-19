@@ -10,13 +10,15 @@ public class RabbitEvadeMode : Node
     private Rigidbody _enemyRB;   //Enemy rigidbody
     private float _acceleration;  //How fast the rabbit gets to max speed
     private float _maxSpeed;      //Speed of the enemy
+    private float _landingDrag;
+    private float _normalDrag;
     private float _idealDistance; //The ideal distance the rabbit tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The rabbit's direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
-    public RabbitEvadeMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed)
+    public RabbitEvadeMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed, float landingDrag, float normalDrag)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -26,11 +28,19 @@ public class RabbitEvadeMode : Node
         _idealDistance = idealDistance;
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
+        _landingDrag = landingDrag;
+        _normalDrag = normalDrag;
     }
 
     public override NodeState Evaluate()
     {
         ChooseDirection();
+
+        if (GetData("applyLandingDrag") != null)
+        {
+            _enemyRB.drag = _landingDrag;
+            ClearData("applyLandingDrag");
+        }
 
         //Makes sure the var for feet being on ground is set
         if (GetData("feetOnGround") == null)
@@ -45,6 +55,7 @@ public class RabbitEvadeMode : Node
             return state;
         }
 
+        _enemyRB.drag = _normalDrag;
         //Makes the rabbit move slower the less it is facing the direction it wants to move
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;

@@ -17,9 +17,13 @@ public class RabbitAgroMode : Node
     private SphereCollider _hitbox;  //Attack hitbox
     private float _agroDuration;
     private float _agroTimer;
+    private float _landingDrag;
+    private float _normalDrag;
+    private float _aggroLeaps;
+    private float _leapCounter;
 
     public RabbitAgroMode(SphereCollider hitbox, float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
-                          LayerMask envLayerMask, float agroDuration)
+                          LayerMask envLayerMask, float agroDuration, float landingDrag, float normalDrag, float aggroLeaps)
     {
         _hitbox = hitbox;
         _playerTF = playerTF;
@@ -32,6 +36,10 @@ public class RabbitAgroMode : Node
         _envLayerMask = envLayerMask;
         _agroDuration = agroDuration;
         _agroTimer = agroDuration;
+        _aggroLeaps = aggroLeaps;
+        _leapCounter = 0;
+        _landingDrag = landingDrag;
+        _normalDrag = normalDrag;
     }
 
     public override NodeState Evaluate()
@@ -48,20 +56,25 @@ public class RabbitAgroMode : Node
             state = NodeState.SUCCESS;
             return state;
         }
-        if (_agroTimer <= 0)
+
+        if (_leapCounter >= _aggroLeaps)
         {
             _agroTimer = _agroDuration;
+            _leapCounter = 0;
             ClearData("aggro");
             ClearData("attacking");
             state = NodeState.SUCCESS;
             return state;
         }
-        else
-        {          
-            _agroTimer -= Time.deltaTime;
-        }
 
         ChooseDirection();
+
+        if (GetData("applyLandingDrag") != null)
+        {
+            _enemyRB.drag = _landingDrag;
+            _leapCounter += 1;
+            ClearData("applyLandingDrag");
+        }
 
         //Makes sure the var for feet being on ground is set
         if (GetData("feetOnGround") == null)
@@ -76,6 +89,7 @@ public class RabbitAgroMode : Node
             return state;
         }
 
+        _enemyRB.drag = _normalDrag;
         //Finds how closely the rabbit's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
