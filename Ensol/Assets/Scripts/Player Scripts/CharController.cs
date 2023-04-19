@@ -110,6 +110,10 @@ public class CharController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         //Runs Move() in fixedUpdate so that physics are consistent
         if (state == State.MOVING)
         {
@@ -121,6 +125,10 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         // print(_rb.drag);
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));

@@ -9,6 +9,7 @@ public static class PlayerData
     public static bool hasSolarUpgrade = false;
     public static bool hasThrowUpgrade = false;
     public static bool diedToCrackDeer = false;
+    public static bool hasShield = false;
 
     //Player Death Stuff
     public static bool currentlyHasBroom = false;
