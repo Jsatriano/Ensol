@@ -29,7 +29,7 @@ public class RabbitBT : BT
             
             new Sequence(new List<Node>
             {
-                new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "agro", rabbitStats.environmentMask, 3),
+                new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
                 new RabbitAgroMode(rabbitStats.attackHitbox, rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, 
                                    rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, rabbitStats.environmentMask, rabbitStats.agroDuration)

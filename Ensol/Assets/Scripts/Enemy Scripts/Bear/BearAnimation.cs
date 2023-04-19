@@ -21,7 +21,7 @@ public class BearAnimation : MonoBehaviour
 
     private Vector3 previousDirection;
     private Vector3 _dirToPlayer;
-    State state;
+    private State state;
 
     void Start()
     {
@@ -99,8 +99,10 @@ public class BearAnimation : MonoBehaviour
         }
     }
 
+    /*
     private void LateUpdate()
     {
+        
         //Rotates bear's head towards player when walking around
         if (state == State.WALKING)
         {
@@ -122,9 +124,10 @@ public class BearAnimation : MonoBehaviour
             //headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;
         }
         previousDirection = headTF.forward;
+        
     }
 
-    /*
+    
     private void OnDrawGizmos()
     {
         if (Application.isPlaying && bearBT.root.GetData("player") != null)

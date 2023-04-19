@@ -38,12 +38,12 @@ public class RabbitAgroMode : Node
     {
         SetData("attacking", true);
 
-        SetData("agro", true);
+        SetData("aggro", true);
         if (GetData("attackHit") != null)
         {        
             _agroTimer = _agroDuration;
             ClearData("attackHit");
-            ClearData("agro");
+            ClearData("aggro");
             ClearData("attacking");
             state = NodeState.SUCCESS;
             return state;
@@ -51,7 +51,7 @@ public class RabbitAgroMode : Node
         if (_agroTimer <= 0)
         {
             _agroTimer = _agroDuration;
-            ClearData("agro");
+            ClearData("aggro");
             ClearData("attacking");
             state = NodeState.SUCCESS;
             return state;
@@ -62,6 +62,19 @@ public class RabbitAgroMode : Node
         }
 
         ChooseDirection();
+
+        //Makes sure the var for feet being on ground is set
+        if (GetData("feetOnGround") == null)
+        {
+            SetData("feetOnGround", false);
+        }
+
+        //Doesn't accelerate or rotate rabbit while it is in the air
+        if (!(bool)GetData("feetOnGround"))
+        {
+            state = NodeState.SUCCESS;
+            return state;
+        }
 
         //Finds how closely the rabbit's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
@@ -154,7 +167,6 @@ public class RabbitAgroMode : Node
         }
 
         _dirToPlayer = new Vector3(target.x - _enemyTF.position.x, 0, target.z - _enemyTF.position.z);
-
         float distanceToPlayer = _dirToPlayer.magnitude;
         _dirToPlayer = _dirToPlayer.normalized;
 
@@ -164,7 +176,7 @@ public class RabbitAgroMode : Node
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
             //Favors directions the rabbit is already facing
             float dot2 = Vector3.Dot(_enemyTF.forward, Directions.eightDirections[i]);
-            //dot += Mathf.Clamp(dot2, 0, 0.2f);
+            dot += Mathf.Clamp(dot2, 0, 0.2f);
             float weightToAdd = Mathf.Clamp01(dot);
             if (weightToAdd > playerWeights[i])
             {
