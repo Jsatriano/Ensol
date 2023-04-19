@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30294329469827714}
   m_LocalRotation: {x: -0, y: -0.9999839, z: -0, w: 0.005675724}
-  m_LocalPosition: {x: 11.66, y: 0.0001, z: -8.93}
+  m_LocalPosition: {x: 11.66, y: 0.01, z: -8.93}
   m_LocalScale: {x: 3.7312028, y: 3.7312028, z: 3.7312028}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3719,6 +3719,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6493366362134267582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029293668112981280}
+  - component: {fileID: 6935038063187049541}
+  m_Layer: 7
+  m_Name: ExitSpawnPoint
+  m_TagString: Spawnpoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1029293668112981280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493366362134267582}
+  m_LocalRotation: {x: 0, y: 0.967555, z: 0, w: 0.25266057}
+  m_LocalPosition: {x: 18.63, y: 0, z: -7.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8727326795591620504}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 150.73, z: 0}
+--- !u!114 &6935038063187049541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493366362134267582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507c67c82a3d0cb4097ff9d5e1d49058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnpoint1: {fileID: 6557886616811039446}
+  spawnpoint2: {fileID: 6493366362134267582}
 --- !u!1 &6557886616811039446
 GameObject:
   m_ObjectHideFlags: 0
@@ -3729,7 +3775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408275975454252627}
   m_Layer: 7
-  m_Name: SpawnPoint
+  m_Name: RecloneSpawnPoint
   m_TagString: Spawnpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5062,6 +5108,7 @@ Transform:
   - {fileID: 6988621330209798215}
   - {fileID: 1109817193056737923}
   - {fileID: 3984790135457583005}
+  - {fileID: 1029293668112981280}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6641,6 +6688,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
+    - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: Entrance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_RootOrder
       value: 16

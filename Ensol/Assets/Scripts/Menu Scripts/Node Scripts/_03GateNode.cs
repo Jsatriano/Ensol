@@ -9,6 +9,20 @@ public class _03GateNode : MonoBehaviour
 
     private void Start()
     {
+        if (CompletedNodes.lNode == 0)
+        {
+            SpawnPoint.First = true;
+        }
+        else if (CompletedNodes.lNode == 4)
+        {
+            SpawnPoint.First = false;
+        }
+        else 
+        {
+            print("first is being set from exitfrom");
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+        CompletedNodes.lNode = 3;
         CompletedNodes.prevNode = 3;
     }
 
