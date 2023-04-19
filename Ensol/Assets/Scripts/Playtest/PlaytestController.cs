@@ -10,10 +10,4 @@ public class PlaytestController : MonoBehaviour
     {
         pauseScript.InitializePlatestVars();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
