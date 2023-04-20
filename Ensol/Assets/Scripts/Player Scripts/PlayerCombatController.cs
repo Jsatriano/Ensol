@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -135,6 +136,10 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         if (activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
@@ -195,7 +200,7 @@ public class PlayerCombatController : MonoBehaviour
         }
 
         //Activate Shield- Elizabeth
-        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2)) {
+        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2) && PlayerData.hasShield) {
             shieldCanActivate = false; 
             shieldIsActive = true;
             shieldCurrHealth = shieldMaxHealth;
@@ -269,6 +274,11 @@ public class PlayerCombatController : MonoBehaviour
         if(currHP <= 0) 
         {
             //print("Player is dead");
+            if (SceneManager.GetActiveScene().name == "PlaytestingScene")
+            {
+                SceneManager.LoadScene("PlaytestingScene");
+                return;
+            }
             charController.state = CharController.State.DEAD;
             PlayerData.currentlyHasBroom = false;
             PlayerData.currentlyHasSolar = false;
@@ -337,6 +347,42 @@ public class PlayerCombatController : MonoBehaviour
         PlayerData.hasThrowUpgrade = true;
         PlayerData.currentlyHasSolar = true;
         PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void TestPickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void RemoveThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = false;
+    }
+
+    public void RemoveSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = false;
+        PlayerData.currentlyHasSolar = false;
         hasWeapon = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);

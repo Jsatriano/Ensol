@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4992628140411063998}
   m_Layer: 6
   m_Name: SwipeAttack2
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bearBT: {fileID: 3805819858905312370}
-  attackDamage: 0
   coll: {fileID: 6031588405759380040}
   tellBT: 1
   swipeAttack: 1
@@ -299,7 +298,7 @@ GameObject:
   - component: {fileID: 6474433939522063283}
   m_Layer: 6
   m_Name: SwipeAttack1
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -345,7 +344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bearBT: {fileID: 3805819858905312370}
-  attackDamage: 0
   coll: {fileID: 2256964044568320167}
   tellBT: 0
   swipeAttack: 1
@@ -443,7 +441,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   players: []
-  renderer: {fileID: 2397837217801286584}
+  enemyRenderer: {fileID: 2397837217801286584}
   swipeDamage: 8
   swipeCooldown: 1.5
   swipeRange: 5.5
@@ -452,7 +450,7 @@ MonoBehaviour:
   swipeHitbox1: {fileID: 2256964044568320167}
   swipeHitbox2: {fileID: 6031588405759380040}
   junkDamage: 5
-  junkCooldown: 100
+  junkCooldown: 2.5
   junkRange: 25
   junkRotation: 6
   junkMaxSpeed: 20

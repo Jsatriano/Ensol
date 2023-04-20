@@ -16,7 +16,7 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if(scene.name == "SampleScene" && charController.state != CharController.State.PAUSED)
+        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && charController.state != CharController.State.PAUSED)
         {
             Cursor.visible = false;
         }

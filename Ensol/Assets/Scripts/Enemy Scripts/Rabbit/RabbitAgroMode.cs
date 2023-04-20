@@ -17,9 +17,13 @@ public class RabbitAgroMode : Node
     private SphereCollider _hitbox;  //Attack hitbox
     private float _agroDuration;
     private float _agroTimer;
+    private float _landingDrag;
+    private float _normalDrag;
+    private float _aggroLeaps;
+    private float _leapCounter;
 
     public RabbitAgroMode(SphereCollider hitbox, float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
-                          LayerMask envLayerMask, float agroDuration)
+                          LayerMask envLayerMask, float agroDuration, float landingDrag, float normalDrag, float aggroLeaps)
     {
         _hitbox = hitbox;
         _playerTF = playerTF;
@@ -32,39 +36,78 @@ public class RabbitAgroMode : Node
         _envLayerMask = envLayerMask;
         _agroDuration = agroDuration;
         _agroTimer = agroDuration;
+        _aggroLeaps = aggroLeaps;
+        _leapCounter = 0;
+        _landingDrag = landingDrag;
+        _normalDrag = normalDrag;
     }
 
     public override NodeState Evaluate()
     {
         SetData("attacking", true);
 
-        SetData("agro", true);
+        SetData("AGGRO", true);
+
+        SetData("aggro", true);
+        //Exits aggro mode when the rabbit hits the player
         if (GetData("attackHit") != null)
-        {        
-            _agroTimer = _agroDuration;
-            ClearData("attackHit");
-            ClearData("agro");
-            ClearData("attacking");
-            state = NodeState.SUCCESS;
-            return state;
-        }
-        if (_agroTimer <= 0)
         {
-            _agroTimer = _agroDuration;
-            ClearData("agro");
+            _leapCounter = 0;
+            ClearData("attackHit");
+            ClearData("aggro");
             ClearData("attacking");
             state = NodeState.SUCCESS;
             return state;
         }
-        else
-        {          
-            _agroTimer -= Time.deltaTime;
+
+        //Exits aggro mode when the rabbit has leaped a set amount of times
+        if (_leapCounter >= _aggroLeaps)
+        {
+            _leapCounter = 0;
+            ClearData("aggro");
+            ClearData("attacking");
+            state = NodeState.SUCCESS;
+            return state;
         }
 
         ChooseDirection();
 
+        //Increments the leap counter when signaled by an animation event
+        if (GetData("incrementLeaps") != null)
+        {
+            _leapCounter++;
+            ClearData("incrementLeaps");
+        }
+
+        float speedDot;
+        //Applies landing drag when signaled by an animation event
+        if (GetData("applyLandingDrag") != null)
+        {
+            _enemyRB.drag = _landingDrag;
+
+            speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+            speedDot = (speedDot / 2) + 0.5f;
+            speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
+
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+        }
+
+        //Makes sure the var for feet being on ground is set
+        if (GetData("feetOnGround") == null)
+        {
+            SetData("feetOnGround", false);
+        }
+
+        //Doesn't accelerate or rotate rabbit while it is in the air
+        if (!(bool)GetData("feetOnGround"))
+        {
+            state = NodeState.SUCCESS;
+            return state;
+        }
+
+        _enemyRB.drag = _normalDrag;
         //Finds how closely the rabbit's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
-        float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+        speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
@@ -154,7 +197,6 @@ public class RabbitAgroMode : Node
         }
 
         _dirToPlayer = new Vector3(target.x - _enemyTF.position.x, 0, target.z - _enemyTF.position.z);
-
         float distanceToPlayer = _dirToPlayer.magnitude;
         _dirToPlayer = _dirToPlayer.normalized;
 
@@ -164,7 +206,7 @@ public class RabbitAgroMode : Node
             float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
             //Favors directions the rabbit is already facing
             float dot2 = Vector3.Dot(_enemyTF.forward, Directions.eightDirections[i]);
-            //dot += Mathf.Clamp(dot2, 0, 0.2f);
+            dot += Mathf.Clamp(dot2, 0, 0.2f);
             float weightToAdd = Mathf.Clamp01(dot);
             if (weightToAdd > playerWeights[i])
             {

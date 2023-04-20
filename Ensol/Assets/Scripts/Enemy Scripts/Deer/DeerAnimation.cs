@@ -108,7 +108,7 @@ public class DeerAnimation : MonoBehaviour
             case State.MOVING_FORWARD:
 
                 animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
-                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
+
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {

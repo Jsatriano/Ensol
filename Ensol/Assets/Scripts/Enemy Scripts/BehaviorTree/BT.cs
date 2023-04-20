@@ -36,6 +36,20 @@ namespace BehaviorTree
                 ManageBreadcrumbs();
                 root.Evaluate();
             }
+            
+            /*
+            if (root != null && root.GetData("AGGRO") != null)
+            {
+                root.ClearData("AGGRO");
+                print("AGGRO");
+            }
+            if (root != null && root.GetData("EVADE") != null)
+            {
+                root.ClearData("EVADE");
+                print("EVADE");
+            }
+            */
+            
         }
         protected abstract Node SetupTree();
 
@@ -62,6 +76,7 @@ namespace BehaviorTree
             }
         }
 
+        
 
 
         /*

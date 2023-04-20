@@ -33,7 +33,7 @@ public class EnemyStats : MonoBehaviour
     public LayerMask obstacleMask;     //The layer(s) that obstacles in the arena are on (includes other enemies)
     public LayerMask environmentMask;  //The layers the environment is on
     [HideInInspector] public GameObject[] players;
-    public Renderer renderer;
+    public Renderer enemyRenderer;
 
     private void Awake() {
         gameObject.tag = "Enemy";
@@ -58,14 +58,14 @@ public class EnemyStats : MonoBehaviour
         }
 
         if(currHP == 0) {
-            renderer.material.SetFloat("_Shader_Activation_Amount", 1.5f);
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", 1.5f);
         }
         else if(currHP == maxHP) {
-            renderer.material.SetFloat("_Shader_Activation_Amount", 0f);
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", 0f);
         }
         else if(currHP < maxHP) {
 
-            renderer.material.SetFloat("_Shader_Activation_Amount", Mathf.Max((1.0f-(currHP/maxHP))+ 0.2f, 0.8f));
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", Mathf.Max((1.0f-(currHP/maxHP))+ 0.2f, 0.8f));
         }
     }
 
