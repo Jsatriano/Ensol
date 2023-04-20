@@ -42,6 +42,7 @@ public class RabbitAnimation : MonoBehaviour
                 break;
 
             case State.LEAPING:
+                animController.SetFloat("AnimSpeed", 1);
                 //Checks if rabbit has died
                 if (!rabbitBT.isAlive)
                 {
@@ -62,6 +63,7 @@ public class RabbitAnimation : MonoBehaviour
     private void PushOffGround()
     {
         rabbitBT.root.SetData("feetOnGround", true);
+        rabbitBT.root.ClearData("applyLandingDrag");
     }
 
     //Called when the rabbits hind legs leave the ground. Signals to stop accelerating the rabbit
@@ -73,5 +75,10 @@ public class RabbitAnimation : MonoBehaviour
     private void ApplyLandingDrag()
     {
         rabbitBT.root.SetData("applyLandingDrag", true);
+    }
+
+    private void IncrementLeaps()
+    {
+        rabbitBT.root.SetData("incrementLeaps", true);
     }
 }

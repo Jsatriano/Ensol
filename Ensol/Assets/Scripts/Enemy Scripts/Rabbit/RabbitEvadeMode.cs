@@ -34,12 +34,26 @@ public class RabbitEvadeMode : Node
 
     public override NodeState Evaluate()
     {
+        SetData("EVADE", true);
+
         ChooseDirection();
 
+        float speedDot;
         if (GetData("applyLandingDrag") != null)
         {
             _enemyRB.drag = _landingDrag;
-            ClearData("applyLandingDrag");
+            //Makes the rabbit move slower the less it is facing the direction it wants to move
+            speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+            speedDot = (speedDot / 2) + 0.5f;
+            speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
+
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+        }
+
+        //Evade currently doesn't count leaps, so this is just making sure that aggro doesn't instantly count a leap when transferring to it
+        if (GetData("incrementLeaps") != null)
+        {
+            ClearData("incrementLeaps");
         }
 
         //Makes sure the var for feet being on ground is set
@@ -57,7 +71,7 @@ public class RabbitEvadeMode : Node
 
         _enemyRB.drag = _normalDrag;
         //Makes the rabbit move slower the less it is facing the direction it wants to move
-        float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+        speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 

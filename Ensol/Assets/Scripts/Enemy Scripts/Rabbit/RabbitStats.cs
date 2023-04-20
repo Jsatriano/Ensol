@@ -57,7 +57,7 @@ public class RabbitStats : EnemyStats
     {
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
-        //Turn off hitbox here
+        attackHitbox.enabled = false;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         //Play rabbit death sound here
 

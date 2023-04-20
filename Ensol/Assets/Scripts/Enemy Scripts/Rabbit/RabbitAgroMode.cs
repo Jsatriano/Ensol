@@ -46,10 +46,13 @@ public class RabbitAgroMode : Node
     {
         SetData("attacking", true);
 
+        SetData("AGGRO", true);
+
         SetData("aggro", true);
+        //Exits aggro mode when the rabbit hits the player
         if (GetData("attackHit") != null)
-        {        
-            _agroTimer = _agroDuration;
+        {
+            _leapCounter = 0;
             ClearData("attackHit");
             ClearData("aggro");
             ClearData("attacking");
@@ -57,9 +60,9 @@ public class RabbitAgroMode : Node
             return state;
         }
 
+        //Exits aggro mode when the rabbit has leaped a set amount of times
         if (_leapCounter >= _aggroLeaps)
         {
-            _agroTimer = _agroDuration;
             _leapCounter = 0;
             ClearData("aggro");
             ClearData("attacking");
@@ -69,11 +72,24 @@ public class RabbitAgroMode : Node
 
         ChooseDirection();
 
+        //Increments the leap counter when signaled by an animation event
+        if (GetData("incrementLeaps") != null)
+        {
+            _leapCounter++;
+            ClearData("incrementLeaps");
+        }
+
+        float speedDot;
+        //Applies landing drag when signaled by an animation event
         if (GetData("applyLandingDrag") != null)
         {
             _enemyRB.drag = _landingDrag;
-            _leapCounter += 1;
-            ClearData("applyLandingDrag");
+
+            speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+            speedDot = (speedDot / 2) + 0.5f;
+            speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
+
+            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
         }
 
         //Makes sure the var for feet being on ground is set
@@ -91,7 +107,7 @@ public class RabbitAgroMode : Node
 
         _enemyRB.drag = _normalDrag;
         //Finds how closely the rabbit's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
-        float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+        speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
