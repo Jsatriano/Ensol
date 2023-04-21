@@ -61,12 +61,12 @@ public class PlayerCombatController : MonoBehaviour
     [HideInInspector] public bool isCatching = false;
 
     [Header("Shield Variables")]
-    public float shieldDuration = 2f;
+    /*public float shieldDuration = 2f;
     public float shieldMaxHealth = 10f;
     private float shieldCurrHealth = 0f;
     public float shieldCooldown = 10f;
-    public bool shieldCanActivate = true;
-    private bool shieldIsActive = false;
+    public bool shieldCanActivate = true;*/
+    public bool shieldIsActive = false;
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -157,12 +157,7 @@ public class PlayerCombatController : MonoBehaviour
         }
         ManageVialShader();
 
-        if(shieldIsActive) {
-            if(shieldCurrHealth == 0) {
-                shieldIsActive = false;
-                shieldVisual.SetActive(false);
-            }
-        }
+        shieldVisual.SetActive(shieldIsActive);
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
@@ -199,6 +194,7 @@ public class PlayerCombatController : MonoBehaviour
             ResetLightAttackCombo();
         }
 
+        /* Shield ability disabled in favor of shield working as a pickup
         //Activate Shield- Elizabeth
         if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2) && PlayerData.hasShield) {
             shieldCanActivate = false; 
@@ -208,7 +204,7 @@ public class PlayerCombatController : MonoBehaviour
             StartCoroutine(ShieldCooldown());
             StartCoroutine(DisableShield());
             electricVials.RemoveVials(2);
-        }
+        }*/
 
         
 
@@ -256,7 +252,7 @@ public class PlayerCombatController : MonoBehaviour
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
             && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
-            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1)) // Harsha and Justin and Elizabeth
+            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(2)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
             PlayerData.heavyAttacks += 1;
@@ -266,7 +262,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isHeavyAttacking", true);
             
             // remove 1 electric vial
-            electricVials.RemoveVials(1);
+            electricVials.RemoveVials(2);
 
             //sfx
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
@@ -636,14 +632,9 @@ public class PlayerCombatController : MonoBehaviour
                 StartCoroutine(DeleteDamageVFX());
             }
             else{
-                shieldCurrHealth -= dmg;
-                if(shieldCurrHealth <= 0) {
-                    shieldIsActive = false;
-                    shieldVisual.SetActive(false);
-                    if(shieldCurrHealth < 0) {
-                        TakeDamage(Mathf.Abs(shieldCurrHealth), collider);
-                    }
-                }
+                print("Shield down");
+                shieldIsActive = false;
+                invulnTimer = Time.time;
             }
 
         }
@@ -674,7 +665,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.knockback = false;
     }
 
-    private IEnumerator ShieldCooldown() {
+  /*  private IEnumerator ShieldCooldown() {
         yield return new WaitForSeconds(shieldCooldown);
         shieldCanActivate = true;
     }
@@ -683,7 +674,7 @@ public class PlayerCombatController : MonoBehaviour
         yield return new WaitForSeconds(shieldDuration);
         shieldIsActive = false;
         shieldVisual.SetActive(false);
-    }
+    }*/
 
     private void ManageVialShader() {
         if(electricVials.currVial + 1 >= 3) {
