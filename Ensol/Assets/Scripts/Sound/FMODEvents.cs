@@ -47,6 +47,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference envCabinDoorOpen { get; private set; }
     [field: SerializeField] public EventReference envBroomBreak { get; private set; }
     [field: SerializeField] public EventReference envBroomPickup { get; private set; }
+    [field: SerializeField] public EventReference envLootPickup { get; private set; }
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }

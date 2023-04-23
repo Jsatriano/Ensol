@@ -29,6 +29,10 @@ public class Interaction : MonoBehaviour
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
                 }
+                if (collider.gameObject.name == "Weapon Pile")
+                {
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, this.transform.position);
+                }
             }
             else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
             {
