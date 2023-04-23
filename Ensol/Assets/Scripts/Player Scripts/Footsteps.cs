@@ -29,7 +29,13 @@ public class Footsteps : MonoBehaviour
         if (other.tag == "Floor" && footType == 1){
             //touchingGrass = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWalk, this.transform.position);
-        } else if (other.tag == "Floor" && footType == 2){
+        } 
+        else if (other.tag == "FloorWood" && footType == 1)
+        {
+            //touchingGrass = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.woodMove, this.transform.position);
+        }
+        else if (other.tag == "Floor" && footType == 2){
             //touchingGrass = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerMove, this.transform.position);
         } else if (other.tag == "Floor" && footType == 3){
