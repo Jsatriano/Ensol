@@ -64,6 +64,7 @@ public class RabbitAnimation : MonoBehaviour
     {
         rabbitBT.root.SetData("feetOnGround", true);
         rabbitBT.root.ClearData("applyLandingDrag");
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.rabbitMove, this.transform.position);
     }
 
     //Called when the rabbits hind legs leave the ground. Signals to stop accelerating the rabbit

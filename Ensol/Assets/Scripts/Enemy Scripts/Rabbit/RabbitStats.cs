@@ -58,8 +58,9 @@ public class RabbitStats : EnemyStats
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
         attackHitbox.enabled = false;
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         //Play rabbit death sound here
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.rabbitDeath, this.transform.position);
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 

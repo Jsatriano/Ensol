@@ -35,6 +35,11 @@ public class Footsteps : MonoBehaviour
             //touchingGrass = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.woodMove, this.transform.position);
         }
+        else if (other.tag == "FloorDirt" && footType == 1)
+        {
+            //touchingGrass = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.dirtMove, this.transform.position);
+        }
         else if (other.tag == "Floor" && footType == 2){
             //touchingGrass = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerMove, this.transform.position);
