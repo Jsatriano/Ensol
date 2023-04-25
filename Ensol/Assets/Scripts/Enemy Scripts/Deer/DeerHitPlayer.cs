@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeerHitPlayer : MonoBehaviour
 {
     public DeerBT deerBT;
-    public float attackDamage;
+    private float attackDamage;
     [SerializeField] private Collider coll;
     [SerializeField] private bool tellBT;
     [SerializeField] private bool swipeAttack;

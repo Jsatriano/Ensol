@@ -55,6 +55,10 @@ public class DeerStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
+        if (deerBT.root.GetData("player") == null)
+        {
+            deerBT.root.SetData("player", playerTF);
+        }
         //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
@@ -72,8 +76,14 @@ public class DeerStats : EnemyStats
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deerDeath, this.transform.position);
 
+        //Random chance for creating a shield drop on death
+        if (Random.Range(0f, 1f) < shieldDropChance)
+        {
+            Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+        }
+
         // tells door and gate scripts that this deer has died
-        if(buttonGateController != null)
+        if (buttonGateController != null)
         {
             buttonGateController.enemyKilled(thisDeer);
         }

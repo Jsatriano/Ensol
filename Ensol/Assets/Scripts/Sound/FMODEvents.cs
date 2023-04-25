@@ -19,6 +19,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerDeath { get; private set; }
     [field: SerializeField] public EventReference playerWalk { get; private set; }
     [field: SerializeField] public EventReference playerSpin { get; private set; }
+    [field: SerializeField] public EventReference playerShieldOn { get; private set; }
+    [field: SerializeField] public EventReference playerShieldBreak { get; private set; }
 
     [field: Header("Deer")]
     [field: SerializeField] public EventReference deerDeath { get; private set; }
@@ -26,6 +28,11 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deerMove { get; private set; }
     [field: SerializeField] public EventReference deerAlerted { get; private set; }
     [field: SerializeField] public EventReference deerGutted { get; private set; }
+
+    [field: Header("Bunny")]
+    [field: SerializeField] public EventReference bunnyMove { get; private set; }
+    [field: SerializeField] public EventReference bunnyAttack { get; private set; }
+    [field: SerializeField] public EventReference bunnyDeath { get; private set; }
 
     [field: Header("Bear")]
     [field: SerializeField] public EventReference bearDeath { get; private set; }
@@ -39,10 +46,17 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference minorCut { get; private set; }
     [field: SerializeField] public EventReference deathCut { get; private set; }
     [field: SerializeField] public EventReference envGateOpen { get; private set; }
+    [field: SerializeField] public EventReference envFenceGateOpen { get; private set; }
+    [field: SerializeField] public EventReference envCabinDoorOpen { get; private set; }
     [field: SerializeField] public EventReference envBroomBreak { get; private set; }
+    [field: SerializeField] public EventReference envBroomPickup { get; private set; }
+    [field: SerializeField] public EventReference envLootPickup { get; private set; }
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }
+    [field: SerializeField] public EventReference woodMove { get; private set; }
+    [field: SerializeField] public EventReference dirtMove { get; private set; }
+    [field: SerializeField] public EventReference healUp { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

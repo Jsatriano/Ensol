@@ -11,10 +11,11 @@ public class BearAgroMovement : Node
     private float _acceleration;  //How fast the bear gets to max speed
     private float _maxSpeed;      //Speed of the enemy
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
-    private Vector3 movingDir;   //The bears direction of movement
+    private Vector3 movingDir;    //The bears direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
+    private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
 
-    public BearAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed)
+    public BearAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -23,6 +24,7 @@ public class BearAgroMovement : Node
         _maxSpeed = maxSpeed / 10;
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
+        _envLayerMask = envLayerMask;
     }
 
     public override NodeState Evaluate()
@@ -37,10 +39,15 @@ public class BearAgroMovement : Node
         _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
 
         //Moves bear in the desired direction (with a speed cap)
-        _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         if (_enemyRB.velocity.magnitude > _maxSpeed)
         {
+            //Keep moving bear at max speed
             _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
+        }
+        else
+        {
+            //Accelerate bear when not at max speed
+            _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
         }
         state = NodeState.SUCCESS;
         return state;
@@ -61,9 +68,61 @@ public class BearAgroMovement : Node
 
     private float[] CalculateWeights()
     {
-        //Sets up array and calcuates the distance/direction to the player
+        float[] playerWeights = CalculatePlayerWeights();
+        float[] obstacleWeights = (float[])GetData("obstacles");
+        float[] finalWeights    = new float[8];
+        //Substracts the interest weights by the danger weights to get the final weights
+        for (int i = 0; i < playerWeights.Length; i++)
+        {
+            finalWeights[i] = Mathf.Clamp01(playerWeights[i] - obstacleWeights[i]);
+        }
+        SetData("final", finalWeights);
+        SetData("playerWeights", playerWeights);
+        return finalWeights;
+    }
+
+    private float[] CalculatePlayerWeights()
+    {
+        //Sets up array and calcuates the distance and direction to the player
         float[] playerWeights = new float[8];
-        _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
+        Vector3 target = _playerTF.position;
+
+        List<Vector3> breadcrumbs = (List<Vector3>)GetData("breadcrumbs");
+        //Uses player's current position as the target if they are currently in FOV
+        if (breadcrumbs == null || !Physics.Linecast(_enemyTF.position, _playerTF.position, _envLayerMask))
+        {
+            target = _playerTF.position;
+        }
+        //Else use the breadcrumbs
+        else
+        {
+            bool foundTarget = false;
+            //Check if any of the breadcrumbs are in FOV, starting at the most recent one
+            for (int i = breadcrumbs.Count - 1; i >= 0; i--)
+            {
+                if (!Physics.Linecast(_enemyTF.position, breadcrumbs[i], _envLayerMask))
+                {
+                    target = breadcrumbs[i];
+                    foundTarget = true;
+                    break;
+                }
+            }
+            //Use oldest breadcrumb as target if none are within FOV
+            if (!foundTarget)
+            {
+                if (breadcrumbs.Count <= 0)
+                {
+                    target = _playerTF.position;
+                }
+                else
+                {
+                    target = breadcrumbs[0];
+                }               
+            }
+        }
+
+        _dirToPlayer = new Vector3(target.x - _enemyTF.position.x, 0, target.z - _enemyTF.position.z);
+
         float distanceToPlayer = _dirToPlayer.magnitude;
         _dirToPlayer = _dirToPlayer.normalized;
 
@@ -81,15 +140,7 @@ public class BearAgroMovement : Node
             }
         }
         SetData("playerWeights", playerWeights);
-        float[] obstacleWeights = (float[])GetData("obstacles");
-        float[] finalWeights    = new float[8];
-        //Substracts the interest weights by the danger weights to get the final weights
-        for (int i = 0; i < playerWeights.Length; i++)
-        {
-            finalWeights[i] = Mathf.Clamp01(playerWeights[i] - obstacleWeights[i]);
-        }
-        SetData("final", finalWeights);
-        SetData("playerWeights", playerWeights);
-        return finalWeights;
+
+        return playerWeights;
     }
 }

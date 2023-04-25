@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using FMOD.Studio;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class PlayerCombatController : MonoBehaviour
     public DamageFlash damageFlash;
     public Material backpackVialMaterial;
     private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
+    public GameObject shieldVisual;
 
 
     [Header("Player Stats & Variables")]
@@ -57,6 +60,14 @@ public class PlayerCombatController : MonoBehaviour
     public float damagePulseRadius = 1f;
     [HideInInspector] public bool hasWeapon = true;
     [HideInInspector] public bool isCatching = false;
+
+    [Header("Shield Variables")]
+    /*public float shieldDuration = 2f;
+    public float shieldMaxHealth = 10f;
+    private float shieldCurrHealth = 0f;
+    public float shieldCooldown = 10f;
+    public bool shieldCanActivate = true;*/
+    public bool shieldIsActive = false;
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -77,6 +88,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject heavySlashVFX;
     public GameObject damageVFX;
     public Transform damageVFXLocation;
+    public GameObject shieldBreakVFX;
 
     // Start is called before the first frame update
     void Start()
@@ -126,6 +138,10 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         if (activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
@@ -142,6 +158,8 @@ public class PlayerCombatController : MonoBehaviour
             vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();
+
+        shieldVisual.SetActive(shieldIsActive);
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
@@ -177,6 +195,18 @@ public class PlayerCombatController : MonoBehaviour
         if(comboChain && comboTimerActive && Input.GetButtonDown("Dash")) {
             ResetLightAttackCombo();
         }
+
+        /* Shield ability disabled in favor of shield working as a pickup
+        //Activate Shield- Elizabeth
+        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2) && PlayerData.hasShield) {
+            shieldCanActivate = false; 
+            shieldIsActive = true;
+            shieldCurrHealth = shieldMaxHealth;
+            shieldVisual.SetActive(true);
+            StartCoroutine(ShieldCooldown());
+            StartCoroutine(DisableShield());
+            electricVials.RemoveVials(2);
+        }*/
 
         
 
@@ -224,7 +254,7 @@ public class PlayerCombatController : MonoBehaviour
         // Start heavy Attack
         if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
             && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
-            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(1)) // Harsha and Justin and Elizabeth
+            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(2)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
             PlayerData.heavyAttacks += 1;
@@ -234,7 +264,7 @@ public class PlayerCombatController : MonoBehaviour
             charController.animator.SetBool("isHeavyAttacking", true);
             
             // remove 1 electric vial
-            electricVials.RemoveVials(1);
+            electricVials.RemoveVials(2);
 
             //sfx
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
@@ -242,6 +272,11 @@ public class PlayerCombatController : MonoBehaviour
         if(currHP <= 0) 
         {
             //print("Player is dead");
+            if (SceneManager.GetActiveScene().name == "PlaytestingScene")
+            {
+                SceneManager.LoadScene("PlaytestingScene");
+                return;
+            }
             charController.state = CharController.State.DEAD;
             PlayerData.currentlyHasBroom = false;
             PlayerData.currentlyHasSolar = false;
@@ -310,6 +345,42 @@ public class PlayerCombatController : MonoBehaviour
         PlayerData.hasThrowUpgrade = true;
         PlayerData.currentlyHasSolar = true;
         PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void TestPickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void RemoveThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = false;
+    }
+
+    public void RemoveSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = false;
+        PlayerData.currentlyHasSolar = false;
         hasWeapon = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);
@@ -535,32 +606,42 @@ public class PlayerCombatController : MonoBehaviour
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
-            // does dmg
-            currHP -= dmg;
+            if(!shieldIsActive) {
+                // does dmg
+                currHP -= dmg;
 
-            // starts invuln
-            invulnTimer = Time.time;
+                // starts invuln
+                invulnTimer = Time.time;
 
-            // updates UI healthbar
-            healthBar.SetHealth(currHP);
+                // updates UI healthbar
+                healthBar.SetHealth(currHP);
 
-            // damage flash
-            StartCoroutine(damageFlash.FlashRoutine());
+                // damage flash
+                StartCoroutine(damageFlash.FlashRoutine());
 
-            // knockback player
-            StartCoroutine(Knockback(collider));
+                // knockback player
+                StartCoroutine(Knockback(collider));
 
-            // change state to limit actions
-            charController.state = CharController.State.KNOCKBACK;
-            // print("took damage");
+                // change state to limit actions
+                charController.state = CharController.State.KNOCKBACK;
+                // print("took damage");
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
 
-            //play the damage vfx
-            GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
-            activeDamageVFX.Enqueue(newDamageVFX);
-            StartCoroutine(DeleteDamageVFX());
-
+                //play the damage vfx
+                GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+            }
+            else{
+                GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+                shieldIsActive = false;
+                invulnTimer = Time.time;
+            }
 
         }
     }
@@ -589,6 +670,17 @@ public class PlayerCombatController : MonoBehaviour
         _rb.drag = charController.normalDrag;
         charController.knockback = false;
     }
+
+  /*  private IEnumerator ShieldCooldown() {
+        yield return new WaitForSeconds(shieldCooldown);
+        shieldCanActivate = true;
+    }
+    
+    private IEnumerator DisableShield() {
+        yield return new WaitForSeconds(shieldDuration);
+        shieldIsActive = false;
+        shieldVisual.SetActive(false);
+    }*/
 
     private void ManageVialShader() {
         if(electricVials.currVial + 1 >= 3) {

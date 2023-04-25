@@ -4,13 +4,14 @@ using BehaviorTree;
 
 //Deer Behavior Tree - RYAN
 
-public class DeerBT : Tree
+public class DeerBT : BT
 {
     public DeerStats deerStats;
     
     protected override Node SetupTree()
     {
-        if(deerStats.playerTF == null || deerStats.player == null) {
+        if(deerStats.playerTF == null || deerStats.player == null) 
+        {
             deerStats.SearchForPlayer();
         }
         Node root = new Selector(new List<Node>

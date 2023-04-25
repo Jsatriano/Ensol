@@ -2,7 +2,7 @@
 -> Intro
 
 ===Intro ===
-P1-USH: Wait! Do you remember what’s out there?
+P1-USH: You’re not going out into the forest again are you?
 
 *[What’s out there?]
 

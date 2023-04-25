@@ -57,12 +57,16 @@ public class MusicController : MonoBehaviour
 
         if(song == 0){
             cabin.stop(STOP_MODE.ALLOWFADEOUT);
+            cabin.release();
         } else if(song == 1){
             zone1.stop(STOP_MODE.ALLOWFADEOUT);
+            zone1.release();
         } else if(song == 2){
             zone2.stop(STOP_MODE.ALLOWFADEOUT);
+            zone2.release();
         } else if(song == 3){
             zone3.stop(STOP_MODE.ALLOWFADEOUT);
+            zone3.release();
         }
     }
 

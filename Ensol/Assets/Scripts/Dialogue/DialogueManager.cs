@@ -145,12 +145,12 @@ public class DialogueManager : MonoBehaviour
         {
             //print("hello from line 137");
 
-            dialoguePos.anchoredPosition = new Vector2(curPos.x, 383.96f);
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 385.93f);
             choicesPanel.SetActive(true);
         }
         else
         {
-            dialoguePos.anchoredPosition = new Vector2(curPos.x, 145);
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 185.93f);
             choicesPanel.SetActive(false);
         }
 
