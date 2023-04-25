@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMOD.Studio;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -634,6 +635,8 @@ public class PlayerCombatController : MonoBehaviour
             }
             else{
                 GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
                 activeDamageVFX.Enqueue(newDamageVFX);
                 StartCoroutine(DeleteDamageVFX());
                 shieldIsActive = false;
