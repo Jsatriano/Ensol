@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  useBreadcrumbs: 1
   breadcrumbFreq: 2.5
   numBreadcrumbs: 6
   isAlive: 0
@@ -200,12 +201,14 @@ MonoBehaviour:
   numID: 0
   maxHP: 50
   currHP: 0
-  maxSpeed: 25
+  maxSpeed: 30
   attackingCooldown: 0.5
   acceleration: 20
   visionRange: 15
   rotationSpeed: 4
   obstacleDetectRadius: 15
+  shieldDropChance: 0.3
+  shieldDropPrefab: {fileID: 3900864427737400880, guid: d50cd67b3ecc602439ccc5ad67cbeba3, type: 3}
   player: {fileID: 0}
   playerTF: {fileID: 0}
   playerRB: {fileID: 0}
