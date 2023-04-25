@@ -21,6 +21,7 @@ public class ShieldPickup : MonoBehaviour
 
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Player") {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldOn, col.gameObject.transform.position);
             col.gameObject.GetComponent<PlayerCombatController>().shieldIsActive = true;
             Destroy(gameObject);
         }

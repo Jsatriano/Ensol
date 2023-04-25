@@ -19,6 +19,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerDeath { get; private set; }
     [field: SerializeField] public EventReference playerWalk { get; private set; }
     [field: SerializeField] public EventReference playerSpin { get; private set; }
+    [field: SerializeField] public EventReference playerShieldOn { get; private set; }
 
     [field: Header("Deer")]
     [field: SerializeField] public EventReference deerDeath { get; private set; }
