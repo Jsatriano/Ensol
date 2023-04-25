@@ -5,6 +5,7 @@ using UnityEngine;
 public class JunkBall : MonoBehaviour
 {
     public SphereCollider junkCollider;  //Collider for the junk ball
+    public SphereCollider explosionCollider;  //Collider for the explosion
     [HideInInspector] public Transform bearTF;  //The bear that threw the junk ball
     [HideInInspector] public float junkDamage;  //Damage for the junk ball
     [HideInInspector] public float explosionDamage;  //Damage for the explosion
@@ -83,7 +84,7 @@ public class JunkBall : MonoBehaviour
                 //Damage player
                 if (isExploding)
                 {
-                    playerScript.TakeDamage(explosionDamage, junkCollider);
+                    playerScript.TakeDamage(explosionDamage, explosionCollider);
                 }
                 else
                 {
