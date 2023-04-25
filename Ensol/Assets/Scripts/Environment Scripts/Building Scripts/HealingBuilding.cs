@@ -33,7 +33,8 @@ public class HealingBuilding : MonoBehaviour
 
         if(wasUsed && !distributedHealing) {
             distributedHealing = true;
-            pcc.currHP = pcc.maxHP;
+            PlayerData.currHP = pcc.maxHP;
+            healthBar.SetHealth(PlayerData.currHP);
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.healUp, this.transform.position);

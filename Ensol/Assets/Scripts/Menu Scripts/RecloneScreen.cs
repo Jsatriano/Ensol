@@ -21,12 +21,14 @@ public class RecloneScreen : MonoBehaviour
         Time.timeScale = 1f;
         // Respawns at cabin
         nodeSelector.node = 1;
+        PlayerData.currHP = -1;
         nodeSelector.OpenScene();
     }
 
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        PlayerData.currHP = -1;
         SceneManager.LoadScene(sceneName:"MenuScene");
     }
 }

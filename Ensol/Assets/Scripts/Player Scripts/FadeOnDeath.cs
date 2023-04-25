@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class FadeOnDeath : MonoBehaviour
 {
     public GameObject blackOutSquare;
-    public PlayerCombatController pcc;
+    //public PlayerCombatController pcc;
     public NodeSelector nodeSelector;
 
     void Update()
     {
 
-    if(pcc.currHP <= 0) 
+    if(PlayerData.currHP <= 0) 
         {
             Time.timeScale = 0.5f;
             StartCoroutine(FadeBlackOutSquare());
@@ -47,6 +47,7 @@ public class FadeOnDeath : MonoBehaviour
                         PlayerData.diedToCrackDeer = true;
                         nodeSelector.node = 1;
                         Time.timeScale = 1f;
+                        PlayerData.currHP = -1;
                         nodeSelector.OpenScene();
                     }
                 }
