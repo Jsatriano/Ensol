@@ -27,10 +27,10 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deerAlerted { get; private set; }
     [field: SerializeField] public EventReference deerGutted { get; private set; }
 
-    [field: Header("Rabbit")]
-    [field: SerializeField] public EventReference rabbitMove { get; private set; }
-    [field: SerializeField] public EventReference rabbitAttack { get; private set; }
-    [field: SerializeField] public EventReference rabbitDeath { get; private set; }
+    [field: Header("Bunny")]
+    [field: SerializeField] public EventReference bunnyMove { get; private set; }
+    [field: SerializeField] public EventReference bunnyAttack { get; private set; }
+    [field: SerializeField] public EventReference bunnyDeath { get; private set; }
 
     [field: Header("Bear")]
     [field: SerializeField] public EventReference bearDeath { get; private set; }
