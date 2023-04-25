@@ -15,7 +15,7 @@ public class Footsteps : MonoBehaviour
     public FMODUnity.EventReference[] footstep;
     private FMOD.Studio.EventInstance instance;
     bool touchingMetal = false;
-    bool touchingWood = false;
+    int touchingWood = 0;
     int touchingDirt = 0;
 
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class Footsteps : MonoBehaviour
     void OnTriggerEnter(Collider other){
 
         if (other.tag == "FloorWood"){
-            touchingWood = true;
+            touchingWood++;
         }
 
         if (other.tag == "FloorDirt"){
@@ -41,7 +41,7 @@ public class Footsteps : MonoBehaviour
         }
 
         if (other.tag == "Floor"){
-            if (touchingWood){
+            if (touchingWood > 0){
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.woodMove, this.transform.position);
             } else if (touchingDirt > 0){
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.dirtMove, this.transform.position);
@@ -74,7 +74,7 @@ public class Footsteps : MonoBehaviour
     void OnTriggerExit(Collider other){
 
         if (other.tag == "FloorWood"){
-            touchingWood = false;
+            touchingWood--;
         } else if (other.tag == "FloorDirt"){
             touchingDirt--;
         }
