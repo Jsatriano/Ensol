@@ -55,7 +55,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference catMeow { get; private set; }
     [field: SerializeField] public EventReference woodMove { get; private set; }
     [field: SerializeField] public EventReference dirtMove { get; private set; }
-
+    [field: SerializeField] public EventReference healUp { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 

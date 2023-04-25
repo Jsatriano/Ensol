@@ -36,6 +36,7 @@ public class HealingBuilding : MonoBehaviour
             pcc.currHP = pcc.maxHP;
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.healUp, this.transform.position);
         }
         
     }
