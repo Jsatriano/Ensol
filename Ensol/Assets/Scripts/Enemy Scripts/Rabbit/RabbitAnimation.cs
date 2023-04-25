@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class RabbitAnimation : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class RabbitAnimation : MonoBehaviour
     public RabbitBT rabbitBT;
     private State state;
     private Transform playerTF;
+    private EventInstance attackSound;
 
     private void Start()
     {
@@ -38,6 +40,9 @@ public class RabbitAnimation : MonoBehaviour
                     animController.SetBool("Sitting", false);
                     animController.SetBool("Leaping", true);
                     state = State.LEAPING;
+                    attackSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.bunnyAttack);
+                    attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+                    attackSound.start();
                 }
                 break;
 
@@ -55,6 +60,7 @@ public class RabbitAnimation : MonoBehaviour
 
             case State.DYING:
                 //Do nothing once rabbit is dead
+                attackSound.stop(STOP_MODE.IMMEDIATE);
                 return;
         }
     }
@@ -82,4 +88,10 @@ public class RabbitAnimation : MonoBehaviour
     {
         rabbitBT.root.SetData("incrementLeaps", true);
     }
+
+    void Update()
+    {
+        attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+    }
+
 }
