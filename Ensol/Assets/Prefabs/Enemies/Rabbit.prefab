@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 2d2d26a0ba886f24cb598211efdf9271, type: 2}
-  originalMaterial: {fileID: 5317617613247231816, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
+  originalMaterial: {fileID: 2100000, guid: ccd4a41f34441d243b16acc33c0ae3a0, type: 2}
   duration: 0.1
   makeFlash:
   - {fileID: 2051690762783540759}
@@ -821,6 +821,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8407065112995114202, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ccd4a41f34441d243b16acc33c0ae3a0, type: 2}
     - target: {fileID: 8541099779952190138, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}
       propertyPath: m_Layer
       value: 6
