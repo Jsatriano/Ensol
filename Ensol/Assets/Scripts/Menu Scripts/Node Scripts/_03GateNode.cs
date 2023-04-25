@@ -7,8 +7,9 @@ public class _03GateNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateController = null;
 
-    private void Start()
+    private void Awake() 
     {
+        print("lnode is " + CompletedNodes.lNode);
         if (CompletedNodes.lNode == 0)
         {
             SpawnPoint.First = true;
@@ -19,10 +20,14 @@ public class _03GateNode : MonoBehaviour
         }
         else 
         {
-            print("first is being set from exitfrom");
             SpawnPoint.First = SceneSwitch.exitFrom;
+            print(SpawnPoint.First);
         }
         CompletedNodes.lNode = 3;
+    }
+
+    private void Start()
+    {
         CompletedNodes.prevNode = 3;
     }
 

@@ -20,8 +20,9 @@ public class _04RiverControlNode : MonoBehaviour
     public float endY;
     public float speed;
 
-    private void Start()
+    private void Awake() 
     {
+        print("lnode is " + CompletedNodes.lNode);
         if (CompletedNodes.lNode == 3)
         {
             SpawnPoint.First = true;
@@ -35,6 +36,11 @@ public class _04RiverControlNode : MonoBehaviour
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.lNode = 4;
+    }
+
+    private void Start()
+    {
+        
         CompletedNodes.prevNode = 4;
     }
 
