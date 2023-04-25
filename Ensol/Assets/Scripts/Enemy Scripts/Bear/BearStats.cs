@@ -54,7 +54,11 @@ public class BearStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
-        print("Did " + damage + " damage to " + nameID);
+        if (bearBT.root.GetData("player") == null)
+        {
+            bearBT.root.SetData("player", playerTF);
+        }
+        //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0)
         {
             Die();
