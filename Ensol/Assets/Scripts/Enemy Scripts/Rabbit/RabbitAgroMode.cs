@@ -14,18 +14,14 @@ public class RabbitAgroMode : Node
     private Vector3 movingDir;    //The enemy's direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
-    private SphereCollider _hitbox;  //Attack hitbox
-    private float _agroDuration;
-    private float _agroTimer;
     private float _landingDrag;
     private float _normalDrag;
     private float _aggroLeaps;
     private float _leapCounter;
 
     public RabbitAgroMode(SphereCollider hitbox, float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
-                          LayerMask envLayerMask, float agroDuration, float landingDrag, float normalDrag, float aggroLeaps)
+                          LayerMask envLayerMask, float landingDrag, float normalDrag, float aggroLeaps)
     {
-        _hitbox = hitbox;
         _playerTF = playerTF;
         _enemyTF = enemyTF;
         _enemyRB = enemyRB;
@@ -34,8 +30,6 @@ public class RabbitAgroMode : Node
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
         _envLayerMask = envLayerMask;
-        _agroDuration = agroDuration;
-        _agroTimer = agroDuration;
         _aggroLeaps = aggroLeaps;
         _leapCounter = 0;
         _landingDrag = landingDrag;

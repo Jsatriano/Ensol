@@ -15,26 +15,21 @@ public class RabbitBT : BT
         }
         Node root = new Selector(new List<Node>
         {
-            
-            new Sequence(new List<Node>
-            {
-                new PlayerSeenCheck(),
-                new Inverter(new List<Node>
-                {
-                    new CooldownCheck(rabbitStats.attackingCooldown, "idle")
-                }),       
-                new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitEvadeMode(rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.evadeDistance, rabbitStats.rotationSpeed,
-                                     rabbitStats.landingDrag, rabbitStats.normalDrag)
-            }),
-            
             new Sequence(new List<Node>
             {
                 new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3),
+                new CooldownCheck(rabbitStats.attackingCooldown, "aggro"),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitAgroMode(rabbitStats.attackHitbox, rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, 
-                                   rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, rabbitStats.environmentMask, rabbitStats.agroDuration, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps)
-            })
+                new RabbitAgroMode(rabbitStats.attackHitbox, rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF,
+                                   rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps)
+            }),
+            new Sequence(new List<Node>
+            {    
+                new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
+                new RabbitEvadeMode(rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.evadeDistance, rabbitStats.rotationSpeed,
+                                     rabbitStats.landingDrag, rabbitStats.normalDrag)
+            }),          
+            
         });
         return root;
     }

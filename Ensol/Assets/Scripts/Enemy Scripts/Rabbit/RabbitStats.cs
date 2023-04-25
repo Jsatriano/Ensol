@@ -6,13 +6,11 @@ public class RabbitStats : EnemyStats
 {
     [Header("Agro Behavior")]
     public float attackDamage;  //How much damage the rabbit does
-    public float agroDuration;  //How long the rabbit stays in the agro behavior
     public SphereCollider attackHitbox;
     public float agroRange;
     public float aggroLeaps;
 
     [Header("Evade Behavior")]
-    public float evadeDuration; //How long the rabbit stays in the evade behavior
     public float evadeDistance; //How far away from the player the rabbit tries to stay when evading
     public float landingDrag;   //The drag to be applied when the rabbit is landing from a leap
     public float normalDrag;    //The rabbit's normal drag
@@ -58,11 +56,16 @@ public class RabbitStats : EnemyStats
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
         attackHitbox.enabled = false;
-        //Play rabbit death sound here
+
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.bunnyDeath, this.transform.position);
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+        //Random chance for creating a shield drop on death
+        if (Random.Range(0f, 1f) < shieldDropChance)
+        {
+            Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+        }
 
         // tells door and gate scripts that this rabbit has died
         if (buttonGateController != null)

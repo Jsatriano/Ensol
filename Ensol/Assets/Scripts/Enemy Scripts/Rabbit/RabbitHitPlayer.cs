@@ -30,12 +30,5 @@ public class RabbitHitPlayer : MonoBehaviour
             }
             return;
         }
-        else if (col.gameObject.layer == LayerMask.NameToLayer("Enemy") || col.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-        {
-            if (tellBT)
-            {
-                rabbitBT.root.SetData("attackHit", true);
-            }
-        }
     }
 }

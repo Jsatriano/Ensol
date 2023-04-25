@@ -71,6 +71,12 @@ public class BearStats : EnemyStats
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.bearDeath, this.transform.position);
 
+        //Random chance for creating a shield drop on death
+        if (Random.Range(0f, 1f) < shieldDropChance)
+        {
+            Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+        }
+
         // tells door and gate scripts that this bear has died
         if (buttonGateController != null)
         {
