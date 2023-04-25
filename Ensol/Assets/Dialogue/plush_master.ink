@@ -1,6 +1,5 @@
 INCLUDE globals.ink
-VAR deadtodeer = false
-VAR deerdead = false
+
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> Intro2}
