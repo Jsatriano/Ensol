@@ -87,6 +87,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject heavySlashVFX;
     public GameObject damageVFX;
     public Transform damageVFXLocation;
+    public GameObject shieldBreakVFX;
 
     // Start is called before the first frame update
     void Start()
@@ -632,7 +633,9 @@ public class PlayerCombatController : MonoBehaviour
                 StartCoroutine(DeleteDamageVFX());
             }
             else{
-                print("Shield down");
+                GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
                 shieldIsActive = false;
                 invulnTimer = Time.time;
             }
