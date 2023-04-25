@@ -55,6 +55,10 @@ public class DeerStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
+        if (deerBT.root.GetData("player") == null)
+        {
+            deerBT.root.SetData("player", playerTF);
+        }
         //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
