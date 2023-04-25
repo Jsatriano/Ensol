@@ -67,7 +67,7 @@ public class EnemyStats : MonoBehaviour
         }
         else if(currHP < maxHP) {
 
-            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", Mathf.Max((1.0f-(currHP/maxHP))+ 0.2f, 0.8f));
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", Mathf.Clamp(1.0f-(currHP/maxHP) + 0.4f, 0f, 1f));
         }
     }
 
