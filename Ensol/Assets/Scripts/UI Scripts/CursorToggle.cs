@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class CursorToggle : MonoBehaviour
 {
     public static bool toggleCursor = true;
-    public CharController charController = null;
+    public GameObject pauseMenu = null;
     private Scene scene;
 
     void Start()
@@ -16,12 +16,14 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && charController.state != CharController.State.PAUSED)
+        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && pauseMenu.activeInHierarchy == false)
         {
             Cursor.visible = false;
         }
         else
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
