@@ -61,6 +61,7 @@ public class RabbitAnimation : MonoBehaviour
             case State.DYING:
                 //Do nothing once rabbit is dead
                 attackSound.stop(STOP_MODE.IMMEDIATE);
+                attackSound.release();
                 return;
         }
     }
