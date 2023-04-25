@@ -46,8 +46,16 @@ public class CooldownCheck : Node
             //Makes a random delay before the first time an enemy attacks that way groups of enemies will have offset attacks
             if (_cooldownTimer == -1)
             {
-                _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
-                _cooldownLengthRandom = Random.Range(_cooldownLength * 0.85f, _cooldownLength * 1.15f);
+                if (_attackName == "idle")
+                {
+                    _cooldownTimer = 0;
+                    _cooldownLengthRandom = 0;
+                }
+                else
+                {
+                    _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
+                    _cooldownLengthRandom = Random.Range(_cooldownLength * 0.85f, _cooldownLength * 1.15f);
+                }
             }
             //Checks if enough time has passed since the last time the attack has been used
             //Also sets the cooldown length to a random number close to the num set in the inspector to make attacks feel less perfectly rythmic 

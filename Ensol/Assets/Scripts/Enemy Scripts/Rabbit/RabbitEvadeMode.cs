@@ -18,6 +18,8 @@ public class RabbitEvadeMode : Node
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
+    private Vector3 _originalPos;
+
     public RabbitEvadeMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed, float landingDrag, float normalDrag)
     {
         _playerTF = playerTF;
@@ -30,6 +32,7 @@ public class RabbitEvadeMode : Node
         movingDir = Vector3.zero;
         _landingDrag = landingDrag;
         _normalDrag = normalDrag;
+        _originalPos = enemyTF.position;
     }
 
     public override NodeState Evaluate()
@@ -134,7 +137,16 @@ public class RabbitEvadeMode : Node
     {
         //Sets up array and calcuates the distance/direction to the player
         float[] playerWeights = new float[8];
-        _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
+        //If player hasn't been seen yet, then thr rabbit instead just leaps around its original position
+        if (GetData("player") != null)
+        {
+            _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
+        }
+        else
+        {
+            _dirToPlayer = new Vector3(_originalPos.x - _enemyTF.position.x, 0, _originalPos.z - _enemyTF.position.z);
+        }
+        
         float distanceToPlayer = _dirToPlayer.magnitude;
         float distanceOffset = _idealDistance - distanceToPlayer;
         _dirToPlayer = _dirToPlayer.normalized;

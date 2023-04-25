@@ -10,6 +10,7 @@ namespace BehaviorTree
     {
         public Node root = null;
         public GameObject player;
+        [SerializeField] private bool useBreadcrumbs;
         private List<Vector3> playerBreadcrumbs = new List<Vector3>();
         [SerializeField] private float breadcrumbFreq;
         [SerializeField] private float numBreadcrumbs;
@@ -33,23 +34,12 @@ namespace BehaviorTree
             }
             if (root != null && player != null && isAlive)
             {
-                ManageBreadcrumbs();
+                if (useBreadcrumbs)
+                {
+                    ManageBreadcrumbs();
+                }
                 root.Evaluate();
-            }
-            
-            /*
-            if (root != null && root.GetData("AGGRO") != null)
-            {
-                root.ClearData("AGGRO");
-                print("AGGRO");
-            }
-            if (root != null && root.GetData("EVADE") != null)
-            {
-                root.ClearData("EVADE");
-                print("EVADE");
-            }
-            */
-            
+            }           
         }
         protected abstract Node SetupTree();
 
