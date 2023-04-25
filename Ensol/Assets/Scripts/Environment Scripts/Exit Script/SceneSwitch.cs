@@ -9,8 +9,8 @@ public class SceneSwitch : MonoBehaviour
 {
     // Harsha
     public static GameObject blackOutSquare {get; private set;}
-    public bool Entrance = false;
-    public static bool exitFrom = false;
+    public bool Entrance = true;
+    public static bool exitFrom = true;
 
     public bool GameFinished = false;
 

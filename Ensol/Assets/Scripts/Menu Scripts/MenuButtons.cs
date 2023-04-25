@@ -22,6 +22,7 @@ public class MenuButtons : MonoBehaviour
         // will need to change this to the cabin once its created
         //SceneManager.LoadScene(sceneName:"MapScene");
         nodeSelector.node = PlayerData.currentNode;
+        SceneSwitch.exitFrom = true;
         nodeSelector.OpenScene();
     }
 
