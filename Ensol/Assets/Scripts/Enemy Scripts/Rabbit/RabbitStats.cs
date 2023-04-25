@@ -44,7 +44,11 @@ public class RabbitStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
-        print("Did " + damage + " damage to " + nameID);
+        if (rabbitBT.root.GetData("player") == null)
+        {
+            rabbitBT.root.SetData("player", playerTF);
+        }
+        //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0)
         {
             Die();
