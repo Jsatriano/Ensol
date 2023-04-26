@@ -18,7 +18,8 @@ public class DoorController : MonoBehaviour
         {
             if(currentRot.y < openRot)
             {
-                door.transform.localEulerAngles = Vector3.Lerp(currentRot, new Vector3(currentRot.x, openRot, currentRot.z), speed * Time.deltaTime);
+                //door.transform.localEulerAngles = Vector3.Lerp(currentRot, new Vector3(currentRot.x, openRot, currentRot.z), speed * Time.deltaTime);
+                door.transform.rotation *= Quaternion.AngleAxis(-(openRot * Time.deltaTime), Vector3.up);
             }
         }
         

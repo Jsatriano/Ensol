@@ -9,6 +9,7 @@ public class DialogueTrigger : MonoBehaviour
 
     public Collider dialogue;
     public bool interacted = false;
+    public bool repeatInteractable = false;
 
     private void Update()
     {

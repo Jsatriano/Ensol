@@ -9,7 +9,7 @@ public class InteractTutorialText : MonoBehaviour
     [SerializeField] private Transform textTF;
     private Camera cam;
     [HideInInspector] public bool canBeInteracted;
-    [HideInInspector] public bool interacted;
+    public bool interacted;
     private string noText = "";
     [TextArea] public string interactText;
     [SerializeField] private Collider coll;
@@ -19,6 +19,7 @@ public class InteractTutorialText : MonoBehaviour
         textMesh.text = noText;
         interacted = false;
         canBeInteracted = true;
+        cam = Camera.main;
     }
 
     private void LateUpdate()
@@ -29,20 +30,17 @@ public class InteractTutorialText : MonoBehaviour
             interacted = true;
             textMesh.text = noText;
         }
-        else
+        else if (coll.enabled && gameObject.tag != "InteractableOnce")
         {
             interacted = false;
         }
 
-        //Turn text to face camera
-        if (cam == null)
-        {
-            cam = Camera.main;
+        if (interacted){
+            textMesh.text = noText;
         }
-        else
-        {
-            textTF.LookAt(cam.transform.position);
-        }
+
+        textTF.LookAt(cam.transform.position);
+
     }
 
     //Turn on text when player is in range
