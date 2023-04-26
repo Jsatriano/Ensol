@@ -8,6 +8,7 @@ public class CursorToggle : MonoBehaviour
     public static bool toggleCursor = true;
     public GameObject pauseMenu = null;
     public GameObject arrow = null;
+    public GameObject dialoguebox = null;
     private Scene scene;
 
     void Start()
@@ -17,16 +18,20 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && pauseMenu.activeInHierarchy == false)
+        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && pauseMenu.activeInHierarchy == false && dialoguebox.activeInHierarchy == false)
         {
             Cursor.visible = false;
-            arrow.SetActive(true);
+            if (arrow != null){
+                arrow.SetActive(true);
+            }
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.lockState = CursorLockMode.None;
-            arrow.SetActive(false);
+            if (arrow != null){
+                arrow.SetActive(false);
+            }
             Cursor.visible = true;
         }
     }
