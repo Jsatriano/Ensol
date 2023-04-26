@@ -211,7 +211,7 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.CHARGING:
-                animController.SetFloat("animSpeed", Mathf.Clamp01(deerRB.velocity.magnitude / maxChargeSpeed));
+                animController.SetFloat("animSpeed", Mathf.Clamp(deerRB.velocity.magnitude / maxChargeSpeed, 0.5f, 1));
                 //print(deerRB.velocity.magnitude / maxChargeSpeed);
                 //Checks if the charge has ended
                 if (deerBT.root.GetData("chargingAnim") == null)

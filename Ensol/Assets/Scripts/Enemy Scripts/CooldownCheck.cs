@@ -20,6 +20,16 @@ public class CooldownCheck : Node
     //Checks to see if ability is off cooldown, if so resets cooldown and returns SUCCESS, otherwise failure - RYAN
     public override NodeState Evaluate()
     {
+        //Initially stores or retrieves the cooldown length from the dashboard, used to allow the cooldown to be updated during runtime
+        if (GetData(_attackName + "Cooldown") == null)
+        {
+            SetData(_attackName + "Cooldown", _cooldownLength);
+        }
+        else
+        {
+            _cooldownLength = (float)GetData(_attackName + "Cooldown");
+        }
+
         //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
         //Also keeps setting the timer so that it only starts counting down once the attack ends
         if (GetData(_attackName) != null)

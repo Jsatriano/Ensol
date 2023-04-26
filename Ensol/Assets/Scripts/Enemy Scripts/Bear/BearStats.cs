@@ -60,6 +60,7 @@ public class BearStats : EnemyStats
         if (currHP / maxHP <= 0.5f)
         {
             bearBT.root.SetData("belowHalf", true);
+            bearBT.root.SetData("junkCooldown", angryJunkCooldown);
         }
         StartCoroutine(damageFlash.FlashRoutine());
         if (bearBT.root.GetData("player") == null)
