@@ -6,19 +6,20 @@ public class DoorController : MonoBehaviour
 {
     public GameObject door;
     public int soundDoor;
-    public float openRot, speed;
     private bool opened = false;
     [HideInInspector] public bool opening = false;
+    
+
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 currentRot = door.transform.localEulerAngles;
+        //Vector3 currentRot = door.transform.localEulerAngles;
         if(opening)
         {
-            if(currentRot.y < openRot)
+            if(door.transform.localEulerAngles.y  > 270 || door.transform.localEulerAngles.y == 0)
             {
-                door.transform.localEulerAngles = Vector3.Lerp(currentRot, new Vector3(currentRot.x, openRot, currentRot.z), speed * Time.deltaTime);
+                door.transform.rotation *= Quaternion.AngleAxis(-(90 * Time.deltaTime), Vector3.up);           
             }
         }
         

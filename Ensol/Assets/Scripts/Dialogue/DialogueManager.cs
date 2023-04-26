@@ -76,7 +76,6 @@ public class DialogueManager : MonoBehaviour
         /*Allow e to continue dialogue if there ar eno more choices*/
         if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
         {
-            print("dang it");
             StartCoroutine(Delay());
         }
     }
@@ -86,16 +85,6 @@ public class DialogueManager : MonoBehaviour
     {
         StartCoroutine(Delay());
     }
-
-    /*allow mouse to continue or exit dialogue by clicking anywhere if there is no choice
-    void OnMouseDown()
-    {
-        print("dag");
-        if (dialoguePanel.activeInHierarchy){
-            print("nabbit");
-            StartCoroutine(Delay());
-        }
-    }*/
 
     private IEnumerator Delay(){
         yield return new WaitForSeconds(0.0001f);
