@@ -279,6 +279,7 @@ public class PlayerCombatController : MonoBehaviour
             //print("Player is dead");
             if (SceneManager.GetActiveScene().name == "PlaytestingScene")
             {
+                PlayerData.currHP = -1;
                 SceneManager.LoadScene("PlaytestingScene");
                 return;
             }
