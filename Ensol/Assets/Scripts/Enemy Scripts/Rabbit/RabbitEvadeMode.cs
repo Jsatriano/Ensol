@@ -39,6 +39,7 @@ public class RabbitEvadeMode : Node
     {
         SetData("EVADE", true);
 
+
         ChooseDirection();
 
         float speedDot;
