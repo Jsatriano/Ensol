@@ -43,6 +43,7 @@ public class RabbitAgroMode : Node
         SetData("AGGRO", true);
 
         SetData("aggro", true);
+        
         //Exits aggro mode when the rabbit hits the player
         if (GetData("attackHit") != null)
         {
