@@ -14,6 +14,7 @@ public class CursorToggle : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
+        arrow.SetActive(false);
     }
 
     void Update()
@@ -21,7 +22,7 @@ public class CursorToggle : MonoBehaviour
         if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && pauseMenu.activeInHierarchy == false && dialoguebox.activeInHierarchy == false)
         {
             Cursor.visible = false;
-            if (arrow != null){
+            if (arrow != null && PlayerData.hasBroom){
                 arrow.SetActive(true);
             }
         }
