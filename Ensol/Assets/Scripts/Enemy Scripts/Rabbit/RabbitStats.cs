@@ -9,6 +9,7 @@ public class RabbitStats : EnemyStats
     public SphereCollider attackHitbox;
     public float agroRange;
     public float aggroLeaps;
+    public GameObject grinderVFX;
 
     [Header("Evade Behavior")]
     public float evadeDistance; //How far away from the player the rabbit tries to stay when evading
