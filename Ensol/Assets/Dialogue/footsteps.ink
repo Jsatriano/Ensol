@@ -1,6 +1,6 @@
 INCLUDE globals.ink
 
-{ footprints == false: -> Intro | -> Over}
+//{ footprints == false: -> Intro | -> Over}
 
 -> Intro
 
