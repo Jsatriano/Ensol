@@ -4828,7 +4828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &516459460
 Transform:
   m_ObjectHideFlags: 0
@@ -4862,7 +4862,10 @@ MonoBehaviour:
   walkText: 'Move: WASD'
   broomText: 'Light Attack Combo: LMB -> LMB -> LMB
 
-    Dash: Space'
+    Dash: Space
+
+    Your attacks
+    will go in the direction of the cursor.'
   solarText: 'Heavy Attack: RMB
 
     Throw Attack: Q then Q to recall'
@@ -6521,7 +6524,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4765265006062304230}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -6570,7 +6573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7341865676245809276
 Transform:
   m_ObjectHideFlags: 0
@@ -6579,8 +6582,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5019563106259727601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.54, z: 0}
-  m_LocalScale: {x: 10, y: 7.4105654, z: 10}
+  m_LocalPosition: {x: 0, y: 7.13, z: -0.42}
+  m_LocalScale: {x: 10, y: 7.9858937, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6530562764825536467}
@@ -7559,9 +7562,8 @@ MonoBehaviour:
   damageFlash: {fileID: 1360605719}
   backpackVialMaterial: {fileID: 2100000, guid: a521fba0889c02d46988047d3f0d2f59, type: 2}
   shieldVisual: {fileID: 5019563106259727601}
-  shieldBreakVFX: {fileID: 6954789437810770126, guid: 733e40ff67ab0564d9355aabcf264356, type: 3}
   maxHP: 13
-  currHP: 0
+  currentHP: 13
   vialRechargeSpeed: 5
   baseAttackPower: 5
   force: 3.5
@@ -7582,7 +7584,6 @@ MonoBehaviour:
   damagePulseRadius: 3
   hasWeapon: 1
   isCatching: 0
-  shieldIsActive: 0
   attackPower: 0
   comboChain: 0
   comboCounter: 0
@@ -7595,6 +7596,7 @@ MonoBehaviour:
   heavySlashVFX: {fileID: 583276505}
   damageVFX: {fileID: 8847664339404160576, guid: 300b6d5498e00f042967c14a0f03c105, type: 3}
   damageVFXLocation: {fileID: 7663431665704294774}
+  shieldBreakVFX: {fileID: 6954789437810770126, guid: 733e40ff67ab0564d9355aabcf264356, type: 3}
 --- !u!114 &1360605725
 MonoBehaviour:
   m_ObjectHideFlags: 0

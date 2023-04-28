@@ -24,6 +24,10 @@ public class BearStats : EnemyStats
     public float explosionLength;  //How long the explosion lasts
     public float explosionSize;    //How big the explosion gets
 
+    [Header("2nd Phase")]
+    public float angryMaxSpeed;
+    public float angryAcceleration;
+    public float angryJunkCooldown;
 
     [Header("Other Things")]
     public BearBT bearBT;
@@ -53,6 +57,11 @@ public class BearStats : EnemyStats
             return;
         }
         currHP -= damage;
+        if (currHP / maxHP <= 0.5f)
+        {
+            bearBT.root.SetData("belowHalf", true);
+            bearBT.root.SetData("junkCooldown", angryJunkCooldown);
+        }
         StartCoroutine(damageFlash.FlashRoutine());
         if (bearBT.root.GetData("player") == null)
         {

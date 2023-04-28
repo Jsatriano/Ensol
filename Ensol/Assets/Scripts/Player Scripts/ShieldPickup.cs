@@ -25,7 +25,7 @@ public class ShieldPickup : MonoBehaviour
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Player") {
             playerShieldOn.start();
-            col.gameObject.GetComponent<PlayerCombatController>().shieldIsActive = true;
+            PlayerData.hasShield = true;
             Destroy(gameObject);
         }
     }

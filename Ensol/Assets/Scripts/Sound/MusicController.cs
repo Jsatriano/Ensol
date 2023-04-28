@@ -51,9 +51,6 @@ public class MusicController : MonoBehaviour
 
     void OnDestroy()
     {
-        print("music destroyed");
-        //PLAYBACK_STATE ZplaybackState;
-        //zone1.getPlaybackState(out ZplaybackState);
 
         if(song == 0){
             cabin.stop(STOP_MODE.ALLOWFADEOUT);

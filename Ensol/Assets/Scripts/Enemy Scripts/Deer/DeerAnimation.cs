@@ -107,7 +107,7 @@ public class DeerAnimation : MonoBehaviour
 
             case State.MOVING_FORWARD:
 
-                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
+                animController.SetFloat("animSpeed", Mathf.Clamp((deerRB.velocity.magnitude * 10) / maxWalkSpeed, 0.2f, 1f));
 
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
@@ -137,8 +137,8 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_LEFT:
-                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
-                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
+                animController.SetFloat("animSpeed", Mathf.Clamp((deerRB.velocity.magnitude * 10) / maxWalkSpeed, 0.2f, 1f));
+
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
@@ -167,8 +167,8 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_RIGHT:
-                animController.SetFloat("animSpeed", Mathf.Clamp01((deerRB.velocity.magnitude * 10) / maxWalkSpeed));
-                //print((deerRB.velocity.magnitude * 10) / maxWalkSpeed);
+                animController.SetFloat("animSpeed", Mathf.Clamp((deerRB.velocity.magnitude * 10) / maxWalkSpeed, 0.2f, 1f));
+
                 //Checks if the deer is entering the windup for its charge
                 if (deerBT.root.GetData("chargeWindupAnim") != null)
                 {
@@ -211,7 +211,7 @@ public class DeerAnimation : MonoBehaviour
                 break;
 
             case State.CHARGING:
-                animController.SetFloat("animSpeed", Mathf.Clamp01(deerRB.velocity.magnitude / maxChargeSpeed));
+                animController.SetFloat("animSpeed", Mathf.Clamp(deerRB.velocity.magnitude / maxChargeSpeed, 0.5f, 1));
                 //print(deerRB.velocity.magnitude / maxChargeSpeed);
                 //Checks if the charge has ended
                 if (deerBT.root.GetData("chargingAnim") == null)

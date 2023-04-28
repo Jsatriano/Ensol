@@ -45,7 +45,7 @@ public class HealthBar : MonoBehaviour // justin
     public void SetMaxHealth(float health)
     {
         slider.maxValue = health;
-        slider.value = health;
+        slider.value = PlayerData.currHP;
     }
 
     public void SetHealth(float health)

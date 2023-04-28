@@ -18,9 +18,10 @@ public class RabbitAgroMode : Node
     private float _normalDrag;
     private float _aggroLeaps;
     private float _leapCounter;
+    private GameObject _grinderVFX;
 
-    public RabbitAgroMode(SphereCollider hitbox, float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
-                          LayerMask envLayerMask, float landingDrag, float normalDrag, float aggroLeaps)
+    public RabbitAgroMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
+                          LayerMask envLayerMask, float landingDrag, float normalDrag, float aggroLeaps, GameObject grinderVFX)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -34,15 +35,17 @@ public class RabbitAgroMode : Node
         _leapCounter = 0;
         _landingDrag = landingDrag;
         _normalDrag = normalDrag;
+        _grinderVFX = grinderVFX;
     }
 
     public override NodeState Evaluate()
     {
         SetData("attacking", true);
 
-        SetData("AGGRO", true);
-
         SetData("aggro", true);
+
+        _grinderVFX.SetActive(true);
+        
         //Exits aggro mode when the rabbit hits the player
         if (GetData("attackHit") != null)
         {
@@ -50,6 +53,7 @@ public class RabbitAgroMode : Node
             ClearData("attackHit");
             ClearData("aggro");
             ClearData("attacking");
+            _grinderVFX.SetActive(false);
             state = NodeState.SUCCESS;
             return state;
         }
@@ -60,6 +64,7 @@ public class RabbitAgroMode : Node
             _leapCounter = 0;
             ClearData("aggro");
             ClearData("attacking");
+            _grinderVFX.SetActive(false);
             state = NodeState.SUCCESS;
             return state;
         }

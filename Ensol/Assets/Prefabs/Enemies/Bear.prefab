@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 3805819858905312380}
   - component: {fileID: 975495119133406490}
   - component: {fileID: 452217433866894261}
+  - component: {fileID: 8437250581003918719}
   m_Layer: 6
   m_Name: Bear
   m_TagString: Enemy
@@ -239,6 +240,9 @@ MonoBehaviour:
   explosionDamage: 2
   explosionLength: 0.75
   explosionSize: 3.5
+  angryMaxSpeed: 45
+  angryAcceleration: 30
+  angryJunkCooldown: 4
   bearBT: {fileID: 3805819858905312370}
   damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
@@ -323,6 +327,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9762115, y: 2.3079681, z: 3.34764}
   m_Center: {x: 0.010142326, y: 1.1031337, z: 0.40482092}
+--- !u!114 &8437250581003918719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805819858905312383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eac5cdb5e123b4499cf1e3e4b06d9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
 --- !u!1 &4775196006452615801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1540,7 @@ MonoBehaviour:
   headTF: {fileID: 1821732347219173656}
   lookingSpeed: 3
   bearBT: {fileID: 3805819858905312370}
+  bearRB: {fileID: 3805819858905312380}
 --- !u!4 &5422845395492997507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -31193313216444736, guid: af331b616a8c0714b98e03b143af8e21, type: 3}

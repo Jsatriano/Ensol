@@ -9,6 +9,7 @@ public class HealingBuilding : MonoBehaviour
     [HideInInspector] public PlayerCombatController pcc;
     [HideInInspector] public CharController player;
     [HideInInspector] public GameObject[] players;
+    [HideInInspector] public HealthBar healthBar;
     public Renderer renderer;
 
     void Awake() {
@@ -33,7 +34,8 @@ public class HealingBuilding : MonoBehaviour
 
         if(wasUsed && !distributedHealing) {
             distributedHealing = true;
-            pcc.currHP = pcc.maxHP;
+            PlayerData.currHP = pcc.maxHP;
+            healthBar.SetHealth(PlayerData.currHP);
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.healUp, this.transform.position);
@@ -44,6 +46,7 @@ public class HealingBuilding : MonoBehaviour
       public void SearchForPlayer() {
         if(players.Length == 0) {
             players = GameObject.FindGameObjectsWithTag("Player");
+            healthBar = GameObject.FindGameObjectWithTag("HealthbarUI").GetComponent<HealthBar>();
         }
         foreach(GameObject p in players) {
             player = p.GetComponent<CharController>();

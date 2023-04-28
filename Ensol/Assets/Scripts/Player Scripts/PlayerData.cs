@@ -14,6 +14,7 @@ public static class PlayerData
     //Player Death Stuff
     public static bool currentlyHasBroom = false;
     public static bool currentlyHasSolar = false;
+    public static float currHP = -1;
 
     //Player Progress
     public static int currentNode = 1;

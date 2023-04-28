@@ -73,10 +73,17 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact"))
+        /*Allow e to continue dialogue if there ar eno more choices*/
+        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
         {
             StartCoroutine(Delay());
         }
+    }
+
+    /*allow mouse ot select option*/
+    public void ClickChoice()
+    {
+        StartCoroutine(Delay());
     }
 
     private IEnumerator Delay(){

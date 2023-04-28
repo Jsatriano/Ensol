@@ -32,7 +32,7 @@ public class PlayerCombatController : MonoBehaviour
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    public float currHP;
+    public float currentHP = PlayerData.currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
@@ -66,8 +66,8 @@ public class PlayerCombatController : MonoBehaviour
     public float shieldMaxHealth = 10f;
     private float shieldCurrHealth = 0f;
     public float shieldCooldown = 10f;
-    public bool shieldCanActivate = true;*/
-    public bool shieldIsActive = false;
+    public bool shieldCanActivate = true;
+    public bool shieldIsActive = false;*/
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -93,7 +93,9 @@ public class PlayerCombatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currHP = maxHP;
+        if (PlayerData.currHP == -1){
+            PlayerData.currHP = maxHP;
+        }
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
         charController = gameObject.GetComponent<CharController>();
@@ -138,6 +140,9 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*makes hp visible for debugging purposes*/
+        currentHP = PlayerData.currHP;
+
         if (PauseMenu.isPaused)
         {
             return;
@@ -159,7 +164,7 @@ public class PlayerCombatController : MonoBehaviour
         }
         ManageVialShader();
 
-        shieldVisual.SetActive(shieldIsActive);
+        shieldVisual.SetActive(PlayerData.hasShield);
 
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
@@ -269,11 +274,12 @@ public class PlayerCombatController : MonoBehaviour
             //sfx
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
         }
-        if(currHP <= 0) 
+        if(PlayerData.currHP <= 0) 
         {
             //print("Player is dead");
             if (SceneManager.GetActiveScene().name == "PlaytestingScene")
             {
+                PlayerData.currHP = -1;
                 SceneManager.LoadScene("PlaytestingScene");
                 return;
             }
@@ -606,15 +612,15 @@ public class PlayerCombatController : MonoBehaviour
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
-            if(!shieldIsActive) {
+            if(!PlayerData.hasShield) {
                 // does dmg
-                currHP -= dmg;
+                PlayerData.currHP -= dmg;
 
                 // starts invuln
                 invulnTimer = Time.time;
 
                 // updates UI healthbar
-                healthBar.SetHealth(currHP);
+                healthBar.SetHealth(PlayerData.currHP);
 
                 // damage flash
                 StartCoroutine(damageFlash.FlashRoutine());
@@ -639,7 +645,7 @@ public class PlayerCombatController : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
                 activeDamageVFX.Enqueue(newDamageVFX);
                 StartCoroutine(DeleteDamageVFX());
-                shieldIsActive = false;
+                PlayerData.hasShield = false;
                 invulnTimer = Time.time;
             }
 
