@@ -13,6 +13,8 @@ public class WeaponHitbox : MonoBehaviour
     private bool isMoving = true;
     public GameObject damagePulseVFX;
     public GameObject weaponThrowVFX;
+    public GameObject weaponHitVFX;
+    private Queue<GameObject> activeHitVFX = new Queue<GameObject>();
 
     void Awake()
     {
@@ -70,11 +72,20 @@ public class WeaponHitbox : MonoBehaviour
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                //print("Should be spawning hit vfx");
+                Transform hitVFXTargetLocation = null;
+                hitVFXTargetLocation = col.gameObject.transform.Find("Hit VFX Target Location");
+                if(hitVFXTargetLocation == null) {
+                    hitVFXTargetLocation = col.gameObject.transform;
+                }
+                GameObject hitVFX = Instantiate(weaponHitVFX, hitVFXTargetLocation);
+                activeHitVFX.Enqueue(hitVFX);
+                StartCoroutine(DestroyHitVFX());
             }
         }
 
         if(isProjectile && !pcc.isCatching) {
-            if(col.gameObject.layer == 7) {
+            if(col.gameObject.layer == 7 || col.gameObject.layer == 12) {
                 isMoving = false;
                 Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
                 damagePulseVFX.SetActive(true);
@@ -82,7 +93,7 @@ public class WeaponHitbox : MonoBehaviour
                 pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
                 foreach(Collider c in damagePulse) {
                     if(c.gameObject.tag == "Enemy") { 
-                        print("Damage Pulse Hit Enemy");
+                       // print("Damage Pulse Hit Enemy");
                         c.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
                     }
                 }
@@ -111,11 +122,18 @@ public class WeaponHitbox : MonoBehaviour
         }
 
         if(player == null) {
-            print("Weapon failed to locate Player");
+            //print("Weapon failed to locate Player");
         }
         else {
-            print("Weapon located Player");
+           // print("Weapon located Player");
         }
+    }
+
+    IEnumerator DestroyHitVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject hitVFXToDestroy = activeHitVFX.Dequeue();
+        Destroy(hitVFXToDestroy);
+       // print("destroyed a hit vfx");
     }
 
     IEnumerator DisablePulseVFX() //Elizabeth

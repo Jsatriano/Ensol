@@ -12,7 +12,7 @@ public class ButtonGateController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
-    public GateTutorialText text;
+    public InteractTutorialText text;
 
     void Update()
     {
@@ -23,18 +23,19 @@ public class ButtonGateController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
+                text.canBeInteracted = true;
 
                 if(!buttonCol.enabled)
                 {
                     // opens door
                     gateController.OpenGate();
-                    text.opened = false;
                 }
-                else
-                {
-                    // if button was pressed but other conditionals aren't met, turn collider back on
-                    buttonCol.enabled = true;
-                }
+            }
+            else
+            {
+                // if button was pressed but other conditionals aren't met, turn collider back on
+                buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
         // if there ISNT a pickup required to open gate
@@ -44,18 +45,19 @@ public class ButtonGateController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
+                text.canBeInteracted = true;
 
-                if(!buttonCol.enabled)
+                if (!buttonCol.enabled)
                 {
                     // opens door
                     gateController.OpenGate();
-                    text.opened = false;
                 }
-                else
-                {
-                    // if button was pressed but other conditionals aren't met, turn collider back on
-                    buttonCol.enabled = true;
-                }
+            }
+            else
+            {
+                // if button was pressed but other conditionals aren't met, turn collider back on
+                buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
     }

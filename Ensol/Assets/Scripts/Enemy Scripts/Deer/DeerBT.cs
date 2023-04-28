@@ -4,13 +4,14 @@ using BehaviorTree;
 
 //Deer Behavior Tree - RYAN
 
-public class DeerBT : Tree
+public class DeerBT : BT
 {
     public DeerStats deerStats;
     
     protected override Node SetupTree()
     {
-        if(deerStats.playerTF == null || deerStats.player == null) {
+        if(deerStats.playerTF == null || deerStats.player == null) 
+        {
             deerStats.SearchForPlayer();
         }
         Node root = new Selector(new List<Node>
@@ -28,6 +29,7 @@ public class DeerBT : Tree
             }),
             new Sequence(new List<Node>
             {
+                new RangeCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.chargeRange, "charging"),
                 new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask, 1),
                 new CooldownCheck(deerStats.chargeCooldown, "charging"),
                 new DeerCharge(deerStats.chargeMaxSpeed, deerStats.chargeAccel, deerStats.playerTF,

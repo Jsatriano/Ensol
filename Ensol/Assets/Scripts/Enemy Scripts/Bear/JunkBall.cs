@@ -5,6 +5,7 @@ using UnityEngine;
 public class JunkBall : MonoBehaviour
 {
     public SphereCollider junkCollider;  //Collider for the junk ball
+    public SphereCollider explosionCollider;  //Collider for the explosion
     [HideInInspector] public Transform bearTF;  //The bear that threw the junk ball
     [HideInInspector] public float junkDamage;  //Damage for the junk ball
     [HideInInspector] public float explosionDamage;  //Damage for the explosion
@@ -52,7 +53,7 @@ public class JunkBall : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             //Ignores collision if it is with the bear that threw it
-            if (other.transform == bearTF)
+            if (other.transform == bearTF || other.tag == "Sound")
             {
                 return;
             }
@@ -83,7 +84,7 @@ public class JunkBall : MonoBehaviour
                 //Damage player
                 if (isExploding)
                 {
-                    playerScript.TakeDamage(explosionDamage, junkCollider);
+                    playerScript.TakeDamage(explosionDamage, explosionCollider);
                 }
                 else
                 {
@@ -107,7 +108,8 @@ public class JunkBall : MonoBehaviour
         explosionTF.localScale = explosionStartingSize;
         interpolater   = 0;
         explosionTimer = 0;
-        isExploding    = true;        
+        isExploding    = true;    
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position); 
     }
 }
 

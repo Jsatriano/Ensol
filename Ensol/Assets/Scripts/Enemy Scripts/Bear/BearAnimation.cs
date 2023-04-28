@@ -18,10 +18,12 @@ public class BearAnimation : MonoBehaviour
     [SerializeField] private float lookingSpeed;
     private Transform playerTF;
     public BearBT bearBT;
+    [SerializeField] private Rigidbody bearRB;
+    private float maxSpeed;
 
     private Vector3 previousDirection;
     private Vector3 _dirToPlayer;
-    State state;
+    private State state;
 
     void Start()
     {
@@ -43,10 +45,12 @@ public class BearAnimation : MonoBehaviour
             return;
         }
 
-        //Used to check when the bear enters agro
+        //Used to check when the bear enters aggro
         if (playerTF == null && bearBT.root.GetData("player") != null)
         {
             playerTF = (Transform)bearBT.root.GetData("player");
+            maxSpeed = bearBT.bearStats.maxSpeed;
+
         }
 
         switch(state)
@@ -61,6 +65,9 @@ public class BearAnimation : MonoBehaviour
                 return;
 
             case State.WALKING:
+                //Sets the speed of the walking animation based on current velocity
+                animController.SetFloat("AnimSpeed", Mathf.Clamp((bearRB.velocity.magnitude * 10) / maxSpeed, 0.2f, 1.5f));        
+
                 //Start swiping anim
                 if (bearBT.root.GetData("swipingAnim") != null)
                 {
@@ -99,8 +106,10 @@ public class BearAnimation : MonoBehaviour
         }
     }
 
+    /*
     private void LateUpdate()
     {
+        
         //Rotates bear's head towards player when walking around
         if (state == State.WALKING)
         {
@@ -122,9 +131,10 @@ public class BearAnimation : MonoBehaviour
             //headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;
         }
         previousDirection = headTF.forward;
+        
     }
 
-    /*
+    
     private void OnDrawGizmos()
     {
         if (Application.isPlaying && bearBT.root.GetData("player") != null)
@@ -142,6 +152,7 @@ public class BearAnimation : MonoBehaviour
     private void EndSwipeWindup()
     {
         bearBT.root.SetData("endWindup", true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearSwipe, this.transform.position);
     }
 
     private void EndSwipe()
@@ -152,6 +163,7 @@ public class BearAnimation : MonoBehaviour
     private void ThrowBall()
     {
         bearBT.root.SetData("throwJunk", true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearThrow, this.transform.position);
     }
 
     private void EndThrow()

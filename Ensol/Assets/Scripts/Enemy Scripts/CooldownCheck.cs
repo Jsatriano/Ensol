@@ -20,6 +20,16 @@ public class CooldownCheck : Node
     //Checks to see if ability is off cooldown, if so resets cooldown and returns SUCCESS, otherwise failure - RYAN
     public override NodeState Evaluate()
     {
+        //Initially stores or retrieves the cooldown length from the dashboard, used to allow the cooldown to be updated during runtime
+        if (GetData(_attackName + "Cooldown") == null)
+        {
+            SetData(_attackName + "Cooldown", _cooldownLength);
+        }
+        else
+        {
+            _cooldownLength = (float)GetData(_attackName + "Cooldown");
+        }
+
         //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
         //Also keeps setting the timer so that it only starts counting down once the attack ends
         if (GetData(_attackName) != null)
@@ -46,8 +56,16 @@ public class CooldownCheck : Node
             //Makes a random delay before the first time an enemy attacks that way groups of enemies will have offset attacks
             if (_cooldownTimer == -1)
             {
-                _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
-                _cooldownLengthRandom = Random.Range(_cooldownLength * 0.85f, _cooldownLength * 1.15f);
+                if (_attackName == "idle")
+                {
+                    _cooldownTimer = 0;
+                    _cooldownLengthRandom = 0;
+                }
+                else
+                {
+                    _cooldownTimer = Time.time - Random.Range(_cooldownLength / 4, _cooldownLength / 1.5f);
+                    _cooldownLengthRandom = Random.Range(_cooldownLength * 0.85f, _cooldownLength * 1.15f);
+                }
             }
             //Checks if enough time has passed since the last time the attack has been used
             //Also sets the cooldown length to a random number close to the num set in the inspector to make attacks feel less perfectly rythmic 

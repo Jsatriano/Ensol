@@ -22,6 +22,8 @@ public class EnemyStats : MonoBehaviour
     public float visionRange;       //The radius at which the enemy detects the player
     public float rotationSpeed;     //How fast the enemy can rotate when tracking the player
     public float obstacleDetectRadius; //The radius at which the enemy detects obstacles. Used for avoiding obstacles when moving 
+    public float shieldDropChance;
+    public GameObject shieldDropPrefab;
 
     [Header("Components")]
     public CharController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
@@ -33,7 +35,7 @@ public class EnemyStats : MonoBehaviour
     public LayerMask obstacleMask;     //The layer(s) that obstacles in the arena are on (includes other enemies)
     public LayerMask environmentMask;  //The layers the environment is on
     [HideInInspector] public GameObject[] players;
-    public Renderer renderer;
+    public Renderer enemyRenderer;
 
     private void Awake() {
         gameObject.tag = "Enemy";
@@ -57,15 +59,15 @@ public class EnemyStats : MonoBehaviour
             SearchForPlayer();
         }
 
-        if(currHP == 0) {
-            renderer.material.SetFloat("_Shader_Activation_Amount", 1.5f);
+        if(currHP <= 0) {
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", 1.5f);
         }
-        else if(currHP < maxHP / 2) {
-            renderer.material.SetFloat("_Shader_Activation_Amount", 1f);
+        else if(currHP == maxHP) {
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", 0f);
         }
         else if(currHP < maxHP) {
 
-            renderer.material.SetFloat("_Shader_Activation_Amount", (currHP/maxHP) + 0.1f);
+            enemyRenderer.material.SetFloat("_Shader_Activation_Amount", Mathf.Clamp(1.0f-(currHP/maxHP) + 0.4f, 0f, 1f));
         }
     }
 
@@ -83,11 +85,11 @@ public class EnemyStats : MonoBehaviour
             playerRB = p.GetComponent<Rigidbody>();
         }
 
-        if(player == null) {
+       /* if(player == null) {
             print("EnemyStats failed to locate Player");
         }
         else {
             print("EnemyStats located Player");
-        }
+        }*/
     }
 }

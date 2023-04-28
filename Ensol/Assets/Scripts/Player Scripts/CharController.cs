@@ -56,12 +56,12 @@ public class CharController : MonoBehaviour
     // function is called in scene start
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         state = State.IDLE;
         _rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         gameObject.tag = "Player";
-        print(gameObject.tag);
+        //print(gameObject.tag);
         knockback = false;
         _rb.drag = normalDrag;
     }
@@ -78,14 +78,14 @@ public class CharController : MonoBehaviour
                 {
                     //Cursor.visible = false;
                     controller = true;
-                    print("Connected");
+                   // print("Connected");
                     
                 }
                 else if (controller && Input.GetJoystickNames()[0].Length <= 0) // controller is disconnected
                 {
                     //Cursor.visible = true;
                     controller = false;
-                    print("Disconnected");
+                   // print("Disconnected");
                 }
             }
 
@@ -103,11 +103,17 @@ public class CharController : MonoBehaviour
             PlayerData.hasSolarUpgrade = true;
             PlayerData.hasThrowUpgrade = true;
             PlayerData.diedToCrackDeer = true;
+            PlayerData.currentlyHasBroom = true;
+            PlayerData.currentlyHasSolar = true;
         }
     }
 
     private void FixedUpdate()
     {
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         //Runs Move() in fixedUpdate so that physics are consistent
         if (state == State.MOVING)
         {
@@ -119,7 +125,11 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(_rb.drag);
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+        // print(_rb.drag);
         // stores what inputs on the keyboard are being pressed in direction vector
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
@@ -262,13 +272,13 @@ public class CharController : MonoBehaviour
                 if(pcc.isMidGrab) {
                     knockback = false;
                     state = State.ATTACKING;
-                    print("Prioritized weapon catch over knockback");
+                  //  print("Prioritized weapon catch over knockback");
                 }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                print(knockback);
+                //print(knockback);
 
 
                 // once knockback is over, go to idle state
@@ -285,11 +295,11 @@ public class CharController : MonoBehaviour
                 break;
                 
             case State.PAUSED:
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
-                    Cursor.visible = false;
+                    //Cursor.visible = false;
                     state = prevState;
                 }
                 break;
@@ -300,7 +310,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 break;
                 
             case State.DIALOGUE:
@@ -308,7 +318,7 @@ public class CharController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 break;
         }
     }
@@ -338,9 +348,12 @@ public class CharController : MonoBehaviour
             heading = Vector3.Normalize(rightMovement + upMovement);
 
             // smoothly rotates player when changeing directions (rather than abruptly)
-            Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
-
+            if (heading != Vector3.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, _rotationSpeed);
+            }
+           
             // makes our movement happen
 
             _rb.AddForce(heading * _acceleration, ForceMode.Acceleration);
@@ -351,9 +364,8 @@ public class CharController : MonoBehaviour
                 velocityXZ = Vector3.ClampMagnitude(velocityXZ, _moveSpeed);
                 _rb.velocity = velocityXZ + velocityY;
             }
-        } 
-
-             
+            PlayerData.distanceMoved += _rb.velocity.magnitude * Time.deltaTime;
+        }    
     }
 
 
@@ -362,6 +374,8 @@ public class CharController : MonoBehaviour
         // return func if dash is still on CD | else dash is successful, start CD until dahs is available again
         if(_dashCdTimer > 0) return;
         else _dashCdTimer = _dashCD;
+
+        PlayerData.dashes += 1;
 
         // player is now seen as dashing
         _isDashing = true;
@@ -388,7 +402,6 @@ public class CharController : MonoBehaviour
         // increase drag and apply force forwards of where player is facing
         _rb.drag = 0;
         _rb.AddForce(forceToApply, ForceMode.Impulse);
-        print(_rb.drag);
 
 
         // invoke RestDash function after dash is done

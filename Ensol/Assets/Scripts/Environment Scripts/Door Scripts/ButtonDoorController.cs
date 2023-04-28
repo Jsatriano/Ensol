@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class ButtonDoorController : MonoBehaviour
 {
@@ -8,11 +9,24 @@ public class ButtonDoorController : MonoBehaviour
     public Collider buttonCol;
     public GameObject requiredObj = null;
     public DoorController doorController;
+    //GameObject dialogueController;// = GameObject.FindWithTag("DialogueManager");
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
-    public GateTutorialText text;
+    public InteractTutorialText text;
+    public bool cabin = false;
+
+    public TextAsset InkDoorStory;
+    public Story door;
+
+    void Start()
+    {
+        if (InkDoorStory != null)
+        {
+            door = new Story(InkDoorStory.text);
+        }
+    }
 
     void Update()
     {
@@ -22,18 +36,19 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
-
+                text.canBeInteracted = true;
                 if(!buttonCol.enabled)
                 {
                     // opens door
                     doorController.OpenDoor();
-                    text.opened = true;
-                }
+                    AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
+                } 
             }
             else
             {
                 // if button was pressed but conditionals aren't met, turn collider back on
                 buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
         else
@@ -42,18 +57,32 @@ public class ButtonDoorController : MonoBehaviour
             {
                 // turns button green
                 buttonMesh.material = greenMat;
-
-                if(!buttonCol.enabled)
+                text.canBeInteracted = true;
+                if (cabin == false)
                 {
-                    // opens door
-                    doorController.OpenDoor();
-                    text.opened = true;
+                    if(!buttonCol.enabled)
+                    {
+                        // opens door
+                        doorController.OpenDoor();
+                    }
                 }
+                else 
+                {
+                    if (DialogueManager.GetInstance().openSesame == true)
+                    {
+                        if(!buttonCol.enabled)
+                        {
+                            // opens door
+                            doorController.OpenDoor();
+                        }
+                    }
+                }           
             }
             else
             {
                 // if button was pressed but conditionals aren't met, turn collider back on
                 buttonCol.enabled = true;
+                text.canBeInteracted = false;
             }
         }
         /*

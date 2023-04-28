@@ -49,7 +49,7 @@ public class ObstacleDetector : Node
             foreach (Collider coll in obstacles)
             {
                 //Checks if the collider is the enemy this script is atached to
-                if (coll.transform == _enemyTF.transform)
+                if (coll.transform == _enemyTF.transform || coll.tag == "Sound" || coll.tag == "EnemyAttack")
                 {
                     continue;
                 }

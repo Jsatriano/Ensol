@@ -24,6 +24,10 @@ public class BearStats : EnemyStats
     public float explosionLength;  //How long the explosion lasts
     public float explosionSize;    //How big the explosion gets
 
+    [Header("2nd Phase")]
+    public float angryMaxSpeed;
+    public float angryAcceleration;
+    public float angryJunkCooldown;
 
     [Header("Other Things")]
     public BearBT bearBT;
@@ -53,8 +57,17 @@ public class BearStats : EnemyStats
             return;
         }
         currHP -= damage;
+        if (currHP / maxHP <= 0.5f)
+        {
+            bearBT.root.SetData("belowHalf", true);
+            bearBT.root.SetData("junkCooldown", angryJunkCooldown);
+        }
         StartCoroutine(damageFlash.FlashRoutine());
-        print("Did " + damage + " damage to " + nameID);
+        if (bearBT.root.GetData("player") == null)
+        {
+            bearBT.root.SetData("player", playerTF);
+        }
+        //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0)
         {
             Die();
@@ -68,6 +81,14 @@ public class BearStats : EnemyStats
         bearBT.isAlive = false;
         swipeHitbox1.enabled = false;
         swipeHitbox2.enabled = false;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearDeath, this.transform.position);
+
+        //Random chance for creating a shield drop on death
+        if (Random.Range(0f, 1f) < shieldDropChance)
+        {
+            Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+        }
 
         // tells door and gate scripts that this bear has died
         if (buttonGateController != null)

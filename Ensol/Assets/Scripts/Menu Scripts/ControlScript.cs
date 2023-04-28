@@ -9,12 +9,17 @@ public class ControlScript : MonoBehaviour
     public CharController charController;
     public GameObject keyboardControlText;
     public GameObject controllerControlText;
+
+    void Start() {
+        keyboardControlText.SetActive(true);
+        controllerControlText.SetActive(false);
+    }
     
 
     // Update is called once per frame
     void Update()
     {
-        if(charController.controller)
+       /* if(charController.controller)
         {
             keyboardControlText.SetActive(false);
             controllerControlText.SetActive(true);
@@ -23,7 +28,7 @@ public class ControlScript : MonoBehaviour
         {
             keyboardControlText.SetActive(true);
             controllerControlText.SetActive(false);
-        }
+        }*/
 
         if(Input.GetButtonDown("Cancel"))
         {

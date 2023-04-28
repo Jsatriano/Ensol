@@ -24,7 +24,6 @@ public class FOVCheck : Node
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
     public override NodeState Evaluate()
     {
-        
         //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
         if (GetData(_attackName) != null)
         {
@@ -38,8 +37,7 @@ public class FOVCheck : Node
             return state;
         }
         else
-        {
-            
+        {          
             //Checks if enemy has already seen player
             if (GetData("player") == null)
             {
@@ -53,6 +51,8 @@ public class FOVCheck : Node
                         state = NodeState.SUCCESS;
                         if (_enemyType == 1){
                             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerAlerted, _enemyTF.position);
+                        } else if (_enemyType == 2){
+                            AudioManager.instance.PlayOneShot(FMODEvents.instance.bearAlerted, _enemyTF.position);
                         }
                         return state;
                     }  

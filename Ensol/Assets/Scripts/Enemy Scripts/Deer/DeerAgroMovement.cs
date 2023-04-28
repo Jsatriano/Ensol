@@ -81,7 +81,7 @@ public class DeerAgroMovement : Node
         SetData("prevWeights", weights);
 
         //Caculates the perpendicular direction to the direction to the player for sideways movement
-        Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
+        Vector3 movingCross = Vector3.Cross(_dirToPlayer, Vector3.up).normalized;
         SetData("deerRight", movingCross);
 
         //If there are no obstacles nearby, deer picks between moving left/right based on which direction is
@@ -112,7 +112,7 @@ public class DeerAgroMovement : Node
         //Results in the enemy circling the player instead of chasing them
         for (int i = 0; i < playerWeights.Length; i++)
         {
-            float dot = Vector3.Dot(_dirToPlayer.normalized, Directions.eightDirections[i]);
+            float dot = Vector3.Dot(_dirToPlayer, Directions.eightDirections[i]);
             float weightToAdd = 1 - (Mathf.Abs(dot) * 0.9f);
             weightToAdd = Mathf.Clamp(weightToAdd, 0.3f, 1);
             if (weightToAdd > playerWeights[i])

@@ -12,15 +12,18 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject choicesPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
+
     public CharController charController;
 
     public bool donePlaying;
+    public bool openSesame;
 
 
     private Story currentStory;
@@ -29,7 +32,7 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueManager instance;
 
-    private DialogueVariables dialogueVariables;
+    private static DialogueVariables dialogueVariables;
 
     private void Awake()
     {
@@ -52,7 +55,7 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = false;
         donePlaying = false;
         dialoguePanel.SetActive(false);
-
+        choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
 
@@ -70,11 +73,23 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetButtonDown("Submit"))
+        /*Allow e to continue dialogue if there ar eno more choices*/
+        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
         {
-            ContinueStory();
+            StartCoroutine(Delay());
         }
     }
+
+    /*allow mouse ot select option*/
+    public void ClickChoice()
+    {
+        StartCoroutine(Delay());
+    }
+
+    private IEnumerator Delay(){
+        yield return new WaitForSeconds(0.0001f);
+        ContinueStory();
+    } 
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
@@ -82,8 +97,13 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = true;
         charController.state = CharController.State.DIALOGUE;
         dialoguePanel.SetActive(true);
-
+        
         dialogueVariables.StartListening(currentStory);
+
+        currentStory.BindExternalFunction("openDoor", () => {
+            Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
+            openSesame = true;
+        });
 
         ContinueStory();
     }
@@ -92,15 +112,17 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
+        currentStory.UnbindExternalFunction("openDoor");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = CharController.State.IDLE;
         dialoguePanel.SetActive(false);
+        choicesPanel.SetActive(false);
         dialogueText.text = "";
         if (dialogueVariables != null)
         {
             dialogueVariables.SaveVariables();
-            print("saved");
+            //print("saved");
         }
     }
 
@@ -108,6 +130,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
+            //print("continue story tried to continue");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -115,6 +138,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            //print("continue story tried to exit");
             StartCoroutine(ExitDialogueMode());
         }
     }
@@ -122,6 +146,20 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        var dialoguePos = dialoguePanel.GetComponent<RectTransform>();
+        var curPos = dialoguePos.anchoredPosition;
+        if (currentChoices.Count > 0)
+        {
+            //print("hello from line 137");
+
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 385.93f);
+            choicesPanel.SetActive(true);
+        }
+        else
+        {
+            dialoguePos.anchoredPosition = new Vector2(curPos.x, 185.93f);
+            choicesPanel.SetActive(false);
+        }
 
         // checks to see if UI can support number of choices
         if (currentChoices.Count > choices.Length)
@@ -140,7 +178,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[index].text = choice.text;
             index++;
         }
-        print(index);
+        //print(index);
         // sets unneccesary choices in UI to hidden
         for (int i = index; i < choices.Length; i++)
         {
@@ -153,6 +191,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator SelectFirstChoice()
     {
+        //print("hello from line 177");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
@@ -160,11 +199,11 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        print(choiceIndex);
+        //print("made a choice");
         currentStory.ChooseChoiceIndex(choiceIndex);
     }
 
-    public Ink.Runtime.Object GetVariableState(string variableName)
+    public static bool GetVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
         dialogueVariables.variables.TryGetValue(variableName, out variableValue);
@@ -172,6 +211,8 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Ink Variable was found to be null" + variableName);
         }
-        return variableValue;
+        // return variableValue;
+        bool b = (bool) variableValue;
+        return b;
     }
 }

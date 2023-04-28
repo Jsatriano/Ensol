@@ -11,6 +11,7 @@ public class NodeSelector : MonoBehaviour
     public int node;
 
     public void OpenScene() {
+        AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         selectedNode = node;
         PlayerData.currentNode = node;
         SceneManager.LoadScene("SampleScene");

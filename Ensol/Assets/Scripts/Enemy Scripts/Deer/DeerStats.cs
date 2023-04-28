@@ -8,17 +8,18 @@ public class DeerStats : EnemyStats
     //A class for the robotic deer concept. Extends EnemyController. -Elizabeth
 
     [Header("Charge Stats/Components")]
-    public float chargeMaxSpeed;      //How fast the charge is\
+    public float chargeMaxSpeed;      //How fast the charge is
     public float chargeAccel;         //How fast the deer gets to max speed when chargin
     public float chargeCooldown;      //How long the cooldown for charge is
     public float windupRotation;      //How much the deer rotates to face the player during windup
     public float chargeDamage;        //How much damage the charge does
     public float chargeTurning;       //How much the deer can turn while charging
+    public float chargeRange;         //How close the player needs to be for the enemy to charge
     public BoxCollider chargeHitbox;  //Hitbox for the charge
 
     [Header("Basic Attack Stats/Components")]
     public float attackCooldown; //Cooldown between basic attacks
-    public float basicDamage;   //How much damage the basic attack does
+    public float basicDamage;    //How much damage the basic attack does
     public float attackRange;    //How close the player needs to be for the enemy to basic attack
     public float windupTurning;  //How much the deer can turn to face the player during windup
     public BoxCollider basicAttackHitbox; //Hibox for the attack
@@ -54,7 +55,11 @@ public class DeerStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
-        print("Did " + damage + " damage to " + nameID);
+        if (deerBT.root.GetData("player") == null)
+        {
+            deerBT.root.SetData("player", playerTF);
+        }
+        //print("Did " + damage + " damage to " + nameID);
         if (currHP <= 0) // If deer takes damage and dies, it plays final sound effect, otherwise, it plays a regular sfx
         {
             Die();
@@ -64,15 +69,21 @@ public class DeerStats : EnemyStats
 
     public override void Die()
     {
-        print(nameID + " is dead!");
+       // print(nameID + " is dead!");
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deerDeath, this.transform.position);
 
+        //Random chance for creating a shield drop on death
+        if (Random.Range(0f, 1f) < shieldDropChance)
+        {
+            Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+        }
+
         // tells door and gate scripts that this deer has died
-        if(buttonGateController != null)
+        if (buttonGateController != null)
         {
             buttonGateController.enemyKilled(thisDeer);
         }

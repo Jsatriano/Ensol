@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using FMOD.Studio;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject weapon;
     public GameObject weaponHead;
     public GameObject weaponBase;
+    public GameObject backpack;
     public GameObject weaponProjectilePrefab;
     public GameObject weaponCatchTarget;
     public GameObject FX1;
@@ -23,11 +26,13 @@ public class PlayerCombatController : MonoBehaviour
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
     public Material backpackVialMaterial;
+    private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
+    public GameObject shieldVisual;
 
 
     [Header("Player Stats & Variables")]
     public float maxHP = 10;
-    public float currHP;
+    public float currentHP = PlayerData.currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
@@ -55,6 +60,14 @@ public class PlayerCombatController : MonoBehaviour
     public float damagePulseRadius = 1f;
     [HideInInspector] public bool hasWeapon = true;
     [HideInInspector] public bool isCatching = false;
+
+    [Header("Shield Variables")]
+    /*public float shieldDuration = 2f;
+    public float shieldMaxHealth = 10f;
+    private float shieldCurrHealth = 0f;
+    public float shieldCooldown = 10f;
+    public bool shieldCanActivate = true;
+    public bool shieldIsActive = false;*/
     
     [Header("Other Variables")]
     [HideInInspector] public float attackPower;
@@ -73,17 +86,22 @@ public class PlayerCombatController : MonoBehaviour
     [Header("VFX References")]
     public GameObject[] lightSlashVFX;
     public GameObject heavySlashVFX;
+    public GameObject damageVFX;
+    public Transform damageVFXLocation;
+    public GameObject shieldBreakVFX;
 
     // Start is called before the first frame update
     void Start()
     {
-        currHP = maxHP;
+        if (PlayerData.currHP == -1){
+            PlayerData.currHP = maxHP;
+        }
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
         charController = gameObject.GetComponent<CharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
-        if (!PlayerData.hasBroom)
+        if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", false);
             charController.animator.SetBool("hasWeapon", false);
@@ -91,16 +109,18 @@ public class PlayerCombatController : MonoBehaviour
             weapon.SetActive(false);
             weaponHead.SetActive(false);
             weaponBase.SetActive(false);
+            backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
-        else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
+        else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
             charController.animator.SetBool("hasBroom", true);
             charController.animator.SetBool("hasWeapon", true);
             weapon.SetActive(true);
             weaponHead.SetActive(false);
             weaponBase.SetActive(false);
+            backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
         }
@@ -111,6 +131,7 @@ public class PlayerCombatController : MonoBehaviour
             weapon.SetActive(true);
             weaponHead.SetActive(true);
             weaponBase.SetActive(true);
+            backpack.SetActive(true);
             FX1.SetActive(true);
             FX2.SetActive(true);
         }
@@ -119,6 +140,13 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*makes hp visible for debugging purposes*/
+        currentHP = PlayerData.currHP;
+
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
         if (activeWeaponProjectile != null && !activeWeaponProjectile.activeSelf) {
             activeWeaponProjectile.SetActive(true);
             Destroy(activeWeaponProjectile);
@@ -136,6 +164,8 @@ public class PlayerCombatController : MonoBehaviour
         }
         ManageVialShader();
 
+        shieldVisual.SetActive(PlayerData.hasShield);
+
         charController.animator.SetBool("hasWeapon", hasWeapon);
         
         if(isCatching) {
@@ -143,7 +173,12 @@ public class PlayerCombatController : MonoBehaviour
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
                     //print("located catchable weapon");
-                    charController.animator.SetBool("isCatching", true);
+                    if(charController.state != CharController.State.DASHING) {
+                        charController.animator.SetBool("isCatching", true);
+                    }
+                    else {
+                        GrabWeapon();
+                    }
                     isCatching = false;
                 }
             }
@@ -166,15 +201,29 @@ public class PlayerCombatController : MonoBehaviour
             ResetLightAttackCombo();
         }
 
+        /* Shield ability disabled in favor of shield working as a pickup
+        //Activate Shield- Elizabeth
+        if(Input.GetButtonDown("Shield") && shieldCanActivate && electricVials.enoughVials(2) && PlayerData.hasShield) {
+            shieldCanActivate = false; 
+            shieldIsActive = true;
+            shieldCurrHealth = shieldMaxHealth;
+            shieldVisual.SetActive(true);
+            StartCoroutine(ShieldCooldown());
+            StartCoroutine(DisableShield());
+            electricVials.RemoveVials(2);
+        }*/
+
         
 
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") 
-           && charController.state != CharController.State.PAUSED 
+           && charController.state != CharController.State.PAUSED
+           && charController.state != CharController.State.DIALOGUE 
            && charController.state != CharController.State.DASHING
            && !charController.animator.GetBool("isHeavyAttacking")
            && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
         {
+            PlayerData.lightAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
@@ -208,30 +257,40 @@ public class PlayerCombatController : MonoBehaviour
 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && electricVials.currVial >= 0 
-            && charController.state != CharController.State.PAUSED 
-            && charController.state != CharController.State.ATTACKING 
-            && charController.state != CharController.State.DASHING && hasWeapon && PlayerData.hasSolarUpgrade) // Harsha and Justin and Elizabeth
+        if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
+            && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
+            && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(2)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
+            PlayerData.heavyAttacks += 1;
 
             charController.state = CharController.State.ATTACKING;
 
             charController.animator.SetBool("isHeavyAttacking", true);
             
             // remove 1 electric vial
-            electricVials.RemoveVials(1);
+            electricVials.RemoveVials(2);
 
             //sfx
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
         }
-        if(currHP <= 0) 
+        if(PlayerData.currHP <= 0) 
         {
             //print("Player is dead");
+            if (SceneManager.GetActiveScene().name == "PlaytestingScene")
+            {
+                PlayerData.currHP = -1;
+                SceneManager.LoadScene("PlaytestingScene");
+                return;
+            }
             charController.state = CharController.State.DEAD;
+            PlayerData.currentlyHasBroom = false;
+            PlayerData.currentlyHasSolar = false;
+            PlayerData.currentNode = 1;
             charController.animator.SetBool("isDead", true);
             //sfx
             if (dying == false){
+                PlayerData.deaths += 1;
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
@@ -242,15 +301,18 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
         }
 
-        if(Input.GetButtonDown("SpecialAttack") && electricVials.currVial >= 1 && hasWeapon && !isCatching && 
+        if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-        && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+           && charController.state != CharController.State.DIALOGUE 
+           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
+            PlayerData.throwAttacks += 1;
             charController.state = CharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
@@ -262,7 +324,6 @@ public class PlayerCombatController : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
 
         }
-
     }
 
     public void PickedUpBroom()
@@ -271,6 +332,7 @@ public class PlayerCombatController : MonoBehaviour
         charController.animator.SetBool("hasWeapon", true);
         hasWeapon = true;
         PlayerData.hasBroom = true;
+        PlayerData.currentlyHasBroom = true;
         weapon.SetActive(true);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
@@ -287,11 +349,51 @@ public class PlayerCombatController : MonoBehaviour
     {
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
         charController.animator.SetBool("hasBroom", true);
         charController.animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
         weaponHead.SetActive(true);
         weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void TestPickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void RemoveThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = false;
+    }
+
+    public void RemoveSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = false;
+        PlayerData.currentlyHasSolar = false;
+        hasWeapon = true;
+        charController.animator.SetBool("hasBroom", true);
+        charController.animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
     }
@@ -340,6 +442,7 @@ public class PlayerCombatController : MonoBehaviour
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialReturn, this.transform.position);
     }
 
     private void EndCatch() {
@@ -354,9 +457,23 @@ public class PlayerCombatController : MonoBehaviour
         isNextAttackBuffered = false;
         acceptingInput = false;
         if (comboCounter < 3){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLight, this.transform.position);
+            } else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
         } else {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            if (PlayerData.currentlyHasSolar)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightStab, this.transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponLightNormal, this.transform.position);
+            }
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerSpin, this.transform.position);
         }
             
         comboTimerActive = false;
@@ -495,28 +612,50 @@ public class PlayerCombatController : MonoBehaviour
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
-            // does dmg
-            currHP -= dmg;
+            if(!PlayerData.hasShield) {
+                // does dmg
+                PlayerData.currHP -= dmg;
 
-            // starts invuln
-            invulnTimer = Time.time;
+                // starts invuln
+                invulnTimer = Time.time;
 
-            // updates UI healthbar
-            healthBar.SetHealth(currHP);
+                // updates UI healthbar
+                healthBar.SetHealth(PlayerData.currHP);
 
-            // damage flash
-            StartCoroutine(damageFlash.FlashRoutine());
+                // damage flash
+                StartCoroutine(damageFlash.FlashRoutine());
 
-            // knockback player
-            StartCoroutine(Knockback(collider));
+                // knockback player
+                StartCoroutine(Knockback(collider));
 
-            // change state to limit actions
-            charController.state = CharController.State.KNOCKBACK;
-            // print("took damage");
+                // change state to limit actions
+                charController.state = CharController.State.KNOCKBACK;
+                // print("took damage");
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+
+                //play the damage vfx
+                GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+            }
+            else{
+                GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+                PlayerData.hasShield = false;
+                invulnTimer = Time.time;
+            }
 
         }
+    }
+
+    private IEnumerator DeleteDamageVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject damageVFXToDelete = activeDamageVFX.Dequeue();
+        Destroy(damageVFXToDelete);
     }
 
     private IEnumerator Knockback(Collider collider)
@@ -537,6 +676,17 @@ public class PlayerCombatController : MonoBehaviour
         _rb.drag = charController.normalDrag;
         charController.knockback = false;
     }
+
+  /*  private IEnumerator ShieldCooldown() {
+        yield return new WaitForSeconds(shieldCooldown);
+        shieldCanActivate = true;
+    }
+    
+    private IEnumerator DisableShield() {
+        yield return new WaitForSeconds(shieldDuration);
+        shieldIsActive = false;
+        shieldVisual.SetActive(false);
+    }*/
 
     private void ManageVialShader() {
         if(electricVials.currVial + 1 >= 3) {
