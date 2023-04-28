@@ -10,3 +10,5 @@ VAR window_seen = false
 VAR interactables_seen = 0
 VAR deadtodeer = false
 VAR deerdead = false
+VAR rabbit_deafeated = false
+VAR spider_defeated = false
