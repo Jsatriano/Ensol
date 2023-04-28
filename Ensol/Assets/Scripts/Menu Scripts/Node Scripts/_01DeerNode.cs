@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class _01DeerNode : MonoBehaviour
 {
@@ -33,6 +34,9 @@ public class _01DeerNode : MonoBehaviour
 
     [Header("Other Variables")]
     public GameObject transferCube;
+    private Story story;
+    public TextAsset globals;
+
 
     private void Awake() 
     {
@@ -83,6 +87,10 @@ public class _01DeerNode : MonoBehaviour
         {
             if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
+                story = new Story(globals.text);
+                story.state.LoadJson(DialogueVariables.saveFile);
+                story.EvaluateFunction("killedDeer");
+                DialogueVariables.saveFile = story.state.ToJson();
                 ReplaceDeadDeer(deadDear, normalDeer);
                 dropped = true;
             }

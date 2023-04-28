@@ -65,6 +65,8 @@ P1-USH: A weapon?! Why would you need a weapon? It’s perfectly safe here in th
  
 *[I should get up.]
 P1-USH: Please don't go outside again!
+~deadtodeer = false
+~abletoleave = true
 ->END
 
 

@@ -122,7 +122,7 @@ public class DialogueManager : MonoBehaviour
         if (dialogueVariables != null)
         {
             dialogueVariables.SaveVariables();
-            //print("saved");
+            print("saved");
         }
     }
 

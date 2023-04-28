@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class CharController : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class CharController : MonoBehaviour
     [HideInInspector] public bool knockback;
     public float knockbackForce;
     public bool testMode = false;
+    public static int deaths = 0;
+    public TextAsset globals;
+    // private static DialogueVariables dialogueVariables;
+    private Story story;
     
     
     [Header("Movement Vaiables")]
@@ -64,6 +69,8 @@ public class CharController : MonoBehaviour
         //print(gameObject.tag);
         knockback = false;
         _rb.drag = normalDrag;
+        story = new Story(globals.text);
+        // dialogueVariables = new DialogueVariables(globals);
     }
 
     IEnumerator CheckforControllers() // Justin
@@ -306,6 +313,19 @@ public class CharController : MonoBehaviour
 
             case State.DEAD:
                 //print("Player is Dead");
+                deaths++;
+                if (deaths == 1) 
+                {
+                    var r = story.EvaluateFunction("firstDeath");
+                    print(r);
+                    // dialogueVariables.SaveVariables();
+                    DialogueVariables.saveFile = story.state.ToJson();
+                    // foreach (string name in story.variablesState)
+                    // {
+                    //     Ink.Runtime.Object value = story.variablesState.GetVariableWithName(name);
+                    //     Debug.Log("global variable: " + name + " = " + value);
+                    // }
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
