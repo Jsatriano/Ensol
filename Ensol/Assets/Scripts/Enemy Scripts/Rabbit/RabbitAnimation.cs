@@ -17,6 +17,9 @@ public class RabbitAnimation : MonoBehaviour
     private State state;
     private Transform playerTF;
     private EventInstance attackSound;
+    private float minSpeed;
+    private float maxSpeed;
+    [SerializeField] private Rigidbody rabbitRB;
 
     private void Start()
     {
@@ -29,6 +32,8 @@ public class RabbitAnimation : MonoBehaviour
         if (playerTF == null && rabbitBT.root.GetData("player") != null)
         {
             playerTF = (Transform)rabbitBT.root.GetData("player");
+            minSpeed = rabbitBT.rabbitStats.minSpeed;
+            maxSpeed = rabbitBT.rabbitStats.maxSpeed;
         }
 
         switch (state)
@@ -47,7 +52,8 @@ public class RabbitAnimation : MonoBehaviour
                 break;
 
             case State.LEAPING:
-                animController.SetFloat("AnimSpeed", 1);
+                 animController.SetFloat("AnimSpeed", Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
+                print(Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
                 //Checks if rabbit has died
                 if (!rabbitBT.isAlive)
                 {

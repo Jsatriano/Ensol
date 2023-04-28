@@ -20,14 +20,15 @@ public class RabbitBT : BT
                 new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3),
                 new CooldownCheck(rabbitStats.attackingCooldown, "aggro"),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitAgroMode(rabbitStats.attackHitbox, rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF,
-                                   rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps)
+                new RabbitAgroMode(rabbitStats.acceleration, rabbitStats.aggroSpeed, rabbitStats.playerTF,
+                                   rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, 
+                                   rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX)
             }),
             new Sequence(new List<Node>
             {    
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitEvadeMode(rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.playerTF, rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.evadeDistance, rabbitStats.rotationSpeed,
-                                     rabbitStats.landingDrag, rabbitStats.normalDrag)
+                new RabbitEvadeMode(rabbitStats.acceleration, rabbitStats.maxSpeed, rabbitStats.minSpeed, rabbitStats.rapidAvoidDist, rabbitStats.playerTF, 
+                                    rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.evadeDistance, rabbitStats.rotationSpeed, rabbitStats.landingDrag, rabbitStats.normalDrag)
             }),          
             
         });

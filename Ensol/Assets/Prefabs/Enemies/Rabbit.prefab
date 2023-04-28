@@ -248,7 +248,7 @@ MonoBehaviour:
   numID: 0
   maxHP: 1
   currHP: 0
-  maxSpeed: 130
+  maxSpeed: 160
   attackingCooldown: 4
   acceleration: 100
   visionRange: 15
@@ -275,9 +275,12 @@ MonoBehaviour:
   agroRange: 7
   aggroLeaps: 7
   grinderVFX: {fileID: 267273718761978905}
-  evadeDistance: 6
+  aggroSpeed: 150
+  evadeDistance: 8
   landingDrag: 3
   normalDrag: 1
+  minSpeed: 120
+  rapidAvoidDist: 8
   rabbitBT: {fileID: 326271069814499013}
   damageFlash: {fileID: 5722747691111790481}
   buttonGateController: {fileID: 0}
@@ -1151,6 +1154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animController: {fileID: 9116403322475012029}
   rabbitBT: {fileID: 326271069814499013}
+  rabbitRB: {fileID: 7469141616663720495}
 --- !u!4 &6640243755745425207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9d6607019daae3f4dbc128aacd6287db, type: 3}

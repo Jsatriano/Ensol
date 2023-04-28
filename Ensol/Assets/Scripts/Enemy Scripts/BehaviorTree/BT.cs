@@ -39,7 +39,7 @@ namespace BehaviorTree
                     ManageBreadcrumbs();
                 }
                 root.Evaluate();
-            }           
+            }         
         }
         protected abstract Node SetupTree();
 

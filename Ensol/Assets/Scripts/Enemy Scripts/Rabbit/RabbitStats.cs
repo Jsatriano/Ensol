@@ -10,11 +10,14 @@ public class RabbitStats : EnemyStats
     public float agroRange;
     public float aggroLeaps;
     public GameObject grinderVFX;
+    public float aggroSpeed;
 
     [Header("Evade Behavior")]
     public float evadeDistance; //How far away from the player the rabbit tries to stay when evading
     public float landingDrag;   //The drag to be applied when the rabbit is landing from a leap
     public float normalDrag;    //The rabbit's normal drag
+    public float minSpeed;
+    public float rapidAvoidDist;
 
     [Header("Other Scripts")]
     [SerializeField] private RabbitBT rabbitBT;
@@ -30,6 +33,7 @@ public class RabbitStats : EnemyStats
         numID = 3; //placeholder, idk if we even want this
         rabbitBT.isAlive = true;
         enemyRB.drag = normalDrag;
+        grinderVFX.SetActive(false);
     }
 
     protected override void Update()
@@ -61,7 +65,7 @@ public class RabbitStats : EnemyStats
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
         attackHitbox.enabled = false;
-
+        grinderVFX.SetActive(false);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.bunnyDeath, this.transform.position);
 
