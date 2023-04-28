@@ -6,7 +6,7 @@ public class PlaytestController : MonoBehaviour
 {
     public PauseMenu pauseScript;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         pauseScript.InitializePlatestVars();
     }

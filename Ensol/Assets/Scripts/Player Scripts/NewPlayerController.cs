@@ -1,0 +1,620 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using FMOD.Studio;
+
+public class NewPlayerController : MonoBehaviour
+{
+    public enum State
+    {
+        IDLE,
+        MOVING,
+        DASHING,
+        LIGHTATTACKING,
+        HEAVYATTACKING,
+        THROWING,
+        CATCHING,
+        KNOCKBACK,
+        PAUSED,
+        DEAD,
+        DIALOGUE
+    }
+    public State state;
+
+    public Vector3 forward, right, heading;
+    [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
+
+    [Header("References")]
+    public GameObject weapon;
+    public GameObject weaponHead;
+    public GameObject weaponBase;
+    public GameObject backpack;
+    public GameObject weaponProjectilePrefab;
+    public GameObject weaponCatchTarget;
+    public GameObject lightHitbox;
+    public GameObject heavyHitbox;
+    private Rigidbody rb;
+    public GameObject mouseFollower;
+    public GameObject pauseMenu;
+    public Animator animator;
+
+    [Header("VFX & UI References")]
+    public GameObject[] lightSlashVFX;
+    public GameObject heavySlashVFX;
+    public GameObject damageVFX;
+    public Transform damageVFXLocation;
+    public GameObject shieldBreakVFX;
+    public DamageFlash damageFlash;
+    public Material backpackVialMaterial;
+    private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
+    public GameObject shieldVisual;
+    public HealthBar healthBar;
+    public ElectricVials electricVials;
+    public GameObject FX1;
+    public GameObject FX2;
+
+    [Header("Movement Variables")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float acceleration;
+    public float normalDrag;
+    [SerializeField] private float rotationSpeed;
+    private bool isGrounded;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundMask;
+
+    [Header("Dashing Variables")]
+    [SerializeField] private float dashForce;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashCD;
+    private float dashCdTimer;
+    private bool isDashing = false;
+    
+    [Header("Player Combat Stats & Variables")]
+    public float maxHP = 10;
+    public float currentHP = PlayerData.currHP;
+    public float vialRechargeSpeed;
+    private float vialTimer;
+    public float baseAttackPower = 5;
+    [SerializeField] private float force = 1;
+    public float invulnLength = 1;
+    public float maxComboTimer = 1.0f;
+    public float knockbackTimer = 0.3f;
+    public float knockbackForce;
+
+    [Header("Light Attack Variables")]
+    public float lightAttackAnimationResetTimer = 0.5f;
+    public float lightAttackMult = 1f;
+    public float light1Mult = 1f;
+    public float light2Mult = 1.3f;
+    public float light3Mult = 1.7f;
+
+    [Header("Heavy Attack Variables")]
+    public float heavyAttackMult;
+
+    [Header("Special Attack Variables")]
+    public float specialAttackMult = 0.9f;
+    public float specialDamagePulseMult = 0.5f;
+    public float weaponThrowSpeed = 4f;
+    public float weaponRecallSpeed = 5f;
+    public float weaponCatchDistance = 1f;
+    public float damagePulseRadius = 1f;
+    [HideInInspector] public bool hasWeapon = true;
+    [HideInInspector] public bool isCatching = false;
+    
+    [Header("Other Variables")]
+    [HideInInspector] public float attackPower;
+    private float invulnTimer = 0f;
+    [HideInInspector] public bool comboChain = false;
+    [HideInInspector] public int comboCounter = 0;
+    private float comboTimer = -1f;
+    [HideInInspector] public bool comboTimerActive = false;
+    private bool acceptingInput = true;
+    private bool isNextAttackBuffered = false;
+    private GameObject activeWeaponProjectile;
+    private Vector3 throwAim;
+    private bool dying = false;
+    [HideInInspector] public bool isMidGrab = false;
+    public bool attacking = false;
+    public bool controller = false;
+    private State prevState;
+    [HideInInspector] public bool knockback;
+
+    
+    //Input Read Variables
+    private Vector3 direction;
+    private bool lightAttackInput, heavyAttackInput, dashInput, throwAttackInput, shieldInput, pauseInput;
+
+    // function is called in scene start
+    private void Start()
+    {
+        state = State.IDLE;
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        gameObject.tag = "Player";
+        knockback = false;
+        rb.drag = normalDrag;
+        dying = false;
+
+        if(PlayerData.currHP == -1) {
+            PlayerData.currHP = maxHP;
+        }
+        if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
+            animator.SetBool("hasWeapon", true);
+        }
+    }
+
+    void Update() {
+        if(PauseMenu.isPaused) {
+            return;
+        }
+
+        //read inputs
+        direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        dashInput = Input.GetButtonDown("Dash");
+        throwAttackInput = Input.GetButtonDown("SpecialAttack");
+        lightAttackInput = Input.GetButtonDown("LightAttack");
+        heavyAttackInput = Input.GetButtonDown("HeavyAttack");
+        shieldInput = Input.GetButtonDown("Shield");
+        pauseInput = Input.GetButtonDown("Cancel");
+
+        //Check for Equipment
+        if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
+            animator.SetBool("hasBroom", true);
+        }
+
+        //decrement dash timer if active
+        if (dashCdTimer > 0)
+        {
+            dashCdTimer -= Time.deltaTime;
+        }
+
+    }
+
+    void FixedUpdate() {
+        if(PauseMenu.isPaused) {
+            return;
+        }
+
+
+        //State-Agnostic Checks To Occur Every Frame
+        CheckIfDying();
+
+        //Ye Olde State Machine
+        switch (state) {
+            case State.IDLE:
+                // animations
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                // checks if player starts to move
+                if(direction != zeroVector)
+                {
+                    state = State.MOVING;
+                }
+                // if player hits dash button, dash
+                else if(PlayerData.hasBroom && dashInput)
+                {
+                    state = State.DASHING;
+                }
+                //if player hits pause button, pause
+                else if(pauseInput)
+                {
+                    prevState = State.IDLE;
+                    state = State.PAUSED;
+                }
+
+                break;
+                
+            case State.MOVING:
+                // animations
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                // if player stops moving, go idle
+                if(direction == zeroVector)
+                {
+                    state = State.IDLE;                   
+                }
+
+                // if player hits space, dash
+                else if(PlayerData.hasBroom && dashInput)
+                {
+                    state = State.DASHING;                    
+
+                }
+                else if(pauseInput)
+                {
+                    prevState = State.MOVING;
+                    state = State.PAUSED;
+
+                }
+
+                Move();
+                break;
+
+            case State.DASHING:
+                // make player dash if CD is done
+                if(dashCdTimer <= 0)
+                {
+                    animator.SetBool("isRunning", false);
+                    animator.SetBool("isDashing", true);
+                    animator.SetBool("isHeavyAttacking", false);
+                    animator.SetInteger("lightAttackCombo", 0);
+                    Dash();
+                }
+
+                // after the dash is done, change states
+                if(!isDashing)
+                {   
+                    if(direction == zeroVector)
+                    {
+                        state = State.IDLE;
+                    }
+                    else if(direction != zeroVector)
+                    {
+                        state = State.MOVING;
+                    }
+                    else if(pauseInput)
+                    {
+                        prevState = State.DASHING;
+                        state = State.PAUSED;
+                    }
+                }
+                break;
+
+            case State.LIGHTATTACKING:
+                break;
+
+            case State.HEAVYATTACKING:
+                break;
+
+            case State.THROWING:
+                break;
+
+            case State.CATCHING:
+                break;
+
+            case State.KNOCKBACK:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                // once knockback is over, go to idle state
+                if(knockback == false)
+                {
+                    state = State.IDLE;
+                }
+                // if paused during knockback, save state so game doesnt break
+                else if(Input.GetButtonDown("Cancel"))
+                {
+                    prevState = State.KNOCKBACK;
+                    state = State.PAUSED;
+                }
+                break;
+
+            case State.PAUSED:
+                // pause game, make all actions unavailable
+                if(!pauseMenu.activeInHierarchy)
+                {
+                    state = prevState;
+                }
+                break;
+
+            case State.DEAD:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                break;
+
+            case State.DIALOGUE:
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                break;
+        }
+
+    }
+
+    //MOVEMENT FUNCTIONS
+
+    void Move() // Justin
+    {
+        // forward vector is going to equal our camera's forward vector 
+        forward = Camera.main.transform.forward;
+        forward.y = 0;
+
+        // keeps length of vector to 1 so we can use it for motion
+        forward = Vector3.Normalize(forward);
+
+        // creates a rotation for our vector
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        // checks if player is moving
+        if(direction.magnitude > 0.1f)
+        {
+            // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+            Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+
+            // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+            Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+
+            // combines both movements to create a direction that our character will point to
+            heading = Vector3.Normalize(rightMovement + upMovement);
+
+            // smoothly rotates player when changeing directions (rather than abruptly)
+            if (heading != Vector3.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(heading, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed);
+            }
+           
+            // makes our movement happen
+
+            rb.AddForce(heading * acceleration, ForceMode.Acceleration);
+            Vector3 velocityXZ = new Vector3(rb.velocity.x, 0, rb.velocity.z);           
+            if (velocityXZ.magnitude > moveSpeed)
+            {
+                Vector3 velocityY = new Vector3(0, rb.velocity.y, 0);
+                velocityXZ = Vector3.ClampMagnitude(velocityXZ, moveSpeed);
+                rb.velocity = velocityXZ + velocityY;
+            }
+            PlayerData.distanceMoved += rb.velocity.magnitude * Time.deltaTime;
+        }    
+    }
+
+    private void Dash() // Justin
+    {
+        // return func if dash is still on CD | else dash is successful, start CD until dahs is available again
+        if(dashCdTimer > 0) return;
+        else dashCdTimer = dashCD;
+
+        PlayerData.dashes += 1;
+
+        // player is now seen as dashing
+        isDashing = true;
+        rb.velocity = Vector3.zero;
+
+        //sfx
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDodge, this.transform.position);
+
+        // find out how much force to apply to player (also check if player is moving or not)
+        Vector3 forceToApply;
+        if(direction == zeroVector)
+        {
+            forceToApply = transform.forward * dashForce;
+        }
+        else 
+        {
+            if(heading != transform.forward) {
+                transform.forward = heading;
+            }
+            forceToApply = heading * dashForce;
+        }
+
+
+        // increase drag and apply force forwards of where player is facing
+        rb.drag = 0;
+        rb.AddForce(forceToApply, ForceMode.Impulse);
+
+
+        // invoke RestDash function after dash is done
+        Invoke(nameof(ResetDash), dashDuration);
+    }
+
+    private void ResetDash() // Justin
+    {
+        // reset drag
+        rb.drag = normalDrag;
+
+        // player isnt seen as dashing anymore
+        isDashing = false;
+    }
+
+    private void ControlDrag()
+    {
+        if (isGrounded && state != State.DASHING && state != State.LIGHTATTACKING && state != State.HEAVYATTACKING && state != State.THROWING && state != State.CATCHING)
+        {
+            rb.drag = normalDrag;
+        }
+        else
+        {
+            rb.drag = 1;
+        }
+    }
+
+    //COMBAT FUNCTIONS
+
+    public void CheckIfDying() {
+        if(PlayerData.currHP <= 0) 
+        {
+            if (SceneManager.GetActiveScene().name == "PlaytestingScene")
+            {
+                PlayerData.currHP = -1;
+                SceneManager.LoadScene("PlaytestingScene");
+                return;
+            }
+            state = State.DEAD;
+            PlayerData.currentlyHasBroom = false;
+            PlayerData.currentlyHasSolar = false;
+            PlayerData.currentNode = 1;
+            animator.SetBool("isDead", true);
+            //sfx
+            if (dying == false){
+                PlayerData.deaths += 1;
+                dying = true;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
+            }
+        } 
+    }
+
+    public void TakeDamage(float dmg, Collider collider) // Justin
+    {
+        if(Time.time - invulnTimer >= invulnLength)
+        {
+            if(!PlayerData.hasShield) {
+                // does dmg
+                PlayerData.currHP -= dmg;
+
+                // starts invuln
+                invulnTimer = Time.time;
+
+                // updates UI healthbar
+                healthBar.SetHealth(PlayerData.currHP);
+
+                // damage flash
+                StartCoroutine(damageFlash.FlashRoutine());
+
+                // knockback player
+                StartCoroutine(Knockback(collider));
+
+                // change state to limit actions
+                state = State.KNOCKBACK;
+                // print("took damage");
+
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+
+                //play the damage vfx
+                GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+            }
+            else{
+                GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
+                activeDamageVFX.Enqueue(newDamageVFX);
+                StartCoroutine(DeleteDamageVFX());
+                PlayerData.hasShield = false;
+                invulnTimer = Time.time;
+            }
+
+        }
+    }
+
+    private IEnumerator DeleteDamageVFX() {
+        yield return new WaitForSeconds(1f);
+        GameObject damageVFXToDelete = activeDamageVFX.Dequeue();
+        Destroy(damageVFXToDelete);
+    }
+
+    private IEnumerator Knockback(Collider collider)
+    {
+        // start knockback
+        knockback = true;
+
+        // calculate direction to push player back
+        Vector3 direction = (collider.transform.position - transform.position) * -1;
+        Vector3 forceToApply = direction * knockbackForce;
+
+        // push player back
+        rb.drag = 0;
+        rb.AddForce(forceToApply, ForceMode.Impulse);
+        yield return new WaitForSeconds(knockbackTimer);
+
+        // reset drag and end knockback
+        rb.drag = normalDrag;
+        knockback = false;
+    }
+
+    //EQUIPMENT CHECK/CHANGE
+
+    public void PickedUpBroom()
+    {
+        animator.SetBool("hasBroom", true);
+        animator.SetBool("hasWeapon", true);
+        hasWeapon = true;
+        PlayerData.hasBroom = true;
+        PlayerData.currentlyHasBroom = true;
+        weapon.SetActive(true);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+    }
+
+    public void PickedUpThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = true;
+    }
+
+    public void PickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.hasThrowUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        animator.SetBool("hasBroom", true);
+        animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void TestPickedUpSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = true;
+        PlayerData.currentlyHasSolar = true;
+        PlayerData.currentlyHasBroom = true;
+        hasWeapon = true;
+        animator.SetBool("hasBroom", true);
+        animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    public void RemoveThrowUpgrade()
+    {
+        PlayerData.hasThrowUpgrade = false;
+    }
+
+    public void RemoveSolarUpgrade()
+    {
+        PlayerData.hasSolarUpgrade = false;
+        PlayerData.currentlyHasSolar = false;
+        hasWeapon = true;
+        animator.SetBool("hasBroom", true);
+        animator.SetBool("hasWeapon", true);
+        weapon.SetActive(true);
+        weaponHead.SetActive(true);
+        weaponBase.SetActive(true);
+        backpack.SetActive(true);
+        FX1.SetActive(true);
+        FX2.SetActive(true);
+    }
+
+    //SHADER MANAGEMENT
+
+    private void ManageVialShader() {
+        if(electricVials.currVial + 1 >= 3) {
+            backpackVialMaterial.SetFloat("Gradient_Clipping_Amount", 1f);
+        }
+        else if(electricVials.currVial + 1 == 2) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.2f);
+        }
+        else if(electricVials.currVial + 1 == 1) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
+        }
+        else {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
+        }
+    }
+
+}

@@ -21,7 +21,7 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject heavyHitbox;
     private CharController charController;
     private Rigidbody _rb;
-    public FadeOnDeath fadeOnDeath;
+    //public FadeOnDeath fadeOnDeath;
     public HealthBar healthBar;
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
