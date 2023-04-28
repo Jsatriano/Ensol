@@ -135,9 +135,11 @@ public class NewPlayerController : MonoBehaviour
         knockback = false;
         rb.drag = normalDrag;
         dying = false;
+        healthBar.SetMaxHealth(maxHP);
 
         if(PlayerData.currHP == -1) {
             PlayerData.currHP = maxHP;
+            healthBar.SetMaxHealth(PlayerData.currHP);
         }
         if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
             animator.SetBool("hasWeapon", true);
@@ -169,6 +171,8 @@ public class NewPlayerController : MonoBehaviour
             dashCdTimer -= Time.deltaTime;
         }
 
+        //turn on and off shield visibility
+        shieldVisual.SetActive(PlayerData.hasShield);
     }
 
     void FixedUpdate() {
@@ -176,8 +180,7 @@ public class NewPlayerController : MonoBehaviour
             return;
         }
 
-
-        //State-Agnostic Checks To Occur Every Frame
+        //State-Agnostic Events
         CheckIfDying();
 
         //Ye Olde State Machine
@@ -481,7 +484,7 @@ public class NewPlayerController : MonoBehaviour
                 state = State.KNOCKBACK;
                 // print("took damage");
 
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, damageVFXLocation.transform.position);
 
                 //play the damage vfx
                 GameObject newDamageVFX = Instantiate(damageVFX, damageVFXLocation);
@@ -491,7 +494,7 @@ public class NewPlayerController : MonoBehaviour
             else{
                 GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
                 ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
                 activeDamageVFX.Enqueue(newDamageVFX);
                 StartCoroutine(DeleteDamageVFX());
                 PlayerData.hasShield = false;

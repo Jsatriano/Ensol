@@ -9,7 +9,6 @@ public class FadeOnDeath : MonoBehaviour
     public GameObject blackOutSquare;
     public NodeSelector nodeSelector;
     private string sceneName;
-    private bool canTrigger = false;
 
     void Start() {
         sceneName = SceneManager.GetActiveScene().name;
@@ -20,8 +19,6 @@ public class FadeOnDeath : MonoBehaviour
 
     if(PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
         {
-            canTrigger = true;
-            print("inside fadeondeath");
             Time.timeScale = 0.5f;
             StartCoroutine(FadeBlackOutSquare());
         }
@@ -29,39 +26,38 @@ public class FadeOnDeath : MonoBehaviour
 
     public IEnumerator FadeBlackOutSquare()
     {
-        if(canTrigger) {
-            yield return new WaitForSeconds(1f);
-            Color objectColor = blackOutSquare.GetComponent<Image>().color;
-            float fadeAmount;
-            bool fadeToBlack = true;
-            int fadeSpeed = 1;
 
-            if(fadeToBlack)
+        yield return new WaitForSeconds(1f);
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        bool fadeToBlack = true;
+        int fadeSpeed = 1;
+
+        if(fadeToBlack)
+        {
+            while(blackOutSquare.GetComponent<Image>().color.a < 1)
             {
-                while(blackOutSquare.GetComponent<Image>().color.a < 1)
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
-                    fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
-                    objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-                    blackOutSquare.GetComponent<Image>().color = objectColor;
-                    if(blackOutSquare.GetComponent<Image>().color.a >= 1)
+                    //Takes player straight back to cabin instead of respawn screen if they haven't gotten the broom yet (crack deer death)
+                    if (PlayerData.hasBroom)
                     {
-                        //Takes player straight back to cabin instead of respawn screen if they haven't gotten the broom yet (crack deer death)
-                        if (PlayerData.hasBroom)
-                        {
-                            SceneManager.LoadScene(sceneName:"RecloneScene");
-                            Cursor.visible = true;
-                        }
-                        else
-                        {
-                            PlayerData.diedToCrackDeer = true;
-                            nodeSelector.node = 1;
-                            Time.timeScale = 1f;
-                            PlayerData.currHP = -1;
-                            nodeSelector.OpenScene();
-                        }
+                        SceneManager.LoadScene(sceneName:"RecloneScene");
+                        Cursor.visible = true;
                     }
-                    yield return null;
+                    else
+                    {
+                        PlayerData.diedToCrackDeer = true;
+                        nodeSelector.node = 1;
+                        Time.timeScale = 1f;
+                        PlayerData.currHP = -1;
+                        nodeSelector.OpenScene();
+                    }
                 }
+                yield return null;
             }
         }
     }
