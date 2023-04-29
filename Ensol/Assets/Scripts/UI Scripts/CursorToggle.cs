@@ -21,7 +21,7 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if((scene.name == "SampleScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene" && !pauseMenu.activeInHierarchy)
+        if(((scene.name == "SampleScene" && !dialoguebox.activeInHierarchy) || (scene.name == "PlaytestingScene")) && !pauseMenu.activeInHierarchy)
         {
             Cursor.visible = false;
             if ((scene.name == "SampleScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
