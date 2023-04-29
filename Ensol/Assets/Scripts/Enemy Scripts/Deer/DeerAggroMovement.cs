@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class DeerAgroMovement : Node
+public class DeerAggroMovement : Node
 {
     private Transform _playerTF;  //Player transform
     private Transform _enemyTF;   //Enemy transform
@@ -17,7 +17,7 @@ public class DeerAgroMovement : Node
     private float[] weights   = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];    //Used for resetting arrays to all zeroes
 
-    public DeerAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed)
+    public DeerAggroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;

@@ -20,7 +20,7 @@ public class RabbitBT : BT
                 new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3),
                 new CooldownCheck(rabbitStats.attackingCooldown, "aggro"),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
-                new RabbitAgroMode(rabbitStats.acceleration, rabbitStats.aggroSpeed, rabbitStats.playerTF,
+                new RabbitAggroMode(rabbitStats.acceleration, rabbitStats.aggroSpeed, rabbitStats.playerTF,
                                    rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, 
                                    rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX)
             }),

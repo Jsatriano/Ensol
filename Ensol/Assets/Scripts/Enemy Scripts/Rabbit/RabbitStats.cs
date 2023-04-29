@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class RabbitStats : EnemyStats
 {
-    [Header("Agro Behavior")]
+    [Header("Aggro Behavior")]
     public float attackDamage;  //How much damage the rabbit does
     public SphereCollider attackHitbox;
-    public float agroRange;
     public float aggroLeaps;
     public GameObject grinderVFX;
     public float aggroSpeed;
