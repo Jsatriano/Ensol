@@ -10,12 +10,14 @@ public class BearAgroMovement : Node
     private Rigidbody _enemyRB;   //Enemy rigidbody
     private float _acceleration;  //How fast the bear gets to max speed
     private float _maxSpeed;      //Speed of the enemy
+    private float _angryAcceleration; //2nd phase acceleration
+    private float _angryMaxSpeed;     //2nd phase max speed
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The bears direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
 
-    public BearAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
+    public BearAgroMovement(float acceleration, float maxSpeed, float angryAcceleration, float angryMaxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -25,11 +27,20 @@ public class BearAgroMovement : Node
         _rotationSpeed = rotationSpeed;
         movingDir = Vector3.zero;
         _envLayerMask = envLayerMask;
+        _angryMaxSpeed = angryMaxSpeed / 10;
+        _angryAcceleration = angryAcceleration;
     }
 
     public override NodeState Evaluate()
     {
         ChooseDirection();
+
+        //Initiates 2nd phase speed
+        if (_maxSpeed != _angryMaxSpeed && GetData("belowHalf") != null)
+        {
+            _maxSpeed = _angryMaxSpeed;
+            _acceleration = _angryAcceleration;
+        }
 
         //Finds how closely the bear's transform.forward is to the direction it wants to move and then limits that to a number between 0 and 1
         float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);

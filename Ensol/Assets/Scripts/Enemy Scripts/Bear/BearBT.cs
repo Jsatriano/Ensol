@@ -21,7 +21,7 @@ public class BearBT : BT
                 }),
                 new PlayerSeenCheck(),
                 new ObstacleDetector(bearStats.obstacleDetectRadius, bearStats.obstacleMask, bearStats.enemyTF, bearStats.hitbox),
-                new BearAgroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.playerTF, bearStats.enemyTF, 
+                new BearAgroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.angryAcceleration, bearStats.angryMaxSpeed, bearStats.playerTF, bearStats.enemyTF, 
                                      bearStats.enemyRB, bearStats.rotationSpeed, bearStats.environmentMask)
             }),
             new Sequence(new List<Node>

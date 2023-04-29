@@ -240,6 +240,9 @@ MonoBehaviour:
   explosionDamage: 2
   explosionLength: 0.75
   explosionSize: 3.5
+  angryMaxSpeed: 45
+  angryAcceleration: 30
+  angryJunkCooldown: 4
   bearBT: {fileID: 3805819858905312370}
   damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
@@ -1537,6 +1540,7 @@ MonoBehaviour:
   headTF: {fileID: 1821732347219173656}
   lookingSpeed: 3
   bearBT: {fileID: 3805819858905312370}
+  bearRB: {fileID: 3805819858905312380}
 --- !u!4 &5422845395492997507 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -31193313216444736, guid: af331b616a8c0714b98e03b143af8e21, type: 3}

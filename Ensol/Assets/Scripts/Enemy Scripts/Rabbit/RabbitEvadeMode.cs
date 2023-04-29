@@ -9,7 +9,9 @@ public class RabbitEvadeMode : Node
     private Transform _enemyTF;   //Enemy transform
     private Rigidbody _enemyRB;   //Enemy rigidbody
     private float _acceleration;  //How fast the rabbit gets to max speed
-    private float _maxSpeed;      //Speed of the enemy
+    private float _maxSpeed;      //Max speed of the rabbit
+    private float _minSpeed;      //Min speed the rabbit will go, the rabbit will fluctuate between this min and max speed based on how close the player is
+    private float _rapidAvoidDist;
     private float _landingDrag;
     private float _normalDrag;
     private float _idealDistance; //The ideal distance the rabbit tries to stay from the player
@@ -19,8 +21,10 @@ public class RabbitEvadeMode : Node
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
     private Vector3 _originalPos;
+    private float _distanceToPlayer;
 
-    public RabbitEvadeMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed, float landingDrag, float normalDrag)
+    public RabbitEvadeMode(float acceleration, float maxSpeed, float minSpeed, float rapidAvoidDist, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, 
+                           float rotationSpeed, float landingDrag, float normalDrag)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -33,24 +37,17 @@ public class RabbitEvadeMode : Node
         _landingDrag = landingDrag;
         _normalDrag = normalDrag;
         _originalPos = enemyTF.position;
+        _minSpeed = minSpeed / 10;
+        _rapidAvoidDist = rapidAvoidDist;
     }
 
     public override NodeState Evaluate()
     {
-        SetData("EVADE", true);
-
-
         ChooseDirection();
 
-        float speedDot;
         if (GetData("applyLandingDrag") != null)
         {
             _enemyRB.drag = _landingDrag;
-            //Makes the rabbit move slower the less it is facing the direction it wants to move
-            speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
-            speedDot = (speedDot / 2) + 0.5f;
-            speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
-
             _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
         }
 
@@ -75,17 +72,19 @@ public class RabbitEvadeMode : Node
 
         _enemyRB.drag = _normalDrag;
         //Makes the rabbit move slower the less it is facing the direction it wants to move
-        speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
+        float speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
         _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
 
+        float evadeSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, 1 - Mathf.Clamp01(_distanceToPlayer / _rapidAvoidDist));
+
         //Moves rabbit in the desired direction (with a speed cap)
-        if (_enemyRB.velocity.magnitude > _maxSpeed)
+        if (_enemyRB.velocity.magnitude > evadeSpeed)
         {
             //Keep moving rabbit at max speed
-            _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
+            //_enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, evadeSpeed);
         }
         else
         {
@@ -138,7 +137,7 @@ public class RabbitEvadeMode : Node
     {
         //Sets up array and calcuates the distance/direction to the player
         float[] playerWeights = new float[8];
-        //If player hasn't been seen yet, then thr rabbit instead just leaps around its original position
+        //If player hasn't been seen yet, then the rabbit instead just leaps around its original position
         if (GetData("player") != null)
         {
             _dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
@@ -148,8 +147,8 @@ public class RabbitEvadeMode : Node
             _dirToPlayer = new Vector3(_originalPos.x - _enemyTF.position.x, 0, _originalPos.z - _enemyTF.position.z);
         }
         
-        float distanceToPlayer = _dirToPlayer.magnitude;
-        float distanceOffset = _idealDistance - distanceToPlayer;
+        _distanceToPlayer = _dirToPlayer.magnitude;
+        float distanceOffset = _idealDistance - _distanceToPlayer;
         _dirToPlayer = _dirToPlayer.normalized;
 
         //Calculates a weight for all 8 directions based on how close it is to being perpindicular to player.
