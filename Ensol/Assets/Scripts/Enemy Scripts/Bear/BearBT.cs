@@ -21,7 +21,7 @@ public class BearBT : BT
                 }),
                 new PlayerSeenCheck(),
                 new ObstacleDetector(bearStats.obstacleDetectRadius, bearStats.obstacleMask, bearStats.enemyTF, bearStats.hitbox),
-                new BearAgroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.angryAcceleration, bearStats.angryMaxSpeed, bearStats.playerTF, bearStats.enemyTF, 
+                new BearAggroMovement(bearStats.acceleration, bearStats.maxSpeed, bearStats.angryAcceleration, bearStats.angryMaxSpeed, bearStats.playerTF, bearStats.enemyTF, 
                                      bearStats.enemyRB, bearStats.rotationSpeed, bearStats.environmentMask)
             }),
             new Sequence(new List<Node>
@@ -29,14 +29,14 @@ public class BearBT : BT
                 new CooldownCheck(bearStats.swipeCooldown, "swipe"),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.swipeRange, "swipe"),
                 new BearSwipe(bearStats.swipeHitbox1, bearStats.swipeHitbox2, bearStats.playerTF, bearStats.enemyTF, 
-                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.swipeRotation)
+                              bearStats.enemyRB, bearStats.swipeMovement, bearStats.swipeRotation, "swipe")
             }),
             new Sequence(new List<Node>
             {
                 new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask, 2),
                 new CooldownCheck(bearStats.junkCooldown, "junk"),
                 new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkRange, "junk"),
-                new BearJunkThrow()
+                new BearJunkThrow("junk")
             })
         });
         return root;

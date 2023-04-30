@@ -28,7 +28,7 @@ public class RabbitAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Used to check when the rabbit enters agro
+        //Used to check when the rabbit enters aggro
         if (playerTF == null && rabbitBT.root.GetData("player") != null)
         {
             playerTF = (Transform)rabbitBT.root.GetData("player");
