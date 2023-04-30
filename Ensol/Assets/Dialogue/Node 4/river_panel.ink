@@ -1,4 +1,4 @@
-INCLUDE globals.ink
+INCLUDE ../globals.ink
 { river_controls == false: -> Intro | -> Over}
 
 
