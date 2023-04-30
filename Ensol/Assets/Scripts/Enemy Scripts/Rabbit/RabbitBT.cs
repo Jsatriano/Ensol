@@ -22,7 +22,7 @@ public class RabbitBT : BT
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
                 new RabbitAggroMode(rabbitStats.acceleration, rabbitStats.aggroSpeed, rabbitStats.playerTF,
                                    rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, 
-                                   rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX)
+                                   rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX, "aggro")
             }),
             new Sequence(new List<Node>
             {    

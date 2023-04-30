@@ -33,13 +33,13 @@ public class DeerBT : BT
                 new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask, 1),
                 new CooldownCheck(deerStats.chargeCooldown, "charging"),
                 new DeerCharge(deerStats.chargeMaxSpeed, deerStats.chargeAccel, deerStats.playerTF,
-                               deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitbox, deerStats.chargeTurning, deerStats.windupRotation, deerStats.obstacleMask)
+                               deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitbox, deerStats.chargeTurning, deerStats.windupRotation, deerStats.obstacleMask, "charging")
             }),
             new Sequence(new List<Node>
             {
                 new RangeCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.attackRange, "basic"),
                 new CooldownCheck(deerStats.attackCooldown, "basic"),
-                new DeerBasicAttack(deerStats.basicAttackHitbox, deerStats.playerTF, deerStats.enemyTF, deerStats.windupTurning)
+                new DeerBasicAttack(deerStats.basicAttackHitbox, deerStats.playerTF, deerStats.enemyTF, deerStats.windupTurning, "basic")
             }),           
         });
 

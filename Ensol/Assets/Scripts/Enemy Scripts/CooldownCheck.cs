@@ -30,29 +30,35 @@ public class CooldownCheck : Node
             _cooldownLength = (float)GetData(_attackName + "Cooldown");
         }
 
-        //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
+        //Checks if enemy is already attacking and automically passes if it is the attack this node is for (to prevent interrupting it)
         //Also keeps setting the timer so that it only starts counting down once the attack ends
-        if (GetData(_attackName) != null)
+        string attack = (string)GetData("attacking");
+        if (attack != null)
         {
-            _cooldownTimer = Time.time;
-            state = NodeState.SUCCESS;
-            return NodeState.SUCCESS;
-        }
-        //Checks if enemy is currently doing a different attack (automatically fails if so)
-        else if (GetData("attacking") != null)
-        {
-            //Checks if this is a cooldown for the idle state, which will have an Inverter on it, which means this needs to be inverted
-            if (_attackName == "idle")
+            if (attack == _attackName)
             {
                 _cooldownTimer = Time.time;
                 state = NodeState.SUCCESS;
-                return state;
+                return NodeState.SUCCESS;
             }
-            state = NodeState.FAILURE;
-            return state;
+            else
+            {
+                //Checks if this is a cooldown for the idle state, which will have an Inverter on it, which means this needs to be inverted
+                if (_attackName == "idle")
+                {
+                    _cooldownTimer = Time.time;
+                    state = NodeState.SUCCESS;
+                    return state;
+                }
+                else
+                {
+                    state = NodeState.FAILURE;
+                    return state;
+                }
+            }
         }
         else
-        {
+        {;
             //Makes a random delay before the first time an enemy attacks that way groups of enemies will have offset attacks
             if (_cooldownTimer == -1)
             {

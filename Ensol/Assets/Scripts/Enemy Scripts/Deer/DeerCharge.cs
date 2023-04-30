@@ -12,6 +12,7 @@ public class DeerCharge : Node
     private float _rotation;       //How much the deer rotates to face the player during windup
     private Vector3 target;
     private Vector3 toPlayer;
+    private string _attackname;
 
     //Used for ending the charge
     private Vector3 _startingPosition; //Used to check if the enemy has passed the player
@@ -26,8 +27,8 @@ public class DeerCharge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, 
-                      float chargeTurning, float rotation, LayerMask obstacleMask)
+    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, Transform deerTF, Rigidbody deerRB, BoxCollider hitZone,
+                      float chargeTurning, float rotation, LayerMask obstacleMask, string attackName)
     {
         _chargeMaxSpeed = chargeMaxSpeed;
         _chargeAccel    = chargeAccel;
@@ -39,6 +40,7 @@ public class DeerCharge : Node
         _rotation       = rotation / 10;
         _obstacleMask   = obstacleMask;
         _chargeEnding   = false;
+        _attackname = attackName;
     }
 
     //Deer charge attack - RYAN
@@ -94,8 +96,7 @@ public class DeerCharge : Node
             _chargeTime = 0;
             _chargeEnding = false;
 
-            SetData("charging", true);
-            SetData("attacking", true);
+            SetData("attacking", _attackname);
             SetData("chargeWindupAnim", true);
             ClearData("movingForward");
             state = NodeState.RUNNING;
@@ -130,7 +131,6 @@ public class DeerCharge : Node
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _chargeEnding = false;
-                    ClearData("charging");
                     ClearData("attacking");
                     ClearData("attackHit");
                     state = NodeState.SUCCESS;
