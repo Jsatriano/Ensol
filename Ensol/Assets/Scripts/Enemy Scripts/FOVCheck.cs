@@ -24,17 +24,20 @@ public class FOVCheck : Node
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
     public override NodeState Evaluate()
     {
-        //Automatically returns success if the attack is already running to prevent prematurely terminating attacks
-        if (GetData(_attackName) != null)
+        //Checks if enemy is already attacking and automically passes if it is the attack this node is for (to prevent interrupting it)
+        string attack = (string)GetData("attacking");
+        if (attack != null)
         {
-            state = NodeState.SUCCESS;
-            return state;
-        }
-        //Checks if enemy is currently doing a different attack (automatically fails if so)
-        else if (GetData("attacking") != null)
-        {
-            state = NodeState.FAILURE;
-            return state;
+            if (attack == _attackName)
+            {
+                state = NodeState.SUCCESS;
+                return state;
+            }
+            else
+            {
+                state = NodeState.FAILURE;
+                return state;
+            }
         }
         else
         {          

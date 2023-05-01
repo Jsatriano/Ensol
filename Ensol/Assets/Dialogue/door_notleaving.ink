@@ -21,5 +21,6 @@ P1-USH: You’re not going out into the forest again are you?
 ===2nd_part ===
 ~openDoor()
 *[I need some fresh air.]
+P1-USH: Don't go too far!
  -> END
 
