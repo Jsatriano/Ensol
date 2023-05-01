@@ -16,7 +16,8 @@ public class BearStats : EnemyStats
     [Header("Junk Attack")]
     public float junkDamage;    //How much damage the junk ball does
     public float junkCooldown;  //Cooldown on the junk attack
-    public float junkRange;     //Range at which the bear will use the junk attack
+    public float junkMinRange;  //Min range at which the bear will use the junk attack
+    public float junkMaxRange;  //Max range at which the bear will use the junk attack
     public float junkRotation;  //How well the bear can track the player during windup
     public float junkMaxSpeed;  //Max speed junk can be thrown at
     public float junkMinSpeed;  //Min speed junk can be thrown at
