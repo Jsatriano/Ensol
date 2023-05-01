@@ -81,7 +81,6 @@ public class PauseMenu : MonoBehaviour
         PlayerData.hasBroom = true;
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
-        PlayerData.hasShield = true;
         PlayerData.currentlyHasBroom = true;
         PlayerData.currentlyHasSolar = true;
     }

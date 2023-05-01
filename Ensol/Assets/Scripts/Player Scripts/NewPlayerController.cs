@@ -21,8 +21,7 @@ public class NewPlayerController : MonoBehaviour
         DIALOGUE
     }
     public State state;
-
-    public int comboCounter;
+    public int comboCounter = 0;
 
     public Vector3 forward, right, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
@@ -110,11 +109,8 @@ public class NewPlayerController : MonoBehaviour
     [HideInInspector] public float attackPower;
     private float invulnTimer = 0f;
     [HideInInspector] public bool comboChain = false;
-    //[HideInInspector] public int comboCounter = 0;
     private float comboTimer = -1f;
     [HideInInspector] public bool comboTimerActive = false;
-    private bool acceptingInput = true;
-    private bool isNextAttackBuffered = false;
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
@@ -158,12 +154,24 @@ public class NewPlayerController : MonoBehaviour
 
         //read inputs
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        dashInput = Input.GetButtonDown("Dash");
-        throwAttackInput = Input.GetButtonDown("SpecialAttack");
-        lightAttackInput = Input.GetButtonDown("LightAttack");
-        heavyAttackInput = Input.GetButtonDown("HeavyAttack");
-        shieldInput = Input.GetButtonDown("Shield");
-        pauseInput = Input.GetButtonDown("Cancel");
+        if(Input.GetButtonDown("Dash")) {
+            dashInput = true;
+        }
+        if(Input.GetButtonDown("SpecialAttack")) {
+            throwAttackInput = true;
+        }
+        if(Input.GetButtonDown("LightAttack")) {
+            lightAttackInput = true;
+        }
+        if(Input.GetButtonDown("HeavyAttack")) {
+            heavyAttackInput = true;
+        }
+        if(Input.GetButtonDown("Shield")) {
+            shieldInput = true;
+        }
+        if(Input.GetButtonDown("Cancel")) {
+            pauseInput = true;
+        }
 
         //Check for Equipment
         if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
@@ -178,6 +186,9 @@ public class NewPlayerController : MonoBehaviour
 
         //turn on and off shield visibility
         shieldVisual.SetActive(PlayerData.hasShield);
+
+        //manage vial shader
+        ManageVialShader();
     }
 
     void FixedUpdate() {
@@ -198,15 +209,20 @@ public class NewPlayerController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
-                allowCancellingLightAttack = false;
+                foreach(GameObject vfx in lightSlashVFX) {
+                    vfx.SetActive(false);
+                }
 
+                allowCancellingLightAttack = false;
                 //starts light attack
                 if(lightAttackInput && hasWeapon) {
+                    lightAttackInput = false;
                     comboCounter += 1;
-                    print(comboCounter);
+                    if(comboCounter > 3) {
+                        comboCounter = 1;
+                    }
                     animator.SetInteger("lightAttackCombo", comboCounter);
                     state = State.LIGHTATTACKING;
-                    shouldReset = false;
                 }
                 // checks if player starts to move
                 else if(direction != zeroVector)
@@ -216,6 +232,7 @@ public class NewPlayerController : MonoBehaviour
                 // if player hits dash button, dash
                 else if(PlayerData.hasBroom && dashInput)
                 {
+                    dashInput = false;
                     state = State.DASHING;
                 }
                 //if player hits pause button, pause
@@ -237,16 +254,19 @@ public class NewPlayerController : MonoBehaviour
 
                 //checks for starting light attack
                 if(lightAttackInput && hasWeapon) {
+                    lightAttackInput = false;
                     comboCounter += 1;
-                    print(comboCounter);
+                    if(comboCounter > 3) {
+                        comboCounter = 1;
+                    }
                     animator.SetInteger("lightAttackCombo", comboCounter);
                     state = State.LIGHTATTACKING;
-                    shouldReset = false;
                 }
 
                 // if player hits space, dash
                 else if(PlayerData.hasBroom && dashInput)
                 {
+                    dashInput = false;
                     state = State.DASHING;                    
 
                 }
@@ -305,8 +325,18 @@ public class NewPlayerController : MonoBehaviour
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
 
+                comboTimerActive = false;
+
                 if(allowCancellingLightAttack && lightAttackInput) {
+                    lightAttackInput = false;
+                    allowCancellingLightAttack = false;
                     comboCounter += 1;
+                    if(comboCounter > 3) {
+                        comboCounter = 1;
+                    }
+                    foreach(GameObject vfx in lightSlashVFX) {
+                        vfx.SetActive(false);
+                    }
                     animator.SetInteger("lightAttackCombo", comboCounter);
                 }
                 //Various other events that occur during the animation, such as hitboxes and movement are handled in anim events
@@ -365,13 +395,6 @@ public class NewPlayerController : MonoBehaviour
                 break;
         }
 
-        //checking if light attack combo needs to end
-        if(activeComboTimer.Count == 0 && shouldReset) {
-            print("resetting combo counter");
-            comboCounter = 0;
-            shouldReset = false;
-        }
-
     }
 
     //ANIMATION EVENTS
@@ -393,11 +416,13 @@ public class NewPlayerController : MonoBehaviour
         rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
     }
 
+    private void ReturnToIdle() {
+        state = State.IDLE;
+    }
+
     //Light Attack anim events
 
     private void EnableLightAttackHitbox() {
-        isNextAttackBuffered = false;
-        acceptingInput = false;
         if (comboCounter < 3){
             if (PlayerData.currentlyHasSolar)
             {
@@ -434,46 +459,27 @@ public class NewPlayerController : MonoBehaviour
         lightHitbox.SetActive(false);
     }
 
-    private void StartLightSlash()
+    private void StartLightSlash(int callCounter)
     {
-        print("counter in light slash = " + comboCounter);
-        if(comboCounter > 0 && comboCounter <= 3) {
-            lightSlashVFX[comboCounter - 1].SetActive(true);
-        }
-        else{
-            lightSlashVFX[2].SetActive(true);
-        }
+        lightSlashVFX[callCounter - 1].SetActive(true);
     }
 
-    private void EndLightSlash()
+    private void EndLightSlash(int callCounter)
     {
-        if(comboCounter > 0 && comboCounter <= 3) {
-            lightSlashVFX[comboCounter - 1].SetActive(false);
-        }
-        else{
-            foreach(GameObject vfx in lightSlashVFX) {
-                vfx.SetActive(false);
-            }
-        }
+        lightSlashVFX[callCounter - 1].SetActive(false);
     }
 
     private void AllowInput() {
         allowCancellingLightAttack = true;
     }
 
-    private void MarkComboTimer() {
-        activeComboTimer.Push(true);
-        StartCoroutine(EndComboTimer());
-        state = State.IDLE;
-        shouldReset = true;
+    private void MarkComboTimer(int callCounter) {
+        StartCoroutine(EndComboTimer(callCounter));
     }
 
     private void ResetLightAttackCombo() {
-        comboTimer = 0;
+        comboCounter = 0;
         animator.SetInteger("lightAttackCombo", comboCounter);
-        shouldReset = true;
-        allowCancellingLightAttack = false;
-        state = State.IDLE;
     }
 
     //Throw/Catch anim events
@@ -648,7 +654,6 @@ public class NewPlayerController : MonoBehaviour
 
                 // change state to limit actions
                 state = State.KNOCKBACK;
-                // print("took damage");
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, damageVFXLocation.transform.position);
 
@@ -695,9 +700,11 @@ public class NewPlayerController : MonoBehaviour
         knockback = false;
     }
 
-    private IEnumerator EndComboTimer() {
+    private IEnumerator EndComboTimer(int callCounter) {
         yield return new WaitForSeconds(maxComboTimer);
-        bool disposal = activeComboTimer.Pop();
+        if(comboCounter == callCounter) {
+            comboCounter = 0;
+        }
     }
 
     //EQUIPMENT CHECK/CHANGE
