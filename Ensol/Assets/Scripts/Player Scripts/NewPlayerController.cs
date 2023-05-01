@@ -47,7 +47,7 @@ public class NewPlayerController : MonoBehaviour
     public Transform damageVFXLocation;
     public GameObject shieldBreakVFX;
     public DamageFlash damageFlash;
-    public Material backpackVialMaterial;
+    private Material backpackVialMaterial;
     private Queue<GameObject> activeDamageVFX = new Queue<GameObject>();
     public GameObject shieldVisual;
     public HealthBar healthBar;
@@ -145,6 +145,8 @@ public class NewPlayerController : MonoBehaviour
         if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
             animator.SetBool("hasWeapon", true);
         }
+
+        backpackVialMaterial = backpack.GetComponent<Renderer>().materials[0];
     }
 
     void Update() {
@@ -171,11 +173,6 @@ public class NewPlayerController : MonoBehaviour
         }
         if(Input.GetButtonDown("Cancel")) {
             pauseInput = true;
-        }
-
-        //Check for Equipment
-        if(PlayerData.currentlyHasBroom || PlayerData.currentlyHasSolar) {
-            animator.SetBool("hasBroom", true);
         }
 
         //decrement dash timer if active
@@ -794,6 +791,7 @@ public class NewPlayerController : MonoBehaviour
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
+            print("vials dark");
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
         }
     }
