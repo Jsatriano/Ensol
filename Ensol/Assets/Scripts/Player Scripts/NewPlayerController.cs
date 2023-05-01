@@ -137,6 +137,7 @@ public class NewPlayerController : MonoBehaviour
         rb.drag = normalDrag;
         dying = false;
         healthBar.SetMaxHealth(maxHP);
+        vialTimer = vialRechargeSpeed;
 
         if(PlayerData.currHP == -1) {
             PlayerData.currHP = maxHP;
@@ -184,7 +185,17 @@ public class NewPlayerController : MonoBehaviour
         //turn on and off shield visibility
         shieldVisual.SetActive(PlayerData.hasShield);
 
-        //manage vial shader
+        //Adds electric vials over time (when vials are currently expended)
+        if(vialTimer > 0 && electricVials.currVial < 2)
+        {
+            electricVials.UpdateVial(1 - (vialTimer / vialRechargeSpeed), electricVials.currVial + 1);
+            vialTimer -= Time.deltaTime;
+        }
+        else
+        {
+            electricVials.AddVial(1);
+            vialTimer = vialRechargeSpeed;
+        }
         ManageVialShader();
     }
 
@@ -214,12 +225,26 @@ public class NewPlayerController : MonoBehaviour
                 //starts light attack
                 if(lightAttackInput && hasWeapon) {
                     lightAttackInput = false;
+                    PlayerData.lightAttacks += 1;
                     comboCounter += 1;
                     if(comboCounter > 3) {
                         comboCounter = 1;
                     }
                     animator.SetInteger("lightAttackCombo", comboCounter);
                     state = State.LIGHTATTACKING;
+                }
+                //starts heavy attack
+                if(heavyAttackInput && hasWeapon) {
+                    heavyAttackInput = false;
+                    if(electricVials.enoughVials(2)) {
+                        ResetLightAttackCombo();
+                        PlayerData.heavyAttacks += 1;
+                        animator.SetBool("isHeavyAttacking", true);
+                        electricVials.RemoveVials(2);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
+                        state = State.HEAVYATTACKING;
+                    }
+
                 }
                 // checks if player starts to move
                 else if(direction != zeroVector)
@@ -235,6 +260,7 @@ public class NewPlayerController : MonoBehaviour
                 //if player hits pause button, pause
                 else if(pauseInput)
                 {
+                    pauseInput = false;
                     prevState = State.IDLE;
                     state = State.PAUSED;
                 }
@@ -252,12 +278,26 @@ public class NewPlayerController : MonoBehaviour
                 //checks for starting light attack
                 if(lightAttackInput && hasWeapon) {
                     lightAttackInput = false;
+                    PlayerData.lightAttacks += 1;
                     comboCounter += 1;
                     if(comboCounter > 3) {
                         comboCounter = 1;
                     }
                     animator.SetInteger("lightAttackCombo", comboCounter);
                     state = State.LIGHTATTACKING;
+                }
+                //starts heavy attack
+                if(heavyAttackInput && hasWeapon) {
+                    heavyAttackInput = false;
+                    if(electricVials.enoughVials(2)) {
+                        ResetLightAttackCombo();
+                        PlayerData.heavyAttacks += 1;
+                        animator.SetBool("isHeavyAttacking", true);
+                        electricVials.RemoveVials(2);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
+                        state = State.HEAVYATTACKING;
+                    }
+
                 }
 
                 // if player hits space, dash
@@ -275,6 +315,7 @@ public class NewPlayerController : MonoBehaviour
 
                 else if(pauseInput)
                 {
+                    pauseInput = false;
                     prevState = State.MOVING;
                     state = State.PAUSED;
 
@@ -307,6 +348,7 @@ public class NewPlayerController : MonoBehaviour
                     }
                     else if(pauseInput)
                     {
+                        pauseInput = false;
                         prevState = State.DASHING;
                         state = State.PAUSED;
                     }
@@ -315,6 +357,7 @@ public class NewPlayerController : MonoBehaviour
 
             case State.LIGHTATTACKING:
                 if(pauseInput) {
+                    pauseInput = false;
                     prevState = State.LIGHTATTACKING;
                     state = State.PAUSED;
                 }
@@ -341,12 +384,34 @@ public class NewPlayerController : MonoBehaviour
                 break;
 
             case State.HEAVYATTACKING:
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.HEAVYATTACKING;
+                    state = State.PAUSED;
+                }
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", true);
+                animator.SetInteger("lightAttackCombo", 0);
                 break;
 
             case State.THROWING:
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.THROWING;
+                    state = State.PAUSED;
+                }
                 break;
 
             case State.CATCHING:
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.CATCHING;
+                    state = State.PAUSED;
+                }
                 break;
 
             case State.KNOCKBACK:
@@ -361,8 +426,9 @@ public class NewPlayerController : MonoBehaviour
                     state = State.IDLE;
                 }
                 // if paused during knockback, save state so game doesnt break
-                else if(Input.GetButtonDown("Cancel"))
+                else if(pauseInput)
                 {
+                    pauseInput = false;
                     prevState = State.KNOCKBACK;
                     state = State.PAUSED;
                 }
@@ -377,6 +443,12 @@ public class NewPlayerController : MonoBehaviour
                 break;
 
             case State.DEAD:
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.DEAD;
+                    state = State.PAUSED;
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -384,6 +456,12 @@ public class NewPlayerController : MonoBehaviour
                 break;
 
             case State.DIALOGUE:
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.DIALOGUE;
+                    state = State.PAUSED;
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -477,6 +555,37 @@ public class NewPlayerController : MonoBehaviour
     private void ResetLightAttackCombo() {
         comboCounter = 0;
         animator.SetInteger("lightAttackCombo", comboCounter);
+        foreach(GameObject vfx in lightSlashVFX) {
+            vfx.SetActive(false);
+        }
+    }
+
+    //Heavy Attack anim events
+    private void EnableHeavyAttackHitbox() {
+        heavyHitbox.SetActive(true);
+
+        attackPower = baseAttackPower * heavyAttackMult;
+    }
+
+    private void DisableHeavyAttackHitbox() {
+        heavyHitbox.SetActive(false);
+        
+        attackPower = baseAttackPower;
+    }
+
+    private void EndHeavyAttack() {
+        animator.SetBool("isHeavyAttacking", false);
+        state = State.IDLE;
+    }
+    private void StartHeavySlash()
+    {
+        heavySlashVFX.SetActive(true);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavy, this.transform.position);
+    }
+
+    private void EndHeavySlash()
+    {
+        heavySlashVFX.SetActive(false);
     }
 
     //Throw/Catch anim events
