@@ -18,7 +18,7 @@ public class RabbitStats : EnemyStats
     public float minSpeed;
     public float rapidAvoidDist;
 
-    [Header("Other Scripts")]
+    [Header("References")]
     [SerializeField] private RabbitBT rabbitBT;
     public DamageFlash damageFlash;
     public ButtonGateController buttonGateController = null;
@@ -48,6 +48,7 @@ public class RabbitStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
+        //Sets the enemy to aggro if they aren't yet
         if (rabbitBT.root.GetData("player") == null)
         {
             rabbitBT.root.SetData("player", playerTF);

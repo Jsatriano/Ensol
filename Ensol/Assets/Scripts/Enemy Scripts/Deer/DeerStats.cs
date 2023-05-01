@@ -24,8 +24,7 @@ public class DeerStats : EnemyStats
     public float windupTurning;  //How much the deer can turn to face the player during windup
     public BoxCollider basicAttackHitbox; //Hibox for the attack
 
-    [Header("Other Things")]
-    public float distanceFromPlayer; //The distance the deer tries to stay away from the player
+    [Header("References")]
     public DeerBT deerBT;
     public DamageFlash damageFlash;
     public ButtonGateController buttonGateController = null;
@@ -55,6 +54,7 @@ public class DeerStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
+        //Sets the enemy to aggro if they aren't yet
         if (deerBT.root.GetData("player") == null)
         {
             deerBT.root.SetData("player", playerTF);

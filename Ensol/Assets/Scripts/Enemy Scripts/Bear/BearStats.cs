@@ -29,12 +29,12 @@ public class BearStats : EnemyStats
     public float angryAcceleration;
     public float angryJunkCooldown;
 
-    [Header("Other Things")]
+    [Header("References")]
     public BearBT bearBT;
-    public DamageFlash damageFlash;
     public GameObject thisBear;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
+    [SerializeField] private DamageFlash damageFlash;
+    [SerializeField] private ButtonGateController buttonGateController = null;
+    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
     protected override void Start()
     {
@@ -63,6 +63,7 @@ public class BearStats : EnemyStats
             bearBT.root.SetData("junkCooldown", angryJunkCooldown);
         }
         StartCoroutine(damageFlash.FlashRoutine());
+        //Sets the enemy to aggro if they aren't yet
         if (bearBT.root.GetData("player") == null)
         {
             bearBT.root.SetData("player", playerTF);

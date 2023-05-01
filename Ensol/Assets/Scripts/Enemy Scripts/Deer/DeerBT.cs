@@ -25,7 +25,7 @@ public class DeerBT : BT
                 new PlayerSeenCheck(),
                 new ObstacleDetector(deerStats.obstacleDetectRadius, deerStats.obstacleMask, deerStats.enemyTF, deerStats.hitbox),
                 new DeerAggroMovement(deerStats.acceleration, deerStats.maxSpeed, deerStats.playerTF, deerStats.enemyTF, deerStats.enemyRB,
-                                     deerStats.distanceFromPlayer, deerStats.rotationSpeed)
+                                      deerStats.rotationSpeed)
             }),
             new Sequence(new List<Node>
             {
