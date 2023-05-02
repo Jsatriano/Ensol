@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class SpiderElectricBolts : Node
+public class SpiderAggroMovement : Node
 {
     
-    public SpiderElectricBolts()
+    public SpiderAggroMovement()
     {
 
     }

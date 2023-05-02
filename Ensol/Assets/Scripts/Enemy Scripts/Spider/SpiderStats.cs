@@ -5,10 +5,23 @@ using UnityEngine;
 public class SpiderStats : EnemyStats
 {
     [Header("Web Deploy Attack")]
+    public float webDelployCooldown;
+    public float webDeployMinRange;
+    public float webDeployMaxRange;
+    public float webDeployDuration;
+    public float webDeployDebuff;
+    public float webDeployDebuffLength;
 
     [Header("Web Shoot Attack")]
 
     [Header("Electric Bolts Attack")]
+    public float electricCooldown;
+    public float electricDamage;
+    public float electricMinRange;
+    public float electricMaxRange;
+    public float electricBurstNum;
+    public float electricBurstSpeed;
+    public float electricPower;
 
     [Header("References")]
     [SerializeField] private SpiderBT spiderBT;
