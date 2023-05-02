@@ -6,8 +6,7 @@ public class HealingBuilding : MonoBehaviour
 {
     private bool wasUsed = false;
     private bool distributedHealing = false;
-    [HideInInspector] public PlayerCombatController pcc;
-    [HideInInspector] public CharController player;
+    [HideInInspector] public PlayerController player;
     [HideInInspector] public GameObject[] players;
     [HideInInspector] public HealthBar healthBar;
     public Renderer renderer;
@@ -34,7 +33,7 @@ public class HealingBuilding : MonoBehaviour
 
         if(wasUsed && !distributedHealing) {
             distributedHealing = true;
-            PlayerData.currHP = pcc.maxHP;
+            PlayerData.currHP = player.maxHP;
             healthBar.SetHealth(PlayerData.currHP);
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
@@ -49,8 +48,7 @@ public class HealingBuilding : MonoBehaviour
             healthBar = GameObject.FindGameObjectWithTag("HealthbarUI").GetComponent<HealthBar>();
         }
         foreach(GameObject p in players) {
-            player = p.GetComponent<CharController>();
-            pcc = p.GetComponent<PlayerCombatController>();
+            player = p.GetComponent<PlayerController>();
         }
     }
 }

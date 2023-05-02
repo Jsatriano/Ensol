@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharController : MonoBehaviour
+public class OldCharController : MonoBehaviour
 {
 
+    //this whole class is deprecated in favor of PlayerController
+    //its still in the files in order to have notes on how it used to work vs now, but do not use it for anything
     public enum State
     {
         IDLE,
@@ -27,7 +29,7 @@ public class CharController : MonoBehaviour
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
-    public PlayerCombatController pcc;
+    public OldPlayerCombatController pcc;
     public bool attacking = false;
     public bool controller = false;
     private State prevState;

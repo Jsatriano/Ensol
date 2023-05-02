@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponHitbox : MonoBehaviour
 {
-    public NewPlayerController player;
+    public PlayerController player;
     public DamageFlash damageFlash;
     private bool isTriggered = false;
     [HideInInspector] public GameObject[] players;
@@ -114,7 +114,7 @@ public class WeaponHitbox : MonoBehaviour
             players = GameObject.FindGameObjectsWithTag("Player");
         }
         foreach(GameObject p in players) {
-            player = p.GetComponent<NewPlayerController>();
+            player = p.GetComponent<PlayerController>();
         }
     }
 

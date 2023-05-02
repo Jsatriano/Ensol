@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 
-public class NewPlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public enum State
     {
@@ -116,11 +116,9 @@ public class NewPlayerController : MonoBehaviour
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
-    public bool attacking = false;
     public bool controller = false;
     private State prevState;
     [HideInInspector] public bool knockback;
-    private bool shouldReset = false;
 
     
     //Input Read Variables

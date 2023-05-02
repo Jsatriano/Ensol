@@ -19,7 +19,7 @@ public class RabbitHitPlayer : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             //Does damage to the player based on provided attack damage
-            NewPlayerController combatController = col.gameObject.GetComponent<NewPlayerController>();
+            PlayerController combatController = col.gameObject.GetComponent<PlayerController>();
             if (combatController != null)
             {
                 combatController.TakeDamage(attackDamage, coll);

@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
     public GameObject[] enemyPrefabs;
-    public NewPlayerController combatController;
+    public PlayerController combatController;
     public static bool isPaused;
     public Transform enemySpawnPoint;
 
