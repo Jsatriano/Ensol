@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour
                 //starts heavy attack
                 else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
-                    if(electricVials.enoughVials(heavyAttackCost)) {
+                    if(electricVials.enoughVials(heavyAttackCost) && PlayerData.hasSolarUpgrade) {
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
@@ -306,7 +306,7 @@ public class PlayerController : MonoBehaviour
                 //starts throw attack
                 else if(throwAttackInput && hasWeapon) {
                     throwAttackInput = false;
-                    if(electricVials.enoughVials(specialAttackCost)) {
+                    if(electricVials.enoughVials(specialAttackCost) && PlayerData.hasThrowUpgrade) {
                         LookAtMouse();
                         ResetLightAttackCombo();
                         PlayerData.throwAttacks += 1;
@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
                 //starts heavy attack
                 else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
-                    if(electricVials.enoughVials(heavyAttackCost)) {
+                    if(electricVials.enoughVials(heavyAttackCost) && PlayerData.hasSolarUpgrade) {
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour
 
                 }
                  //starts throw attack
-                else if(throwAttackInput && hasWeapon) {
+                else if(throwAttackInput && hasWeapon && PlayerData.hasThrowUpgrade) {
                     throwAttackInput = false;
                     if(electricVials.enoughVials(specialAttackCost)) {
                         LookAtMouse();
