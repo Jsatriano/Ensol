@@ -53,7 +53,6 @@ public class RabbitAnimation : MonoBehaviour
 
             case State.LEAPING:
                  animController.SetFloat("AnimSpeed", Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
-                print(Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
                 //Checks if rabbit has died
                 if (!rabbitBT.isAlive)
                 {

@@ -19,9 +19,10 @@ public class RabbitAggroMode : Node
     private float _aggroLeaps;
     private float _leapCounter;
     private GameObject _grinderVFX;
+    private string _attackName;
 
     public RabbitAggroMode(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, 
-                          LayerMask envLayerMask, float landingDrag, float normalDrag, float aggroLeaps, GameObject grinderVFX)
+                          LayerMask envLayerMask, float landingDrag, float normalDrag, float aggroLeaps, GameObject grinderVFX, string attackName)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -36,13 +37,12 @@ public class RabbitAggroMode : Node
         _landingDrag = landingDrag;
         _normalDrag = normalDrag;
         _grinderVFX = grinderVFX;
+        _attackName = attackName;
     }
 
     public override NodeState Evaluate()
     {
-        SetData("attacking", true);
-
-        SetData("aggro", true);
+        SetData("attacking", _attackName);
 
         _grinderVFX.SetActive(true);
         
@@ -51,7 +51,6 @@ public class RabbitAggroMode : Node
         {
             _leapCounter = 0;
             ClearData("attackHit");
-            ClearData("aggro");
             ClearData("attacking");
             _grinderVFX.SetActive(false);
             state = NodeState.SUCCESS;
@@ -62,7 +61,6 @@ public class RabbitAggroMode : Node
         if (_leapCounter >= _aggroLeaps)
         {
             _leapCounter = 0;
-            ClearData("aggro");
             ClearData("attacking");
             _grinderVFX.SetActive(false);
             state = NodeState.SUCCESS;

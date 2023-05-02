@@ -26,7 +26,7 @@ public class EnemyStats : MonoBehaviour
     public GameObject shieldDropPrefab;
 
     [Header("Components")]
-    public CharController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
+    public PlayerController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
     public Transform playerTF;         //Player transform
     public Rigidbody playerRB;
     public Transform enemyTF;          //Enemy Transform
@@ -80,16 +80,9 @@ public class EnemyStats : MonoBehaviour
             players = GameObject.FindGameObjectsWithTag("Player");
         }
         foreach(GameObject p in players) {
-            player = p.GetComponent<CharController>();
+            player = p.GetComponent<PlayerController>();
             playerTF = p.GetComponent<Transform>();
             playerRB = p.GetComponent<Rigidbody>();
         }
-
-       /* if(player == null) {
-            print("EnemyStats failed to locate Player");
-        }
-        else {
-            print("EnemyStats located Player");
-        }*/
     }
 }

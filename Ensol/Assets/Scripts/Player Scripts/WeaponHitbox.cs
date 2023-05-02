@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class WeaponHitbox : MonoBehaviour
 {
-    public CharController player;
-    public PlayerCombatController pcc;
+    public PlayerController player;
     public DamageFlash damageFlash;
     private bool isTriggered = false;
     [HideInInspector] public GameObject[] players;
@@ -56,13 +55,13 @@ public class WeaponHitbox : MonoBehaviour
             weaponThrowVFX.SetActive(true);
         }
 
-        if(!pcc.hasWeapon && pcc.isCatching && isProjectile) {
+        if(!player.hasWeapon && player.isCatching && isProjectile) {
             isMoving = true;
-            gameObject.transform.LookAt(pcc.weaponCatchTarget.transform);
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, pcc.weaponCatchTarget.transform.position, pcc.weaponRecallSpeed * Time.deltaTime);
+            gameObject.transform.LookAt(player.weaponCatchTarget.transform);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, player.weaponCatchTarget.transform.position, player.weaponRecallSpeed * Time.deltaTime);
         }
-        else if(!pcc.hasWeapon && isProjectile && !pcc.isCatching && isMoving) {
-            gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * pcc.weaponThrowSpeed * Time.deltaTime;
+        else if(!player.hasWeapon && isProjectile && !player.isCatching && isMoving) {
+            gameObject.transform.position += Vector3.Normalize(gameObject.transform.forward) * player.weaponThrowSpeed * Time.deltaTime;
         }
         
     }
@@ -70,9 +69,8 @@ public class WeaponHitbox : MonoBehaviour
     void OnTriggerEnter(Collider col) {
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
-                col.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
+                col.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
-                //print("Should be spawning hit vfx");
                 Transform hitVFXTargetLocation = null;
                 hitVFXTargetLocation = col.gameObject.transform.Find("Hit VFX Target Location");
                 if(hitVFXTargetLocation == null) {
@@ -84,26 +82,25 @@ public class WeaponHitbox : MonoBehaviour
             }
         }
 
-        if(isProjectile && !pcc.isCatching) {
+        if(isProjectile && !player.isCatching) {
             if(col.gameObject.layer == 7 || col.gameObject.layer == 12) {
                 isMoving = false;
-                Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, pcc.damagePulseRadius, 6);
+                Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, player.damagePulseRadius, 6);
                 damagePulseVFX.SetActive(true);
                 StartCoroutine(DisablePulseVFX());
-                pcc.attackPower = pcc.baseAttackPower * pcc.specialDamagePulseMult;
+                player.attackPower = player.baseAttackPower * player.specialDamagePulseMult;
                 foreach(Collider c in damagePulse) {
                     if(c.gameObject.tag == "Enemy") { 
-                       // print("Damage Pulse Hit Enemy");
-                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(pcc.attackPower);
+                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
                     }
                 }
-                pcc.attackPower = pcc.baseAttackPower * pcc.specialAttackMult;
+                player.attackPower = player.baseAttackPower * player.specialAttackMult;
             }
         }
 
-        else if(isProjectile && pcc.isCatching) {
+        else if(isProjectile && player.isCatching) {
             if(col.gameObject.layer == 13) {
-                pcc.GrabWeapon();
+                player.GrabWeapon();
             }
         }
     }
@@ -117,15 +114,7 @@ public class WeaponHitbox : MonoBehaviour
             players = GameObject.FindGameObjectsWithTag("Player");
         }
         foreach(GameObject p in players) {
-            player = p.GetComponent<CharController>();
-            pcc = p.GetComponent<PlayerCombatController>();
-        }
-
-        if(player == null) {
-            //print("Weapon failed to locate Player");
-        }
-        else {
-           // print("Weapon located Player");
+            player = p.GetComponent<PlayerController>();
         }
     }
 
@@ -133,10 +122,9 @@ public class WeaponHitbox : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameObject hitVFXToDestroy = activeHitVFX.Dequeue();
         Destroy(hitVFXToDestroy);
-       // print("destroyed a hit vfx");
     }
 
-    IEnumerator DisablePulseVFX() //Elizabeth
+    IEnumerator DisablePulseVFX()
     {
         yield return new WaitForSeconds(0.5f);
         damagePulseVFX.SetActive(false);

@@ -28,7 +28,7 @@ public class DeerHitPlayer : MonoBehaviour
         if(col.gameObject.tag == "Player") 
         {
             //Does damage to the player based on provided attack damage
-            PlayerCombatController combatController = col.gameObject.GetComponent<PlayerCombatController>();
+            PlayerController combatController = col.gameObject.GetComponent<PlayerController>();
             if (combatController != null)
             {
                 combatController.TakeDamage(attackDamage, coll);

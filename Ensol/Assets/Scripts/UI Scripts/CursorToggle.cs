@@ -21,10 +21,10 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && pauseMenu.activeInHierarchy == false && dialoguebox.activeInHierarchy == false)
+        if(((scene.name == "SampleScene" && !dialoguebox.activeInHierarchy) || (scene.name == "PlaytestingScene")) && !pauseMenu.activeInHierarchy)
         {
             Cursor.visible = false;
-            if ((scene.name == "SampleScene" || scene.name == "PlaytestingScene") && PlayerData.hasBroom){
+            if ((scene.name == "SampleScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
                 arrow.SetActive(true);
             }
         }

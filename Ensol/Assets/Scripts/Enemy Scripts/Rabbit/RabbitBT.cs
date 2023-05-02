@@ -17,12 +17,12 @@ public class RabbitBT : BT
         {
             new Sequence(new List<Node>
             {
-                new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3),
+                new FOVCheck(rabbitStats.enemyTF, rabbitStats.playerTF, rabbitStats.visionRange, "aggro", rabbitStats.environmentMask, 3, false),
                 new CooldownCheck(rabbitStats.attackingCooldown, "aggro"),
                 new ObstacleDetector(rabbitStats.obstacleDetectRadius, rabbitStats.obstacleMask, rabbitStats.enemyTF, rabbitStats.hitbox),
                 new RabbitAggroMode(rabbitStats.acceleration, rabbitStats.aggroSpeed, rabbitStats.playerTF,
                                    rabbitStats.enemyTF, rabbitStats.enemyRB, rabbitStats.rotationSpeed, 
-                                   rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX)
+                                   rabbitStats.environmentMask, rabbitStats.landingDrag, rabbitStats.normalDrag, rabbitStats.aggroLeaps, rabbitStats.grinderVFX, "aggro")
             }),
             new Sequence(new List<Node>
             {    
