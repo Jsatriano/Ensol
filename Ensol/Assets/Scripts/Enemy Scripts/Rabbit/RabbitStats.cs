@@ -62,6 +62,7 @@ public class RabbitStats : EnemyStats
     }
     public override void Die()
     {
+        PlayerData.bunniesKilled++;
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
         attackHitbox.enabled = false;

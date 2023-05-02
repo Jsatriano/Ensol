@@ -80,20 +80,23 @@ P1-USH: Hey friend! Is there something you need? Some tunes? How about your favo
 ->Plush_unlock
 
 ===Plush_unlock===
-*{dear_defeated}[ You keep staring at my equipment.]
+*{dear_defeated && deerSeen == false}[ You keep staring at my equipment.]
 P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind!
+    ~deerSeen = true
     ->Plush_unlock
 
 *{footprints_found}[Are there robots that leave behind human footprints?]
 P1-USH: None of our designs uses any human feet. Are you sure you haven’t looped back to the area before? Those woods can be pretty confusing for a human to navigate through successfully without being confused.
     ->Plush_unlock
 
-*{bear_defeated}[The bear robots, what are they?]
+*{bear_defeated && bearSeen == false}[The bear robots, what are they?]
 P1-USH: That’s the trash-collecting model. It uses a combination of powerful magnets with its strong arms to gather and collect trash onto its back. Wouldn’t want to be in front of a trash-collecting model while it's working.
+    ~bearSeen = true
 ->Plush_unlock
 
-*{rabbit_deafeated} Why are there robots in the shape of a bunny? 
+*{rabbit_deafeated && rabbitSeen == false} Why are there robots in the shape of a bunny? 
 P1-USH: Those are the gardening models. The bunny design, while small in stature, allows the robot easy access to both small and large areas of flora that need attention. Typically, they are sent out in packs to maximize efficiency.
+    ~rabbitSeen = true
 ->Plush_unlock
 
 *{spider_defeated} Those spider robots we saw, what were they used for?
