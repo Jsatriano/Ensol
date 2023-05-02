@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 forward, right, heading;
     [HideInInspector] public Vector3 zeroVector = new Vector3(0, 0, 0); // empty vector (helps with checking if player is moving)
 
+    public bool controller = false;
+
     [Header("References")]
     public GameObject weapon;
     public GameObject weaponHead;
@@ -116,7 +118,6 @@ public class PlayerController : MonoBehaviour
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
-    public bool controller = false;
     private State prevState;
     [HideInInspector] public bool knockback;
 
@@ -147,6 +148,38 @@ public class PlayerController : MonoBehaviour
         }
 
         backpackVialMaterial = backpack.GetComponent<Renderer>().materials[0];
+
+        if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
+        {
+            animator.SetBool("hasWeapon", false);
+            hasWeapon = false;
+            weapon.SetActive(false);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            backpack.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
+        {
+            animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(false);
+            weaponBase.SetActive(false);
+            backpack.SetActive(false);
+            FX1.SetActive(false);
+            FX2.SetActive(false);
+        }
+        else
+        {
+            animator.SetBool("hasWeapon", true);
+            weapon.SetActive(true);
+            weaponHead.SetActive(true);
+            weaponBase.SetActive(true);
+            backpack.SetActive(true);
+            FX1.SetActive(true);
+            FX2.SetActive(true);
+        }
     }
 
     void Update() {
