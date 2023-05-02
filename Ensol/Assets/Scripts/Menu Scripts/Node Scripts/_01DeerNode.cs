@@ -25,7 +25,7 @@ public class _01DeerNode : MonoBehaviour
     private float timer = 0f;
 
     [HideInInspector] public GameObject[] players = null;
-    private PlayerCombatController combatController = null;
+    private PlayerController combatController = null;
     private bool pickedUpUpgrade;
 
     [Header("Weapon Upgrade")]
@@ -134,7 +134,7 @@ public class _01DeerNode : MonoBehaviour
         }
         foreach (GameObject p in players)
         {
-            combatController = p.GetComponent<PlayerCombatController>();
+            combatController = p.GetComponent<PlayerController>();
         }
 
         if (combatController == null)

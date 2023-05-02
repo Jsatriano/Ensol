@@ -7,16 +7,18 @@ public class RangeCheck : Node
 {
     private Transform _enemyTF;  //Enemy transform
     private Transform _playerTF; //Player transform
-    private float _attackRange;  //How close the player needs to be for the enemy to start the attack
+    private float _minRange;     //The closest the target can be
+    private float _maxRange;     //Farthest the target can be from the enemy
     private string _attackName;  //Name of the attack. Used to check if the enemy is already attacking
 
     //Node for checking if the enemy is close enough to the player to do some attack - RYAN
 
-    public RangeCheck(Transform enemyTF, Transform playerTF, float attackRange, string attackName)
+    public RangeCheck(Transform enemyTF, Transform playerTF, float minRange, float maxRange, string attackName)
     {
         _enemyTF     = enemyTF;
         _playerTF    = playerTF;
-        _attackRange = attackRange;
+        _minRange    = minRange;
+        _maxRange    = maxRange;
         _attackName  = attackName;
     }
 
@@ -43,7 +45,7 @@ public class RangeCheck : Node
             //float distToPlayer = (_playerTF.position - _enemyTF.position).magnitude;
             Vector3 dirToPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z);
             float distToPlayer = dirToPlayer.magnitude;
-            if (distToPlayer <= _attackRange)
+            if (distToPlayer >= _minRange && distToPlayer <= _maxRange)
             {
                 state = NodeState.SUCCESS;
                 return state;

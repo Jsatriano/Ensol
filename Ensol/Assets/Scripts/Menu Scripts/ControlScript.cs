@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ControlScript : MonoBehaviour
 {
-    public CharController charController;
+    public PlayerController charController;
     public GameObject keyboardControlText;
     public GameObject controllerControlText;
 

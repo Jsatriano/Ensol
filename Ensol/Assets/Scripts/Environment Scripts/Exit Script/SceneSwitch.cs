@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour
 {
@@ -32,7 +31,10 @@ public class SceneSwitch : MonoBehaviour
             {
                 exitFrom = false;
             }
-            StartCoroutine(FadeBlackOutSquare()); 
+
+            if(SceneManager.GetActiveScene().name != "PlaytestingScene"){
+                StartCoroutine(FadeBlackOutSquare()); 
+            }
         }
     }
 

@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI[] choicesText;
 
 
-    public CharController charController;
+    public PlayerController charController;
 
     public bool donePlaying;
     public bool openSesame;
@@ -95,7 +95,7 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory = new Story(inkJSON.text);
         dialogueisPlaying = true;
-        charController.state = CharController.State.DIALOGUE;
+        charController.state = PlayerController.State.DIALOGUE;
         dialoguePanel.SetActive(true);
         
         dialogueVariables.StartListening(currentStory);
@@ -115,7 +115,7 @@ public class DialogueManager : MonoBehaviour
         currentStory.UnbindExternalFunction("openDoor");
         dialogueisPlaying = false;
         donePlaying = true;
-        charController.state = CharController.State.IDLE;
+        charController.state = PlayerController.State.IDLE;
         dialoguePanel.SetActive(false);
         choicesPanel.SetActive(false);
         dialogueText.text = "";

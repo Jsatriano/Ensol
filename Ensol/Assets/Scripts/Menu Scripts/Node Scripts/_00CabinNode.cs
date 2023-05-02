@@ -38,7 +38,7 @@ public class _00CabinNode : MonoBehaviour
     public GameObject gateTransferCube;
     [SerializeField] private GameObject broom;   
     [HideInInspector] public GameObject[] players = null;
-    private PlayerCombatController combatController = null;
+    private PlayerController combatController = null;
     
 
     private void Start()
@@ -180,7 +180,7 @@ public class _00CabinNode : MonoBehaviour
         }
         foreach (GameObject p in players)
         {
-            combatController = p.GetComponent<PlayerCombatController>();
+            combatController = p.GetComponent<PlayerController>();
         }
 
         if (combatController == null)
