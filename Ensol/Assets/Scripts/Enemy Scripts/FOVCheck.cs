@@ -10,8 +10,9 @@ public class FOVCheck : Node
     private float _visionRange;      //Detection range of the enemy
     private string _attackName;      //Name of the attack this check is for
     private int _enemyType;          //The enemy type
+    private bool _defaultTrue;       //Whether this node will automatically return true if the player has been seen
 
-    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName, LayerMask envLayerMask, int enemyType)
+    public FOVCheck(Transform enemyTF, Transform playerTF, float visionRange, string attackName, LayerMask envLayerMask, int enemyType, bool defaultTrue)
     {
         _enemyTF      = enemyTF;
         _playerTF     = playerTF;
@@ -24,6 +25,12 @@ public class FOVCheck : Node
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN
     public override NodeState Evaluate()
     {
+        //Succeeds if the player has already been seen if defaultTrue is set
+        if (_defaultTrue && GetData("player") != null)
+        {
+            state = NodeState.SUCCESS;
+            return state;
+        }
         //Checks if enemy is already attacking and automically passes if it is the attack this node is for (to prevent interrupting it)
         string attack = (string)GetData("attacking");
         if (attack != null)
@@ -51,12 +58,12 @@ public class FOVCheck : Node
                     if (!Physics.Linecast(_enemyTF.position, _playerTF.position, _envLayerMask))
                     {
                         SetData("player", _playerTF);
-                        state = NodeState.SUCCESS;
                         if (_enemyType == 1){
                             AudioManager.instance.PlayOneShot(FMODEvents.instance.deerAlerted, _enemyTF.position);
                         } else if (_enemyType == 2){
                             AudioManager.instance.PlayOneShot(FMODEvents.instance.bearAlerted, _enemyTF.position);
                         }
+                        state = NodeState.SUCCESS;
                         return state;
                     }  
                 }
