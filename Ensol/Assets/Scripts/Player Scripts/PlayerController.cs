@@ -964,7 +964,6 @@ public class PlayerController : MonoBehaviour
 
     public void PickedUpBroom()
     {
-        animator.SetBool("hasBroom", true);
         animator.SetBool("hasWeapon", true);
         hasWeapon = true;
         PlayerData.hasBroom = true;
@@ -988,7 +987,6 @@ public class PlayerController : MonoBehaviour
         PlayerData.currentlyHasSolar = true;
         PlayerData.currentlyHasBroom = true;
         hasWeapon = true;
-        animator.SetBool("hasBroom", true);
         animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
         weaponHead.SetActive(true);
@@ -1004,7 +1002,6 @@ public class PlayerController : MonoBehaviour
         PlayerData.currentlyHasSolar = true;
         PlayerData.currentlyHasBroom = true;
         hasWeapon = true;
-        animator.SetBool("hasBroom", true);
         animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
         weaponHead.SetActive(true);
@@ -1024,7 +1021,6 @@ public class PlayerController : MonoBehaviour
         PlayerData.hasSolarUpgrade = false;
         PlayerData.currentlyHasSolar = false;
         hasWeapon = true;
-        animator.SetBool("hasBroom", true);
         animator.SetBool("hasWeapon", true);
         weapon.SetActive(true);
         weaponHead.SetActive(true);
