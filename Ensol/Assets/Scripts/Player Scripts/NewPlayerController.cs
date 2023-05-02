@@ -94,6 +94,7 @@ public class NewPlayerController : MonoBehaviour
 
     [Header("Heavy Attack Variables")]
     public float heavyAttackMult;
+    public int heavyAttackCost = 2;
 
     [Header("Special Attack Variables")]
     public float specialAttackMult = 0.9f;
@@ -102,6 +103,7 @@ public class NewPlayerController : MonoBehaviour
     public float weaponRecallSpeed = 5f;
     public float weaponCatchDistance = 1f;
     public float damagePulseRadius = 1f;
+    public int specialAttackCost = 2;
     [HideInInspector] public bool hasWeapon = true;
     [HideInInspector] public bool isCatching = false;
     
@@ -114,7 +116,6 @@ public class NewPlayerController : MonoBehaviour
     private GameObject activeWeaponProjectile;
     private Vector3 throwAim;
     private bool dying = false;
-    [HideInInspector] public bool isMidGrab = false;
     public bool attacking = false;
     public bool controller = false;
     private State prevState;
@@ -154,6 +155,8 @@ public class NewPlayerController : MonoBehaviour
         if(PauseMenu.isPaused) {
             return;
         }
+
+        animator.SetBool("hasWeapon", hasWeapon);
 
         //read inputs
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -208,6 +211,23 @@ public class NewPlayerController : MonoBehaviour
         CheckIfDying();
         isGrounded = Physics.CheckSphere(groundCheck.position, .1f, groundMask);
         ControlDrag();
+
+        //checking if the weapon is within grabbing range mid-recall
+        if(isCatching) {
+            Collider[] weaponSearch = Physics.OverlapSphere(weaponCatchTarget.transform.position, weaponCatchDistance);
+            foreach(Collider col in weaponSearch) {
+                if(col.gameObject.tag == "WeaponProjectile") {
+                    if(state != State.DASHING) {
+                        animator.SetBool("isCatching", true);
+                    }
+                    else {
+                        GrabWeapon();
+                    }
+                    isCatching = false;
+                }
+            }
+
+        }
         
         //Ye Olde State Machine
         switch (state) {
@@ -220,8 +240,14 @@ public class NewPlayerController : MonoBehaviour
                 foreach(GameObject vfx in lightSlashVFX) {
                     vfx.SetActive(false);
                 }
-
                 allowCancellingLightAttack = false;
+
+                //player recalls weapon if it has been thrown
+                if(throwAttackInput && !hasWeapon && !isCatching) {
+                    throwAttackInput = false;
+                    isCatching = true;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
+                }
                 //starts light attack
                 if(lightAttackInput && hasWeapon) {
                     lightAttackInput = false;
@@ -234,17 +260,32 @@ public class NewPlayerController : MonoBehaviour
                     state = State.LIGHTATTACKING;
                 }
                 //starts heavy attack
-                if(heavyAttackInput && hasWeapon) {
+                else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
-                    if(electricVials.enoughVials(2)) {
+                    if(electricVials.enoughVials(heavyAttackCost)) {
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
-                        electricVials.RemoveVials(2);
+                        electricVials.RemoveVials(heavyAttackCost);
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
                         state = State.HEAVYATTACKING;
                     }
 
+                }
+                //starts throw attack
+                else if(throwAttackInput && hasWeapon) {
+                    throwAttackInput = false;
+                    if(electricVials.enoughVials(specialAttackCost)) {
+                        LookAtMouse();
+                        ResetLightAttackCombo();
+                        PlayerData.throwAttacks += 1;
+                        hasWeapon = false;
+                        electricVials.RemoveVials(specialAttackCost);
+                        animator.SetBool("isThrowing", true);
+                        animator.SetBool("hasWeapon", hasWeapon);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
+                        state = State.THROWING;
+                    }
                 }
                 // checks if player starts to move
                 else if(direction != zeroVector)
@@ -275,6 +316,13 @@ public class NewPlayerController : MonoBehaviour
                 animator.SetInteger("lightAttackCombo", 0);
                 allowCancellingLightAttack = false;
 
+                //player recalls weapon if it has been thrown
+                if(throwAttackInput && !hasWeapon && !isCatching) {
+                    throwAttackInput = false;
+                    isCatching = true;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
+                }
+
                 //checks for starting light attack
                 if(lightAttackInput && hasWeapon) {
                     lightAttackInput = false;
@@ -287,19 +335,33 @@ public class NewPlayerController : MonoBehaviour
                     state = State.LIGHTATTACKING;
                 }
                 //starts heavy attack
-                if(heavyAttackInput && hasWeapon) {
+                else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
-                    if(electricVials.enoughVials(2)) {
+                    if(electricVials.enoughVials(heavyAttackCost)) {
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
-                        electricVials.RemoveVials(2);
+                        electricVials.RemoveVials(heavyAttackCost);
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponHeavyPrep, this.transform.position);
                         state = State.HEAVYATTACKING;
                     }
 
                 }
-
+                 //starts throw attack
+                else if(throwAttackInput && hasWeapon) {
+                    throwAttackInput = false;
+                    if(electricVials.enoughVials(specialAttackCost)) {
+                        LookAtMouse();
+                        ResetLightAttackCombo();
+                        PlayerData.throwAttacks += 1;
+                        hasWeapon = false;
+                        electricVials.RemoveVials(specialAttackCost);
+                        animator.SetBool("isThrowing", true);
+                        animator.SetBool("hasWeapon", hasWeapon);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialPrep, this.transform.position);
+                        state = State.THROWING;
+                    }
+                }
                 // if player hits space, dash
                 else if(PlayerData.hasBroom && dashInput)
                 {
@@ -333,6 +395,13 @@ public class NewPlayerController : MonoBehaviour
                     animator.SetBool("isHeavyAttacking", false);
                     animator.SetInteger("lightAttackCombo", 0);
                     Dash();
+                }
+
+                //player recalls weapon if it has been thrown
+                if(throwAttackInput && !hasWeapon && !isCatching) {
+                    throwAttackInput = false;
+                    isCatching = true;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
                 }
 
                 // after the dash is done, change states
@@ -403,6 +472,11 @@ public class NewPlayerController : MonoBehaviour
                     prevState = State.THROWING;
                     state = State.PAUSED;
                 }
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                animator.SetBool("isThrowing", true);
                 break;
 
             case State.CATCHING:
@@ -412,6 +486,11 @@ public class NewPlayerController : MonoBehaviour
                     prevState = State.CATCHING;
                     state = State.PAUSED;
                 }
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+                animator.SetBool("isCatching", true);
                 break;
 
             case State.KNOCKBACK:
@@ -589,6 +668,36 @@ public class NewPlayerController : MonoBehaviour
     }
 
     //Throw/Catch anim events
+
+    private void SpawnSpecialAttackProjectile() {
+        attackPower = baseAttackPower * specialAttackMult;
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, damageVFXLocation.transform.position);
+
+        LookAtMouse();
+        activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, gameObject.transform.rotation);
+        activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
+
+        Vector3 throwTarget = mouseFollower.transform.position;
+        throwTarget.y = activeWeaponProjectile.transform.position.y;
+        activeWeaponProjectile.transform.LookAt(throwTarget);
+        weapon.SetActive(false);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+
+    }
+
+    private void EndThrow() {
+        animator.SetBool("isThrowing", false);
+        state = State.IDLE;
+    }
+
+    private void BeginCatch() {
+        state = State.CATCHING;
+    }
+
     public void GrabWeapon() {
         attackPower = baseAttackPower;
 
@@ -602,8 +711,15 @@ public class NewPlayerController : MonoBehaviour
         if(activeWeaponProjectile != null) {
             activeWeaponProjectile.SetActive(false);
         }
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialReturn, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecialReturn, damageVFXLocation.transform.position);
     }
+
+    private void EndCatch() {
+        isCatching = false;
+        animator.SetBool("isCatching", false);
+        state = State.IDLE;
+    }
+
 
     //MOVEMENT FUNCTIONS
 
