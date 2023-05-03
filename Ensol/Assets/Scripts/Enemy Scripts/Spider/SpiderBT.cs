@@ -40,7 +40,8 @@ public class SpiderBT : BT
             {
                 new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "move", spiderStats.environmentMask, 4, true),
                 new ObstacleDetector(spiderStats.obstacleDetectRadius, spiderStats.obstacleMask, spiderStats.enemyTF, spiderStats.hitbox),
-                new SpiderAggroMovement()
+                new SpiderAggroMovement(spiderStats.acceleration, spiderStats.maxSpeed, spiderStats.minSpeed, spiderStats.rapidAvoidDist, spiderStats.playerTF, spiderStats.enemyTF,
+                                        spiderStats.enemyRB, spiderStats.idealDist, spiderStats.rotationSpeed)
             })           
         });
 

@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class SpiderAnimation : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public enum State
+    {
+        IDLE,
+        MOVING_FORWARD,
+        MOVING_LEFT,
+        MOVING_RIGHT,
+        WEB_SHOOT,
+        TAZER_SHOOT,
+        DYING
+    }
+
+    [Header("References")]
+    [SerializeField] private Animator animController;
+    [SerializeField] private Rigidbody spiderRB;
+    [SerializeField] SpiderBT spiderBT;
+    private Transform playerTF;
+
+    [Header("Misc")]
+    private State state;
+    private float maxWalkSpeed;
+
     void Start()
+    {
+        state = State.IDLE;
+    }
+
+    private void FixedUpdate()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

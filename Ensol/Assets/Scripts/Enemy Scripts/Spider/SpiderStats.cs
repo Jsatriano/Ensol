@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpiderStats : EnemyStats
 {
+    [Header("Spider Movement")]
+    public float minSpeed;
+    public float rapidAvoidDist;
+    public float idealDist;
+
     [Header("Web Deploy Attack")]
     public float webDelployCooldown;
     public float webDeployMinRange;
