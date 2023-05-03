@@ -16,7 +16,8 @@ public class BearStats : EnemyStats
     [Header("Junk Attack")]
     public float junkDamage;    //How much damage the junk ball does
     public float junkCooldown;  //Cooldown on the junk attack
-    public float junkRange;     //Range at which the bear will use the junk attack
+    public float junkMinRange;  //Min range at which the bear will use the junk attack
+    public float junkMaxRange;  //Max range at which the bear will use the junk attack
     public float junkRotation;  //How well the bear can track the player during windup
     public float junkMaxSpeed;  //Max speed junk can be thrown at
     public float junkMinSpeed;  //Min speed junk can be thrown at
@@ -29,12 +30,12 @@ public class BearStats : EnemyStats
     public float angryAcceleration;
     public float angryJunkCooldown;
 
-    [Header("Other Things")]
+    [Header("References")]
     public BearBT bearBT;
-    public DamageFlash damageFlash;
     public GameObject thisBear;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
+    [SerializeField] private DamageFlash damageFlash;
+    [SerializeField] private ButtonGateController buttonGateController = null;
+    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
     protected override void Start()
     {
@@ -63,6 +64,7 @@ public class BearStats : EnemyStats
             bearBT.root.SetData("junkCooldown", angryJunkCooldown);
         }
         StartCoroutine(damageFlash.FlashRoutine());
+        //Sets the enemy to aggro if they aren't yet
         if (bearBT.root.GetData("player") == null)
         {
             bearBT.root.SetData("player", playerTF);

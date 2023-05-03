@@ -5,9 +5,11 @@ using BehaviorTree;
 
 public class BearJunkThrow : Node
 {
-    public BearJunkThrow()
-    {
+    private string _attackName;
 
+    public BearJunkThrow(string attackName)
+    {
+        _attackName = attackName;
     }
 
     //All gameplay code for this attack takes place in JunkBallManager.cs and JunkBall.cs
@@ -19,8 +21,7 @@ public class BearJunkThrow : Node
         if (GetData("throwJunk") == null) 
         {
             SetData("throwingAnim", true);
-            SetData("attacking", true);
-            SetData("junk", true);
+            SetData("attacking", _attackName);
             state = NodeState.RUNNING;
             return state;
         }
@@ -29,7 +30,6 @@ public class BearJunkThrow : Node
         {
             ClearData("throwingAnim");
             ClearData("attacking");
-            ClearData("junk");
             ClearData("throwJunk");
             ClearData("endThrow");
             state = NodeState.SUCCESS;

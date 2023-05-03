@@ -10,6 +10,9 @@ public class DeerCharge : Node
     private float _chargeAccel;    //How fast the charge gets to max speed
     private float _chargeTurning;  //How well the enemy tracks the player during windup
     private float _rotation;       //How much the deer rotates to face the player during windup
+    private Vector3 target;
+    private Vector3 toPlayer;
+    private string _attackname;
 
     //Used for ending the charge
     private Vector3 _startingPosition; //Used to check if the enemy has passed the player
@@ -24,8 +27,8 @@ public class DeerCharge : Node
     private Rigidbody _deerRB;       //Deer rigidbody
     private LayerMask _obstacleMask; //Obstacle layermask for obstacle avoidance when charging
 
-    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, Transform deerTF, Rigidbody deerRB, BoxCollider hitZone, 
-                      float chargeTurning, float rotation, LayerMask obstacleMask)
+    public DeerCharge(float chargeMaxSpeed, float chargeAccel, Transform playerTF, Transform deerTF, Rigidbody deerRB, BoxCollider hitZone,
+                      float chargeTurning, float rotation, LayerMask obstacleMask, string attackName)
     {
         _chargeMaxSpeed = chargeMaxSpeed;
         _chargeAccel    = chargeAccel;
@@ -37,16 +40,53 @@ public class DeerCharge : Node
         _rotation       = rotation / 10;
         _obstacleMask   = obstacleMask;
         _chargeEnding   = false;
+        _attackname = attackName;
     }
 
     //Deer charge attack - RYAN
     public override NodeState Evaluate()
     {
+        //Picking the deer's target (either the player or one of their breadcrumbs)
+        target = _playerTF.position;
+        List<Vector3> breadcrumbs = (List<Vector3>)GetData("breadcrumbs");
+        //Uses player's current position as the target if they are currently in FOV
+        if (breadcrumbs == null || !Physics.Linecast(_deerTF.position, _playerTF.position, _obstacleMask))
+        {
+            target = _playerTF.position;
+        }
+        //Else use the breadcrumbs
+        else
+        {
+            bool foundTarget = false;
+            //Check if any of the breadcrumbs are in FOV, starting at the most recent one
+            for (int i = breadcrumbs.Count - 1; i >= 0; i--)
+            {
+                if (!Physics.Linecast(_deerTF.position, breadcrumbs[i], _obstacleMask))
+                {
+                    target = breadcrumbs[i];
+                    foundTarget = true;
+                    break;
+                }
+            }
+            //Use oldest breadcrumb as target if none are within FOV
+            if (!foundTarget)
+            {
+                if (breadcrumbs.Count <= 0)
+                {
+                    target = _playerTF.position;
+                }
+                else
+                {
+                    target = breadcrumbs[0];
+                }
+            }
+        }
+        toPlayer = new Vector3(target.x - _deerTF.position.x, 0, target.z - _deerTF.position.z).normalized;
+
         //Charge windup, has deer look at player and stores a target position to charge towards based on the player's current position
         if (GetData("chargingAnim") == null && !_chargeEnding)
         {
             //Gradually turns deer to face player
-            Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
             float rotationMultiplier = Mathf.Clamp(Vector3.Dot(_deerTF.forward, toPlayer), 0.5f, 1);
             _deerTF.forward = Vector3.Lerp(_deerTF.forward, toPlayer, _rotation * rotationMultiplier);
             _startingPosition = _deerTF.position;
@@ -56,8 +96,7 @@ public class DeerCharge : Node
             _chargeTime = 0;
             _chargeEnding = false;
 
-            SetData("charging", true);
-            SetData("attacking", true);
+            SetData("attacking", _attackname);
             SetData("chargeWindupAnim", true);
             ClearData("movingForward");
             state = NodeState.RUNNING;
@@ -92,7 +131,6 @@ public class DeerCharge : Node
                 {
                     _hitZone.enabled = false; // disables enemy damage hitbox
                     _chargeEnding = false;
-                    ClearData("charging");
                     ClearData("attacking");
                     ClearData("attackHit");
                     state = NodeState.SUCCESS;
@@ -123,7 +161,6 @@ public class DeerCharge : Node
         Vector3 _forwardRight = (_deerTF.forward + (_deerTF.right * _chargeTurning)).normalized;
 
         //Defines the direction from the deer to the player
-        Vector3 toPlayer = new Vector3(_playerTF.position.x - _deerTF.position.x, 0, _playerTF.position.z - _deerTF.position.z).normalized;
         bool obstacleLeft, obstacleForward, obstacleRight;
         float leftWeight, forwardWeight, rightWeight;
         float dotLeft, dotForward, dotRight;

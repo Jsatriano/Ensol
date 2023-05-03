@@ -100,4 +100,5 @@ P1-USH: They are used to make powerlines effectively. They’re kept in that are
 ->Plush_unlock
 
 +[I don't need anything else.]
+P1-USH: If you ever need anything, let me know!
 ->END

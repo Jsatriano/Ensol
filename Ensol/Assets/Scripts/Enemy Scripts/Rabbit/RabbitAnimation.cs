@@ -28,7 +28,7 @@ public class RabbitAnimation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Used to check when the rabbit enters agro
+        //Used to check when the rabbit enters aggro
         if (playerTF == null && rabbitBT.root.GetData("player") != null)
         {
             playerTF = (Transform)rabbitBT.root.GetData("player");
@@ -53,7 +53,6 @@ public class RabbitAnimation : MonoBehaviour
 
             case State.LEAPING:
                  animController.SetFloat("AnimSpeed", Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
-                print(Mathf.Clamp(rabbitRB.velocity.magnitude / (minSpeed / 10), 1f, maxSpeed / minSpeed));
                 //Checks if rabbit has died
                 if (!rabbitBT.isAlive)
                 {

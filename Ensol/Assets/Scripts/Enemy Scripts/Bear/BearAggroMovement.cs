@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class BearAgroMovement : Node
+public class BearAggroMovement : Node
 {
     private Transform _playerTF;  //Player transform
     private Transform _enemyTF;   //Enemy transform
@@ -17,7 +17,7 @@ public class BearAgroMovement : Node
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
 
-    public BearAgroMovement(float acceleration, float maxSpeed, float angryAcceleration, float angryMaxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
+    public BearAggroMovement(float acceleration, float maxSpeed, float angryAcceleration, float angryMaxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed, LayerMask envLayerMask)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;

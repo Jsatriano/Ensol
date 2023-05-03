@@ -78,7 +78,7 @@ public class JunkBall : MonoBehaviour
         //Checks if the junkball hit the player
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            PlayerCombatController playerScript = other.GetComponent<PlayerCombatController>();
+            PlayerController playerScript = other.GetComponent<PlayerController>();
             if (playerScript != null)
             {
                 //Damage player

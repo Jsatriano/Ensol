@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class DeerAgroMovement : Node
+public class DeerAggroMovement : Node
 {
     private Transform _playerTF;  //Player transform
     private Transform _enemyTF;   //Enemy transform
     private Rigidbody _enemyRB;   //Enemy rigidbody
     private float _acceleration;  //How fast the deer gets to max speed
     private float _maxSpeed;      //Speed of the enemy
-    private float _idealDistance; //The ideal distance the deer tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The deers direction of movement
     private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
     private float[] weights   = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];    //Used for resetting arrays to all zeroes
 
-    public DeerAgroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance, float rotationSpeed)
+    public DeerAggroMovement(float acceleration, float maxSpeed, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float rotationSpeed)
     {
         _playerTF  = playerTF;
         _enemyTF   = enemyTF;
         _enemyRB   = enemyRB;
         _maxSpeed  = maxSpeed / 10;
         _acceleration  = acceleration;    
-        _idealDistance = idealDistance;
         _rotationSpeed = rotationSpeed;
         movingDir   = Vector3.zero;
 

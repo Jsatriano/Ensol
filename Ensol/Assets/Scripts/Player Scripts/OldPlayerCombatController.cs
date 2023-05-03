@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 
-public class PlayerCombatController : MonoBehaviour
+public class OldPlayerCombatController : MonoBehaviour
 {
-    //A new combat controller class where attacks are handled using ANIMATION EVENTS
-    //Elizabeth
+    //this whole class is deprecated in favor of PlayerController
+    //its still in the files in order to have notes on how it used to work vs now, but do not use it for anything
     [Header("References")]
     public GameObject weapon;
     public GameObject weaponHead;
@@ -19,9 +19,9 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject FX2;
     public GameObject lightHitbox;
     public GameObject heavyHitbox;
-    private CharController charController;
+    private OldCharController charController;
     private Rigidbody _rb;
-    public FadeOnDeath fadeOnDeath;
+    //public FadeOnDeath fadeOnDeath;
     public HealthBar healthBar;
     public ElectricVials electricVials;
     public DamageFlash damageFlash;
@@ -98,7 +98,7 @@ public class PlayerCombatController : MonoBehaviour
         }
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
-        charController = gameObject.GetComponent<CharController>();
+        charController = gameObject.GetComponent<OldCharController>();
         attackPower = baseAttackPower;
         _rb = GetComponent<Rigidbody>();
         if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
@@ -173,7 +173,7 @@ public class PlayerCombatController : MonoBehaviour
             foreach(Collider col in weaponSearch) {
                 if(col.gameObject.tag == "WeaponProjectile") {
                     //print("located catchable weapon");
-                    if(charController.state != CharController.State.DASHING) {
+                    if(charController.state != OldCharController.State.DASHING) {
                         charController.animator.SetBool("isCatching", true);
                     }
                     else {
@@ -185,14 +185,14 @@ public class PlayerCombatController : MonoBehaviour
 
         }
 
-        if(charController.animator.GetBool("isCatching") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+        if(charController.animator.GetBool("isCatching") && hasWeapon && charController.state != OldCharController.State.ATTACKING) {
             charController.animator.SetBool("isCatching", false);
         } 
-        if(charController.animator.GetBool("isThrowing") && hasWeapon && charController.state != CharController.State.ATTACKING) {
+        if(charController.animator.GetBool("isThrowing") && hasWeapon && charController.state != OldCharController.State.ATTACKING) {
             charController.animator.SetBool("isThrowing", false);
         } 
 
-        if(charController.state == CharController.State.KNOCKBACK) {
+        if(charController.state == OldCharController.State.KNOCKBACK) {
             ResetLightAttackCombo();
             charController.animator.SetBool("isHeavyAttacking", false);
         }
@@ -217,14 +217,14 @@ public class PlayerCombatController : MonoBehaviour
 
         //Start Light Attack //Harsha Justin and Elizabeth
         if(Input.GetButtonDown("LightAttack") 
-           && charController.state != CharController.State.PAUSED
-           && charController.state != CharController.State.DIALOGUE 
-           && charController.state != CharController.State.DASHING
+           && charController.state != OldCharController.State.PAUSED
+           && charController.state != OldCharController.State.DIALOGUE 
+           && charController.state != OldCharController.State.DASHING
            && !charController.animator.GetBool("isHeavyAttacking")
            && acceptingInput && hasWeapon && !isNextAttackBuffered && comboCounter < 3) 
         {
             PlayerData.lightAttacks += 1;
-            charController.state = CharController.State.ATTACKING;
+            charController.state = OldCharController.State.ATTACKING;
             comboCounter++;
             charController.animator.SetInteger("lightAttackCombo", comboCounter);
             comboTimer = -1f;
@@ -241,7 +241,7 @@ public class PlayerCombatController : MonoBehaviour
             }
         } 
 
-        if(charController.state != CharController.State.ATTACKING && hasWeapon) {
+        if(charController.state != OldCharController.State.ATTACKING && hasWeapon) {
             charController.animator.SetInteger("lightAttackCombo", 0);
             if(!isNextAttackBuffered || !comboChain) {
                 acceptingInput = true;
@@ -257,14 +257,14 @@ public class PlayerCombatController : MonoBehaviour
 
 
         // Start heavy Attack
-        if (Input.GetButtonDown("HeavyAttack") && charController.state != CharController.State.PAUSED 
-            && charController.state != CharController.State.ATTACKING && charController.state != CharController.State.DASHING 
+        if (Input.GetButtonDown("HeavyAttack") && charController.state != OldCharController.State.PAUSED 
+            && charController.state != OldCharController.State.ATTACKING && charController.state != OldCharController.State.DASHING 
             && hasWeapon && PlayerData.hasSolarUpgrade && electricVials.enoughVials(2)) // Harsha and Justin and Elizabeth
         {
             ResetLightAttackCombo();
             PlayerData.heavyAttacks += 1;
 
-            charController.state = CharController.State.ATTACKING;
+            charController.state = OldCharController.State.ATTACKING;
 
             charController.animator.SetBool("isHeavyAttacking", true);
             
@@ -283,7 +283,7 @@ public class PlayerCombatController : MonoBehaviour
                 SceneManager.LoadScene("PlaytestingScene");
                 return;
             }
-            charController.state = CharController.State.DEAD;
+            charController.state = OldCharController.State.DEAD;
             PlayerData.currentlyHasBroom = false;
             PlayerData.currentlyHasSolar = false;
             PlayerData.currentNode = 1;
@@ -301,8 +301,8 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && !hasWeapon && !isCatching &&
         !charController.animator.GetBool("isCatching") && !charController.animator.GetBool("isThrowing")
-           && charController.state != CharController.State.DIALOGUE 
-           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade) {
+           && charController.state != OldCharController.State.DIALOGUE 
+           && charController.state != OldCharController.State.DASHING && PlayerData.hasThrowUpgrade) {
            // print("activated catching");
             isCatching = true;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
@@ -310,10 +310,10 @@ public class PlayerCombatController : MonoBehaviour
 
         if(Input.GetButtonDown("SpecialAttack") && hasWeapon && !isCatching && 
         !charController.animator.GetBool("isThrowing") && !charController.animator.GetBool("isCatching") 
-           && charController.state != CharController.State.DIALOGUE 
-           && charController.state != CharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
+           && charController.state != OldCharController.State.DIALOGUE 
+           && charController.state != OldCharController.State.DASHING && PlayerData.hasThrowUpgrade && electricVials.enoughVials(2)) {
             PlayerData.throwAttacks += 1;
-            charController.state = CharController.State.ATTACKING;
+            charController.state = OldCharController.State.ATTACKING;
             hasWeapon = false;
             charController.animator.SetBool("hasWeapon", hasWeapon);
             LookAtMouse();
@@ -420,13 +420,13 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndThrow() {
         charController.animator.SetBool("isThrowing", false);
-        charController.state = CharController.State.IDLE;
+        charController.state = OldCharController.State.IDLE;
         isMidGrab = false;
     }
 
     private void BeginCatch() {
         isMidGrab = true;
-        charController.state = CharController.State.ATTACKING;
+        charController.state = OldCharController.State.ATTACKING;
     }
 
     public void GrabWeapon() {
@@ -450,7 +450,7 @@ public class PlayerCombatController : MonoBehaviour
         isCatching = false;
         acceptingInput = true;
         charController.animator.SetBool("isCatching", false);
-        charController.state = CharController.State.IDLE;
+        charController.state = OldCharController.State.IDLE;
     }
 
     private void EnableLightAttackHitbox() {
@@ -494,7 +494,7 @@ public class PlayerCombatController : MonoBehaviour
     }
 
     private void MarkComboTimer() {
-        charController.state = CharController.State.IDLE;
+        charController.state = OldCharController.State.IDLE;
         if(!isNextAttackBuffered) {
            comboTimer = Time.time;
             comboTimerActive = true;
@@ -526,8 +526,8 @@ public class PlayerCombatController : MonoBehaviour
         comboCounter = 0;
         charController.animator.SetInteger("lightAttackCombo", 0);
         attackPower = baseAttackPower;
-        if(charController.state == CharController.State.ATTACKING) {
-            charController.state = CharController.State.IDLE;
+        if(charController.state == OldCharController.State.ATTACKING) {
+            charController.state = OldCharController.State.IDLE;
         }
         comboChain = false;
         comboTimerActive = false;
@@ -549,7 +549,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void EndHeavyAttack() {
         charController.animator.SetBool("isHeavyAttacking", false);
-        charController.state = CharController.State.IDLE;
+        charController.state = OldCharController.State.IDLE;
         acceptingInput = true;
     }
 
@@ -629,7 +629,7 @@ public class PlayerCombatController : MonoBehaviour
                 StartCoroutine(Knockback(collider));
 
                 // change state to limit actions
-                charController.state = CharController.State.KNOCKBACK;
+                charController.state = OldCharController.State.KNOCKBACK;
                 // print("took damage");
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
