@@ -13,15 +13,15 @@ public class ToggleWalls : MonoBehaviour
     // Autumn
     // script Camera to Zoom in and out when walking inside/outside of a building
 
-    public GameObject walls;
+    [SerializeField] GameObject walls;
 
     GameObject mainCam;
     CinemachineBrain brain;
     CinemachineVirtualCamera vcam;
 
-    private float zoomed_out = 6.88f;
-    private float increment = 0.02f;
-    private float zoomed_in = 4.88f;
+    [SerializeField] private float zoomed_out = 6.88f;
+    [SerializeField] private float increment = 0.02f;
+    [SerializeField] private float zoomed_in = 4.88f;
 
     private bool inside = false;
     private bool outside = false;
@@ -31,7 +31,7 @@ public class ToggleWalls : MonoBehaviour
         brain = mainCam.GetComponent<CinemachineBrain>();
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
     }
- 
+
     void Update()
     {
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
