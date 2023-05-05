@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorTree;
 
-public class SpiderWebDeploy : MonoBehaviour
+public class SpiderWebDeploy : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public SpiderWebDeploy()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override NodeState Evaluate()
     {
-        
+        return base.Evaluate();
     }
 }
