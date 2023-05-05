@@ -79,6 +79,7 @@ public class BearStats : EnemyStats
 
     public override void Die()
     {
+        PlayerData.bearsKilled++;
         print(nameID + " is dead!");
         bearBT.isAlive = false;
         swipeHitbox1.enabled = false;

@@ -12,3 +12,6 @@ VAR deadtodeer = false
 VAR deerdead = false
 VAR rabbit_deafeated = false
 VAR spider_defeated = false
+VAR deerSeen = false
+VAR rabbitSeen = false
+VAR bearSeen = false
