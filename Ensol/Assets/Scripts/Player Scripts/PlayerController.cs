@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
         KNOCKBACK,
         PAUSED,
         DEAD,
-        DIALOGUE
+        DIALOGUE,
+        INTERACTIONANIMATION
     }
     public State state;
     public int comboCounter = 0;
@@ -160,6 +161,7 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            hasWeapon = false;
         }
         else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
@@ -170,6 +172,7 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            hasWeapon = true;
         }
         else
         {
@@ -180,6 +183,7 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(true);
             FX1.SetActive(true);
             FX2.SetActive(true);
+            hasWeapon = true;
         }
     }
 
@@ -597,6 +601,20 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("lightAttackCombo", 0);
 
                 break;
+            case State.INTERACTIONANIMATION:
+                allowInput = false;
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.INTERACTIONANIMATION;
+                    state = State.PAUSED;
+                }
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                break;
         }
 
     }
@@ -768,6 +786,13 @@ public class PlayerController : MonoBehaviour
         isCatching = false;
         animator.SetBool("isCatching", false);
         state = State.IDLE;
+    }
+
+    //Interaction anim events
+    private void EndInteraction() {
+        state = State.IDLE;
+        animator.SetBool("isHack", false);
+        animator.SetBool("isPickup", false);
     }
 
 
