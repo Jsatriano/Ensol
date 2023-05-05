@@ -16,15 +16,15 @@ public class SpiderBT : BT
         {
             new Sequence(new List<Node>
             {
-                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"electric", "webDeploy"}),
+                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"tazer", "webDeploy"}),
                 new Selector(new List<Node>
                 {
                     new Sequence(new List<Node>
                     {
-                        new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "electric", spiderStats.environmentMask, 4, false),
-                        new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.electricMinRange, spiderStats.electricMaxRange, "electric"),
-                        new CooldownCheck(spiderStats.electricCooldown, "electric"),
-                        new SpiderElectricBolts()
+                        new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "tazer", spiderStats.environmentMask, 4, false),
+                        new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.tazerMinRange, spiderStats.tazerMaxRange, "tazer"),
+                        new CooldownCheck(spiderStats.tazerCooldown, "tazer"),
+                        new SpiderTazerShot("tazer")
                     }),
                     new Sequence(new List<Node>
                     {
@@ -41,7 +41,7 @@ public class SpiderBT : BT
                 new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "move", spiderStats.environmentMask, 4, true),
                 new ObstacleDetector(spiderStats.obstacleDetectRadius, spiderStats.obstacleMask, spiderStats.enemyTF, spiderStats.hitbox),
                 new SpiderAggroMovement(spiderStats.acceleration, spiderStats.maxSpeed, spiderStats.minSpeed, spiderStats.rapidAvoidDist, spiderStats.playerTF, spiderStats.enemyTF,
-                                        spiderStats.enemyRB, spiderStats.idealDist, spiderStats.rotationSpeed)
+                                        spiderStats.enemyRB, spiderStats.idealDist, spiderStats.rotationSpeed, spiderStats.sidewaysMult, "movingForward")
             })           
         });
 

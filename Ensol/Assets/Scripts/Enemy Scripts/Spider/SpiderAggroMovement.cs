@@ -19,9 +19,12 @@ public class SpiderAggroMovement : Node
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
     private float _distanceToPlayer;
+    private float _sidewaysMult;
+    private float _speedMult;
+    private string _attackName;
 
     public SpiderAggroMovement(float acceleration, float maxSpeed, float minSpeed, float rapidAvoidDist, Transform playerTF, Transform enemyTF, Rigidbody enemyRB, float idealDistance,
-                               float rotationSpeed)
+                               float rotationSpeed, float sidewaysMult, string attackName)
     {
         _playerTF = playerTF;
         _enemyTF = enemyTF;
@@ -33,11 +36,32 @@ public class SpiderAggroMovement : Node
         movingDir = Vector3.zero;
         _minSpeed = minSpeed / 10;
         _rapidAvoidDist = rapidAvoidDist;
+        _sidewaysMult = sidewaysMult;
+        _attackName = attackName;
     }
 
     public override NodeState Evaluate()
     {
-        return base.Evaluate();
+        SetData("animation", _attackName);
+        ChooseDirection();
+
+        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
+
+        float evadeSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, 1 - Mathf.Clamp01(_distanceToPlayer / _rapidAvoidDist));
+
+        //Moves spider in the desired direction (with a speed cap)
+        if (_enemyRB.velocity.magnitude > evadeSpeed)
+        {
+            //Keep moving spider at max speed
+            //_enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, evadeSpeed);
+        }
+        else
+        {
+            //Accelerate spider when not at max speed
+            _enemyRB.AddForce(movingDir * _acceleration, ForceMode.Acceleration);
+        }
+        state = NodeState.SUCCESS;
+        return state;
     }
 
     private void ChooseDirection()
@@ -60,12 +84,14 @@ public class SpiderAggroMovement : Node
         SetData("prevWeights", weights);
 
         //Caculates the perpendicular direction to the direction to the player for sideways movement
-        Vector3 movingCross = Vector3.Cross(_dirToPlayer.normalized, Vector3.up).normalized;
+        Vector3 movingCross = Vector3.Cross(_dirToPlayer, Vector3.up).normalized;
 
+        _speedMult = 1;
         //If there are no obstacles nearby, spider picks between moving left/right based on which direction is
         //closest to the direction it is already facing
         if (movingDir == Vector3.zero)
         {
+            _speedMult = _sidewaysMult;
             if (Vector3.Dot(_enemyTF.forward, movingCross) > Vector3.Dot(_enemyTF.forward, -movingCross))
             {
                 movingDir = movingCross;
