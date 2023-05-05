@@ -47,7 +47,9 @@ public class SpiderTazerManager : MonoBehaviour
     {
         switch (state)
         {
+            //In this state when not doing the attack
             case State.IDLE:
+                //Attack is starting, triggered by animation event
                 if (spiderBT.root.GetData("startTazer") != null)
                 {
                     spiderBT.root.ClearData("startTazer");
@@ -57,7 +59,7 @@ public class SpiderTazerManager : MonoBehaviour
                 break;
 
             case State.SHOOTING:
-                RotateSpider();
+                //Shoots a bolt at a given timer interval as many times as specified
                 if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)
                 {
                     _tazerCounter++;
@@ -80,51 +82,11 @@ public class SpiderTazerManager : MonoBehaviour
         }
     }
 
-    private void RotateSpider()
-    {
-        //Picking the spider's target (either the player or one of their breadcrumbs)
-        _target = _playerTF.position;
-        List<Vector3> breadcrumbs = (List<Vector3>)spiderBT.root.GetData("breadcrumbs");
-        //Uses player's current position as the target if they are currently in FOV
-        if (breadcrumbs == null || !Physics.Linecast(_playerTF.position, _playerTF.position, _obstacleMask))
-        {
-            _target = _playerTF.position;
-        }
-        //Else use the breadcrumbs
-        else
-        {
-            bool foundTarget = false;
-            //Check if any of the breadcrumbs are in FOV, starting at the most recent one
-            for (int i = breadcrumbs.Count - 1; i >= 0; i--)
-            {
-                if (!Physics.Linecast(_playerTF.position, breadcrumbs[i], _obstacleMask))
-                {
-                    _target = breadcrumbs[i];
-                    foundTarget = true;
-                    break;
-                }
-            }
-            //Use oldest breadcrumb as target if none are within FOV
-            if (!foundTarget)
-            {
-                if (breadcrumbs.Count <= 0)
-                {
-                    _target = _playerTF.position;
-                }
-                else
-                {
-                    _target = breadcrumbs[0];
-                }
-            }
-        }
-        _toPlayer = new Vector3(_target.x - _playerTF.position.x, 0, _target.z - _playerTF.position.z).normalized;
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _toPlayer, _tazerRotation);
-    }
-
     private void ShootBolt()
     {
+        Debug.Log("SHOT");
         Rigidbody boltRB = Instantiate(_boltPrefab, _boltSpawnPoint.position, _boltSpawnPoint.rotation);
-        boltRB.AddForce(_boltSpawnPoint.forward * _tazerPower, ForceMode.Impulse);
+        boltRB.AddForce(_enemyTF.forward * _tazerPower, ForceMode.Impulse);
     }
 
     private void ResetVars()

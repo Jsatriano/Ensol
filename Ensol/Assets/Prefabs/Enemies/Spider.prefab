@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2823980211743020200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3758800490590958887}
+  m_Layer: 6
+  m_Name: TazerSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3758800490590958887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2823980211743020200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.0152, z: 0.00047}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4519915863661649264}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4111240904391245603
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,16 +138,16 @@ MonoBehaviour:
   webDeployDuration: 5
   webDeployDebuff: 0.6
   webDeployDebuffLength: 2.5
-  tazerCooldown: 0
-  tazerDamage: 0
-  tazerMinRange: 0
-  tazerMaxRange: 0
-  tazerBurstNum: 0
-  tazerBurstSpeed: 0
-  tazerPower: 0
-  tazerRotation: 0
-  boltPrefab: {fileID: 0}
-  tazerSpawnPoint: {fileID: 0}
+  tazerCooldown: 2
+  tazerDamage: 2
+  tazerMinRange: 5
+  tazerMaxRange: 15
+  tazerBurstNum: 2
+  tazerBurstSpeed: 0.2
+  tazerPower: 30
+  tazerRotation: 2
+  boltPrefab: {fileID: 1144287179827763773, guid: de8d723506918074980682d97fd15b4a, type: 3}
+  tazerSpawnPoint: {fileID: 3758800490590958887}
   spiderBT: {fileID: 8642310613724585887}
   thisSpider: {fileID: 4111240904391245603}
   damageFlash: {fileID: 4551462713004134482}
@@ -207,37 +238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
---- !u!1 &6512830971716716572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2113376023827830718}
-  m_Layer: 6
-  m_Name: TazerSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2113376023827830718
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6512830971716716572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01726, z: 0.00052}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4519915863661649264}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2131296121429617620
 PrefabInstance:
   m_ObjectHideFlags: 0
