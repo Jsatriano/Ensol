@@ -18,6 +18,7 @@ public class _07SecurityTowerNode : MonoBehaviour
     [Header("Other Variables")]
     public float birdSpeed;
 
+
     private void Start()
     {
         CompletedNodes.prevNode = 7;

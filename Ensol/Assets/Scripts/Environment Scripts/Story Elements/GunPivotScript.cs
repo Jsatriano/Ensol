@@ -6,6 +6,7 @@ public class GunPivotScript : MonoBehaviour
 {
     [HideInInspector] public bool foundPlayer = false;
     private GameObject player;
+    public LaserScript laserScript;
 
     void Start()
     {
@@ -18,6 +19,14 @@ public class GunPivotScript : MonoBehaviour
         if(foundPlayer)
         {
             transform.LookAt(player.transform);
+            StartCoroutine(Shoot());
         }
+    }
+
+    IEnumerator Shoot()
+    {
+        yield return new WaitForSeconds(2f);
+
+        laserScript.shootPlayer = true;
     }
 }
