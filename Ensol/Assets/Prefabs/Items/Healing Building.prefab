@@ -95,10 +95,41 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.79683924
+  m_Height: 2.4089699
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7705890084419044301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3031789565909708346}
+  m_Layer: 7
+  m_Name: Interact Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3031789565909708346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705890084419044301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.666, y: 0.945, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6502346387192398682}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8170498144409365403
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +161,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5763674080333750604}
+  - {fileID: 3031789565909708346}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,9 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9752d0010bbdf4443bda4944f2f7c670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pcc: {fileID: 0}
   player: {fileID: 0}
   players: []
+  healthBar: {fileID: 0}
   renderer: {fileID: 4104450353055959178}
 --- !u!135 &5517158149890727427
 SphereCollider:
@@ -160,5 +192,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.7912809
-  m_Center: {x: 0, y: 0.80646527, z: 0}
+  m_Radius: 2.082017
+  m_Center: {x: 0.29073578, y: 0.8064654, z: 0}

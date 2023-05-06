@@ -40,9 +40,8 @@ public static class PlayerData
     public static bool windowInteracted = false;
     public static bool plushInteracted = false;
     public static bool footstepsInteracted = false;
-
-    // Security Tower Node Variables
-    public static bool birdTriggered = false;
-    public static bool disableBird = false;
-    public static bool gunTriggered = false;
+    
+    // Enemy's Killed
+    public static int bearsKilled = 0;
+    public static int bunniesKilled = 0;
 }

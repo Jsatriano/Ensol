@@ -4,11 +4,33 @@ using UnityEngine;
 
 public class SpiderStats : EnemyStats
 {
+    [Header("Spider Movement")]
+    public float minSpeed;
+    public float rapidAvoidDist;
+    public float idealDist;
+    public float sidewaysMult;
+
     [Header("Web Deploy Attack")]
+    public float webDelployCooldown;
+    public float webDeployMinRange;
+    public float webDeployMaxRange;
+    public float webDeployDuration;
+    public float webDeployDebuff;
+    public float webDeployDebuffLength;
 
     [Header("Web Shoot Attack")]
 
-    [Header("Electric Bolts Attack")]
+    [Header("Tazer Shot Attack")]
+    public float tazerCooldown;
+    public float tazerDamage;
+    public float tazerMinRange;
+    public float tazerMaxRange;
+    public float tazerBurstNum;
+    public float tazerBurstSpeed;
+    public float tazerPower;
+    public float tazerRotation;
+    public Rigidbody boltPrefab;
+    public Transform tazerSpawnPoint;
 
     [Header("References")]
     [SerializeField] private SpiderBT spiderBT;

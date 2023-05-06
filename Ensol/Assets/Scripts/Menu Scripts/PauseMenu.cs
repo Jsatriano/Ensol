@@ -152,4 +152,15 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
+    public void SpawnSpider()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Spider")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
 }
