@@ -12,7 +12,6 @@ public class SpiderTazerManager : MonoBehaviour
 
     private SpiderStats spiderStats;
     private SpiderBT spiderBT;
-    private Transform _playerTF;
     private Transform _enemyTF;
     private Transform _boltSpawnPoint;
     private float _tazerBurstNum;
@@ -20,27 +19,21 @@ public class SpiderTazerManager : MonoBehaviour
     private float _tazerBurstSpeed;
     private float _tazerBurstTimer;
     private float _tazerPower;
-    private float _tazerRotation;
+    private float _tazerDamage;
     private Rigidbody _boltPrefab;
-    private Vector3 _target;
-    private Vector3 _toPlayer;
-    private LayerMask _obstacleMask;
     private State state = State.IDLE;
 
     private void Start()
     {
         spiderStats = GetComponent<SpiderStats>();
         spiderBT = GetComponent<SpiderBT>();
-        _playerTF = spiderStats.playerTF;
         _enemyTF = spiderStats.enemyTF;
         _boltSpawnPoint = spiderStats.tazerSpawnPoint;
         _tazerBurstNum = spiderStats.tazerBurstNum;
         _tazerBurstSpeed = spiderStats.tazerBurstSpeed;
         _tazerPower = spiderStats.tazerPower;
-        _tazerRotation = spiderStats.tazerRotation;
         _boltPrefab = spiderStats.boltPrefab;
-        _obstacleMask = spiderStats.obstacleMask;
-
+        _tazerDamage = spiderStats.tazerDamage;
     }
 
     private void FixedUpdate()
@@ -84,8 +77,10 @@ public class SpiderTazerManager : MonoBehaviour
 
     private void ShootBolt()
     {
-        Debug.Log("SHOT");
         Rigidbody boltRB = Instantiate(_boltPrefab, _boltSpawnPoint.position, _boltSpawnPoint.rotation);
+        TazerShot tazerScript = boltRB.GetComponent<TazerShot>();
+        tazerScript.spiderTF = spiderStats.enemyTF;
+        tazerScript.tazerDamage = spiderStats.tazerDamage;
         boltRB.AddForce(_enemyTF.forward * _tazerPower, ForceMode.Impulse);
     }
 
@@ -94,4 +89,14 @@ public class SpiderTazerManager : MonoBehaviour
         _tazerBurstTimer = _tazerBurstSpeed;
         _tazerCounter = 0;
     }
+    /*
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(_enemyTF, )
+        }
+    }
+    */
 }

@@ -45,8 +45,6 @@ public class SpiderAggroMovement : Node
         SetData("animation", _attackName);
         ChooseDirection();
 
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
-
         float evadeSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, 1 - Mathf.Clamp01(_distanceToPlayer / _rapidAvoidDist));
 
         //Moves spider in the desired direction (with a speed cap)
@@ -60,6 +58,8 @@ public class SpiderAggroMovement : Node
             //Accelerate spider when not at max speed
             _enemyRB.AddForce(movingDir * _acceleration, ForceMode.Acceleration);
         }
+
+        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
         state = NodeState.SUCCESS;
         return state;
     }
