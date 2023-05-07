@@ -15,7 +15,7 @@ INCLUDE ../globals.ink
 
 ===Dialogue_options===
 *[What is going on? Where am I?]
-???: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
+{abletoleave:P1-USH|???}: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
 ->Dialogue_options
 
 
