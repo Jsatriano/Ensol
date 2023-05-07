@@ -12,6 +12,7 @@ public class SpiderAnimation : MonoBehaviour
         MOVING_RIGHT,
         WEB_SHOOT,
         TAZER_SHOOT,
+        WEB_DEPLOY,
         DYING
     }
 
@@ -65,9 +66,22 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("tazer");
                     state = State.TAZER_SHOOT;
                 }
+                else if (anim == "webDeploy")
+                {
+                    animController.SetTrigger("webDeploy");
+                    state = State.WEB_DEPLOY;
+                }
                 break;
 
             case State.TAZER_SHOOT:
+                if (anim == "movingForward")
+                {
+                    animController.SetTrigger("movingForward");
+                    state = State.MOVING_FORWARD;
+                }
+                break;
+
+            case State.WEB_DEPLOY:
                 if (anim == "movingForward")
                 {
                     animController.SetTrigger("movingForward");
@@ -85,4 +99,18 @@ public class SpiderAnimation : MonoBehaviour
         spiderBT.root.SetData("startTazer", true);
     }
 
+    private void EndTazer()
+    {
+        spiderBT.root.SetData("tazerEnded", true);
+    }
+
+    private void DropWeb()
+    {
+        spiderBT.root.SetData("dropWeb", true);
+    }
+
+    private void EndWebDeploy()
+    {
+        spiderBT.root.SetData("webEnded", true);
+    }
 }

@@ -11,7 +11,6 @@ public class SpiderTazerManager : MonoBehaviour
     }
 
     private SpiderStats spiderStats;
-    private SpiderBT spiderBT;
     private Transform _enemyTF;
     private Transform _boltSpawnPoint;
     private float _tazerBurstNum;
@@ -19,59 +18,39 @@ public class SpiderTazerManager : MonoBehaviour
     private float _tazerBurstSpeed;
     private float _tazerBurstTimer;
     private float _tazerPower;
-    private float _tazerDamage;
     private Rigidbody _boltPrefab;
     private State state = State.IDLE;
 
     private void Start()
     {
         spiderStats = GetComponent<SpiderStats>();
-        spiderBT = GetComponent<SpiderBT>();
         _enemyTF = spiderStats.enemyTF;
         _boltSpawnPoint = spiderStats.tazerSpawnPoint;
         _tazerBurstNum = spiderStats.tazerBurstNum;
         _tazerBurstSpeed = spiderStats.tazerBurstSpeed;
         _tazerPower = spiderStats.tazerPower;
         _boltPrefab = spiderStats.boltPrefab;
-        _tazerDamage = spiderStats.tazerDamage;
     }
 
-    private void FixedUpdate()
+    public void StartTazerAttack()
     {
-        switch (state)
-        {
-            //In this state when not doing the attack
-            case State.IDLE:
-                //Attack is starting, triggered by animation event
-                if (spiderBT.root.GetData("startTazer") != null)
-                {
-                    spiderBT.root.ClearData("startTazer");
-                    ResetVars();
-                    state = State.SHOOTING;
-                }
-                break;
+        ResetVars();
+        StartCoroutine(TazerAttack());
+    }
 
-            case State.SHOOTING:
-                //Shoots a bolt at a given timer interval as many times as specified
-                if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)
-                {
-                    _tazerCounter++;
-                    _tazerBurstTimer = 0;
-                    ShootBolt();
-                }
-                else
-                {
-                    if (_tazerCounter >= _tazerBurstNum)
-                    {
-                        spiderBT.root.SetData("tazerEnded", true);
-                        state = State.IDLE;
-                    }
-                    else
-                    {
-                        _tazerBurstTimer += Time.deltaTime;
-                    }
-                }
-                break;
+    private IEnumerator TazerAttack()
+    {
+        while (_tazerCounter < _tazerBurstNum)
+        {
+            //Shoots a bolt at a given timer interval as many times as specified
+            if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)
+            {
+                _tazerCounter++;
+                _tazerBurstTimer = 0;
+                ShootBolt();
+            }
+            _tazerBurstTimer += Time.deltaTime;
+            yield return null;
         }
     }
 
@@ -89,14 +68,4 @@ public class SpiderTazerManager : MonoBehaviour
         _tazerBurstTimer = _tazerBurstSpeed;
         _tazerCounter = 0;
     }
-    /*
-    private void OnDrawGizmos()
-    {
-        if (Application.isPlaying)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(_enemyTF, )
-        }
-    }
-    */
 }

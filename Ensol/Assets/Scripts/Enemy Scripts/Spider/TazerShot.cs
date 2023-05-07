@@ -13,7 +13,7 @@ public class TazerShot : MonoBehaviour
         //Checks if the tazer bolt hit an enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            //Ignores collision if it is with the bear that threw it
+            //Ignores collision if it is with the spider that threw it
             if (other.transform == spiderTF || other.tag == "Sound")
             {
                 return;

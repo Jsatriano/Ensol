@@ -5,14 +5,33 @@ using BehaviorTree;
 
 public class SpiderWebDeploy : Node
 {
-    
-    public SpiderWebDeploy()
-    {
+    private string _attackName;
+    private SpiderWebManager _webManager;
 
+    public SpiderWebDeploy(string attackName, SpiderWebManager webManager)
+    {
+        _attackName = attackName;
+        _webManager = webManager;
     }
 
     public override NodeState Evaluate()
     {
-        return base.Evaluate();
+        if ((string)GetData("animation") != _attackName)
+        {
+            SetData("animation", _attackName);
+            SetData("attacking", _attackName);
+            _webManager.StartWebDeployAttack();
+            state = NodeState.RUNNING;
+            return state;
+        }
+        if (GetData("webEnded") != null)
+        {
+            ClearData("webEnded");
+            ClearData("attacking");
+            state = NodeState.FAILURE;
+            return NodeState.FAILURE;
+        }
+        state = NodeState.RUNNING;
+        return state;
     }
 }
