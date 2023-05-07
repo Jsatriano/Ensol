@@ -20,5 +20,5 @@ The terminal denies your access, flashing the error message: “Denizen’s are 
 ->END
 
 ===off===
-The control panel for the river is broken.
+The control panel for the river is broken. The river is no longer flowing <b>north</b>.
 ->END
