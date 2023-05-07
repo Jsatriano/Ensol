@@ -851,7 +851,7 @@ public class PlayerController : MonoBehaviour
     //Applies a speed change to the player, works for buffs or debuffs
     public void ApplySpeedChange(float speedMult, float length)
     {
-        if (PlayerData.hasShield)
+        if (PlayerData.hasShield && speedMult < 1)
         {
             GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
             ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
