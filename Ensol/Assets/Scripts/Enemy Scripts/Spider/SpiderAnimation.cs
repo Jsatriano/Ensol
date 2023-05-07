@@ -25,7 +25,7 @@ public class SpiderAnimation : MonoBehaviour
 
     [Header("Misc")]
     private State state = State.IDLE;
-    private float maxWalkSpeed;
+    private float maxWalkSpeed, minWalkSpeed;
 
     private void FixedUpdate()
     {
@@ -46,6 +46,7 @@ public class SpiderAnimation : MonoBehaviour
         {
             playerTF = (Transform)spiderBT.root.GetData("player");
             maxWalkSpeed = spiderBT.spiderStats.maxSpeed;
+            minWalkSpeed = spiderBT.spiderStats.minSpeed;
         }
 
         string anim = (string)spiderBT.root.GetData("animation");
@@ -60,7 +61,9 @@ public class SpiderAnimation : MonoBehaviour
                 break;
 
             case State.MOVING_FORWARD:
-                //Code for dynamic speed here
+                //Sets the speed of the walking animation based on current velocity
+                animController.SetFloat("animSpeed", Mathf.Clamp((spiderRB.velocity.magnitude * 10) / minWalkSpeed, 0.5f, 1));
+
                 if (anim == "tazer")
                 {
                     animController.SetTrigger("tazer");

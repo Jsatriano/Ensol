@@ -851,17 +851,38 @@ public class PlayerController : MonoBehaviour
     //Applies a speed change to the player, works for buffs or debuffs
     public void ApplySpeedChange(float speedMult, float length)
     {
-        speedMultiplier = speedMult;
-        //Only sets the timer if its longer than the current timer (in cases of multiple debuffs applying at once)
-        if (length > speedMultTimer)
+        if (PlayerData.hasShield)
         {
-            speedMultTimer = length;
-        }              
-        if (speedMultRoutine != null)
-        {
-            StopCoroutine(speedMultRoutine);
+            GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+            ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+            PlayerData.hasShield = false;
+            invulnTimer = Time.time;
         }
-        speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        else
+        {
+            //New buffs/debuffs of different strength override currently active buffs/debuffs
+            if (speedMultiplier != speedMult)
+            {
+                speedMultiplier = speedMult;
+                speedMultTimer = length;
+            }
+            else
+            {
+                //Only sets the timer if its longer than the current timer (in cases of multiple buffs/debuffs of the same strength applying at once)
+                if (length > speedMultTimer)
+                {
+                    speedMultTimer = length;
+                }
+            }
+            if (speedMultRoutine != null)
+            {
+                StopCoroutine(speedMultRoutine);
+            }
+            speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        }
     }
 
     //Resets the speed change after the given time
@@ -1128,7 +1149,6 @@ public class PlayerController : MonoBehaviour
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
-            print("vials dark");
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
         }
     }

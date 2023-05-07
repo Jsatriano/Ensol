@@ -37,7 +37,6 @@ public class SpiderWebManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Dropped web");
         GameObject web = Instantiate(webPrefab, webSpawnPoint.position, transform.rotation);
         GroundWeb webScript = web.GetComponent<GroundWeb>();
         webScript.spiderTF = _enemyTF;
