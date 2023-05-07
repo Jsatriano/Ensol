@@ -41,7 +41,7 @@ public class GroundWeb : MonoBehaviour
             PlayerController playerScript = other.GetComponent<PlayerController>();
             if (playerScript != null)
             {
-                //playerScript.TakeDamage(tazerDamage, tazerCollider);
+                playerScript.ApplySpeedChange(speedDebuff, debuffLength);
                 Destroy(gameObject);
             }
         }

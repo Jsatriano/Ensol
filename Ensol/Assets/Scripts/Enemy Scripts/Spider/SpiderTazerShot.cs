@@ -28,8 +28,8 @@ public class SpiderTazerShot : Node
         {
             ClearData("tazerEnded");
             ClearData("attacking");
-            state = NodeState.FAILURE;
-            return NodeState.FAILURE;
+            state = NodeState.SUCCESS;
+            return state;
         }
         state = NodeState.RUNNING;
         return state;

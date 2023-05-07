@@ -18,6 +18,7 @@ public class SpiderWebDeploy : Node
     {
         if ((string)GetData("animation") != _attackName)
         {
+            Debug.Log("Startd WEB!");
             SetData("animation", _attackName);
             SetData("attacking", _attackName);
             _webManager.StartWebDeployAttack();
@@ -28,8 +29,8 @@ public class SpiderWebDeploy : Node
         {
             ClearData("webEnded");
             ClearData("attacking");
-            state = NodeState.FAILURE;
-            return NodeState.FAILURE;
+            state = NodeState.SUCCESS;
+            return state;
         }
         state = NodeState.RUNNING;
         return state;

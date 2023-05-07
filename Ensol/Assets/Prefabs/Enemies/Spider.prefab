@@ -136,9 +136,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameID: Spider
   numID: 4
-  maxHP: 30
+  maxHP: 35
   currHP: 0
-  maxSpeed: 45
+  maxSpeed: 75
   attackingCooldown: 1
   acceleration: 30
   visionRange: 15
@@ -160,20 +160,20 @@ MonoBehaviour:
     m_Bits: 128
   players: []
   enemyRenderer: {fileID: 3818330071454690583}
-  minSpeed: 15
+  minSpeed: 25
   rapidAvoidDist: 7.5
   idealDist: 8
   sidewaysMult: 0.5
   webDelployCooldown: 3
-  webDeployMinRange: 7
+  webDeployMinRange: 10
   webDeployMaxRange: 20
-  webDeployDuration: 5
-  webDeployDebuff: 0.6
+  webDeployDuration: 6
+  webDeployDebuff: 0.5
   webDeployDebuffLength: 2.5
   webPrefab: {fileID: 2516027072432282359, guid: 1177ecbee64f2f34aab1cedb3f36b70f, type: 3}
   webManager: {fileID: 3889044150427980990}
   webSpawnPoint: {fileID: 7463606841737395095}
-  tazerCooldown: 50
+  tazerCooldown: 2
   tazerDamage: 2
   tazerMinRange: 5
   tazerMaxRange: 15
@@ -222,7 +222,7 @@ Rigidbody:
   m_GameObject: {fileID: 4111240904391245603}
   serializedVersion: 2
   m_Mass: 5
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
