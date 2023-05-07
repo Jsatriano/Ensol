@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class SpiderTazerManager : MonoBehaviour
 {
-    private enum State
-    {
-        IDLE,
-        SHOOTING
-    }
-
     private SpiderStats spiderStats;
     private Transform _enemyTF;
     private Transform _boltSpawnPoint;
@@ -19,7 +13,6 @@ public class SpiderTazerManager : MonoBehaviour
     private float _tazerBurstTimer;
     private float _tazerPower;
     private Rigidbody _boltPrefab;
-    private State state = State.IDLE;
 
     private void Start()
     {
@@ -40,6 +33,7 @@ public class SpiderTazerManager : MonoBehaviour
 
     private IEnumerator TazerAttack()
     {
+        //Add edge case of dying
         while (_tazerCounter < _tazerBurstNum)
         {
             //Shoots a bolt at a given timer interval as many times as specified

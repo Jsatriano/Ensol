@@ -71,6 +71,11 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("webDeploy");
                     state = State.WEB_DEPLOY;
                 }
+                else if (anim == "webShot")
+                {
+                    animController.SetTrigger("webShot");
+                    state = State.WEB_SHOOT;
+                }
                 break;
 
             case State.TAZER_SHOOT:
@@ -82,6 +87,14 @@ public class SpiderAnimation : MonoBehaviour
                 break;
 
             case State.WEB_DEPLOY:
+                if (anim == "movingForward")
+                {
+                    animController.SetTrigger("movingForward");
+                    state = State.MOVING_FORWARD;
+                }
+                break;
+
+            case State.WEB_SHOOT:
                 if (anim == "movingForward")
                 {
                     animController.SetTrigger("movingForward");
@@ -112,5 +125,15 @@ public class SpiderAnimation : MonoBehaviour
     private void EndWebDeploy()
     {
         spiderBT.root.SetData("webEnded", true);
+    }
+
+    private void ShootWeb()
+    {
+        spiderBT.root.SetData("shootWeb", true);
+    }
+
+    private void EndWebShot()
+    {
+        spiderBT.root.SetData("webShotEnded", true);
     }
 }

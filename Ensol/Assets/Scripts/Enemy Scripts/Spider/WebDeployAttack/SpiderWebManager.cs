@@ -32,6 +32,7 @@ public class SpiderWebManager : MonoBehaviour
 
     private IEnumerator WebDeployAttack()
     {
+        //Add edge case of dying
         while (spiderBT.root.GetData("dropWeb") == null)
         {
             yield return null;

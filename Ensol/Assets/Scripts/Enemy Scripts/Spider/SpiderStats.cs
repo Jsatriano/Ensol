@@ -21,7 +21,18 @@ public class SpiderStats : EnemyStats
     public SpiderWebManager webManager;
     public Transform webSpawnPoint;
 
-    [Header("Web Shoot Attack")]
+    [Header("Web Shot Attack")]
+    public float webShotCooldown;
+    public float webShotMinRange;
+    public float webShotMaxRange;
+    public float webShotDebuff;
+    public float webShotDebuffLength;
+    public float webMaxSpeed;
+    public float webMinSpeed;
+    public float webMaxPrediction;
+    public Rigidbody webShotPrefab;
+    public WebShotManager webShotManager;
+    public Transform webShotSpawnPoint;
 
     [Header("Tazer Shot Attack")]
     public float tazerCooldown;

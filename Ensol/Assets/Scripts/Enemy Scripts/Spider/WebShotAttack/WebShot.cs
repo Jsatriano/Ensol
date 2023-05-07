@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundWeb : MonoBehaviour
+public class WebShot : MonoBehaviour
 {
     [HideInInspector] public Transform spiderTF;
     [HideInInspector] public float speedDebuff;
     [HideInInspector] public float debuffLength;
-    [HideInInspector] public float webDuration;
-
-    private void Start()
-    {
-        Destroy(gameObject, webDuration);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,7 +29,7 @@ public class GroundWeb : MonoBehaviour
                 }
             }
         }
-        //Checks if the tazer bolt hit the player
+        //Checks if the web hit the player
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             PlayerController playerScript = other.GetComponent<PlayerController>();
@@ -44,6 +38,10 @@ public class GroundWeb : MonoBehaviour
                 playerScript.ApplySpeedChange(speedDebuff, debuffLength);
                 Destroy(gameObject);
             }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
