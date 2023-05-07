@@ -233,7 +233,8 @@ MonoBehaviour:
   swipeHitbox2: {fileID: 6031588405759380040}
   junkDamage: 5
   junkCooldown: 2.5
-  junkRange: 25
+  junkMinRange: 5.5
+  junkMaxRange: 25
   junkRotation: 6
   junkMaxSpeed: 20
   junkMinSpeed: 11
@@ -244,8 +245,8 @@ MonoBehaviour:
   angryAcceleration: 30
   angryJunkCooldown: 4
   bearBT: {fileID: 3805819858905312370}
-  damageFlash: {fileID: 3805819858905312382}
   thisBear: {fileID: 3805819858905312383}
+  damageFlash: {fileID: 3805819858905312382}
   buttonGateController: {fileID: 0}
   buttonDoorController: {fileID: 0}
 --- !u!114 &849177013564391245
@@ -293,7 +294,7 @@ Rigidbody:
   m_GameObject: {fileID: 3805819858905312383}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0

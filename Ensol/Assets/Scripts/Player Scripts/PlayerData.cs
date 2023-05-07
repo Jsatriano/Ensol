@@ -40,4 +40,12 @@ public static class PlayerData
     public static bool windowInteracted = false;
     public static bool plushInteracted = false;
     public static bool footstepsInteracted = false;
+    
+    // Enemy's Killed
+    public static int bearsKilled = 0;
+    public static int bunniesKilled = 0;
+
+    //Security Tower Node Progression
+    public static bool birdTriggered = false;
+    public static bool disableBird = false;
 }

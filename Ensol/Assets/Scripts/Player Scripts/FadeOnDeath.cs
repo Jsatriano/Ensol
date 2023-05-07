@@ -7,20 +7,26 @@ using UnityEngine.SceneManagement;
 public class FadeOnDeath : MonoBehaviour
 {
     public GameObject blackOutSquare;
-    //public PlayerCombatController pcc;
     public NodeSelector nodeSelector;
+    private string sceneName;
+
+    void Start() {
+        sceneName = SceneManager.GetActiveScene().name;
+    }
 
     void Update()
     {
 
-    if(PlayerData.currHP <= 0) 
+    if(PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
         {
             Time.timeScale = 0.5f;
             StartCoroutine(FadeBlackOutSquare());
         }
     }
+
     public IEnumerator FadeBlackOutSquare()
     {
+
         yield return new WaitForSeconds(1f);
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;

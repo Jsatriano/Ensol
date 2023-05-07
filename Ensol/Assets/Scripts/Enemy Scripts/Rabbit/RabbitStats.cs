@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class RabbitStats : EnemyStats
 {
-    [Header("Agro Behavior")]
+    [Header("Aggro Behavior")]
     public float attackDamage;  //How much damage the rabbit does
     public SphereCollider attackHitbox;
-    public float agroRange;
     public float aggroLeaps;
     public GameObject grinderVFX;
     public float aggroSpeed;
@@ -19,7 +18,7 @@ public class RabbitStats : EnemyStats
     public float minSpeed;
     public float rapidAvoidDist;
 
-    [Header("Other Scripts")]
+    [Header("References")]
     [SerializeField] private RabbitBT rabbitBT;
     public DamageFlash damageFlash;
     public ButtonGateController buttonGateController = null;
@@ -49,6 +48,7 @@ public class RabbitStats : EnemyStats
         }
         currHP -= damage;
         StartCoroutine(damageFlash.FlashRoutine());
+        //Sets the enemy to aggro if they aren't yet
         if (rabbitBT.root.GetData("player") == null)
         {
             rabbitBT.root.SetData("player", playerTF);
@@ -62,6 +62,7 @@ public class RabbitStats : EnemyStats
     }
     public override void Die()
     {
+        PlayerData.bunniesKilled++;
         print(nameID + " is dead!");
         rabbitBT.isAlive = false;
         attackHitbox.enabled = false;

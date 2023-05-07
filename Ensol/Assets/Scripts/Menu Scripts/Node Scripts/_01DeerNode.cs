@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class _01DeerNode : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class _01DeerNode : MonoBehaviour
     private float timer = 0f;
 
     [HideInInspector] public GameObject[] players = null;
-    private PlayerCombatController combatController = null;
+    private PlayerController combatController = null;
     private bool pickedUpUpgrade;
 
     [Header("Weapon Upgrade")]
@@ -33,6 +34,9 @@ public class _01DeerNode : MonoBehaviour
 
     [Header("Other Variables")]
     public GameObject transferCube;
+    private Story story;
+    public TextAsset globals;
+
 
     private void Awake() 
     {
@@ -83,6 +87,10 @@ public class _01DeerNode : MonoBehaviour
         {
             if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
+                story = new Story(globals.text);
+                story.state.LoadJson(DialogueVariables.saveFile);
+                story.EvaluateFunction("killedDeer");
+                DialogueVariables.saveFile = story.state.ToJson();
                 ReplaceDeadDeer(deadDear, normalDeer);
                 dropped = true;
             }
@@ -126,7 +134,7 @@ public class _01DeerNode : MonoBehaviour
         }
         foreach (GameObject p in players)
         {
-            combatController = p.GetComponent<PlayerCombatController>();
+            combatController = p.GetComponent<PlayerController>();
         }
 
         if (combatController == null)

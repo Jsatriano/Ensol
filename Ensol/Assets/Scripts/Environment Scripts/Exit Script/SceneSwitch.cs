@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour
 {
     // Harsha
     public static GameObject blackOutSquare {get; private set;}
-    public bool Entrance = false;
-    public static bool exitFrom = false;
+    public bool Entrance = true;
+    public static bool exitFrom = true;
 
     public bool GameFinished = false;
 
@@ -32,7 +31,10 @@ public class SceneSwitch : MonoBehaviour
             {
                 exitFrom = false;
             }
-            StartCoroutine(FadeBlackOutSquare()); 
+
+            if(SceneManager.GetActiveScene().name != "PlaytestingScene"){
+                StartCoroutine(FadeBlackOutSquare()); 
+            }
         }
     }
 

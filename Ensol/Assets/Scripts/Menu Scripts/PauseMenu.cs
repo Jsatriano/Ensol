@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
     public GameObject[] enemyPrefabs;
-    public PlayerCombatController combatController;
+    public PlayerController combatController;
     public static bool isPaused;
     public Transform enemySpawnPoint;
 
@@ -81,7 +81,6 @@ public class PauseMenu : MonoBehaviour
         PlayerData.hasBroom = true;
         PlayerData.hasSolarUpgrade = true;
         PlayerData.hasThrowUpgrade = true;
-        PlayerData.hasShield = true;
         PlayerData.currentlyHasBroom = true;
         PlayerData.currentlyHasSolar = true;
     }
@@ -148,6 +147,17 @@ public class PauseMenu : MonoBehaviour
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             if (enemyPrefabs[i].name == "Rabbit")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
+
+    public void SpawnSpider()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Spider")
             {
                 Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
             }
