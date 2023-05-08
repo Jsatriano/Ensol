@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Ink.Runtime;
 
 public class PlayerController : MonoBehaviour
 {
@@ -125,6 +126,8 @@ public class PlayerController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     private bool allowInput = true;
+    private Story story;
+    public TextAsset globals;
 
     
     //Input Read Variables
@@ -583,6 +586,13 @@ public class PlayerController : MonoBehaviour
                     pauseInput = false;
                     prevState = State.DEAD;
                     state = State.PAUSED;
+                }
+                if (PlayerData.deaths == 1) 
+                {
+                    story = new Story(globals.text);
+                    story.state.LoadJson(DialogueVariables.saveFile);
+                    story.EvaluateFunction("firstDeath");
+                    DialogueVariables.saveFile = story.state.ToJson();
                 }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
