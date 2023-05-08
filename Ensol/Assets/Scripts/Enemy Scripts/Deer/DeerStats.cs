@@ -70,6 +70,7 @@ public class DeerStats : EnemyStats
     public override void Die()
     {
        // print(nameID + " is dead!");
+        PlayerData.deerKilled++;
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;

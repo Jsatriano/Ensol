@@ -32,11 +32,11 @@ public class SpiderWebManager : MonoBehaviour
 
     private IEnumerator WebDeployAttack()
     {
+        //Add edge case of dying
         while (spiderBT.root.GetData("dropWeb") == null)
         {
             yield return null;
         }
-        Debug.Log("Dropped web");
         GameObject web = Instantiate(webPrefab, webSpawnPoint.position, transform.rotation);
         GroundWeb webScript = web.GetComponent<GroundWeb>();
         webScript.spiderTF = _enemyTF;

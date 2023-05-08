@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Ink.Runtime;
 
 public class PlayerController : MonoBehaviour
 {
@@ -125,6 +126,8 @@ public class PlayerController : MonoBehaviour
     private State prevState;
     [HideInInspector] public bool knockback;
     private bool allowInput = true;
+    private Story story;
+    public TextAsset globals;
 
     
     //Input Read Variables
@@ -584,6 +587,13 @@ public class PlayerController : MonoBehaviour
                     prevState = State.DEAD;
                     state = State.PAUSED;
                 }
+                if (PlayerData.deaths == 1)
+                {
+                    story = new Story(globals.text);
+                    story.state.LoadJson(DialogueVariables.saveFile);
+                    story.EvaluateFunction("firstDeath");
+                    DialogueVariables.saveFile = story.state.ToJson();
+                }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
                 animator.SetBool("isHeavyAttacking", false);
@@ -851,17 +861,38 @@ public class PlayerController : MonoBehaviour
     //Applies a speed change to the player, works for buffs or debuffs
     public void ApplySpeedChange(float speedMult, float length)
     {
-        speedMultiplier = speedMult;
-        //Only sets the timer if its longer than the current timer (in cases of multiple debuffs applying at once)
-        if (length > speedMultTimer)
+        if (PlayerData.hasShield && speedMult < 1)
         {
-            speedMultTimer = length;
-        }              
-        if (speedMultRoutine != null)
-        {
-            StopCoroutine(speedMultRoutine);
+            GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+            ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+            PlayerData.hasShield = false;
+            invulnTimer = Time.time;
         }
-        speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        else
+        {
+            //New buffs/debuffs of different strength override currently active buffs/debuffs
+            if (speedMultiplier != speedMult)
+            {
+                speedMultiplier = speedMult;
+                speedMultTimer = length;
+            }
+            else
+            {
+                //Only sets the timer if its longer than the current timer (in cases of multiple buffs/debuffs of the same strength applying at once)
+                if (length > speedMultTimer)
+                {
+                    speedMultTimer = length;
+                }
+            }
+            if (speedMultRoutine != null)
+            {
+                StopCoroutine(speedMultRoutine);
+            }
+            speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        }
     }
 
     //Resets the speed change after the given time
@@ -1128,7 +1159,6 @@ public class PlayerController : MonoBehaviour
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
-            print("vials dark");
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
         }
     }

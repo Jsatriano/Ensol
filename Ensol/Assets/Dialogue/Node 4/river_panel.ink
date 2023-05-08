@@ -1,5 +1,5 @@
 INCLUDE ../globals.ink
-{ river_controls == false: -> Intro | -> Over}
+{ river_controls == true: -> off}
 
 
 -> Intro
