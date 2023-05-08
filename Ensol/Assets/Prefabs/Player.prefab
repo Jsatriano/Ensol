@@ -7024,7 +7024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
       propertyPath: m_Name
-      value: Updated Player Script Prefab
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
       propertyPath: m_Layer
@@ -7525,6 +7525,7 @@ MonoBehaviour:
   right: {x: 0, y: 0, z: 0}
   heading: {x: 0, y: 0, z: 0}
   zeroVector: {x: 0, y: 0, z: 0}
+  controller: 0
   weapon: {fileID: 847835172604655736}
   weaponHead: {fileID: 3637181781950234843}
   weaponBase: {fileID: 7517376848999336124}
@@ -7545,7 +7546,6 @@ MonoBehaviour:
   damageVFXLocation: {fileID: 7663431665704294774}
   shieldBreakVFX: {fileID: 6954789437810770126, guid: 733e40ff67ab0564d9355aabcf264356, type: 3}
   damageFlash: {fileID: 1360605719}
-  backpackVialMaterial: {fileID: 2100000, guid: a521fba0889c02d46988047d3f0d2f59, type: 2}
   shieldVisual: {fileID: 5019563106259727601}
   healthBar: {fileID: 0}
   electricVials: {fileID: 0}
@@ -7577,21 +7577,21 @@ MonoBehaviour:
   light2Mult: 1.3
   light3Mult: 1.7
   heavyAttackMult: 3
+  heavyAttackCost: 2
   specialAttackMult: 2
   specialDamagePulseMult: 0.5
   weaponThrowSpeed: 30
   weaponRecallSpeed: 30
   weaponCatchDistance: 0.4
   damagePulseRadius: 3
+  specialAttackCost: 2
   hasWeapon: 1
   isCatching: 0
   attackPower: 0
   comboChain: 0
   comboTimerActive: 0
-  isMidGrab: 0
-  attacking: 0
-  controller: 0
   knockback: 0
+  globals: {fileID: 4900000, guid: 1f903892a9295ef438b7539f29586e53, type: 3}
 --- !u!4 &7381245181727527669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5340232472284528199, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}

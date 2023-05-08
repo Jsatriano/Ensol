@@ -15,3 +15,4 @@ VAR spider_defeated = false
 VAR deerSeen = false
 VAR rabbitSeen = false
 VAR bearSeen = false
+VAR footstepsSeen = false

@@ -85,8 +85,9 @@ P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped l
     ~deerSeen = true
     ->Plush_unlock
 
-*{footprints_found}[Are there robots that leave behind human footprints?]
+*{footprints_found && footstepsSeen == false}[Are there robots that leave behind human footprints?]
 P1-USH: None of our designs uses any human feet. Are you sure you haven’t looped back to the area before? Those woods can be pretty confusing for a human to navigate through successfully without being confused.
+    ~footstepsSeen = true
     ->Plush_unlock
 
 *{bear_defeated && bearSeen == false}[The bear robots, what are they?]

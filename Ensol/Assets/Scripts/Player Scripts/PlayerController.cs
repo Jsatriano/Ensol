@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Ink.Runtime;
 
 public class PlayerController : MonoBehaviour
 {
@@ -120,6 +121,9 @@ public class PlayerController : MonoBehaviour
     private bool dying = false;
     private State prevState;
     [HideInInspector] public bool knockback;
+    public TextAsset globals;
+    private Story story;
+
 
     
     //Input Read Variables
@@ -138,6 +142,7 @@ public class PlayerController : MonoBehaviour
         dying = false;
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
+
 
         if(PlayerData.currHP == -1) {
             PlayerData.currHP = maxHP;
@@ -558,6 +563,13 @@ public class PlayerController : MonoBehaviour
                     pauseInput = false;
                     prevState = State.DEAD;
                     state = State.PAUSED;
+                }
+                if (PlayerData.deaths == 1) 
+                {
+                    story = new Story(globals.text);
+                    story.state.LoadJson(DialogueVariables.saveFile);
+                    story.EvaluateFunction("firstDeath");
+                    DialogueVariables.saveFile = story.state.ToJson();
                 }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
