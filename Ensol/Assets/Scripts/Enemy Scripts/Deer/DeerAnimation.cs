@@ -31,6 +31,7 @@ public class DeerAnimation : MonoBehaviour
     private Vector3 deerRight;
     private State state;          //Current animation the deer is playing
     private State walkingState;   //Used to check which walking anim should be playing
+    private State debugState;
     public bool finishedDeathAnim;
 
     private float maxWalkSpeed;
@@ -40,10 +41,19 @@ public class DeerAnimation : MonoBehaviour
     {
         state = State.IDLE;
         finishedDeathAnim = false;
+        debugState = state;
     }
 
     void FixedUpdate()
     {
+        /*
+        if (debugState != state)
+        {
+            debugState = state;
+            print(debugState);
+        }
+        */
+
         //Stops all animation once deer is dead
         if (state == State.DYING)
         {

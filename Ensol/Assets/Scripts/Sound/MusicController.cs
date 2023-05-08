@@ -25,7 +25,7 @@ public class MusicController : MonoBehaviour
             zone1 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone1);
             zone2 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone2);
             zone3 = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zone3);
-
+            
             if (nodeType == 1)
             {
                 cabin.start();

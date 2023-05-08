@@ -20,7 +20,6 @@ public class FOVCheck : Node
         _attackName   = attackName;
         _envLayerMask = envLayerMask;
         _enemyType    = enemyType;
-        _defaultTrue = defaultTrue;
     }
 
     //Checks to see if enemy can see the player or if they have already seen the player - RYAN

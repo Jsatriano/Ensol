@@ -1,24 +1,17 @@
 INCLUDE ../globals.ink
-{ river_controls == true: -> off}
+{ river_controls == false: -> Intro | -> Over}
 
 
 -> Intro
 
 ===Intro ===
 
-A control panel that controls the flow of the river.
-
-*[Turn off the water flow.]
-->2nd
-
-
-
-===2nd===
-The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
+A control panel that controls the flow of the river. The flow of water is using a continuous cycle of being purified underground, then begins flowing outwards, before flowing back underground. You turn on the emergency pipe seals and the water stops pouring out.
 ~river_controls = true
+
 
 ->END
 
-===off===
-The control panel for the river is broken. The river is no longer flowing <b>north</b>.
+=== Over ===
+A control panel that controls the flow of the water. The emergency pipes are on.
 ->END
