@@ -39,6 +39,7 @@ public class OldCharController : MonoBehaviour
     public bool testMode = false;
     public static int deaths = 0;
     public TextAsset globals;
+    // private static DialogueVariables dialogueVariables;
     private Story story;
     
     
