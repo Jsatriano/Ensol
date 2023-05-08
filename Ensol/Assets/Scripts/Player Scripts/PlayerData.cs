@@ -44,8 +44,4 @@ public static class PlayerData
     // Enemy's Killed
     public static int bearsKilled = 0;
     public static int bunniesKilled = 0;
-
-    //Security Tower Node Progression
-    public static bool birdTriggered = false;
-    public static bool disableBird = false;
 }

@@ -67,6 +67,10 @@ public class JunkBallManager : MonoBehaviour
 
         //Spawn junk ball
         junkBall = Instantiate(ballPrefab, junkOrigin.position, junkOrigin.rotation);
+        junkBall.transform.position = junkOrigin.position;
+        junkBall.transform.rotation = junkOrigin.rotation;
+        junkBall.velocity = Vector3.zero;
+
 
         //Get velocity for ball
         ThrowData data = CalculateThrowData(playerTF.position + Vector3.up, junkBall.position);
@@ -120,7 +124,7 @@ public class JunkBallManager : MonoBehaviour
 
     private ThrowData PredictThrow(ThrowData data, Vector3 targetPos, Vector3 startPosition)
     {
-        //Find how long it will take for the ball to get to the player
+        //Find how long it will take for the ball to get to the ball
         Vector3 velocity = data.initialVelocity;
         velocity.y = 0;
         float time = data.deltaXZ / velocity.magnitude;
