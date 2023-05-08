@@ -87,13 +87,10 @@ public class _01DeerNode : MonoBehaviour
         {
             if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
-                if (PlayerData.deerKilled >= 1) 
-                {
-                    story = new Story(globals.text);
-                    story.state.LoadJson(DialogueVariables.saveFile);
-                    story.EvaluateFunction("killedDeer");
-                    DialogueVariables.saveFile = story.state.ToJson();
-                }
+                story = new Story(globals.text);
+                story.state.LoadJson(DialogueVariables.saveFile);
+                story.EvaluateFunction("killedDeer");
+                DialogueVariables.saveFile = story.state.ToJson();
                 ReplaceDeadDeer(deadDear, normalDeer);
                 dropped = true;
             }

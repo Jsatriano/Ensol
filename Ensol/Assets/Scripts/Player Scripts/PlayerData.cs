@@ -44,5 +44,4 @@ public static class PlayerData
     // Enemy's Killed
     public static int bearsKilled = 0;
     public static int bunniesKilled = 0;
-    public static int deerKilled = 0;
 }
