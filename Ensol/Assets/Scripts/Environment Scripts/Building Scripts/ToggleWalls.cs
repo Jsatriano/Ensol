@@ -12,6 +12,7 @@ public class ToggleWalls : MonoBehaviour
 
     // Autumn
     // script Camera to Zoom in and out when walking inside/outside of a building
+    // script walls to fade in and out when walking inside/outside of a building
 
     [SerializeField] GameObject walls;
 
@@ -25,16 +26,35 @@ public class ToggleWalls : MonoBehaviour
 
     private bool inside = false;
     private bool outside = false;
+    private bool zoom_now = true;
+
+    // list of mesh renderers in cabin exterior prefab
+    //private MeshRenderer[] wallMeshes;
 
     void Awake () {
         mainCam = GameObject.Find("MainCamera");
         brain = mainCam.GetComponent<CinemachineBrain>();
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+        //wallMeshes = walls.GetComponentsInChildren<MeshRenderer>();
     }
 
     void Update()
     {
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+        if (zoom_now && vcam) {
+            vcam.m_Lens.OrthographicSize = zoomed_in;
+            zoom_now = false;
+        }
+
+        // walls.SetActive(true);
+        // Color tempColor;
+        // foreach (MeshRenderer obj in wallMeshes) {
+        //     if (obj.material.HasProperty("_Color")) {
+        //         tempColor = obj.material.color;
+        //         tempColor.a = 0.0f;
+        //         obj.material.color = tempColor;
+        //     }
+        // }
 
         // if player walks inside, zoom in the camera
         if (vcam && vcam.m_Lens.OrthographicSize <= zoomed_out && outside) { 
@@ -45,7 +65,6 @@ public class ToggleWalls : MonoBehaviour
         if (vcam && vcam.m_Lens.OrthographicSize >= zoomed_in && inside) { 
             vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(vcam.m_Lens.OrthographicSize, vcam.m_Lens.OrthographicSize - increment, 1f); 
         }
-
     }
     
     void OnTriggerEnter(Collider other) // Check if Player is inside
