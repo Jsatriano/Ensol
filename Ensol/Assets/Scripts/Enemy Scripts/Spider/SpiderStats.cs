@@ -17,8 +17,22 @@ public class SpiderStats : EnemyStats
     public float webDeployDuration;
     public float webDeployDebuff;
     public float webDeployDebuffLength;
+    public GameObject webPrefab;
+    public SpiderWebManager webManager;
+    public Transform webSpawnPoint;
 
-    [Header("Web Shoot Attack")]
+    [Header("Web Shot Attack")]
+    public float webShotCooldown;
+    public float webShotMinRange;
+    public float webShotMaxRange;
+    public float webShotDebuff;
+    public float webShotDebuffLength;
+    public float webMaxSpeed;
+    public float webMinSpeed;
+    public float webMaxPrediction;
+    public Rigidbody webShotPrefab;
+    public WebShotManager webShotManager;
+    public Transform webShotSpawnPoint;
 
     [Header("Tazer Shot Attack")]
     public float tazerCooldown;
@@ -31,6 +45,7 @@ public class SpiderStats : EnemyStats
     public float tazerRotation;
     public Rigidbody boltPrefab;
     public Transform tazerSpawnPoint;
+    public SpiderTazerManager tazerManager;
 
     [Header("References")]
     [SerializeField] private SpiderBT spiderBT;

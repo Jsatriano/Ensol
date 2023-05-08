@@ -14,9 +14,10 @@ public class Footsteps : MonoBehaviour
     public int footType;
     public FMODUnity.EventReference[] footstep;
     private FMOD.Studio.EventInstance instance;
-    bool touchingMetal = false;
-    int touchingWood = 0;
+    // bool touchingMetal = false;
+    int touchingMetal = 0;
     int touchingDirt = 0;
+    int touchingStone = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,19 +33,26 @@ public class Footsteps : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
 
-        if (other.tag == "FloorWood"){
-            touchingWood++;
+        if (other.tag == "FloorMetal"){
+            touchingMetal++;
         }
 
         if (other.tag == "FloorDirt"){
             touchingDirt++;
         }
 
+        if (other.tag == "FloorStone")
+        {
+            touchingStone++;
+        }
+
         if (other.tag == "Floor"){
-            if (touchingWood > 0){
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.woodMove, this.transform.position);
+            if (touchingMetal > 0){
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.metalMove, this.transform.position);
             } else if (touchingDirt > 0){
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.dirtMove, this.transform.position);
+            } else if (touchingStone > 0){
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.stoneMove, this.transform.position);
             } else {
                 RuntimeManager.PlayOneShot(footstep[footType], this.transform.position);
             }
@@ -74,9 +82,11 @@ public class Footsteps : MonoBehaviour
     void OnTriggerExit(Collider other){
 
         if (other.tag == "FloorWood"){
-            touchingWood--;
+            touchingMetal--;
         } else if (other.tag == "FloorDirt"){
             touchingDirt--;
+        } else if (other.tag == "FloorStone"){
+            touchingStone--;
         }
     }
 

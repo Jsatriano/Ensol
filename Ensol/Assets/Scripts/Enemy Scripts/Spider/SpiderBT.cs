@@ -16,7 +16,7 @@ public class SpiderBT : BT
         {
             new Sequence(new List<Node>
             {
-                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"tazer", "webDeploy"}),
+                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"tazer", "webDeploy", "webShot"}),
                 new Selector(new List<Node>
                 {
                     new Sequence(new List<Node>
@@ -24,14 +24,21 @@ public class SpiderBT : BT
                         new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "tazer", spiderStats.environmentMask, 4, false),
                         new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.tazerMinRange, spiderStats.tazerMaxRange, "tazer"),
                         new CooldownCheck(spiderStats.tazerCooldown, "tazer"),
-                        new SpiderTazerShot("tazer")
+                        new SpiderTazerShot("tazer", spiderStats.tazerManager)
+                    }),
+                    new Sequence(new List<Node>
+                    {
+                        new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "webShot", spiderStats.environmentMask, 4, false),
+                        new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.webShotMinRange, spiderStats.webShotMaxRange, "webShot"),
+                        new CooldownCheck(spiderStats.webShotCooldown, "webShot"),
+                        new SpiderWebShot("webShot", spiderStats.webShotManager)
                     }),
                     new Sequence(new List<Node>
                     {
                         new PlayerSeenCheck(),
                         new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.webDeployMinRange, spiderStats.webDeployMaxRange, "webDeploy"),
                         new CooldownCheck(spiderStats.webDelployCooldown, "webDeploy"),
-                        new SpiderWebDeploy()
+                        new SpiderWebDeploy("webDeploy", spiderStats.webManager)
                     })
                 }),
                 

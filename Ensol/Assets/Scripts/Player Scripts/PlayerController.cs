@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
+    private float speedMultiplier = 1;
+    private float speedMultTimer = 0;
+    private Coroutine speedMultRoutine = null;
 
     [Header("Dashing Variables")]
     [SerializeField] private float dashForce;
@@ -635,7 +638,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
         rb.drag = 1;
-        rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
+        rb.AddForce(forceToApply * multiplier * speedMultiplier, ForceMode.Impulse);
     }
 
     private void ReturnToIdle() {
@@ -831,16 +834,67 @@ public class PlayerController : MonoBehaviour
            
             // makes our movement happen
 
-            rb.AddForce(heading * acceleration, ForceMode.Acceleration);
+
+
+            rb.AddForce(heading * acceleration * speedMultiplier, ForceMode.Acceleration);
             Vector3 velocityXZ = new Vector3(rb.velocity.x, 0, rb.velocity.z);           
-            if (velocityXZ.magnitude > moveSpeed)
+            if (velocityXZ.magnitude > moveSpeed * speedMultiplier)
             {
                 Vector3 velocityY = new Vector3(0, rb.velocity.y, 0);
-                velocityXZ = Vector3.ClampMagnitude(velocityXZ, moveSpeed);
+                velocityXZ = Vector3.ClampMagnitude(velocityXZ, moveSpeed * speedMultiplier);
                 rb.velocity = velocityXZ + velocityY;
             }
             PlayerData.distanceMoved += rb.velocity.magnitude * Time.deltaTime;
         }    
+    }
+
+    //Applies a speed change to the player, works for buffs or debuffs
+    public void ApplySpeedChange(float speedMult, float length)
+    {
+        if (PlayerData.hasShield && speedMult < 1)
+        {
+            GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+            ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+            PlayerData.hasShield = false;
+            invulnTimer = Time.time;
+        }
+        else
+        {
+            //New buffs/debuffs of different strength override currently active buffs/debuffs
+            if (speedMultiplier != speedMult)
+            {
+                speedMultiplier = speedMult;
+                speedMultTimer = length;
+            }
+            else
+            {
+                //Only sets the timer if its longer than the current timer (in cases of multiple buffs/debuffs of the same strength applying at once)
+                if (length > speedMultTimer)
+                {
+                    speedMultTimer = length;
+                }
+            }
+            if (speedMultRoutine != null)
+            {
+                StopCoroutine(speedMultRoutine);
+            }
+            speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        }
+    }
+
+    //Resets the speed change after the given time
+    private IEnumerator ResetSpeedChange()
+    {
+        while (speedMultTimer > 0)
+        {
+            speedMultTimer -= Time.deltaTime;
+            yield return null;
+        }
+        speedMultiplier = 1;
+        speedMultRoutine = null;
     }
 
     private void Dash() // Justin
@@ -875,7 +929,7 @@ public class PlayerController : MonoBehaviour
 
         // increase drag and apply force forwards of where player is facing
         rb.drag = 0;
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.AddForce(forceToApply * speedMultiplier, ForceMode.Impulse);
 
 
         // invoke RestDash function after dash is done
@@ -1095,7 +1149,6 @@ public class PlayerController : MonoBehaviour
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
-            print("vials dark");
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
         }
     }
