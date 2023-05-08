@@ -48,14 +48,16 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference envGateOpen { get; private set; }
     [field: SerializeField] public EventReference envFenceGateOpen { get; private set; }
     [field: SerializeField] public EventReference envCabinDoorOpen { get; private set; }
+    [field: SerializeField] public EventReference envRiver { get; private set; }
     [field: SerializeField] public EventReference envBroomBreak { get; private set; }
     [field: SerializeField] public EventReference envBroomPickup { get; private set; }
     [field: SerializeField] public EventReference envLootPickup { get; private set; }
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }
-    [field: SerializeField] public EventReference woodMove { get; private set; }
+    [field: SerializeField] public EventReference metalMove { get; private set; }
     [field: SerializeField] public EventReference dirtMove { get; private set; }
+    [field: SerializeField] public EventReference stoneMove { get; private set; }
     [field: SerializeField] public EventReference healUp { get; private set; }
 
     public static FMODEvents instance { get; private set; }
