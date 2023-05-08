@@ -14,11 +14,12 @@ P1-USH: You’re not going out into the forest again are you?
 
 
 *[What’s out there?]
+ P1-USH: You shouldn’t be out in the forest. You should stay here where it’s safe.
 ~openDoor()
 ->2nd_part
 
 ===2nd_part ===
- P1-USH: You shouldn’t be out in the forest. You should stay here where it’s safe. If you need anything, you can let me know and the cabin can make it.
+ P1-USH: If you need anything, you can let me know and the cabin can make it.
 *[I need some fresh air.]
 P1-USH: Be careful! Don't go too far!
  -> END
