@@ -17,6 +17,8 @@ public class ToggleWalls : MonoBehaviour
     [SerializeField] GameObject walls;
 
     GameObject mainCam;
+    GameObject cursorCamObj;
+    Camera cursorCam;
     CinemachineBrain brain;
     CinemachineVirtualCamera vcam;
 
@@ -33,6 +35,8 @@ public class ToggleWalls : MonoBehaviour
 
     void Awake () {
         mainCam = GameObject.Find("MainCamera");
+        cursorCamObj = GameObject.Find("CursorCamera");
+        cursorCam = cursorCamObj.GetComponent<Camera>();
         brain = mainCam.GetComponent<CinemachineBrain>();
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
         //wallMeshes = walls.GetComponentsInChildren<MeshRenderer>();
@@ -44,6 +48,7 @@ public class ToggleWalls : MonoBehaviour
         if (zoom_now && vcam) {
             vcam.m_Lens.OrthographicSize = zoomed_in;
             zoom_now = false;
+            cursorCam.orthographicSize = zoomed_in;
         }
 
         // walls.SetActive(true);
@@ -58,12 +63,16 @@ public class ToggleWalls : MonoBehaviour
 
         // if player walks inside, zoom in the camera
         if (vcam && vcam.m_Lens.OrthographicSize <= zoomed_out && outside) { 
-            vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(vcam.m_Lens.OrthographicSize, vcam.m_Lens.OrthographicSize + increment, 1f); 
+            float newSize = Mathf.MoveTowards(vcam.m_Lens.OrthographicSize, vcam.m_Lens.OrthographicSize + increment, 1f);
+            vcam.m_Lens.OrthographicSize = newSize;
+            cursorCam.orthographicSize = newSize;
         }
 
         // if player walks outside, zoom out the camera
         if (vcam && vcam.m_Lens.OrthographicSize >= zoomed_in && inside) { 
-            vcam.m_Lens.OrthographicSize = Mathf.MoveTowards(vcam.m_Lens.OrthographicSize, vcam.m_Lens.OrthographicSize - increment, 1f); 
+            float newSize = Mathf.MoveTowards(vcam.m_Lens.OrthographicSize, vcam.m_Lens.OrthographicSize - increment, 1f);
+            vcam.m_Lens.OrthographicSize = newSize;
+            cursorCam.orthographicSize = newSize;
         }
     }
     
