@@ -95,7 +95,7 @@ public class JunkBall : MonoBehaviour
             }
         }
             
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") || other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
         {
             Explode();
         }     
