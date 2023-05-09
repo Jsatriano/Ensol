@@ -14,6 +14,7 @@ public class SpiderTazerManager : MonoBehaviour
    
     //References
     private SpiderStats spiderStats;
+    private SpiderBT spiderBT;
     private Transform _enemyTF;
     private Transform _playerTF;
     private Transform _boltSpawnPoint;
@@ -22,6 +23,7 @@ public class SpiderTazerManager : MonoBehaviour
     private void Start()
     {
         spiderStats = GetComponent<SpiderStats>();
+        spiderBT = GetComponent<SpiderBT>();
         _enemyTF = spiderStats.enemyTF;
         _playerTF = spiderStats.playerTF;
         _boltSpawnPoint = spiderStats.tazerSpawnPoint;
@@ -41,7 +43,7 @@ public class SpiderTazerManager : MonoBehaviour
     private IEnumerator TazerAttack()
     {
         //Add edge case of dying
-        while (_tazerCounter < _tazerBurstNum)
+        while (_tazerCounter < _tazerBurstNum && spiderBT.isAlive)
         {
             //Shoots a bolt at a given timer interval as many times as specified
             if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)

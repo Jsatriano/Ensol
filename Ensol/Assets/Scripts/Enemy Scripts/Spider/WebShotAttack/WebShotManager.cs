@@ -47,7 +47,7 @@ public class WebShotManager : MonoBehaviour
     private IEnumerator WebShotAttack()
     {
         //Add edge case of dying
-        while (spiderBT.root.GetData("shootWeb") == null)
+        while (spiderBT.root.GetData("shootWeb") == null && spiderBT.isAlive)
         {
             yield return null;
         }
