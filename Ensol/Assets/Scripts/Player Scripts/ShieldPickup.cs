@@ -23,7 +23,7 @@ public class ShieldPickup : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider col) {
-        if(col.gameObject.tag == "Player") {
+        if(col.gameObject.tag == "Player" && !PlayerData.hasShield) {
             playerShieldOn.start();
             PlayerData.hasShield = true;
             Destroy(gameObject);

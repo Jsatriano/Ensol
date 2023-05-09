@@ -284,6 +284,8 @@ public class PlayerController : MonoBehaviour
                 }
                 allowCancellingLightAttack = false;
                 allowInput = true;
+                DisableHeavyAttackHitbox();
+                DisableLightAttackHitbox();
 
                 //player recalls weapon if it has been thrown
                 if(throwAttackInput && !hasWeapon && !isCatching) {
@@ -361,6 +363,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("lightAttackCombo", 0);
                 allowCancellingLightAttack = false;
                 allowInput = true;
+                DisableHeavyAttackHitbox();
+                DisableLightAttackHitbox();
 
                 //player recalls weapon if it has been thrown
                 if(throwAttackInput && !hasWeapon && !isCatching) {
@@ -692,6 +696,7 @@ public class PlayerController : MonoBehaviour
 
     private void DisableLightAttackHitbox() {
         lightHitbox.SetActive(false);
+        attackPower = baseAttackPower;
     }
 
     private void StartLightSlash(int callCounter)
@@ -718,6 +723,7 @@ public class PlayerController : MonoBehaviour
         foreach(GameObject vfx in lightSlashVFX) {
             vfx.SetActive(false);
         }
+        DisableLightAttackHitbox();
     }
 
     //Heavy Attack anim events
