@@ -70,6 +70,7 @@ public class JunkBall : MonoBehaviour
                     else
                     {
                         enemyScript.TakeDamage(junkDamage);
+                        Explode();
                     }
                 }
                           
@@ -89,11 +90,12 @@ public class JunkBall : MonoBehaviour
                 else
                 {
                     playerScript.TakeDamage(junkDamage, junkCollider);
+                    Explode();
                 }
             }
         }
             
-        if (!isExploding)
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             Explode();
         }     
