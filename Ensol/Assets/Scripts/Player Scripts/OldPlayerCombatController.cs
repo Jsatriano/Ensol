@@ -641,7 +641,7 @@ public class OldPlayerCombatController : MonoBehaviour
             }
             else{
                 GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
-                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                //ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
                 activeDamageVFX.Enqueue(newDamageVFX);
                 StartCoroutine(DeleteDamageVFX());
