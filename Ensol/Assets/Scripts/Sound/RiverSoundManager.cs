@@ -11,17 +11,20 @@ public class RiverSoundManager : MonoBehaviour
     private int song;
     public int nodeType;
 
+    private void Awake()
+    {
+        river = AudioManager.instance.CreateEventInstance(FMODEvents.instance.envRiver);
+        river.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             nodeType = NodeSelector.selectedNode;
-            river = AudioManager.instance.CreateEventInstance(FMODEvents.instance.envRiver);
-
-            if (nodeType == 2 || nodeType == 4)
+            if (nodeType == 3 || nodeType == 5)
             {
-                river.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
                 river.start();
                 song = 0;
             }
