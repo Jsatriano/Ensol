@@ -104,6 +104,7 @@ P1-USH: They are used to make powerlines effectively. They’re kept in that are
 ->Plush_talk
 
 +[I don't need anything else.]
+P1-USH: Okay! If you need me, I will always be there for you!
 ->END
 
 ===Plush_talk===
