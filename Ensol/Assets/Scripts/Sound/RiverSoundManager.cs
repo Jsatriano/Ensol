@@ -9,6 +9,7 @@ public class RiverSoundManager : MonoBehaviour
 {
     private EventInstance river;
     private int song;
+    private bool trigger = false;
     public int nodeType;
 
     private void Awake()
@@ -28,6 +29,16 @@ public class RiverSoundManager : MonoBehaviour
                 river.start();
                 song = 0;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (DialogueTrigger.triggered == true && trigger == false)
+        {
+            print("is this happening?");
+            OnDestroy();
+            trigger = true;
         }
     }
 
