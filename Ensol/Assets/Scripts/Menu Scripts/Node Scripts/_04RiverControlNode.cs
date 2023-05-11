@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class _04RiverControlNode : MonoBehaviour
 {
-    public static bool controlsHit = false;
 
     [Header("Scripts")]
     public ElectricGateController electricGateController = null;
@@ -47,7 +46,7 @@ public class _04RiverControlNode : MonoBehaviour
     public void Update()
     {
         // if player interacted with river control tower
-        if((controlsHit && water.transform.position.y > endY) || (controlsCollider.enabled == false && water.transform.position.y > endY))
+        if((PlayerData.controlsHit && water.transform.position.y > endY) || (controlsCollider.enabled == false && water.transform.position.y > endY))
         {  
             // removes highlight material from mesh
             screen.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
@@ -61,7 +60,7 @@ public class _04RiverControlNode : MonoBehaviour
                                        speed * Time.deltaTime);
 
             // signals to other nodes that controls have been hit
-            controlsHit = true;
+            PlayerData.controlsHit = true;
         }
         // once water is gone, disables water colliders
         if(water.transform.position.y <= endY)

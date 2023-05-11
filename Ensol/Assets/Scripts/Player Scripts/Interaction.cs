@@ -57,7 +57,7 @@ public class Interaction : MonoBehaviour
             }
             else if (collider.gameObject.tag == "Interactable")
             {
-              //  print("inspected interactable");
+                //print("inspected interactable");
                 collider.enabled = false;
                 Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
                 player.animator.SetBool("isHack", true);

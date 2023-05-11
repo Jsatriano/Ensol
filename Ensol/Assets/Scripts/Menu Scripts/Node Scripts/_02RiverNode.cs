@@ -40,12 +40,9 @@ public class _02RiverNode : MonoBehaviour
     {
         
         CompletedNodes.prevNode = 2;
-    }
 
-    public void Update()
-    {
         // if water turned off in river node, disable water and boundaries in this node
-        if(_04RiverControlNode.controlsHit && water.activeInHierarchy)
+        if (PlayerData.controlsHit && water.activeInHierarchy)
         {
             water.SetActive(false);
             foreach (GameObject waterBound in waterBounds)
@@ -53,6 +50,10 @@ public class _02RiverNode : MonoBehaviour
                 waterBound.SetActive(false);
             }
         }
+    }
+
+    public void Update()
+    {
 
         /* -------------------- Interactable Handling --------------------- */
 

@@ -93,17 +93,18 @@ P1-USH: That’s the trash-collecting model. It uses a combination of powerful m
     ~bearSeen = true
 ->Plush_talk
 
-*{rabbit_deafeated && rabbitSeen == false} Why are there robots in the shape of a bunny? 
+*{rabbit_deafeated && rabbitSeen == false} [Why are there robots in the shape of a bunny?] 
 P1-USH: Those are the gardening models. The bunny design, while small in stature, allows the robot easy access to both small and large areas of flora that need attention. Typically, they are sent out in packs to maximize efficiency.
     ~rabbitSeen = true
 ->Plush_talk
 
-*{spider_defeated} Those spider robots we saw, what were they used for?
+*{spider_defeated} [Those spider robots we saw, what were they used for?]
 P1-USH: They are used to make powerlines effectively. They’re kept in that area specifically and are rarely sent out anywhere else. They can climb walls extremely well, and send out powerlines from a great distance. Be careful when they’re working as you wouldn’t want one to fall on you, they’re heavy.
 
 ->Plush_talk
 
 +[I don't need anything else.]
+P1-USH: Okay! If you need me, I will always be there for you!
 ->END
 
 ===Plush_talk===

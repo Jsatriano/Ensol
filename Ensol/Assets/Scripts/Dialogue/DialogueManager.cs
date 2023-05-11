@@ -73,14 +73,18 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        /*Allow e to continue dialogue if there ar eno more choices*/
+        /*Allow e and mouse to continue dialogue if there are no more choices*/
         if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
         {
+            if (PlayerData.startedGame == false){
+                PlayerData.startedGame = true;
+            }
             StartCoroutine(Delay());
         }
+        
     }
 
-    /*allow mouse ot select option*/
+    /*allow mouse or outside source to select option*/
     public void ClickChoice()
     {
         StartCoroutine(Delay());

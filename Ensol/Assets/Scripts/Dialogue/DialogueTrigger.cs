@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    public static bool triggered = false;
+
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
 
@@ -27,6 +29,7 @@ public class DialogueTrigger : MonoBehaviour
         {
             print("start dialogue");
             //Debug.Log(inkJSON.text);
+            if(this.gameObject.name == "screen 1") triggered = true;
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         }
