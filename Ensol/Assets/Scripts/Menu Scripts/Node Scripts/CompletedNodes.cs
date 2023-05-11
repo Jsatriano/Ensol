@@ -13,6 +13,8 @@ public class CompletedNodes : MonoBehaviour
                 bearNode, brokenMachineNode, securityTowerNode, birdNode,
                 powerGridNode, metalFieldNode, computerNode = false;
 
+    public static bool[] nodes;            
+
     public Button computerNodeButton;
     private int lastNode;
 
@@ -42,6 +44,18 @@ public class CompletedNodes : MonoBehaviour
     public void Start()
     {
         cabinNode = true;
+        nodes[0] = cabinNode;
+        nodes[1] = deerNode;
+        nodes[2] = riverNode;
+        nodes[3] = gateNode;
+        nodes[4] = riverControlNode;
+        nodes[5] = bearNode;
+        nodes[6] = brokenMachineNode;
+        nodes[7] = securityTowerNode;
+        nodes[8] = birdNode;
+        nodes[9] = powerGridNode;
+        nodes[10] = metalFieldNode;
+        nodes[11] = computerNode;
     }
 
     public void Update()
