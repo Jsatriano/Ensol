@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class InteractTutorialText : MonoBehaviour
+public class InteractText : MonoBehaviour
 {
     [SerializeField] private GameObject text;
     [SerializeField] private Transform textTF;
@@ -43,7 +43,7 @@ public class InteractTutorialText : MonoBehaviour
     //Turn on text when player is in range
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && canBeInteracted && !interacted && PlayerData.diedToCrackDeer == false)
+        if (other.tag == "Player" && canBeInteracted && !interacted)
         {
             text.SetActive(true);
         }

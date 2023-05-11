@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 2418816174854313245}
   - component: {fileID: 879840166973621693}
   - component: {fileID: 5995094820288218728}
-  - component: {fileID: 1269883254636530189}
+  - component: {fileID: 71083744926150114}
   m_Layer: 7
   m_Name: Door
   m_TagString: Untagged
@@ -115,8 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 855504077507814768}
-  openRot: 90
-  speed: 1.5
+  soundDoor: 0
   opening: 0
 --- !u!114 &879840166973621693
 MonoBehaviour:
@@ -136,7 +135,7 @@ MonoBehaviour:
   doorController: {fileID: 2418816174854313245}
   greenMat: {fileID: 2100000, guid: 3c2849f2ca62ff145873c4a5be45183e, type: 2}
   enemiesList: []
-  text: {fileID: 1269883254636530189}
+  text: {fileID: 71083744926150114}
   cabin: 0
   InkDoorStory: {fileID: 0}
 --- !u!135 &5995094820288218728
@@ -152,7 +151,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0.86, z: 0}
---- !u!114 &1269883254636530189
+--- !u!114 &71083744926150114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,14 +160,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5209317782394576035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f70df37dd52a84781337fb6c47c67a, type: 3}
+  m_Script: {fileID: 11500000, guid: dd3b3322f2983454c8ec4c09a3725650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 1277779967172912166}
+  text: {fileID: 7142802872242239328}
   textTF: {fileID: 4322371220120691365}
   canBeInteracted: 0
   interacted: 0
-  interactText: Press E to Open
   coll: {fileID: 5995094820288218728}
 --- !u!1001 &5469843450154448703
 PrefabInstance:
@@ -387,6 +385,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6004330584583023896}
     m_Modifications:
+    - target: {fileID: 678292726577772425, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1719824110946425097, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
       propertyPath: m_Name
       value: Interact Text
@@ -437,19 +439,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
---- !u!114 &1277779967172912166 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8931206397282411727, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
-  m_PrefabInstance: {fileID: 7658814244326293737}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4322371220120691365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5887813588049928780, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
+  m_PrefabInstance: {fileID: 7658814244326293737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7142802872242239328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 678292726577772425, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
   m_PrefabInstance: {fileID: 7658814244326293737}
   m_PrefabAsset: {fileID: 0}

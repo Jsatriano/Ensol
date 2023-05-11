@@ -12,7 +12,7 @@ public class ButtonGateController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
-    public InteractTutorialText text;
+    public InteractText text;
 
     void Update()
     {

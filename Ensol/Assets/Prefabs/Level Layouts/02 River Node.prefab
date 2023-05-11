@@ -1393,7 +1393,7 @@ GameObject:
   - component: {fileID: 4819892023886372132}
   - component: {fileID: 4222780975948237847}
   - component: {fileID: 5612361151457147883}
-  - component: {fileID: 4242260734060281224}
+  - component: {fileID: 1076535500595438328}
   m_Layer: 7
   m_Name: Footsteps
   m_TagString: InteractableStory
@@ -1496,7 +1496,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.26
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4242260734060281224
+--- !u!114 &1076535500595438328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1505,14 +1505,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4050957075812461284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f70df37dd52a84781337fb6c47c67a, type: 3}
+  m_Script: {fileID: 11500000, guid: dd3b3322f2983454c8ec4c09a3725650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 2490317174244979907}
+  text: {fileID: 5770414063741691781}
   textTF: {fileID: 632986524462674496}
   canBeInteracted: 0
   interacted: 0
-  interactText: Press E to Inspect
   coll: {fileID: 5612361151457147883}
 --- !u!1 &4070771124412139962
 GameObject:
@@ -7800,17 +7799,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5887813588049928780, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
   m_PrefabInstance: {fileID: 6448423081015496716}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2490317174244979907 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8931206397282411727, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
+--- !u!1 &5770414063741691781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 678292726577772425, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
   m_PrefabInstance: {fileID: 6448423081015496716}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6599866107874739558
 PrefabInstance:
   m_ObjectHideFlags: 0
