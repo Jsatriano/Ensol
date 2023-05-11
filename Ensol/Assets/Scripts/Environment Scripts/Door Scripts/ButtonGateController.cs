@@ -22,7 +22,9 @@ public class ButtonGateController : MonoBehaviour
             if(requiredObj.activeInHierarchy && enemiesList.Count == 0)
             {
                 // turns button green
-                buttonMesh.material = greenMat;
+                Material[] matArray = buttonMesh.materials;
+                matArray[1] = greenMat;
+                buttonMesh.materials = matArray;
                 text.canBeInteracted = true;
 
                 if(!buttonCol.enabled)
@@ -44,7 +46,9 @@ public class ButtonGateController : MonoBehaviour
             if(enemiesList.Count == 0)
             {
                 // turns button green
-                buttonMesh.material = greenMat;
+                Material[] matArray = buttonMesh.materials;
+                matArray[1] = greenMat;
+                buttonMesh.materials = matArray;
                 text.canBeInteracted = true;
 
                 if (!buttonCol.enabled)
