@@ -5,18 +5,15 @@ using TMPro;
 
 public class InteractTutorialText : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textMesh;
+    [SerializeField] private GameObject text;
     [SerializeField] private Transform textTF;
     private Camera cam;
     [HideInInspector] public bool canBeInteracted;
     public bool interacted;
-    private string noText = "";
-    [TextArea] public string interactText;
     [SerializeField] private Collider coll;
 
     private void Start()
     {
-        textMesh.text = noText;
         interacted = false;
         canBeInteracted = true;
         cam = Camera.main;
@@ -28,7 +25,7 @@ public class InteractTutorialText : MonoBehaviour
         if (!coll.enabled)
         {
             interacted = true;
-            textMesh.text = noText;
+            text.SetActive(false);
         }
         else if (coll.enabled && gameObject.tag != "InteractableOnce")
         {
@@ -36,7 +33,7 @@ public class InteractTutorialText : MonoBehaviour
         }
 
         if (interacted){
-            textMesh.text = noText;
+            text.SetActive(false);
         }
 
         textTF.LookAt(cam.transform.position);
@@ -46,9 +43,9 @@ public class InteractTutorialText : MonoBehaviour
     //Turn on text when player is in range
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && canBeInteracted && !interacted)
+        if (other.tag == "Player" && canBeInteracted && !interacted && PlayerData.diedToCrackDeer == false)
         {
-            textMesh.text = interactText;
+            text.SetActive(true);
         }
     }
 
@@ -56,7 +53,7 @@ public class InteractTutorialText : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            textMesh.text = noText;
+            text.SetActive(false);
         }
     }
 }
