@@ -45,8 +45,10 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
     [Header("VFX & UI References")]
-    public GameObject[] lightSlashVFX;
-    public GameObject heavySlashVFX;
+    public GameObject[] noElectricLightSlashVFX;
+    public GameObject noElectricHeavySlashVFX;
+    public GameObject[] electricLightSlashVFX;
+    public GameObject electricHeavySlashVFX;
     public GameObject damageVFX;
     public Transform damageVFXLocation;
     public GameObject shieldBreakVFX;
@@ -128,6 +130,8 @@ public class PlayerController : MonoBehaviour
     private bool allowInput = true;
     private Story story;
     public TextAsset globals;
+    [HideInInspector] public GameObject[] lightSlashVFX;
+    [HideInInspector] public GameObject heavySlashVFX;
 
     
     //Input Read Variables
@@ -168,6 +172,8 @@ public class PlayerController : MonoBehaviour
             FX1.SetActive(false);
             FX2.SetActive(false);
             hasWeapon = false;
+            lightSlashVFX = noElectricLightSlashVFX;
+            heavySlashVFX = noElectricHeavySlashVFX;
         }
         else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
@@ -179,6 +185,8 @@ public class PlayerController : MonoBehaviour
             FX1.SetActive(false);
             FX2.SetActive(false);
             hasWeapon = true;
+            lightSlashVFX = noElectricLightSlashVFX;
+            heavySlashVFX = noElectricHeavySlashVFX;
         }
         else
         {
@@ -190,6 +198,8 @@ public class PlayerController : MonoBehaviour
             FX1.SetActive(true);
             FX2.SetActive(true);
             hasWeapon = true;
+            lightSlashVFX = electricLightSlashVFX;
+            heavySlashVFX = electricHeavySlashVFX;
         }
     }
 
@@ -503,6 +513,7 @@ public class PlayerController : MonoBehaviour
                     foreach(GameObject vfx in lightSlashVFX) {
                         vfx.SetActive(false);
                     }
+                    DisableLightAttackHitbox();
                     animator.SetInteger("lightAttackCombo", comboCounter);
                 }
                 //Various other events that occur during the animation, such as hitboxes and movement are handled in anim events
@@ -1095,6 +1106,8 @@ public class PlayerController : MonoBehaviour
         weaponBase.SetActive(false);
         FX1.SetActive(false);
         FX2.SetActive(false);
+        lightSlashVFX = noElectricLightSlashVFX;
+        heavySlashVFX = noElectricHeavySlashVFX;
     }
 
     public void PickedUpThrowUpgrade()
@@ -1116,6 +1129,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = electricLightSlashVFX;
+        heavySlashVFX = electricHeavySlashVFX;
     }
 
     public void TestPickedUpSolarUpgrade()
@@ -1131,6 +1146,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = electricLightSlashVFX;
+        heavySlashVFX = electricHeavySlashVFX;
     }
 
     public void RemoveThrowUpgrade()
@@ -1150,6 +1167,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = noElectricLightSlashVFX;
+        heavySlashVFX = noElectricHeavySlashVFX;
     }
 
     //SHADER MANAGEMENT
