@@ -3236,6 +3236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueCollider: {fileID: 251705431347378975}
   dialogueTrigger: {fileID: 8439498149660462234}
+  finishedFading: 0
 --- !u!114 &8439498149660462234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12257,7 +12258,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3c2849f2ca62ff145873c4a5be45183e, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 7142802872242239328, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1269883254636530189, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a9f454d507f106d4d822ca6bfb2e0f94, type: 3}
 --- !u!135 &1306909021684503581 stripped
 SphereCollider:

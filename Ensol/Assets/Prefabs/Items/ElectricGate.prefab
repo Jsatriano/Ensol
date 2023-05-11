@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1244055494517859275}
   - component: {fileID: 5140488784740050505}
   - component: {fileID: 3040466056553951242}
-  - component: {fileID: 1500683167157940391}
+  - component: {fileID: 5000250815295544714}
   m_Layer: 7
   m_Name: ElectricGate
   m_TagString: InteractableStory
@@ -74,7 +74,7 @@ MonoBehaviour:
   gateController: {fileID: 1244055494517859275}
   greenMat: {fileID: 2100000, guid: 4d699b2f9732cf541b1a8cef996dfd9d, type: 2}
   enemiesList: []
-  text: {fileID: 1500683167157940391}
+  text: {fileID: 5000250815295544714}
 --- !u!135 &3040466056553951242
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: -1.45, y: -1.12, z: -0.05}
---- !u!114 &1500683167157940391
+--- !u!114 &5000250815295544714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,14 +97,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 128966292059426060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f70df37dd52a84781337fb6c47c67a, type: 3}
+  m_Script: {fileID: 11500000, guid: dd3b3322f2983454c8ec4c09a3725650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 6234303467096025814}
+  text: {fileID: 2602925256908634512}
   textTF: {fileID: 8990031881846615125}
   canBeInteracted: 0
   interacted: 0
-  interactText: Press E to Open
   coll: {fileID: 3040466056553951242}
 --- !u!1 &777573114983403055
 GameObject:
@@ -930,6 +929,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8531668403765063902}
     m_Modifications:
+    - target: {fileID: 678292726577772425, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1719824110946425097, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
       propertyPath: m_Name
       value: Interact Text
@@ -980,17 +983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
---- !u!114 &6234303467096025814 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8931206397282411727, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
+--- !u!1 &2602925256908634512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 678292726577772425, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
   m_PrefabInstance: {fileID: 3276004923430948377}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8990031881846615125 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5887813588049928780, guid: fca22f741b69ffe43b6fbd50734a40f6, type: 3}
