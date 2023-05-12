@@ -10,6 +10,7 @@ public class _10MetalFieldNode : MonoBehaviour
     private void Start()
     {
         CompletedNodes.prevNode = 10;
+        CompletedNodes.firstLoad[10] = false;
     }
 
     public void Update()

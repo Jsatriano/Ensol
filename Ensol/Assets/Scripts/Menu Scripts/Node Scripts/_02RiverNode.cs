@@ -40,6 +40,8 @@ public class _02RiverNode : MonoBehaviour
     {
         
         CompletedNodes.prevNode = 2;
+        CompletedNodes.firstLoad[2] = false;
+
 
         // if water turned off in river node, disable water and boundaries in this node
         if (PlayerData.controlsHit && water.activeInHierarchy)

@@ -41,6 +41,7 @@ public class _04RiverControlNode : MonoBehaviour
     {
         
         CompletedNodes.prevNode = 4;
+        CompletedNodes.firstLoad[4] = false;
     }
 
     public void Update()

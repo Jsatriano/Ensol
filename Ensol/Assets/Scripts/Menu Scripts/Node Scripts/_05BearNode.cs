@@ -22,7 +22,9 @@ public class _05BearNode : MonoBehaviour
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.lNode = 5;
+
         CompletedNodes.prevNode = 5;
+        CompletedNodes.firstLoad[5] = false;
     }
 
     public void Update()
