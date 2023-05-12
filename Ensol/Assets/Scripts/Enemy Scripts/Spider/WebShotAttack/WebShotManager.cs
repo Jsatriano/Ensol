@@ -52,6 +52,7 @@ public class WebShotManager : MonoBehaviour
             yield return null;
         }
         ShootWeb();
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderWebShoot, this.transform.position);
         spiderBT.root.ClearData("shootWeb");
     }
 

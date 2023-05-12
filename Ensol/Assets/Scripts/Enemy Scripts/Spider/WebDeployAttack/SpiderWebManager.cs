@@ -38,6 +38,7 @@ public class SpiderWebManager : MonoBehaviour
             yield return null;
         }
         GameObject web = Instantiate(webPrefab, webSpawnPoint.position, transform.rotation);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderWeb, this.transform.position);
         GroundWeb webScript = web.GetComponent<GroundWeb>();
         webScript.spiderTF = _enemyTF;
         webScript.speedDebuff = speedDebuff;
