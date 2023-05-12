@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
+    public PlayerController player;
+    private GameObject targetedPickup;
+    void Awake() {
+        player = gameObject.GetComponent<PlayerController>();
+    }
+
     public void Update()
     {
         if(DialogueManager.GetInstance().dialogueisPlaying == false)
         {
-            if(Input.GetButtonDown("Interact")){
+            if(Input.GetButtonDown("Interact") && (player.state == PlayerController.State.MOVING || player.state == PlayerController.State.IDLE)){
                 Interact();
             }
         }
@@ -24,7 +30,7 @@ public class Interaction : MonoBehaviour
             if(collider.gameObject.tag == "InteractablePickup")
             {
                // print("picked up object");
-                collider.gameObject.SetActive(false);
+                targetedPickup = collider.gameObject;
                 if (collider.gameObject.name == "broom")
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
@@ -33,6 +39,16 @@ public class Interaction : MonoBehaviour
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, this.transform.position);
                 }
+                Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
+                player.animator.SetBool("isPickup", true);
+                if(interactTarget != null) {
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                else{
+                    interactTarget = collider.gameObject.transform;
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                player.state = PlayerController.State.INTERACTIONANIMATION;
             }
             else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
             {
@@ -41,9 +57,24 @@ public class Interaction : MonoBehaviour
             }
             else if (collider.gameObject.tag == "Interactable")
             {
-              //  print("inspected interactable");
+                //print("inspected interactable");
                 collider.enabled = false;
+                Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
+                player.animator.SetBool("isHack", true);
+                if(interactTarget != null) {
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                else{
+                    interactTarget = collider.gameObject.transform;
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                player.state = PlayerController.State.INTERACTIONANIMATION;
             }
         }
+    }
+
+    //anim events for pickups
+    private void DeactivatePickup(){
+        targetedPickup.SetActive(false);
     }
 }

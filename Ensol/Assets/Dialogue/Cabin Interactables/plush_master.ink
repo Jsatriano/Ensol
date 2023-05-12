@@ -1,10 +1,8 @@
 INCLUDE ../globals.ink
 
-
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
 { abletoleave == false: -> Intro | -> Over}
-
 
 === Intro ===
 ???: Ah, finally! That took a lot longer than usual. I was getting a bit worried.
@@ -15,7 +13,7 @@ INCLUDE ../globals.ink
 
 ===Dialogue_options===
 *[What is going on? Where am I?]
-???: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
+{abletoleave:P1-USH|???}: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
 ->Dialogue_options
 
 
@@ -81,28 +79,34 @@ P1-USH: Hey friend! Is there something you need? Some tunes? How about your favo
 
 ===Plush_unlock===
 *{dear_defeated && deerSeen == false}[ You keep staring at my equipment.]
-P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind!
+P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
     ~deerSeen = true
-    ->Plush_unlock
+    ->Plush_talk
 
-*{footprints_found}[Are there robots that leave behind human footprints?]
+*{footprints_found && footstepsSeen == false}[Are there robots that leave behind human footprints?]
 P1-USH: None of our designs uses any human feet. Are you sure you haven’t looped back to the area before? Those woods can be pretty confusing for a human to navigate through successfully without being confused.
-    ->Plush_unlock
+    ~footstepsSeen = true
+    ->Plush_talk
 
 *{bear_defeated && bearSeen == false}[The bear robots, what are they?]
 P1-USH: That’s the trash-collecting model. It uses a combination of powerful magnets with its strong arms to gather and collect trash onto its back. Wouldn’t want to be in front of a trash-collecting model while it's working.
     ~bearSeen = true
-->Plush_unlock
+->Plush_talk
 
-*{rabbit_deafeated && rabbitSeen == false} Why are there robots in the shape of a bunny? 
+*{rabbit_deafeated && rabbitSeen == false} [Why are there robots in the shape of a bunny?] 
 P1-USH: Those are the gardening models. The bunny design, while small in stature, allows the robot easy access to both small and large areas of flora that need attention. Typically, they are sent out in packs to maximize efficiency.
     ~rabbitSeen = true
-->Plush_unlock
+->Plush_talk
 
-*{spider_defeated} Those spider robots we saw, what were they used for?
+*{spider_defeated} [Those spider robots we saw, what were they used for?]
 P1-USH: They are used to make powerlines effectively. They’re kept in that area specifically and are rarely sent out anywhere else. They can climb walls extremely well, and send out powerlines from a great distance. Be careful when they’re working as you wouldn’t want one to fall on you, they’re heavy.
 
-->Plush_unlock
+->Plush_talk
 
 +[I don't need anything else.]
+P1-USH: Okay! If you need me, I will always be there for you!
 ->END
+
+===Plush_talk===
+P1-USH: Anything else I can help you with friend?
+->Plush_unlock

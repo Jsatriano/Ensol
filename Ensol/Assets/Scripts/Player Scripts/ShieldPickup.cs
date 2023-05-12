@@ -5,7 +5,7 @@ using FMOD.Studio;
 
 public class ShieldPickup : MonoBehaviour
 {
-    public static EventInstance playerShieldOn;
+    //public static EventInstance playerShieldOn;
 
     void Awake() {
         gameObject.tag = "ShieldPickup";
@@ -13,7 +13,7 @@ public class ShieldPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerShieldOn = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerShieldOn);
+        //playerShieldOn = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerShieldOn);
     }
 
     // Update is called once per frame
@@ -23,8 +23,10 @@ public class ShieldPickup : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider col) {
-        if(col.gameObject.tag == "Player") {
-            playerShieldOn.start();
+        if(col.gameObject.tag == "Player" && !PlayerData.hasShield) {
+            //playerShieldOn.start();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldOn, this.transform.position);
+            //print("played sound!");
             PlayerData.hasShield = true;
             Destroy(gameObject);
         }

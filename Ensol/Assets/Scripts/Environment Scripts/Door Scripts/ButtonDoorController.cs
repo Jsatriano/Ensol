@@ -14,7 +14,7 @@ public class ButtonDoorController : MonoBehaviour
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
     private int enemiesKilled;
-    public InteractTutorialText text;
+    public InteractText text;
     public bool cabin = false;
 
     public TextAsset InkDoorStory;

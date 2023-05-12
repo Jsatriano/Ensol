@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Ink.Runtime;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class PlayerController : MonoBehaviour
         KNOCKBACK,
         PAUSED,
         DEAD,
-        DIALOGUE
+        DIALOGUE,
+        INTERACTIONANIMATION
     }
     public State state;
     public int comboCounter = 0;
@@ -43,8 +45,10 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
 
     [Header("VFX & UI References")]
-    public GameObject[] lightSlashVFX;
-    public GameObject heavySlashVFX;
+    public GameObject[] noElectricLightSlashVFX;
+    public GameObject noElectricHeavySlashVFX;
+    public GameObject[] electricLightSlashVFX;
+    public GameObject electricHeavySlashVFX;
     public GameObject damageVFX;
     public Transform damageVFXLocation;
     public GameObject shieldBreakVFX;
@@ -65,6 +69,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
+    private float speedMultiplier = 1;
+    private float speedMultTimer = 0;
+    private Coroutine speedMultRoutine = null;
 
     [Header("Dashing Variables")]
     [SerializeField] private float dashForce;
@@ -120,6 +127,11 @@ public class PlayerController : MonoBehaviour
     private bool dying = false;
     private State prevState;
     [HideInInspector] public bool knockback;
+    private bool allowInput = true;
+    private Story story;
+    public TextAsset globals;
+    [HideInInspector] public GameObject[] lightSlashVFX;
+    [HideInInspector] public GameObject heavySlashVFX;
 
     
     //Input Read Variables
@@ -159,6 +171,9 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            hasWeapon = false;
+            lightSlashVFX = noElectricLightSlashVFX;
+            heavySlashVFX = noElectricHeavySlashVFX;
         }
         else if (PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
@@ -169,6 +184,9 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            hasWeapon = true;
+            lightSlashVFX = noElectricLightSlashVFX;
+            heavySlashVFX = noElectricHeavySlashVFX;
         }
         else
         {
@@ -179,6 +197,9 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(true);
             FX1.SetActive(true);
             FX2.SetActive(true);
+            hasWeapon = true;
+            lightSlashVFX = electricLightSlashVFX;
+            heavySlashVFX = electricHeavySlashVFX;
         }
     }
 
@@ -194,19 +215,19 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(Input.GetButtonDown("SpecialAttack")) {
+        if(Input.GetButtonDown("SpecialAttack") && allowInput) {
             throwAttackInput = true;
         }
-        if(Input.GetButtonDown("LightAttack")) {
+        if(Input.GetButtonDown("LightAttack") && allowInput) {
             lightAttackInput = true;
         }
-        if(Input.GetButtonDown("HeavyAttack")) {
+        if(Input.GetButtonDown("HeavyAttack") && allowInput) {
             heavyAttackInput = true;
         }
-        if(Input.GetButtonDown("Shield")) {
+        if(Input.GetButtonDown("Shield") && allowInput) {
             shieldInput = true;
         }
-        if(Input.GetButtonDown("Cancel")) {
+        if(Input.GetButtonDown("Cancel") && allowInput) {
             pauseInput = true;
         }
 
@@ -272,6 +293,9 @@ public class PlayerController : MonoBehaviour
                     vfx.SetActive(false);
                 }
                 allowCancellingLightAttack = false;
+                allowInput = true;
+                DisableHeavyAttackHitbox();
+                DisableLightAttackHitbox();
 
                 //player recalls weapon if it has been thrown
                 if(throwAttackInput && !hasWeapon && !isCatching) {
@@ -281,7 +305,7 @@ public class PlayerController : MonoBehaviour
                 }
                 //starts light attack
                 if(lightAttackInput && hasWeapon) {
-                    lightAttackInput = false;
+                    ResetInput();
                     PlayerData.lightAttacks += 1;
                     comboCounter += 1;
                     if(comboCounter > 3) {
@@ -294,6 +318,7 @@ public class PlayerController : MonoBehaviour
                 else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
                     if(electricVials.enoughVials(heavyAttackCost) && PlayerData.hasSolarUpgrade) {
+                        ResetInput();
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
@@ -307,6 +332,7 @@ public class PlayerController : MonoBehaviour
                 else if(throwAttackInput && hasWeapon) {
                     throwAttackInput = false;
                     if(electricVials.enoughVials(specialAttackCost) && PlayerData.hasThrowUpgrade) {
+                        ResetInput();
                         LookAtMouse();
                         ResetLightAttackCombo();
                         PlayerData.throwAttacks += 1;
@@ -326,7 +352,7 @@ public class PlayerController : MonoBehaviour
                 // if player hits dash button, dash
                 else if(PlayerData.hasBroom && dashInput)
                 {
-                    dashInput = false;
+                    ResetInput();
                     state = State.DASHING;
                 }
                 //if player hits pause button, pause
@@ -346,6 +372,9 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isHeavyAttacking", false);
                 animator.SetInteger("lightAttackCombo", 0);
                 allowCancellingLightAttack = false;
+                allowInput = true;
+                DisableHeavyAttackHitbox();
+                DisableLightAttackHitbox();
 
                 //player recalls weapon if it has been thrown
                 if(throwAttackInput && !hasWeapon && !isCatching) {
@@ -353,10 +382,9 @@ public class PlayerController : MonoBehaviour
                     isCatching = true;
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.playerWeaponSpecial, this.transform.position);
                 }
-
-                //checks for starting light attack
+                //starts light attack
                 if(lightAttackInput && hasWeapon) {
-                    lightAttackInput = false;
+                    ResetInput();
                     PlayerData.lightAttacks += 1;
                     comboCounter += 1;
                     if(comboCounter > 3) {
@@ -369,6 +397,7 @@ public class PlayerController : MonoBehaviour
                 else if(heavyAttackInput && hasWeapon) {
                     heavyAttackInput = false;
                     if(electricVials.enoughVials(heavyAttackCost) && PlayerData.hasSolarUpgrade) {
+                        ResetInput();
                         ResetLightAttackCombo();
                         PlayerData.heavyAttacks += 1;
                         animator.SetBool("isHeavyAttacking", true);
@@ -378,10 +407,11 @@ public class PlayerController : MonoBehaviour
                     }
 
                 }
-                 //starts throw attack
-                else if(throwAttackInput && hasWeapon && PlayerData.hasThrowUpgrade) {
+                //starts throw attack
+                else if(throwAttackInput && hasWeapon) {
                     throwAttackInput = false;
-                    if(electricVials.enoughVials(specialAttackCost)) {
+                    if(electricVials.enoughVials(specialAttackCost) && PlayerData.hasThrowUpgrade) {
+                        ResetInput();
                         LookAtMouse();
                         ResetLightAttackCombo();
                         PlayerData.throwAttacks += 1;
@@ -393,12 +423,11 @@ public class PlayerController : MonoBehaviour
                         state = State.THROWING;
                     }
                 }
-                // if player hits space, dash
+                // if player hits dash button, dash
                 else if(PlayerData.hasBroom && dashInput)
                 {
-                    dashInput = false;
-                    state = State.DASHING;                    
-
+                    ResetInput();
+                    state = State.DASHING;
                 }
                 // if player stops moving, go idle
                 else if(direction == zeroVector)
@@ -418,6 +447,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.DASHING:
+                allowInput = false;
                 // make player dash if CD is done
                 if(dashCdTimer <= 0)
                 {
@@ -456,6 +486,12 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.LIGHTATTACKING:
+                if(!allowCancellingLightAttack) {
+                    allowInput = false;
+                }
+                else{
+                    allowInput = true;
+                }
                 if(pauseInput) {
                     pauseInput = false;
                     prevState = State.LIGHTATTACKING;
@@ -477,6 +513,7 @@ public class PlayerController : MonoBehaviour
                     foreach(GameObject vfx in lightSlashVFX) {
                         vfx.SetActive(false);
                     }
+                    DisableLightAttackHitbox();
                     animator.SetInteger("lightAttackCombo", comboCounter);
                 }
                 //Various other events that occur during the animation, such as hitboxes and movement are handled in anim events
@@ -484,6 +521,8 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.HEAVYATTACKING:
+                allowInput = false;
+                ResetInput();
                 if(pauseInput)
                 {
                     pauseInput = false;
@@ -497,6 +536,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.THROWING:
+                allowInput = false;
                 if(pauseInput)
                 {
                     pauseInput = false;
@@ -511,6 +551,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.CATCHING:
+                allowInput = false;
                 if(pauseInput)
                 {
                     pauseInput = false;
@@ -545,6 +586,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.PAUSED:
+                allowInput = false;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
@@ -553,11 +595,19 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.DEAD:
+                allowInput = false;
                 if(pauseInput)
                 {
                     pauseInput = false;
                     prevState = State.DEAD;
                     state = State.PAUSED;
+                }
+                if (PlayerData.deaths == 1)
+                {
+                    story = new Story(globals.text);
+                    story.state.LoadJson(DialogueVariables.saveFile);
+                    story.EvaluateFunction("firstDeath");
+                    DialogueVariables.saveFile = story.state.ToJson();
                 }
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isDashing", false);
@@ -566,10 +616,25 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case State.DIALOGUE:
+                allowInput = false;
                 if(pauseInput)
                 {
                     pauseInput = false;
                     prevState = State.DIALOGUE;
+                    state = State.PAUSED;
+                }
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isDashing", false);
+                animator.SetBool("isHeavyAttacking", false);
+                animator.SetInteger("lightAttackCombo", 0);
+
+                break;
+            case State.INTERACTIONANIMATION:
+                allowInput = false;
+                if(pauseInput)
+                {
+                    pauseInput = false;
+                    prevState = State.INTERACTIONANIMATION;
                     state = State.PAUSED;
                 }
                 animator.SetBool("isRunning", false);
@@ -598,7 +663,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.zero;
         Vector3 forceToApply = transform.forward * force;
         rb.drag = 1;
-        rb.AddForce(forceToApply * multiplier, ForceMode.Impulse);
+        rb.AddForce(forceToApply * multiplier * speedMultiplier, ForceMode.Impulse);
     }
 
     private void ReturnToIdle() {
@@ -642,6 +707,7 @@ public class PlayerController : MonoBehaviour
 
     private void DisableLightAttackHitbox() {
         lightHitbox.SetActive(false);
+        attackPower = baseAttackPower;
     }
 
     private void StartLightSlash(int callCounter)
@@ -668,6 +734,7 @@ public class PlayerController : MonoBehaviour
         foreach(GameObject vfx in lightSlashVFX) {
             vfx.SetActive(false);
         }
+        DisableLightAttackHitbox();
     }
 
     //Heavy Attack anim events
@@ -751,6 +818,13 @@ public class PlayerController : MonoBehaviour
         state = State.IDLE;
     }
 
+    //Interaction anim events
+    private void EndInteraction() {
+        state = State.IDLE;
+        animator.SetBool("isHack", false);
+        animator.SetBool("isPickup", false);
+    }
+
 
     //MOVEMENT FUNCTIONS
 
@@ -787,16 +861,67 @@ public class PlayerController : MonoBehaviour
            
             // makes our movement happen
 
-            rb.AddForce(heading * acceleration, ForceMode.Acceleration);
+
+
+            rb.AddForce(heading * acceleration * speedMultiplier, ForceMode.Acceleration);
             Vector3 velocityXZ = new Vector3(rb.velocity.x, 0, rb.velocity.z);           
-            if (velocityXZ.magnitude > moveSpeed)
+            if (velocityXZ.magnitude > moveSpeed * speedMultiplier)
             {
                 Vector3 velocityY = new Vector3(0, rb.velocity.y, 0);
-                velocityXZ = Vector3.ClampMagnitude(velocityXZ, moveSpeed);
+                velocityXZ = Vector3.ClampMagnitude(velocityXZ, moveSpeed * speedMultiplier);
                 rb.velocity = velocityXZ + velocityY;
             }
             PlayerData.distanceMoved += rb.velocity.magnitude * Time.deltaTime;
         }    
+    }
+
+    //Applies a speed change to the player, works for buffs or debuffs
+    public void ApplySpeedChange(float speedMult, float length)
+    {
+        if (PlayerData.hasShield && speedMult < 1)
+        {
+            GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
+            //ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
+            activeDamageVFX.Enqueue(newDamageVFX);
+            StartCoroutine(DeleteDamageVFX());
+            PlayerData.hasShield = false;
+            invulnTimer = Time.time;
+        }
+        else
+        {
+            //New buffs/debuffs of different strength override currently active buffs/debuffs
+            if (speedMultiplier != speedMult)
+            {
+                speedMultiplier = speedMult;
+                speedMultTimer = length;
+            }
+            else
+            {
+                //Only sets the timer if its longer than the current timer (in cases of multiple buffs/debuffs of the same strength applying at once)
+                if (length > speedMultTimer)
+                {
+                    speedMultTimer = length;
+                }
+            }
+            if (speedMultRoutine != null)
+            {
+                StopCoroutine(speedMultRoutine);
+            }
+            speedMultRoutine = StartCoroutine(ResetSpeedChange());
+        }
+    }
+
+    //Resets the speed change after the given time
+    private IEnumerator ResetSpeedChange()
+    {
+        while (speedMultTimer > 0)
+        {
+            speedMultTimer -= Time.deltaTime;
+            yield return null;
+        }
+        speedMultiplier = 1;
+        speedMultRoutine = null;
     }
 
     private void Dash() // Justin
@@ -831,7 +956,7 @@ public class PlayerController : MonoBehaviour
 
         // increase drag and apply force forwards of where player is facing
         rb.drag = 0;
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+        rb.AddForce(forceToApply * speedMultiplier, ForceMode.Impulse);
 
 
         // invoke RestDash function after dash is done
@@ -860,6 +985,14 @@ public class PlayerController : MonoBehaviour
     }
 
     //COMBAT FUNCTIONS
+
+    private void ResetInput() {
+        throwAttackInput = false;
+        dashInput = false;
+        heavyAttackInput = false;
+        lightAttackInput = false;
+        shieldInput = false;
+    }
 
     public void CheckIfDying() {
         if(PlayerData.currHP <= 0) 
@@ -917,7 +1050,7 @@ public class PlayerController : MonoBehaviour
             }
             else{
                 GameObject newDamageVFX = Instantiate(shieldBreakVFX, damageVFXLocation);
-                ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
+                //ShieldPickup.playerShieldOn.stop(STOP_MODE.ALLOWFADEOUT);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
                 activeDamageVFX.Enqueue(newDamageVFX);
                 StartCoroutine(DeleteDamageVFX());
@@ -973,6 +1106,8 @@ public class PlayerController : MonoBehaviour
         weaponBase.SetActive(false);
         FX1.SetActive(false);
         FX2.SetActive(false);
+        lightSlashVFX = noElectricLightSlashVFX;
+        heavySlashVFX = noElectricHeavySlashVFX;
     }
 
     public void PickedUpThrowUpgrade()
@@ -994,6 +1129,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = electricLightSlashVFX;
+        heavySlashVFX = electricHeavySlashVFX;
     }
 
     public void TestPickedUpSolarUpgrade()
@@ -1009,6 +1146,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = electricLightSlashVFX;
+        heavySlashVFX = electricHeavySlashVFX;
     }
 
     public void RemoveThrowUpgrade()
@@ -1028,6 +1167,8 @@ public class PlayerController : MonoBehaviour
         backpack.SetActive(true);
         FX1.SetActive(true);
         FX2.SetActive(true);
+        lightSlashVFX = noElectricLightSlashVFX;
+        heavySlashVFX = noElectricHeavySlashVFX;
     }
 
     //SHADER MANAGEMENT
@@ -1043,7 +1184,6 @@ public class PlayerController : MonoBehaviour
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
-            print("vials dark");
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", -1f);
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public static class PlayerData
 {
     //Weapon Upgrades
+    public static bool startedGame = false;
     public static bool hasBroom = false;
     public static bool hasSolarUpgrade = false;
     public static bool hasThrowUpgrade = false;
@@ -44,4 +45,12 @@ public static class PlayerData
     // Enemy's Killed
     public static int bearsKilled = 0;
     public static int bunniesKilled = 0;
+    public static int deerKilled = 0;
+
+    //River control progress
+    public static bool controlsHit = false;
+
+    //Security Tower Node Progression
+    public static bool birdTriggered = false;
+    public static bool disableBird = false;
 }

@@ -12,7 +12,9 @@ public class WeaponHitbox : MonoBehaviour
     private bool isMoving = true;
     public GameObject damagePulseVFX;
     public GameObject weaponThrowVFX;
-    public GameObject weaponHitVFX;
+    [HideInInspector] public GameObject weaponHitVFX;
+    public GameObject electricHitVFX;
+    public GameObject noElectricHitVFX;
     private Queue<GameObject> activeHitVFX = new Queue<GameObject>();
 
     void Awake()
@@ -39,6 +41,12 @@ public class WeaponHitbox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PlayerData.currentlyHasSolar) {
+            weaponHitVFX = electricHitVFX;
+        }
+        else {
+            weaponHitVFX = noElectricHitVFX;
+        }
         if(isProjectile && gameObject.tag != "WeaponProjectile") {
             gameObject.tag = "WeaponProjectile";
         }
