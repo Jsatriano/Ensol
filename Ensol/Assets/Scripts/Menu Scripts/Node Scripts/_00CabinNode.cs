@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class _00CabinNode : MonoBehaviour
 {
-    [Header("Scripts")]
-    public ElectricGateController electricGateToDeer = null;
+    [Header("Exitting Variables")]
+    public bool pathToDeer = false;
     public ElectricGateController electricGateToGate = null;
+    public PathCollider exitOnTriggerEnterEvent;
 
     [Header("Interactable Objects")]
     public GameObject doorInteractable;
@@ -109,7 +110,7 @@ public class _00CabinNode : MonoBehaviour
             combatController.PickedUpBroom();
         }
 
-        if (electricGateToDeer.opening)
+        if (pathToDeer)
         {
             CompletedNodes.deerNode = true;
         }
@@ -183,13 +184,30 @@ public class _00CabinNode : MonoBehaviour
             combatController = p.GetComponent<PlayerController>();
         }
 
-        if (combatController == null)
+        /*if (combatController == null)
         {
             print("Cabin Node Script Failed to find player");
         }
         else
         {
             print("Cabin Node Script located Player");
+        }*/
+    }
+
+    //have to detect collider on another object
+    void OnEnable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.AddListener(ExitTriggerMethod);
+    }
+
+    void OnDisable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.RemoveListener(ExitTriggerMethod);
+    }
+
+    void ExitTriggerMethod(Collider col){
+        
+        if (col.tag == "Player"){
+            pathToDeer = true;
         }
+        
     }
 }
