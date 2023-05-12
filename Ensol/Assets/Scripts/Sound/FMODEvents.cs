@@ -43,9 +43,13 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bearScrapExplosion { get; private set; }
 
     [field: Header("Spider")]
+    [field: SerializeField] public EventReference spiderAlerted { get; private set; }
+    [field: SerializeField] public EventReference spiderCogs { get; private set; }
+    [field: SerializeField] public EventReference spiderCogs2 { get; private set; }
     [field: SerializeField] public EventReference spiderTazer { get; private set; }
     [field: SerializeField] public EventReference spiderWeb { get; private set; }
     [field: SerializeField] public EventReference spiderWebShoot { get; private set; }
+    [field: SerializeField] public EventReference spiderDeath { get; private set; }
 
     [field: Header("Turret")]
     [field: SerializeField] public EventReference turretFire { get; private set; }

@@ -35,7 +35,7 @@ public class Interaction : MonoBehaviour
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
                 }
-                if (collider.gameObject.name == "Weapon Pile")
+                if (collider.gameObject.name == "Weapon Pile" || collider.gameObject.name == "Crack Deer Variant")
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, this.transform.position);
                 }
