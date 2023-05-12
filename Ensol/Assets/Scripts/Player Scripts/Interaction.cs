@@ -35,7 +35,7 @@ public class Interaction : MonoBehaviour
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
                 }
-                if (collider.gameObject.name == "Weapon Pile")
+                if (collider.gameObject.name == "Weapon Pile" || collider.gameObject.name == "Crack Deer Variant")
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, this.transform.position);
                 }
@@ -57,7 +57,7 @@ public class Interaction : MonoBehaviour
             }
             else if (collider.gameObject.tag == "Interactable")
             {
-              //  print("inspected interactable");
+                //print("inspected interactable");
                 collider.enabled = false;
                 Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
                 player.animator.SetBool("isHack", true);

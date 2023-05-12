@@ -6,15 +6,18 @@ INCLUDE ../globals.ink
 
 ===Intro ===
 
-A control panel that controls the flow of the river.
+A control panel that controls the flow of the river. You attempt to turn off the river.
 
-*[Turn off the water flow.]
+
+The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
+
+*[Break the control panel.]
 ->2nd
 
 
 
 ===2nd===
-The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
+You thrust your weapon into the control panel, breaking it.
 ~river_controls = true
 
 ->END

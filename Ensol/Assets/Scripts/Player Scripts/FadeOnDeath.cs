@@ -10,14 +10,17 @@ public class FadeOnDeath : MonoBehaviour
     public NodeSelector nodeSelector;
     private string sceneName;
 
+
+
     void Start() {
         sceneName = SceneManager.GetActiveScene().name;
+        
     }
 
     void Update()
     {
 
-    if(PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
+        if(PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
         {
             Time.timeScale = 0.5f;
             StartCoroutine(FadeBlackOutSquare());
@@ -31,7 +34,7 @@ public class FadeOnDeath : MonoBehaviour
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
         bool fadeToBlack = true;
-        int fadeSpeed = 1;
+        float fadeSpeed = 1.1f;
 
         if(fadeToBlack)
         {
@@ -61,4 +64,5 @@ public class FadeOnDeath : MonoBehaviour
             }
         }
     }
+
 }

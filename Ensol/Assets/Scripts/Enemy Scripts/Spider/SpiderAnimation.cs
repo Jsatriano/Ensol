@@ -57,6 +57,7 @@ public class SpiderAnimation : MonoBehaviour
                 {                
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderAlerted, this.transform.position);
                 }
                 break;
 

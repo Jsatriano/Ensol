@@ -46,19 +46,13 @@ public class BearSwipe : Node
             //Checks if attack is over, resets all the vars
             if (GetData("endSwipe") != null)
             {
-                _hitBox1.enabled = false;
-                _hitBox2.enabled = false;
-                _enemyRB.drag = _originalDrag;
-                ClearData("attacking");
-                ClearData("endSwipe");
-                ClearData("endWindup");
-                ClearData("swipingAnim");
+                ResetVars();
                 state = NodeState.SUCCESS;
                 return state;
             }
             //Moves the bear forward when attacking
-            _enemyRB.drag = 1f;
-            _enemyRB.AddForce(_enemyTF.forward * _movement);
+            _enemyRB.drag = 0f;
+            _enemyRB.AddForce(_enemyTF.forward * _movement, ForceMode.Force);
 
             //Keeps all the hitboxes on and increments timer while attacking
             _hitBox1.enabled = true;
@@ -66,5 +60,16 @@ public class BearSwipe : Node
             state = NodeState.RUNNING;
             return NodeState.RUNNING;
         }
+    }
+
+    private void ResetVars()
+    {
+        _hitBox1.enabled = false;
+        _hitBox2.enabled = false;
+        _enemyRB.drag = _originalDrag;
+        ClearData("attacking");
+        ClearData("endSwipe");
+        ClearData("endWindup");
+        ClearData("swipingAnim");
     }
 }
