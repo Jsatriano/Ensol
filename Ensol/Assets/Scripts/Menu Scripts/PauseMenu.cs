@@ -163,4 +163,15 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+
+    public void SpawnCrackDeer()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Crack Deer Variant")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
 }

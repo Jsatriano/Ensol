@@ -29,7 +29,7 @@ public class _05BearNode : MonoBehaviour
     {
         if(electricGateController.opening)
         {
-            if (PlayerData.bearsKilled >= 1)
+            if (PlayerData.bearsKilled == 1)
             {
                 story = new Story(globals.text);
                 story.state.LoadJson(DialogueVariables.saveFile);
