@@ -30,6 +30,7 @@ public class SpiderStats : EnemyStats
     public float webMaxSpeed;
     public float webMinSpeed;
     public float webMaxPrediction;
+    public float webShotRotation;
     public Rigidbody webShotPrefab;
     public WebShotManager webShotManager;
     public Transform webShotSpawnPoint;

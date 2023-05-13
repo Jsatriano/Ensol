@@ -24,14 +24,14 @@ public class SpiderBT : BT
                         new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "tazer", spiderStats.environmentMask, 4, false),
                         new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.tazerMinRange, spiderStats.tazerMaxRange, "tazer"),
                         new CooldownCheck(spiderStats.tazerCooldown, "tazer"),
-                        new SpiderTazerShot("tazer", spiderStats.tazerManager)
+                        new SpiderTazerShot("tazer", spiderStats.tazerManager, spiderStats.playerTF, spiderStats.enemyTF, spiderStats.tazerRotation)
                     }),
                     new Sequence(new List<Node>
                     {
                         new FOVCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.visionRange, "webShot", spiderStats.environmentMask, 4, false),
                         new RangeCheck(spiderStats.enemyTF, spiderStats.playerTF, spiderStats.webShotMinRange, spiderStats.webShotMaxRange, "webShot"),
                         new CooldownCheck(spiderStats.webShotCooldown, "webShot"),
-                        new SpiderWebShot("webShot", spiderStats.webShotManager)
+                        new SpiderWebShot("webShot", spiderStats.webShotManager, spiderStats.playerTF, spiderStats.enemyTF, spiderStats.webShotRotation)
                     }),
                     new Sequence(new List<Node>
                     {

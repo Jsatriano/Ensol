@@ -53,7 +53,7 @@ public class SpiderTazerManager : MonoBehaviour
                 ShootBolt();
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderTazer, this.transform.position);
             }
-            RotateTowardsPlayer();
+            //RotateTowardsPlayer();
             _tazerBurstTimer += Time.deltaTime;
             yield return null;
         }

@@ -10,6 +10,7 @@ public class WebShotManager : MonoBehaviour
     private float maxPrediction;
     private float debuffLength;
     private float speedDebuff;
+    private float rotation;
 
     //References
     private SpiderStats spiderStats;
@@ -32,6 +33,7 @@ public class WebShotManager : MonoBehaviour
         maxPrediction = spiderStats.webMaxPrediction;
         debuffLength = spiderStats.webShotDebuffLength;
         speedDebuff = spiderStats.webShotDebuff;
+        rotation = spiderStats.webShotRotation;
     }
 
     public void StartWebShotAttack()
@@ -46,7 +48,6 @@ public class WebShotManager : MonoBehaviour
 
     private IEnumerator WebShotAttack()
     {
-        //Add edge case of dying
         while (spiderBT.root.GetData("shootWeb") == null && spiderBT.isAlive)
         {
             yield return null;
