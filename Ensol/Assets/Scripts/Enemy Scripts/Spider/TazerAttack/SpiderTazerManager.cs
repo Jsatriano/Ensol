@@ -43,8 +43,12 @@ public class SpiderTazerManager : MonoBehaviour
     private IEnumerator TazerAttack()
     {
         //Add edge case of dying
-        while (_tazerCounter < _tazerBurstNum && spiderBT.isAlive)
+        while (_tazerCounter < _tazerBurstNum)
         {
+            if (!spiderBT.isAlive)
+            {
+                yield break;
+            }
             //Shoots a bolt at a given timer interval as many times as specified
             if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)
             {

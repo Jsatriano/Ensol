@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class JunkBallManager : MonoBehaviour
 {
+    //Attack Vars
+    private float rotation;
+
+    [Header("References")]
     public BearBT bearBT;
     public Rigidbody ballPrefab;
     public Transform junkOrigin;
@@ -14,57 +18,39 @@ public class JunkBallManager : MonoBehaviour
     [HideInInspector] public float minThrowStrength;
     private Transform playerTF;
     private Rigidbody playerRB;
-    private Transform bearTF;
-    private float rotation;
-    private bool throwingJunk;
 
     private void Start()
     {
-        throwingJunk = false;
         maxThrowStrength = bearBT.bearStats.junkMaxSpeed;
         minThrowStrength = bearBT.bearStats.junkMinSpeed;
-        bearTF = bearBT.bearStats.enemyTF;
-        rotation = bearBT.bearStats.rotationSpeed / 40;
     }
 
-    private void FixedUpdate()
+    public void StartJunkThrow()
     {
-        //Don't do anything when bear is dead
-        if (bearBT.isAlive == false)
-        {
-            return;
-        }
-        //Sets playerTF using bearStats
         if (playerTF == null)
         {
             playerTF = bearBT.bearStats.playerTF;
             playerRB = bearBT.bearStats.playerRB;
-            return;
         }
+        StartCoroutine(JunkThrowAttack());
+    }
 
-        //Throws junk when signaled by animation event
-        if (!throwingJunk && bearBT.root.GetData("throwJunk") != null)
+    private IEnumerator JunkThrowAttack()
+    {
+        while (bearBT.root.GetData("throwJunk") == null)
         {
-            ThrowJunk();
+            if (!bearBT.isAlive)
+            {
+                yield break;
+            }
+            yield return null;
         }
-
-        if (!throwingJunk && bearBT.root.GetData("throwingAnim") != null)
-        {
-            Vector3 toPlayer = new Vector3(playerTF.position.x - bearTF.position.x, 0, playerTF.position.z - bearTF.position.z).normalized;
-            bearTF.forward = Vector3.Lerp(bearTF.forward, toPlayer, rotation);
-        }
-
-        //No longer throwing junk when junk is destroyed
-        if (bearBT.root.GetData("throwJunk") == null)
-        {
-            throwingJunk = false;
-        }
+        ThrowJunk();
+        bearBT.root.ClearData("throwJunk");
     }
 
     private void ThrowJunk()
     {
-        throwingJunk = true;
-
         //Spawn junk ball
         junkBall = Instantiate(ballPrefab, junkOrigin.position, junkOrigin.rotation);
 
