@@ -106,48 +106,6 @@ public class BearAnimation : MonoBehaviour
         }
     }
 
-    /*
-    private void LateUpdate()
-    {
-        
-        //Rotates bear's head towards player when walking around
-        if (state == State.WALKING)
-        {
-            //Finds the direction to the player and then checks if that is greater than 90 degrees from the current head position
-            _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z).normalized;
-            if (Vector3.Dot(_dirToPlayer, transform.forward) < 0)
-            {
-                //If greater than 90 degrees, check if the dir to player is closer to the right or left of the deer (that will be the new rotate goal)
-                if (Vector3.Dot(transform.right, _dirToPlayer) > Vector3.Dot(-transform.right, _dirToPlayer))
-                {
-                    _dirToPlayer = transform.right;
-                }
-                else
-                {
-                    _dirToPlayer = -transform.right;
-                }
-            }
-            //Rotate bear's head towards the player
-            //headTF.forward = Vector3.Lerp(previousDirection, _dirToPlayer, lookingSpeed * Time.deltaTime).normalized;
-        }
-        previousDirection = headTF.forward;
-        
-    }
-
-    
-    private void OnDrawGizmos()
-    {
-        if (Application.isPlaying && bearBT.root.GetData("player") != null)
-        {
-            Gizmos.color = Color.red;
-            _dirToPlayer = new Vector3(playerTF.position.x - headTF.position.x, 0, playerTF.position.z - headTF.position.z).normalized;
-            Gizmos.DrawRay(transform.position, _dirToPlayer * 2);
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(transform.position, headTF.forward * 2);
-        }
-    }
-    */
-
     //Animation events
     private void EndSwipeWindup()
     {

@@ -17,7 +17,7 @@ public class DeerBasicAttack : Node
         _hitBox       = hitBox;
         _playerTF     = playerTF;
         _enemyTF      = enemyTF;
-        _rotation     = rotation / 10;
+        _rotation     = rotation;
         _attackName = attackName;
     }
 
@@ -25,9 +25,8 @@ public class DeerBasicAttack : Node
     {
         //Windup of the attack, turns deer to look at player
         if (GetData("endSwipeWindup") == null)
-        { 
-            Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotation);
+        {
+            RotateTowardsPlayer();
             SetData("attacking", _attackName);
             SetData("swipingAnim", true);
             state = NodeState.RUNNING;
@@ -50,6 +49,26 @@ public class DeerBasicAttack : Node
             _hitBox.enabled = true;
             state = NodeState.RUNNING;
             return NodeState.RUNNING;
+        }
+    }
+    private void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
         }
     }
 }

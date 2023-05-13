@@ -18,7 +18,6 @@ public class SpiderWebDeploy : Node
     {
         if ((string)GetData("animation") != _attackName)
         {
-            Debug.Log("Startd WEB!");
             SetData("animation", _attackName);
             SetData("attacking", _attackName);
             _webManager.StartWebDeployAttack();

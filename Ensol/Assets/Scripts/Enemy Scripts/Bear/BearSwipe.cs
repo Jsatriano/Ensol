@@ -25,7 +25,7 @@ public class BearSwipe : Node
         _enemyRB      = enemyRB;
         _originalDrag = _enemyRB.drag;
         _movement     = movement;
-        _rotation     = rotation / 40;
+        _rotation     = rotation;
         _attackName = attackName;
     }
 
@@ -34,8 +34,7 @@ public class BearSwipe : Node
         //Windup of the attack, turns bear to look at player
         if (GetData("endWindup") == null)
         {
-            Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotation);
+            RotateTowardsPlayer();
             SetData("attacking", _attackName);
             SetData("swipingAnim", true);
             state = NodeState.RUNNING;
@@ -46,19 +45,13 @@ public class BearSwipe : Node
             //Checks if attack is over, resets all the vars
             if (GetData("endSwipe") != null)
             {
-                _hitBox1.enabled = false;
-                _hitBox2.enabled = false;
-                _enemyRB.drag = _originalDrag;
-                ClearData("attacking");
-                ClearData("endSwipe");
-                ClearData("endWindup");
-                ClearData("swipingAnim");
+                ResetVars();
                 state = NodeState.SUCCESS;
                 return state;
             }
             //Moves the bear forward when attacking
-            _enemyRB.drag = 1f;
-            _enemyRB.AddForce(_enemyTF.forward * _movement);
+            _enemyRB.drag = 0f;
+            _enemyRB.AddForce(_enemyTF.forward * _movement, ForceMode.Force);
 
             //Keeps all the hitboxes on and increments timer while attacking
             _hitBox1.enabled = true;
@@ -66,5 +59,37 @@ public class BearSwipe : Node
             state = NodeState.RUNNING;
             return NodeState.RUNNING;
         }
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
+    }
+
+    private void ResetVars()
+    {
+        _hitBox1.enabled = false;
+        _hitBox2.enabled = false;
+        _enemyRB.drag = _originalDrag;
+        ClearData("attacking");
+        ClearData("endSwipe");
+        ClearData("endWindup");
+        ClearData("swipingAnim");
     }
 }

@@ -24,6 +24,7 @@ public class BearStats : EnemyStats
     public float explosionDamage;  //How much damage the explosion does
     public float explosionLength;  //How long the explosion lasts
     public float explosionSize;    //How big the explosion gets
+    public JunkBallManager junkBallManager;
 
     [Header("2nd Phase")]
     public float angryMaxSpeed;

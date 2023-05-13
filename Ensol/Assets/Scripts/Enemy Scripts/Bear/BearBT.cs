@@ -30,7 +30,7 @@ public class BearBT : BT
                         new FOVCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.visionRange, "junk", bearStats.environmentMask, 2, false),
                         new CooldownCheck(bearStats.junkCooldown, "junk"),
                         new RangeCheck(bearStats.enemyTF, bearStats.playerTF, bearStats.junkMinRange, bearStats.junkMaxRange, "junk"),
-                        new BearJunkThrow("junk")
+                        new BearJunkThrow("junk", bearStats.junkBallManager, bearStats.playerTF, bearStats.enemyTF, bearStats.junkRotation)
                     }),
                 })
             }),       
