@@ -40,8 +40,7 @@ public class SpiderBT : BT
                         new CooldownCheck(spiderStats.webDelployCooldown, "webDeploy"),
                         new SpiderWebDeploy("webDeploy", spiderStats.webManager)
                     })
-                }),
-                
+                }),          
             }),
             new Sequence(new List<Node>
             {

@@ -186,13 +186,13 @@ MonoBehaviour:
   webShotManager: {fileID: 8825981490302981255}
   webShotSpawnPoint: {fileID: 7463606841737395095}
   tazerCooldown: 3
-  tazerDamage: 2
+  tazerDamage: 3
   tazerMinRange: 5
   tazerMaxRange: 15
   tazerBurstNum: 3
-  tazerBurstSpeed: 0.2
+  tazerBurstSpeed: 0.25
   tazerPower: 30
-  tazerRotation: 50
+  tazerRotation: 3
   boltPrefab: {fileID: 1144287179827763773, guid: de8d723506918074980682d97fd15b4a, type: 3}
   tazerSpawnPoint: {fileID: 3758800490590958887}
   tazerManager: {fileID: 2823372405310615294}
@@ -1042,7 +1042,8 @@ MonoBehaviour:
   animController: {fileID: 5180116610835090141}
   spiderRB: {fileID: 3549388664889948593}
   spiderBT: {fileID: 8642310613724585887}
-  tazerManager: {fileID: 0}
+  miniSpeedMult: 0
+  isMiniSpider: 0
 --- !u!4 &1400978267257453353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1072600842065334525, guid: ed0b349ea5b817c4ca80ae899dfe42aa, type: 3}
