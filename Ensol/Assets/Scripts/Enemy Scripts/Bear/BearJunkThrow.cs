@@ -6,10 +6,18 @@ using BehaviorTree;
 public class BearJunkThrow : Node
 {
     private string _attackName;
+    private JunkBallManager _junkBallManager;
+    private Transform _playerTF;
+    private Transform _enemyTF;
+    private float _rotation;
 
-    public BearJunkThrow(string attackName)
+    public BearJunkThrow(string attackName, JunkBallManager junkBallManager, Transform playerTF, Transform enemyTF, float junkRotation)
     {
         _attackName = attackName;
+        _junkBallManager = junkBallManager;
+        _playerTF = playerTF;
+        _enemyTF = enemyTF;
+        _rotation = junkRotation;
     }
 
     //All gameplay code for this attack takes place in JunkBallManager.cs and JunkBall.cs
@@ -18,10 +26,11 @@ public class BearJunkThrow : Node
     public override NodeState Evaluate()
     {
         //Windup for the attack
-        if (GetData("throwJunk") == null) 
+        if (GetData("throwingAnim") == null ) 
         {
             SetData("throwingAnim", true);
             SetData("attacking", _attackName);
+            _junkBallManager.StartJunkThrow();
             state = NodeState.RUNNING;
             return state;
         }
@@ -30,13 +39,33 @@ public class BearJunkThrow : Node
         {
             ClearData("throwingAnim");
             ClearData("attacking");
-            ClearData("throwJunk");
             ClearData("endThrow");
             state = NodeState.SUCCESS;
             return state;
         }
-        //Don't do anything doing the time after ball is thrown but before animation ends
+        RotateTowardsPlayer();
         state = NodeState.RUNNING;
         return state;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
     }
 }

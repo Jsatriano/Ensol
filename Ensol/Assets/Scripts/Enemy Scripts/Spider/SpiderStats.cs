@@ -30,6 +30,7 @@ public class SpiderStats : EnemyStats
     public float webMaxSpeed;
     public float webMinSpeed;
     public float webMaxPrediction;
+    public float webShotRotation;
     public Rigidbody webShotPrefab;
     public WebShotManager webShotManager;
     public Transform webShotSpawnPoint;
@@ -90,6 +91,7 @@ public class SpiderStats : EnemyStats
     {
         print(nameID + " is dead!");
         spiderBT.isAlive = false;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderDeath, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         //-------------> Spider death sound here <----------------
 
