@@ -7,6 +7,12 @@ public class TazerShot : MonoBehaviour
     [HideInInspector] public Transform spiderTF;
     [HideInInspector] public float tazerDamage;
     [SerializeField] private SphereCollider tazerCollider;
+    private Vector3 spiderPos;
+
+    private void Start()
+    {
+        spiderPos = spiderTF.position;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,7 +41,7 @@ public class TazerShot : MonoBehaviour
             PlayerController playerScript = other.GetComponent<PlayerController>();
             if (playerScript != null)
             {
-                playerScript.TakeDamage(tazerDamage, tazerCollider);
+                playerScript.TakeDamage(tazerDamage, spiderPos);
                 Destroy(gameObject);
             }
         }

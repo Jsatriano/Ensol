@@ -29,7 +29,7 @@ public class BearHitPlayer : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             //Does damage to the player based on provided attack damage
-            col.gameObject.GetComponent<PlayerController>().TakeDamage(attackDamage, coll);
+            col.gameObject.GetComponent<PlayerController>().TakeDamage(attackDamage, bearBT.transform.position);
             if (tellBT)
             {
                 bearBT.root.SetData("attackHit", true);
