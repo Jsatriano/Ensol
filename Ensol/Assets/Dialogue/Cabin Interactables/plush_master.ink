@@ -14,6 +14,8 @@ INCLUDE ../globals.ink
 ===Dialogue_options===
 *[What is going on? Where am I?]
 {abletoleave:P1-USH|???}: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
+~ abletoleave2 = true
+
 ->Dialogue_options
 
 
@@ -23,7 +25,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 ->Dialogue_options
 
 
-* {abletoleave} [Just need to walk around for a little.]
+* {abletoleave && abletoleave2} [Just need to walk around for a little.]
 P1-USH: Okay! If you need anything let me know.
 -> END
 
