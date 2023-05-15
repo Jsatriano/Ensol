@@ -20,7 +20,9 @@ public class SpiderAnimation : MonoBehaviour
     [SerializeField] private Animator animController;
     [SerializeField] private Rigidbody spiderRB;
     [SerializeField] SpiderBT spiderBT;
-    [SerializeField] SpiderTazerManager tazerManager;
+    [SerializeField] private float miniSpeedMult;
+    [SerializeField] private float miniTazerMult;
+    [SerializeField] private bool isMiniSpider;
     private Transform playerTF;
 
     [Header("Misc")]
@@ -57,12 +59,20 @@ public class SpiderAnimation : MonoBehaviour
                 {                
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderAlerted, this.transform.position);
                 }
                 break;
 
             case State.MOVING_FORWARD:
                 //Sets the speed of the walking animation based on current velocity
-                animController.SetFloat("animSpeed", Mathf.Clamp((spiderRB.velocity.magnitude * 10) / minWalkSpeed, 0.5f, 1));
+                if (isMiniSpider)
+                {
+                    animController.SetFloat("animSpeed", Mathf.Clamp(((spiderRB.velocity.magnitude * 10) / minWalkSpeed) * miniSpeedMult, 1f, 2.5f));
+                }
+                else
+                {
+                    animController.SetFloat("animSpeed", Mathf.Clamp((spiderRB.velocity.magnitude * 10) / minWalkSpeed, 0.5f, 1f));
+                }
 
                 if (anim == "tazer")
                 {
@@ -82,6 +92,14 @@ public class SpiderAnimation : MonoBehaviour
                 break;
 
             case State.TAZER_SHOOT:
+                if (isMiniSpider)
+                {
+                    animController.SetFloat("animSpeed", miniTazerMult);
+                }
+                else
+                {
+                    animController.SetFloat("animSpeed", 1);
+                }
                 if (anim == "movingForward")
                 {
                     animController.SetTrigger("movingForward");

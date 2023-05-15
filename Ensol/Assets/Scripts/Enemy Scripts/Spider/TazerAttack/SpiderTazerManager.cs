@@ -43,16 +43,21 @@ public class SpiderTazerManager : MonoBehaviour
     private IEnumerator TazerAttack()
     {
         //Add edge case of dying
-        while (_tazerCounter < _tazerBurstNum && spiderBT.isAlive)
+        while (_tazerCounter < _tazerBurstNum)
         {
+            if (!spiderBT.isAlive)
+            {
+                yield break;
+            }
             //Shoots a bolt at a given timer interval as many times as specified
             if (_tazerCounter < _tazerBurstNum && _tazerBurstTimer >= _tazerBurstSpeed)
             {
                 _tazerCounter++;
                 _tazerBurstTimer = 0;
                 ShootBolt();
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderTazer, this.transform.position);
             }
-            RotateTowardsPlayer();
+            //RotateTowardsPlayer();
             _tazerBurstTimer += Time.deltaTime;
             yield return null;
         }
@@ -70,7 +75,22 @@ public class SpiderTazerManager : MonoBehaviour
     private void RotateTowardsPlayer()
     {
         Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, toPlayer, _rotation * Time.deltaTime);
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
     }
 
     private void ResetVars()

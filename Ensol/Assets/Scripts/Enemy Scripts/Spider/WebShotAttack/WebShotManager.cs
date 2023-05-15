@@ -46,12 +46,16 @@ public class WebShotManager : MonoBehaviour
 
     private IEnumerator WebShotAttack()
     {
-        //Add edge case of dying
-        while (spiderBT.root.GetData("shootWeb") == null && spiderBT.isAlive)
+        while (spiderBT.root.GetData("shootWeb") == null)
         {
+            if (!spiderBT.isAlive)
+            {
+                yield break;
+            }
             yield return null;
         }
         ShootWeb();
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderWebShoot, this.transform.position);
         spiderBT.root.ClearData("shootWeb");
     }
 

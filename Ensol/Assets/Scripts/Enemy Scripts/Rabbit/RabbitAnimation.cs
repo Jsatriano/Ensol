@@ -32,16 +32,16 @@ public class RabbitAnimation : MonoBehaviour
         if (playerTF == null && rabbitBT.root.GetData("player") != null)
         {
             playerTF = (Transform)rabbitBT.root.GetData("player");
-            minSpeed = rabbitBT.rabbitStats.minSpeed;
-            maxSpeed = rabbitBT.rabbitStats.maxSpeed;
         }
 
         switch (state)
         {
             case State.SITTING:
                 //Exits idle once rabbit has seen player
-                if (playerTF != null)
+                if (rabbitBT.player != null)
                 {
+                    minSpeed = rabbitBT.rabbitStats.minSpeed;
+                    maxSpeed = rabbitBT.rabbitStats.maxSpeed;
                     animController.SetBool("Sitting", false);
                     animController.SetBool("Leaping", true);
                     state = State.LEAPING;

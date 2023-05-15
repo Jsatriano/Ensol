@@ -23,5 +23,5 @@ You thrust your weapon into the control panel, breaking it.
 ->END
 
 ===off===
-The control panel for the river is broken. The river is no longer flowing <b>north</b>.
+The control panel for the river is broken. The river is no longer flowing <u><b>north</b></u>.
 ->END

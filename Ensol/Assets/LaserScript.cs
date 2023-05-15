@@ -27,6 +27,7 @@ public class LaserScript : MonoBehaviour
             {
                 laserLine.enabled = false;
             }
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.turretFire, this.transform.position);
             laserLine.SetPosition(0, startPoint.position);
             laserLine.SetPosition(1, new Vector3(endPoint.position.x, endPoint.position.y + 1f, endPoint.position.z));
             PlayerData.currHP = 0;

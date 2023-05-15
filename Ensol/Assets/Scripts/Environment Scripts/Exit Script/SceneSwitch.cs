@@ -11,8 +11,6 @@ public class SceneSwitch : MonoBehaviour
     public bool Entrance = true;
     public static bool exitFrom = true;
 
-    public bool GameFinished = false;
-
     void Start()
     {
         if(blackOutSquare == null){
@@ -56,12 +54,7 @@ public class SceneSwitch : MonoBehaviour
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
                     Cursor.visible = true;
-
-                    if (GameFinished == false){
-                        SceneManager.LoadScene(sceneName:"MapScene"); 
-                    } else {
-                        SceneManager.LoadScene(sceneName:"CreditScene");
-                    }
+                    SceneManager.LoadScene(sceneName:"MapScene");
 
                 }
                 yield return null;

@@ -15,7 +15,7 @@ public class SpiderAggroMovement : Node
     private float _idealDistance; //The ideal distance the enemy tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The enemy's direction of movement
-    private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
+    private float _rotation; //How quickly the enemy turns (how well they can track the player)
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
     private float _distanceToPlayer;
@@ -32,7 +32,7 @@ public class SpiderAggroMovement : Node
         _maxSpeed = maxSpeed / 10;
         _acceleration = acceleration;
         _idealDistance = idealDistance;
-        _rotationSpeed = rotationSpeed;
+        _rotation = rotationSpeed;
         movingDir = Vector3.zero;
         _minSpeed = minSpeed / 10;
         _rapidAvoidDist = rapidAvoidDist;
@@ -59,7 +59,7 @@ public class SpiderAggroMovement : Node
             _enemyRB.AddForce(movingDir * _acceleration, ForceMode.Acceleration);
         }
 
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, _dirToPlayer, _rotationSpeed / 100);
+        RotateTowardsPlayer();
         state = NodeState.SUCCESS;
         return state;
     }
@@ -156,5 +156,26 @@ public class SpiderAggroMovement : Node
             finalWeights[i] = Mathf.Clamp01(playerWeights[i] - obstacleWeights[i]);
         }
         return finalWeights;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
     }
 }

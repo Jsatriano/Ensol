@@ -1,4 +1,5 @@
 VAR abletoleave = false
+VAR abletoleave2 = false
 VAR footprints = false
 VAR river_controls = false
 VAR dear_defeated = false
@@ -15,4 +16,3 @@ VAR spider_defeated = false
 VAR deerSeen = false
 VAR rabbitSeen = false
 VAR bearSeen = false
-VAR footstepsSeen = false

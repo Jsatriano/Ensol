@@ -32,12 +32,16 @@ public class SpiderWebManager : MonoBehaviour
 
     private IEnumerator WebDeployAttack()
     {
-        //Add edge case of dying
-        while (spiderBT.root.GetData("dropWeb") == null && spiderBT.isAlive)
+        while (spiderBT.root.GetData("dropWeb") == null)
         {
+            if (!spiderBT.isAlive)
+            {
+                yield break;
+            }
             yield return null;
         }
         GameObject web = Instantiate(webPrefab, webSpawnPoint.position, transform.rotation);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderWeb, this.transform.position);
         GroundWeb webScript = web.GetComponent<GroundWeb>();
         webScript.spiderTF = _enemyTF;
         webScript.speedDebuff = speedDebuff;
