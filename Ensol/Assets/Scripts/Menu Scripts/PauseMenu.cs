@@ -164,6 +164,17 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void SpawnMiniSpider()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Mini Spider")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
+
     public void SpawnCrackDeer()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)

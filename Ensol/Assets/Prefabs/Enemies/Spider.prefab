@@ -143,7 +143,7 @@ MonoBehaviour:
   attackingCooldown: 1
   acceleration: 30
   visionRange: 15
-  rotationSpeed: 8
+  rotationSpeed: 3
   obstacleDetectRadius: 5
   shieldDropChance: 0.25
   shieldDropPrefab: {fileID: 3900864427737400880, guid: d50cd67b3ecc602439ccc5ad67cbeba3, type: 3}
@@ -182,17 +182,18 @@ MonoBehaviour:
   webMaxSpeed: 30
   webMinSpeed: 15
   webMaxPrediction: 5
+  webShotRotation: 2
   webShotPrefab: {fileID: 2105841739546140041, guid: b8155e31233c63e4681a2fdd86f94bbf, type: 3}
   webShotManager: {fileID: 8825981490302981255}
   webShotSpawnPoint: {fileID: 7463606841737395095}
   tazerCooldown: 3
-  tazerDamage: 2
+  tazerDamage: 3
   tazerMinRange: 5
   tazerMaxRange: 15
   tazerBurstNum: 3
-  tazerBurstSpeed: 0.2
+  tazerBurstSpeed: 0.25
   tazerPower: 30
-  tazerRotation: 50
+  tazerRotation: 3
   boltPrefab: {fileID: 1144287179827763773, guid: de8d723506918074980682d97fd15b4a, type: 3}
   tazerSpawnPoint: {fileID: 3758800490590958887}
   tazerManager: {fileID: 2823372405310615294}
@@ -1042,7 +1043,9 @@ MonoBehaviour:
   animController: {fileID: 5180116610835090141}
   spiderRB: {fileID: 3549388664889948593}
   spiderBT: {fileID: 8642310613724585887}
-  tazerManager: {fileID: 0}
+  miniSpeedMult: 0
+  miniTazerMult: 0
+  isMiniSpider: 0
 --- !u!4 &1400978267257453353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1072600842065334525, guid: ed0b349ea5b817c4ca80ae899dfe42aa, type: 3}

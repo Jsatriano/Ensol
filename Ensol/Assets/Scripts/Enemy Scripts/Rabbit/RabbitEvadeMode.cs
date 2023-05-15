@@ -17,7 +17,7 @@ public class RabbitEvadeMode : Node
     private float _idealDistance; //The ideal distance the rabbit tries to stay from the player
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The rabbit's direction of movement
-    private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
+    private float _rotation; //How quickly the enemy turns (how well they can track the player)
     private float[] weights = new float[8];    //The context map for the deer
     private float[] zeroArray = new float[8];  //Used for resetting arrays to all zeroes
     private Vector3 _originalPos;
@@ -32,7 +32,7 @@ public class RabbitEvadeMode : Node
         _maxSpeed = maxSpeed / 10;
         _acceleration = acceleration;
         _idealDistance = idealDistance;
-        _rotationSpeed = rotationSpeed;
+        _rotation = rotationSpeed;
         movingDir = Vector3.zero;
         _landingDrag = landingDrag;
         _normalDrag = normalDrag;
@@ -48,7 +48,7 @@ public class RabbitEvadeMode : Node
         if (GetData("applyLandingDrag") != null)
         {
             _enemyRB.drag = _landingDrag;
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+            RotateTowardsPlayer();
         }
 
         //Evade currently doesn't count leaps, so this is just making sure that aggro doesn't instantly count a leap when transferring to it
@@ -76,7 +76,7 @@ public class RabbitEvadeMode : Node
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+        RotateTowardsPlayer();
 
         float evadeSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, 1 - Mathf.Clamp01(_distanceToPlayer / _rapidAvoidDist));
 
@@ -191,5 +191,25 @@ public class RabbitEvadeMode : Node
             finalWeights[i] = Mathf.Clamp01(playerWeights[i] - obstacleWeights[i]);
         }
         return finalWeights;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        float angle = Vector3.Angle(_enemyTF.forward, movingDir);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = movingDir;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, movingDir) > Vector3.Dot(-_enemyTF.right, movingDir))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
     }
 }
