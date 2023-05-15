@@ -69,7 +69,7 @@ public class ToggleWalls : MonoBehaviour
 
         // if player walks inside, fade out walls
         if (inside && currAlpha > 0.0f) {
-            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha -= 0.1f, 1f);
+            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha -= 0.05f, 1f);
             setAlpha(currAlpha);
             if (currAlpha <= 0.0f) {
                 walls.SetActive(false);
@@ -78,7 +78,7 @@ public class ToggleWalls : MonoBehaviour
 
         // if player walks outside, fade in walls
         if (outside && currAlpha <= 1.0f) {
-            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha += 0.1f, 1f);
+            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha += 0.05f, 1f);
             setAlpha(currAlpha);
         }
     }
