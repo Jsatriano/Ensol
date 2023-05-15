@@ -54,6 +54,7 @@ public class SceneSwitch : MonoBehaviour
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
                     Cursor.visible = true;
+                    SceneManager.LoadScene(sceneName:"MapScene");
 
                 }
                 yield return null;
