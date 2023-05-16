@@ -1,4 +1,5 @@
 VAR abletoleave = false
+VAR abletoleave2 = false
 VAR footprints = false
 VAR river_controls = false
 VAR dear_defeated = false

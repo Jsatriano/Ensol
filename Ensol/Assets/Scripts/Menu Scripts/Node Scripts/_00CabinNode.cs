@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class _00CabinNode : MonoBehaviour
 {
     [Header("Exitting Variables")]
-    public bool pathToDeer = false;
     public ElectricGateController electricGateToGate = null;
     public PathCollider exitOnTriggerEnterEvent;
+    private bool pathToDeer = false;
 
     [Header("Interactable Objects")]
     public GameObject doorInteractable;
