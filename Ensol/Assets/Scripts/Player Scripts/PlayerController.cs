@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistance
 {
     public enum State
     {
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
     public TextAsset globals;
     [HideInInspector] public GameObject[] lightSlashVFX;
     [HideInInspector] public GameObject heavySlashVFX;
+    private int NGworked;
 
     
     //Input Read Variables
@@ -252,6 +253,16 @@ public class PlayerController : MonoBehaviour
             vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();
+    }
+
+    public void LoadData(PData data)
+    {
+        this.NGworked = data.NGworked;
+    }
+
+    public void SaveData(ref PData data)
+    {
+        data.NGworked = this.NGworked;
     }
 
     void FixedUpdate() {
@@ -587,6 +598,7 @@ public class PlayerController : MonoBehaviour
 
             case State.PAUSED:
                 allowInput = false;
+                this.NGworked++;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
