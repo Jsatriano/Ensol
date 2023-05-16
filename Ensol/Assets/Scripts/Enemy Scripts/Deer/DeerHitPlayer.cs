@@ -31,7 +31,7 @@ public class DeerHitPlayer : MonoBehaviour
             PlayerController combatController = col.gameObject.GetComponent<PlayerController>();
             if (combatController != null)
             {
-                combatController.TakeDamage(attackDamage, coll);
+                combatController.TakeDamage(attackDamage, deerBT.transform.position);
                 if (tellBT)
                 {
                     deerBT.root.SetData("attackHit", true);

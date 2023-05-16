@@ -18,11 +18,13 @@ public class JunkBall : MonoBehaviour
     public Transform explosionTF;  //Transform of the explosion
     private Rigidbody ballRB;      //Rigidbody of the junk ball
     public GameObject ballModel;   //Visual model for the junk ball
+    private Vector3 bearPos;
 
     private void Start()
     {
         isExploding = false;
         ballRB = gameObject.GetComponent<Rigidbody>();
+        bearPos = bearTF.position;
     }
 
     private void FixedUpdate()
@@ -85,11 +87,11 @@ public class JunkBall : MonoBehaviour
                 //Damage player
                 if (isExploding)
                 {
-                    playerScript.TakeDamage(explosionDamage, explosionCollider);
+                    playerScript.TakeDamage(explosionDamage, bearPos);
                 }
                 else
                 {
-                    playerScript.TakeDamage(junkDamage, junkCollider);
+                    playerScript.TakeDamage(junkDamage, bearPos);
                     Explode();
                 }
             }
