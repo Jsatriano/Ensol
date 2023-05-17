@@ -17,7 +17,9 @@ The terminal denies your access, flashing the error message: “Denizen’s are 
 
 
 ===2nd===
-You thrust your weapon into the control panel, breaking it.
+You thrust your weapon into the control panel, breaking it. 
+
+{footprints_found: <u>The water is no longer flowing to the north</u>.}
 ~river_controls = true
 
 ->END
