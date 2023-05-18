@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistance
 {
     public enum State
     {
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
     public TextAsset globals;
     [HideInInspector] public GameObject[] lightSlashVFX;
     [HideInInspector] public GameObject heavySlashVFX;
+    private int NGworked;
 
     
     //Input Read Variables
@@ -252,6 +253,16 @@ public class PlayerController : MonoBehaviour
             vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();
+    }
+
+    public void LoadData(PData data)
+    {
+        this.NGworked = data.NGworked;
+    }
+
+    public void SaveData(ref PData data)
+    {
+        data.NGworked = this.NGworked;
     }
 
     void FixedUpdate() {
@@ -587,6 +598,7 @@ public class PlayerController : MonoBehaviour
 
             case State.PAUSED:
                 allowInput = false;
+                this.NGworked++;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {
@@ -1018,7 +1030,7 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
-    public void TakeDamage(float dmg, Collider collider) // Justin
+    public void TakeDamage(float dmg, Vector3 enemyPos) // Justin
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
@@ -1036,10 +1048,10 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(damageFlash.FlashRoutine());
 
                 // knockback player
-                StartCoroutine(Knockback(collider));
+                Knockback(enemyPos);
 
                 // change state to limit actions
-                state = State.KNOCKBACK;
+                //state = State.KNOCKBACK;
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, damageVFXLocation.transform.position);
 
@@ -1067,23 +1079,27 @@ public class PlayerController : MonoBehaviour
         Destroy(damageVFXToDelete);
     }
 
-    private IEnumerator Knockback(Collider collider)
+    private void Knockback(Vector3 enemyPos)
     {
         // start knockback
         knockback = true;
 
         // calculate direction to push player back
-        Vector3 direction = (collider.transform.position - transform.position) * -1;
+        Vector3 direction = new Vector3(enemyPos.x - transform.position.x, 0, enemyPos.z - transform.position.z).normalized * -1f;
         Vector3 forceToApply = direction * knockbackForce;
+        rb.AddForce(forceToApply, ForceMode.Impulse);
 
         // push player back
+        /*
         rb.drag = 0;
         rb.AddForce(forceToApply, ForceMode.Impulse);
         yield return new WaitForSeconds(knockbackTimer);
 
         // reset drag and end knockback
         rb.drag = normalDrag;
+         */
         knockback = false;
+       
     }
 
     private IEnumerator EndComboTimer(int callCounter) {

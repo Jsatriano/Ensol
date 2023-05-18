@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class _00CabinNode : MonoBehaviour
 {
     [Header("Exitting Variables")]
-    public bool pathToDeer = false;
     public ElectricGateController electricGateToGate = null;
     public PathCollider exitOnTriggerEnterEvent;
+    private bool pathToDeer = false;
 
     [Header("Interactable Objects")]
     public GameObject doorInteractable;
@@ -24,11 +24,7 @@ public class _00CabinNode : MonoBehaviour
     public DialogueTrigger windowInteractor;
     public DialogueTrigger conveyerInteractor;
     public DialogueTrigger plushInteractor;
-
-    [Header("Broom Stuff")]
-    [SerializeField] private MeshRenderer broomMesh;
-    [SerializeField] private Material[] interactMat;
-    [SerializeField] private Material[] broomMat;
+ 
 
     [Header("Re-Picking up Weapons")]
     [SerializeField] private GameObject stick;
@@ -37,7 +33,8 @@ public class _00CabinNode : MonoBehaviour
 
     [Header("Other Variables")]
     public GameObject gateTransferCube;
-    [SerializeField] private GameObject broom;   
+    [SerializeField] private GameObject broom;
+    [SerializeField] private GameObject interactableBroom;
     [HideInInspector] public GameObject[] players = null;
     private PlayerController combatController = null;
     
@@ -51,17 +48,18 @@ public class _00CabinNode : MonoBehaviour
         if (PlayerData.hasBroom)
         {
             broom.SetActive(false);
+            interactableBroom.SetActive(false);
         }
         //Only load the interactable broom once the player has died to the crack deer
         else if (PlayerData.diedToCrackDeer)
         {
-            broom.tag = "InteractablePickup";
-            broomMesh.materials = interactMat;
+            interactableBroom.SetActive(true);
+            broom.SetActive(false);
         }
         else
         {
-            broom.tag = "Untagged";
-            broomMesh.materials = broomMat;
+            broom.SetActive(true);
+            interactableBroom.SetActive(false);
         }
         weaponPile.SetActive(false);
         stick.SetActive(false);
@@ -93,7 +91,7 @@ public class _00CabinNode : MonoBehaviour
             gateTransferCube.SetActive(true);
         }
         //Player picking up broom
-        if (broom.activeInHierarchy == false && !PlayerData.hasBroom)
+        if (!broom.activeInHierarchy && !interactableBroom.activeInHierarchy && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
         }

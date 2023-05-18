@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class _10MetalFieldNode : MonoBehaviour
 {
-    [Header("Scripts")]
-    public ElectricGateController electricGateController = null;
+    [Header("Exitting Variables")]
+    public PathCollider exitOnTriggerEnterEvent;
+    private bool pathToComputer = false;
+
 
     private void Start()
     {
@@ -14,9 +16,27 @@ public class _10MetalFieldNode : MonoBehaviour
 
     public void Update()
     {
-        if(electricGateController.opening)
+        // if bottom gate was opened unlock node
+        if (pathToComputer)
         {
             CompletedNodes.computerNode = true;
         }
+    }
+
+    //have to detect collider on another object
+    void OnEnable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.AddListener(ExitTriggerMethod);
+    }
+
+    void OnDisable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.RemoveListener(ExitTriggerMethod);
+    }
+
+    void ExitTriggerMethod(Collider col){
+        
+        if (col.tag == "Player"){
+            pathToComputer = true;
+        }
+        
     }
 }

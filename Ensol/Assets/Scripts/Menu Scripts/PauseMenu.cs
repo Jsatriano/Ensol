@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public DataPersistanceManager dataManager;
     public GameObject resumeButton;
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
@@ -18,6 +19,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
