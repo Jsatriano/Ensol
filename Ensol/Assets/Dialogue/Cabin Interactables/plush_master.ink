@@ -4,6 +4,7 @@ INCLUDE ../globals.ink
 { deadtodeer == true: -> After_death}
 { abletoleave == false: -> Intro | -> Over}
 
+
 === Intro ===
 ???: Ah, finally! That took a lot longer than usual. I was getting a bit worried.
 
@@ -25,7 +26,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 ->Dialogue_options
 
 
-* {abletoleave && abletoleave2} [Just need to walk around for a little.]
+* {abletoleave && abletoleave2} [I just want to walk around for a bit.]
 P1-USH: Okay! If you need anything let me know.
 -> END
 
@@ -46,8 +47,8 @@ P1-USH: Still don’t remember? With that cloning machine right over there you d
 ~body = true
 ->After_death_options
 
-*{body} [My old body?]
-P1-USH: Yup! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
+*{body} [What do you mean by my old body?]
+P1-USH: As in your old body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
 ->After_death_options
 
 *[What was that outside?]
@@ -55,16 +56,16 @@ P1-USH: Oh! That was a power-gathering model. Of course, all the units outside a
 ~death = true
 ->After_death_options
 
-*{death}[It killed me!]
-P1-USH: It did. Allowing it to bring you back here in the fastest manner possible, so that you could be cloned back home in good health.
+*{death}[That deer killed me! Is that the retrieval protocal?]
+P1-USH: It did, and it is. The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you could be cloned back home in good health.
 ->After_death_options
 
 *[Can I have a weapon?]
 P1-USH: A weapon?! Why would you need a weapon? It’s perfectly safe here in the cabin. I don’t want you to hurt yourself with something dangerous.
  ->After_death_options
  
-*[I should get up.]
-P1-USH: Please don't go outside again!
+*[I need to get going.]
+P1-USH: Sure thing, but please don't go into the forest again!
 ~deadtodeer = false
 ~abletoleave = true
 ->END
@@ -81,14 +82,14 @@ P1-USH: Hey friend! Is there something you need? Some tunes? How about your favo
 
 ===Plush_unlock===
 
-+[I want to ask something about the machines in the forest.]
-P1-USH: Sure thing!
++[I want to know more about one of the units in the forest.]
+P1-USH: Sure thing! 
 ->forest_questions
-+{footprints_found}[I want to ask about something else in the forest.]
++{footprints_found}[I want to know more about something else in the forest.]
 P1-USH: Sure thing!
 ->forest_other
 +[I want to ask something about you.]
-P1-USH: Sure thing!
+P1-USH: Of course! 
 ->plush_questions
 
 
@@ -119,7 +120,7 @@ P1-USH: Okay!
 -> Plush_unlock
 
 ===plush_questions===
-+{dear_defeated}[ Why do you keep staring at my equipment.]
+*{dear_defeated}[ Why do you keep staring at my equipment.]
 P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
     ->plush_questions
     
@@ -144,7 +145,7 @@ P1-USH: That’s the trash-collecting model. It uses a combination of powerful m
 +{spider_defeated} [Those spider robots, what were they used for?]
 P1-USH: They are used to make powerlines effectively. They’re kept in that area specifically and are rarely sent out anywhere else. They can climb walls extremely well, and send out powerlines from a great distance. Be careful when they’re working as you wouldn’t want one to fall on you, they’re heavy.
 ->forest_questions
-    
+
 +[(Previous Options.)]
 P1-USH: Anything else?
 ->forest_questions
