@@ -18,6 +18,10 @@ public class CompletedNodes : MonoBehaviour
         true, true, true, true, true,
         true, true, true, true, true,
     };
+    public static bool[] firstTransition = new bool[] {
+        true, true, true, true, true,
+        true, true, true, true, true
+    };
 
     public Button computerNodeButton;
     private int lastNode;
@@ -76,29 +80,51 @@ public class CompletedNodes : MonoBehaviour
         if(deerNode)
         {
             // activate deer X
-            mapButton[1].SetActive(true);
             if(firstLoad[1])
             {
-                SliderToggle(1);
+                StartCoroutine(SliderToggle(1, 0f));
+            }
+            else
+            {
+                mapButton[1].SetActive(true);
             }
         }
         if(riverNode)
         {
+            
+
             // activate river X
-            mapButton[2].SetActive(true);
             if(firstLoad[2])
             {
-                SliderToggle(2);
+                StartCoroutine(SliderToggle(2, 3f));
+            }
+            else
+            {
+                mapButton[2].SetActive(true);
             }
 
             // activate deer button and scenery
-            ImageSwapTransition(1);
-            mapScenery[1].SetActive(true);
+            if(firstTransition[1])
+            {
+                ImageSwapTransition(1);
+                SceneryToggle(1);
+            }
+            else
+            {
+                ImageAndScenery(1);
+            }
         }
         if(gateNode)
         {
             // activate gate X
-            mapButton[3].SetActive(true);
+            if(firstLoad[3])
+            {
+                StartCoroutine(SliderToggle(3, 3f));
+            }
+            else
+            {
+                mapButton[3].SetActive(true);
+            }
         }
         if(riverControlNode)
         {
@@ -106,12 +132,23 @@ public class CompletedNodes : MonoBehaviour
             mapButton[4].SetActive(true);
             if(firstLoad[4])
             {
-                SliderToggle(4);
+                StartCoroutine(SliderToggle(4, 3f));
+            }
+            else
+            {
+                mapButton[4].SetActive(true);
             }
 
             // activate gate button and scenery
-            ImageSwapTransition(3);
-            mapScenery[3].SetActive(true);
+            if(firstTransition[3])
+            {
+                ImageSwapTransition(3);
+                SceneryToggle(3);
+            }
+            else
+            {
+                ImageAndScenery(3);
+            }
         }
         if(bearNode)
         {
@@ -119,7 +156,11 @@ public class CompletedNodes : MonoBehaviour
             mapButton[5].SetActive(true);
             if(firstLoad[5])
             {
-                SliderToggle(5);
+                StartCoroutine(SliderToggle(5, 3f));
+            }
+            else
+            {
+                mapButton[5].SetActive(true);
             }
 
             if(lastNode != 5 || lastNode != 7)
@@ -128,9 +169,15 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate river button and scenery
-            ImageSwapTransition(2);
-            mapScenery[2].SetActive(true);
-
+            if(firstTransition[2])
+            {
+                ImageSwapTransition(2);
+                SceneryToggle(2);
+            }
+            else
+            {
+                ImageAndScenery(2);
+            }
         }
         if(brokenMachineNode)
         {
@@ -138,23 +185,39 @@ public class CompletedNodes : MonoBehaviour
             mapButton[6].SetActive(true);
             if(firstLoad[6])
             {
-                SliderToggle(6);
+                StartCoroutine(SliderToggle(6, 3f));
+            }
+            else
+            {
+                mapButton[6].SetActive(true);
             }
 
             if(lastNode == 5)
             {
 
                 //activate bear button and scenery
-                ImageSwapTransition(5);
-                mapScenery[5].SetActive(true);
-
+                if(firstTransition[5])
+                {
+                    ImageSwapTransition(5);
+                    SceneryToggle(5);
+                }
+                else
+                {
+                    ImageAndScenery(5);
+                }
             }
             if(lastNode == 7)
             {
                 //activate security tower button and scenery
-                ImageSwapTransition(7);
-                mapScenery[7].SetActive(true);
-
+                if(firstTransition[7])
+                {
+                    ImageSwapTransition(7);
+                    SceneryToggle(7);
+                }
+                else
+                {
+                    ImageAndScenery(7);
+                }
             }
         }
         if(securityTowerNode)
@@ -163,7 +226,11 @@ public class CompletedNodes : MonoBehaviour
             mapButton[7].SetActive(true);
             if(firstLoad[7])
             {
-                SliderToggle(7);
+                StartCoroutine(SliderToggle(7, 3f));
+            }
+            else
+            {
+                mapButton[7].SetActive(true);
             }
 
             if(lastNode != 5 && lastNode != 7)
@@ -172,8 +239,15 @@ public class CompletedNodes : MonoBehaviour
             }
 
             //activate river control button and scenery
-            ImageSwapTransition(4);
-            mapScenery[4].SetActive(true);
+            if(firstTransition[4])
+            {
+                ImageSwapTransition(4);
+                SceneryToggle(4);
+            }
+            else
+            {
+                ImageAndScenery(4);
+            }
         }
         if(birdNode)
         {
@@ -181,12 +255,23 @@ public class CompletedNodes : MonoBehaviour
             mapButton[8].SetActive(true);
             if(firstLoad[8])
             {
-                SliderToggle(8);
+                StartCoroutine(SliderToggle(8, 3f));
+            }
+            else
+            {
+                mapButton[8].SetActive(true);
             }
 
             // activate river button and scenery
-            ImageSwapTransition(2);
-            mapScenery[2].SetActive(true);
+            if(firstTransition[2])
+            {
+                ImageSwapTransition(2);
+                SceneryToggle(2);
+            }
+            else
+            {
+                ImageAndScenery(2);
+            }
         }
         if(powerGridNode)
         {
@@ -194,12 +279,23 @@ public class CompletedNodes : MonoBehaviour
             mapButton[9].SetActive(true);
             if(firstLoad[9])
             {
-                SliderToggle(9);
+                StartCoroutine(SliderToggle(9, 3f));
+            }
+            else
+            {
+                mapButton[9].SetActive(true);
             }
 
             // activate broken machine button and scenery
-            ImageSwapTransition(7);
-            mapScenery[7].SetActive(true);
+            if(firstTransition[7])
+            {
+                ImageSwapTransition(7);
+                SceneryToggle(7);
+            }
+            else
+            {
+                ImageAndScenery(7);
+            }
         }
         if(metalFieldNode)
         {
@@ -207,20 +303,38 @@ public class CompletedNodes : MonoBehaviour
             mapButton[10].SetActive(true);
             if(firstLoad[10])
             {
-                SliderToggle(10);
+                StartCoroutine(SliderToggle(10, 3f));
+            }
+            else
+            {
+                mapButton[10].SetActive(true);
             }
 
             // activate broken machine button and scenery
-            ImageSwapTransition(6);
-            mapScenery[6].SetActive(true);
+            if(firstTransition[6])
+            {
+                ImageSwapTransition(6);
+                SceneryToggle(6);
+            }
+            else
+            {
+                ImageAndScenery(6);
+            }
         }
         if(computerNode)
         {
             computerNodeButton.interactable = true;
 
             // activate metal field button and scenery
-            ImageSwapTransition(10);
-            mapScenery[10].SetActive(true);
+            if(firstTransition[10])
+            {
+                ImageSwapTransition(10);
+                SceneryToggle(10);
+            }
+            else
+            {
+                ImageAndScenery(10);
+            }
         }
 
 
@@ -396,8 +510,12 @@ public class CompletedNodes : MonoBehaviour
     }
 
     // function for activating the X on any node
-    private void SliderToggle(int i)
+    private IEnumerator SliderToggle(int i, float waitTime)
     {
+        yield return new WaitForSeconds(waitTime);
+
+        mapButton[i].SetActive(true);
+
         float lastVal = mapSlider[i].value;
         if(lastVal == 1f)
         {
@@ -410,6 +528,11 @@ public class CompletedNodes : MonoBehaviour
     // function for swapping the X on any node out for its actual image
     private void ImageSwapTransition(int i)
     {
+        if(mapSlider[i].value >= 0.9f && mapButton[i].GetComponent<Button>().image.sprite == image[i])
+        {
+            firstTransition[i] = false;
+        }
+
         float lastVal = mapSlider[i].value;
         print(lastVal);
 
@@ -428,5 +551,27 @@ public class CompletedNodes : MonoBehaviour
         {
             mapSlider[i].value = Mathf.Lerp(lastVal, 1f, 1f * Time.deltaTime);
         }
+    }
+
+    // function for fading in the scenery
+    private void SceneryToggle(int i)
+    {
+        // create 2 new colors to lerp from / to
+        Color lastColor = mapScenery[i].GetComponent<Image>().color;
+        Color newColor = new Color(1f, 1f, 1f, 1f);
+
+        // create the lerped color
+        Color lerpedColor = Color.Lerp(lastColor, newColor, 1f * Time.deltaTime);
+
+        // apply the lerped color to game
+        mapScenery[i].GetComponent<Image>().color = lerpedColor;
+    }
+
+    // function for after a node's completed animation has already been played once before
+    private void ImageAndScenery(int i)
+    {
+        mapButton[i].GetComponent<Button>().image.sprite = image[i];
+        mapSlider[i].value = 1f;
+        mapScenery[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
 }
