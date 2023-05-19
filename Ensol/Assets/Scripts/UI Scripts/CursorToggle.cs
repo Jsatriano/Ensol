@@ -14,17 +14,17 @@ public class CursorToggle : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        if (scene.name == "SampleScene" || scene.name == "PlaytestingScene"){
+        if (scene.name == "GameplayScene" || scene.name == "PlaytestingScene"){
             arrow.SetActive(false);
         }
     }
 
     void Update()
     {
-        if(((scene.name == "SampleScene" && !dialoguebox.activeInHierarchy) || (scene.name == "PlaytestingScene")) && !pauseMenu.activeInHierarchy)
+        if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || (scene.name == "PlaytestingScene")) && !pauseMenu.activeInHierarchy)
         {
             Cursor.visible = false;
-            if ((scene.name == "SampleScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
+            if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
                 arrow.SetActive(true);
             }
         }
@@ -32,7 +32,7 @@ public class CursorToggle : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.lockState = CursorLockMode.None;
-            if (scene.name == "SampleScene" || scene.name == "PlaytestingScene"){
+            if (scene.name == "GameplayScene" || scene.name == "PlaytestingScene"){
                 arrow.SetActive(false);
             }
             Cursor.visible = true;
