@@ -38,7 +38,8 @@ public class BirdFlyAway : MonoBehaviour
             birdAnim.SetBool("isDying", true);
             flyRadius.SetActive(false);
             gameObject.GetComponent<Collider>().enabled = false;
-            print("bird shot!");
+            PlayerData.killedBird = true;
+            print("Bird killed");
         }
     }
 }

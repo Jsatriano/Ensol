@@ -27,16 +27,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758564553308371988}
-  m_LocalRotation: {x: -0.5885337, y: -0.39195415, z: -0.39195415, w: 0.5885337}
-  m_LocalPosition: {x: 187.321, y: 1.339, z: -40.674}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 14.999999, y: 14.999999, z: 14.999999}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1288671448111919118}
   - {fileID: 8584993075636623442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: -67.326, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!33 &8826052654202742311
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758564553308371988}
-  m_Mesh: {fileID: 1451124467863808234, guid: 0b2fdb3624c5b8c44ae6e3f755c0f70c, type: 3}
+  m_Mesh: {fileID: 1451124467863808234, guid: 5037d5e7272e19141a10f1c2cd5c06d5, type: 3}
 --- !u!23 &9083896234210244039
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b5f7e58696a848c42ae3e1bf318f0fd0, type: 2}
+  - {fileID: 2100000, guid: ce868f7ae453096468388df6b2e04613, type: 2}
   - {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -99,7 +99,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.04128081
+  m_Radius: 0.3
   m_Center: {x: -0.01, y: -0.0071551832, z: -0.019104635}
 --- !u!114 &5961070875332305158
 MonoBehaviour:
@@ -176,15 +176,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.022942936
+      value: 0.099999994
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.022942936
+      value: 0.099999994
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.022942936
+      value: 0.099999994
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalPosition.x
