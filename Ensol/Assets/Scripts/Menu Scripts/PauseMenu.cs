@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     public PlayerController combatController;
     public static bool isPaused;
     public Transform enemySpawnPoint;
+    public NodeSelector nodeSelector;
 
     private void Start()
     {
@@ -68,6 +69,36 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToNodeSelect() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName:"MapScene");
+    }
+
+    public void ReturnToCabin() {
+        StartCoroutine(ReturnToCabinFadeout());
+    }
+
+    public IEnumerator ReturnToCabinFadeout()
+    {
+        PauseUnpause();
+        GameObject blackOutSquare = GameObject.Find("Black Out Screen");
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        bool fadeToBlack = true;
+        float fadeSpeed = 1.1f;
+
+        if(fadeToBlack)
+        {
+            while(blackOutSquare.GetComponent<Image>().color.a < 1)
+            {
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
+                {
+                    nodeSelector.node = 1;
+                    nodeSelector.OpenScene();
+                }
+                yield return null;
+            }
+        }
     }
 
     public void EnterPlaytestMenu() {
