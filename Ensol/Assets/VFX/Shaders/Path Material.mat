@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Path Material
-  m_Shader: {fileID: -6465566751694194690, guid: 6accaf46d23b46a4e82272e76011f038, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 1abe052bdc5fdd542b43b334d0aecbdf, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -33,6 +33,26 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _A_Color_Map:
+        m_Texture: {fileID: 2800000, guid: 10bad4af3e98b9c41829394827f95160, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _A_Combined_Map:
+        m_Texture: {fileID: 2800000, guid: 1b5df349ecd7a864188460311e2495fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _B_Color_Map:
+        m_Texture: {fileID: 2800000, guid: 1a775837f5cd7db42a02a10f8e02f394, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _B_Combined_Map:
+        m_Texture: {fileID: 2800000, guid: 6012cb0f588c19548afc1accd784f642, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Blend_Map:
+        m_Texture: {fileID: 2800000, guid: 8028b0bb73c2fe3408d24d8dd4fc910a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_2467fea9291c491096822d1dbfc8d1ae_Texture_1:
         m_Texture: {fileID: 2800000, guid: 8028b0bb73c2fe3408d24d8dd4fc910a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -55,7 +75,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _A_AO_Strength: 0
+    - _A_AO_in_Color: 0
+    - _A_Color_Multiply: 1
+    - _A_Height_Power: 1.7
+    - _A_Metallic_Amount: 1
+    - _A_Normal_Strength: 0
+    - _A_Smoothness_Amount: 1
+    - _B_AO_Strength: 0
+    - _B_AO_in_Color: 0
+    - _B_Color_Multiply: 1
+    - _B_Height_Power: 1
+    - _B_Metallic_Amount: 1
+    - _B_Normal_Strength: 0
+    - _B_Smoothness_Amount: 1
+    - _Blend_Amount: 0.55
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _A_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _A_Tiling: {r: 8, g: 8, b: 0, a: 0}
+    - _B_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _B_Tiling: {r: 6, g: 6, b: 0, a: 0}
   m_BuildTextureStacks: []

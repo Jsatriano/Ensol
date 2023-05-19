@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public DataPersistanceManager dataManager;
     public GameObject resumeButton;
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
@@ -18,6 +19,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
@@ -158,6 +160,17 @@ public class PauseMenu : MonoBehaviour
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             if (enemyPrefabs[i].name == "Spider")
+            {
+                Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
+            }
+        }
+    }
+
+    public void SpawnMiniSpider()
+    {
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            if (enemyPrefabs[i].name == "Mini Spider")
             {
                 Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
             }

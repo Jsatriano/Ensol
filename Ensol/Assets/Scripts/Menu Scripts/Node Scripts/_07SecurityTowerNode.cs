@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class _07SecurityTowerNode : MonoBehaviour
 {
-    [Header("Scripts")]
-    public ElectricGateController gateTop = null;
-    public ElectricGateController gateBottom = null;
+    [Header("Exitting Variables")]
+    public PathCollider exitOnTriggerEnterEvent;
+    private bool pathToPowerGrid;
 
     [Header("Story Variables")]
     public GameObject bird;
@@ -44,16 +44,29 @@ public class _07SecurityTowerNode : MonoBehaviour
             }
         }
 
-        // if top gate was opened unlock node
-        if(gateTop.opening)
-        {
-            CompletedNodes.brokenMachineNode = true;
-        }
+        
         // if bottom gate was opened unlock node
-        if(gateBottom.opening)
+        if (pathToPowerGrid)
         {
             CompletedNodes.powerGridNode = true;
         }
+    }
+
+    //have to detect collider on another object
+    void OnEnable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.AddListener(ExitTriggerMethod);
+    }
+
+    void OnDisable(){
+        exitOnTriggerEnterEvent.exitOnTriggerEnter.RemoveListener(ExitTriggerMethod);
+    }
+
+    void ExitTriggerMethod(Collider col){
+        
+        if (col.tag == "Player"){
+            pathToPowerGrid = true;
+        }
+        
     }
 
 

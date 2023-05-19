@@ -12,7 +12,7 @@ public class RabbitAggroMode : Node
     private float _maxSpeed;      //Speed of the enemy
     private Vector3 _dirToPlayer; //The direction from the enemy to the player
     private Vector3 movingDir;    //The enemy's direction of movement
-    private float _rotationSpeed; //How quickly the enemy turns (how well they can track the player)
+    private float _rotation; //How quickly the enemy turns (how well they can track the player)
     private LayerMask _envLayerMask; //Used for linecasting to player breadcrumbs
     private float _landingDrag;
     private float _normalDrag;
@@ -29,7 +29,7 @@ public class RabbitAggroMode : Node
         _enemyRB = enemyRB;
         _acceleration = acceleration;
         _maxSpeed = maxSpeed / 10;
-        _rotationSpeed = rotationSpeed;
+        _rotation = rotationSpeed;
         movingDir = Vector3.zero;
         _envLayerMask = envLayerMask;
         _aggroLeaps = aggroLeaps;
@@ -82,11 +82,7 @@ public class RabbitAggroMode : Node
         {
             _enemyRB.drag = _landingDrag;
 
-            speedDot = Vector3.Dot(_enemyTF.forward, movingDir);
-            speedDot = (speedDot / 2) + 0.5f;
-            speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
-
-            _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+            RotateTowardsPlayer();
         }
 
         //Makes sure the var for feet being on ground is set
@@ -108,7 +104,7 @@ public class RabbitAggroMode : Node
         speedDot = (speedDot / 2) + 0.5f;
         speedDot = Mathf.Clamp(speedDot, 0.3f, 1);
 
-        _enemyTF.forward = Vector3.Lerp(_enemyTF.forward, movingDir, _rotationSpeed / 100);
+        RotateTowardsPlayer();
 
         //Moves rabbit in the desired direction (with a speed cap)
         if (_enemyRB.velocity.magnitude > _maxSpeed)
@@ -213,5 +209,26 @@ public class RabbitAggroMode : Node
         SetData("playerWeights", playerWeights);
 
         return playerWeights;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 toPlayer = new Vector3(_playerTF.position.x - _enemyTF.position.x, 0, _playerTF.position.z - _enemyTF.position.z).normalized;
+        float angle = Vector3.Angle(_enemyTF.forward, toPlayer);
+        if (angle < _rotation)
+        {
+            _enemyTF.forward = toPlayer;
+        }
+        else
+        {
+            if (Vector3.Dot(_enemyTF.right, toPlayer) > Vector3.Dot(-_enemyTF.right, toPlayer))
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, _enemyTF.up) * _enemyTF.rotation;
+            }
+            else
+            {
+                _enemyTF.rotation = Quaternion.AngleAxis(_rotation, -_enemyTF.up) * _enemyTF.rotation;
+            }
+        }
     }
 }

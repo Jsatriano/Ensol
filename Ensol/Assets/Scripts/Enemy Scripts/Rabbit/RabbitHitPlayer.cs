@@ -22,7 +22,7 @@ public class RabbitHitPlayer : MonoBehaviour
             PlayerController combatController = col.gameObject.GetComponent<PlayerController>();
             if (combatController != null)
             {
-                combatController.TakeDamage(attackDamage, coll);
+                combatController.TakeDamage(attackDamage, rabbitBT.transform.position);
                 if (tellBT)
                 {
                     rabbitBT.root.SetData("attackHit", true);

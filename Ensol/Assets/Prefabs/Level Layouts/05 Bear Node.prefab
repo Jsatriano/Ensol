@@ -775,7 +775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entrance: 1
-  GameFinished: 0
 --- !u!1 &2875979563610460537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1860,104 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6682363242210420833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 356930527441807432}
+  - component: {fileID: 5260979237974113951}
+  - component: {fileID: 2226445924412177529}
+  - component: {fileID: 8893517938480632965}
+  m_Layer: 0
+  m_Name: Metal Floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &356930527441807432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682363242210420833}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -3.6, y: 0.02, z: -44.6}
+  m_LocalScale: {x: 8.801453, y: 8.801453, z: 8.801453}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8727326795591620504}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!33 &5260979237974113951
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682363242210420833}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2226445924412177529
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682363242210420833}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e6417031a8261b544a1d5253ae11e9d2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8893517938480632965
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682363242210420833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7225626936262914628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,6 +2434,7 @@ Transform:
   - {fileID: 994757383734318219}
   - {fileID: 5969377663523889936}
   - {fileID: 332884836117880165}
+  - {fileID: 356930527441807432}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2471,6 +2569,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &2174676062414101535 stripped
@@ -2549,6 +2651,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b3739f7c00f86774daa983dcc4793e52, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &2072745986199906989 stripped
@@ -3151,6 +3261,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b087f7546d556940afe10d9664173de, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &4447187759969046107 stripped
@@ -3295,6 +3413,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3758890312652532680 stripped
@@ -3373,6 +3495,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b96989df1190ea4f939e2abc2704c82, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3694836837474483499 stripped
@@ -3451,6 +3581,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d613bd9b746bd034cbc18a78d8851688, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3468109330153820317 stripped
@@ -3529,6 +3667,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3493722167169546563 stripped
@@ -3607,6 +3753,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3214101114083831174 stripped
@@ -3786,6 +3940,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 904b65cf45d2235408a56aab03746900, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &3258601233931576602 stripped
@@ -3965,6 +4127,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb5dacd673f61734790900ce7578b4eb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &6901924632079689208 stripped
@@ -4043,6 +4213,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d613bd9b746bd034cbc18a78d8851688, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &6670737663921770157 stripped
@@ -4323,6 +4501,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &6449553871067915060 stripped
@@ -4708,6 +4894,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &5405459714591294826 stripped
@@ -4819,7 +5013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2199393961135201310, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.5
+      value: -19.73
       objectReference: {fileID: 0}
     - target: {fileID: 2199393961135201310, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4857,6 +5051,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 953c119ffdcd4494db65b4e60ba1843f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &4990004545357214607 stripped
@@ -5226,6 +5436,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb5dacd673f61734790900ce7578b4eb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &9158841248385583947 stripped
@@ -5405,6 +5623,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &8316816700276236280 stripped
@@ -5483,6 +5709,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b087f7546d556940afe10d9664173de, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &8076483343274435318 stripped
@@ -5561,6 +5795,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31dcec0249319a645a1f08eb8bed0247, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &7800186951464846641 stripped
@@ -5639,6 +5881,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1b78df400e2bc14c9fa83faa302464a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &7871653426669325410 stripped
@@ -5656,6 +5906,30 @@ PrefabInstance:
     - target: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_Name
       value: ElectricGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3868980140287304348, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: buttonCol
@@ -5731,6 +6005,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173769720347398367, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173769720347398367, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5904,6 +6186,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metal Panel (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bb5dacd673f61734790900ce7578b4eb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
 --- !u!4 &7492812427078495625 stripped
@@ -6047,6 +6337,10 @@ PrefabInstance:
     - target: {fileID: 2987793479210638046, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
       propertyPath: m_Name
       value: Metal Panel (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727168980532846730, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1168f9d0ef7e89348b617264e443507d, type: 3}
