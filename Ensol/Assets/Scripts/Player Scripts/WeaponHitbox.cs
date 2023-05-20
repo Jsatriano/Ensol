@@ -16,7 +16,6 @@ public class WeaponHitbox : MonoBehaviour
     public GameObject electricHitVFX;
     public GameObject noElectricHitVFX;
     private Queue<GameObject> activeHitVFX = new Queue<GameObject>();
-    [SerializeField] private CameraShake cameraScript;
 
     void Awake()
     {
@@ -78,7 +77,6 @@ public class WeaponHitbox : MonoBehaviour
     void OnTriggerEnter(Collider col) {
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
-                cameraScript.ShakeCamera();
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
                 Transform hitVFXTargetLocation = null;
