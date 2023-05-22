@@ -134,6 +134,8 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     [HideInInspector] public GameObject[] lightSlashVFX;
     [HideInInspector] public GameObject heavySlashVFX;
     private int NGworked;
+    [SerializeField] private OptionsMenu optionsMenu;
+    [SerializeField] private List<GameObject> catModeObjects;
 
     
     //Input Read Variables
@@ -203,6 +205,8 @@ public class PlayerController : MonoBehaviour, IDataPersistance
             lightSlashVFX = electricLightSlashVFX;
             heavySlashVFX = electricHeavySlashVFX;
         }
+        optionsMenu.OnCatModeChange.AddListener(UpdateCatMode);
+        UpdateCatMode(OptionsMenu.catModeActivated);
     }
 
     void Update() {
@@ -1187,6 +1191,15 @@ public class PlayerController : MonoBehaviour, IDataPersistance
         FX2.SetActive(true);
         lightSlashVFX = noElectricLightSlashVFX;
         heavySlashVFX = noElectricHeavySlashVFX;
+    }
+
+    public void UpdateCatMode(bool activated)
+    {
+        Debug.Log("CATMOD");
+        foreach(GameObject catObject in catModeObjects)
+        {
+            catObject.SetActive(activated);
+        }
     }
 
     //SHADER MANAGEMENT

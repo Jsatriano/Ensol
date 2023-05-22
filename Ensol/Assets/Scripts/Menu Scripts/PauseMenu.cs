@@ -72,8 +72,7 @@ public class PauseMenu : MonoBehaviour
         {
             isPaused = true;
             if(amInPlaytestScene) {
-                //playtestMenu.SetActive(true);
-                pauseMenu.SetActive(true);
+                playtestMenu.SetActive(true);
                 Time.timeScale = 0f;
             }
             else {
