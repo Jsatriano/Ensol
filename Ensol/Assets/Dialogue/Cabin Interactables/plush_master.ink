@@ -27,7 +27,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 
 
 * {abletoleave && abletoleave2} [I just want to walk around for a bit.]
-P1-USH: Okay! If you need anything let me know.
+P1-USH: Okay! If you need anything, let me know.
 -> END
 
 === Over ===
@@ -94,7 +94,7 @@ P1-USH: Of course!
 
 
 +[I don't need anything else.]
-P1-USH: Okay! If you need me, I will always be there for you!
+P1-USH: Okay! If you ever need anything else, feel free to let me know!
 ->END
 
 ===Plush_talk===
