@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     public ElectricVials electricVials;
     public GameObject FX1;
     public GameObject FX2;
+    [SerializeField] private CameraShake cameraScript;
 
     [Header("Movement Variables")]
     [SerializeField] private float moveSpeed;
@@ -1034,6 +1035,7 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     {
         if(Time.time - invulnTimer >= invulnLength)
         {
+            cameraScript.ShakeCamera();
             if(!PlayerData.hasShield) {
                 // does dmg
                 PlayerData.currHP -= dmg;

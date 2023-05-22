@@ -18,7 +18,7 @@ public class MusicController : MonoBehaviour
     void Start()
     {
 
-        if (SceneManager.GetActiveScene().name == "SampleScene")
+        if (SceneManager.GetActiveScene().name == "GameplayScene")
         {
             nodeType = NodeSelector.selectedNode;
             cabin = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.cabin);

@@ -21,7 +21,7 @@ public class RiverSoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "SampleScene")
+        if (SceneManager.GetActiveScene().name == "GameplayScene")
         {
             nodeType = NodeSelector.selectedNode;
             if (nodeType == 3 || nodeType == 5)
