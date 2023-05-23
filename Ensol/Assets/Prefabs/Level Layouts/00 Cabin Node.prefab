@@ -5932,7 +5932,7 @@ MonoBehaviour:
   exitOnTriggerEnterEvent: {fileID: 766159777886775045}
   doorInteractable: {fileID: 1417320337119716606}
   podInteractable: {fileID: 985208361347618960}
-  windowInteractable: {fileID: 6849652257281111716}
+  windowInteractable: {fileID: 7291751923053183833}
   conveyerInteractable: {fileID: 5953986438746039170}
   plushInteractable: {fileID: 6819528551446342250}
   doorInteractor: {fileID: 8083172775091945792}
@@ -9211,6 +9211,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1998081ea30c72540b01726f9ac6d149, type: 2}
+    - target: {fileID: -4310657659862904874, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
+      propertyPath: m_TagString
+      value: InteractablePickup
+      objectReference: {fileID: 0}
     - target: {fileID: -4159354553896977711, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -9379,6 +9383,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 623655948388898632, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 623655948388898632, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
     - target: {fileID: 919132149155446097, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
       propertyPath: m_Name
       value: cabin_interior_draft
@@ -9533,7 +9545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9084372190234950187, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
       propertyPath: m_TagString
-      value: InteractableOnce
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
@@ -9706,9 +9718,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8339603356077403917, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
   m_PrefabInstance: {fileID: 2386052450648149135}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6849652257281111716 stripped
+--- !u!1 &7291751923053183833 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 9084372190234950187, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
+  m_CorrespondingSourceObject: {fileID: -4310657659862904874, guid: 5b08925f01daebf46a2b17a9d97399ea, type: 3}
   m_PrefabInstance: {fileID: 2386052450648149135}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7619537062923714754 stripped

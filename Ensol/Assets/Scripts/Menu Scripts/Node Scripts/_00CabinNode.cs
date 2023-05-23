@@ -146,7 +146,10 @@ public class _00CabinNode : MonoBehaviour
             PlayerData.windowInteracted = true;
             windowInteractor.interacted = true;
             // removes highlight material from mesh
-            windowInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            windowInteractable.GetComponent<Renderer>().materials[0].SetFloat("_SetAlpha", 0f);
+            // disable object in scene
+            windowInteractable.SetActive(false);
+
         }
 
         // Conveyer
