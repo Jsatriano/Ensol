@@ -22,17 +22,18 @@ public class _07SecurityTowerNode : MonoBehaviour
     private void Start()
     {
         CompletedNodes.prevNode = 7;
+        CompletedNodes.firstLoad[7] = false;
     }
 
     public void Update()
     {
+        // move bird if triggered
         if(PlayerData.birdTriggered == true && PlayerData.disableBird == false && birdTrigger.gameObject.activeInHierarchy)
         {
+            // move it until it reaches end point
             if(bird.transform.position != birdEndPoint.position)
             {
                 bird.transform.position = Vector3.MoveTowards(bird.transform.position, birdEndPoint.position, birdSpeed * Time.deltaTime);
-
-                //Enemy.transform.position = Vector3.MoveTowards(Enemy.transform.position, points[current].position, speed * Time.deltaTime);
             }
             else
             {
