@@ -37,18 +37,18 @@ public class CompletedNodes : MonoBehaviour
 
     /* 
     ------  KEY  ------
-    mapButton[0] = cabin
-    mapButton[1] = deer
-    mapButton[2] = river
-    mapButton[3] = gate
-    mapButton[4] = river control
-    mapButton[5] = bear
-    mapButton[6] = broken machine
-    mapButton[7] = security tower
-    mapButton[8] = bird
-    mapButton[9] = power grid
-    mapButton[10] = metal field
-    mapButton[11] = computer
+    0 = cabin
+    1 = deer
+    2 = river
+    3 = gate
+    4 = river control
+    5 = bear
+    6 = broken machine
+    7 = security tower
+    8 = bird
+    9 = power grid
+    10 = metal field
+    11 = computer
     */
 
     public void Start()
@@ -91,8 +91,6 @@ public class CompletedNodes : MonoBehaviour
         }
         if(riverNode)
         {
-            
-
             // activate river X
             if(firstLoad[2])
             {
