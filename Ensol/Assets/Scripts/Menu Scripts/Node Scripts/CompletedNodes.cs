@@ -9,7 +9,7 @@ public class CompletedNodes : MonoBehaviour
 
     public static int lNode = 0;
 
-    public static bool cabinNode  = false, deerNode  = false, riverNode  = false, gateNode  = true, riverControlNode  = false,
+    public static bool cabinNode  = false, deerNode  = false, riverNode  = false, gateNode  = false, riverControlNode  = false,
                 bearNode  = false, brokenMachineNode  = false, securityTowerNode  = false, birdNode  = false,
                 powerGridNode  = false, metalFieldNode  = false, computerNode = false;
 
@@ -77,7 +77,7 @@ public class CompletedNodes : MonoBehaviour
 
         if (firstTransition[PlayerData.prevNode-1] && firstLoad[PlayerData.currentNode-1])
         {
-            waitTime = circleWaitTime * 7f;
+            waitTime = circleWaitTime * 8.5f;
         }
         else if ((!firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1]) || firstTransition[PlayerData.prevNode - 1] && !firstLoad[PlayerData.currentNode - 1])
         {
@@ -365,16 +365,16 @@ public class CompletedNodes : MonoBehaviour
         if(prevNode == 999)
         {
             UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
         }
         // last at cabin
         else if(prevNode == 0)
         {
 
             UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
         }
         // last at deer
         else if(prevNode == 1)
@@ -383,9 +383,9 @@ public class CompletedNodes : MonoBehaviour
             //firstLoad[1] = false;
 
             UninteractAll();
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at river
         else if(prevNode == 2)
@@ -394,10 +394,10 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[2] = false;
 
             UninteractAll();
-            mapButton[2].GetComponent<Button>().interactable = true; //river
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[8].GetComponent<Button>().interactable = true; //bird
+            mapButton[2].GetComponent<Button>().interactable = false; //river
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[8].GetComponent<Button>().interactable = false; //bird
         }
         // last at gate
         else if(prevNode == 3)
@@ -406,9 +406,9 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[3] = false;
 
             UninteractAll();
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
         }
         // last at river control
         else if(prevNode == 4)
@@ -417,9 +417,9 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[4] = false;
 
             UninteractAll();
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at bear
         else if(prevNode == 5)
@@ -428,9 +428,9 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[5] = false;
 
             UninteractAll();
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[2].GetComponent<Button>().interactable = true; //river
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[2].GetComponent<Button>().interactable = false; //river
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at broken machine
         else if(prevNode == 6)
@@ -439,10 +439,10 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[6] = false;
 
             UninteractAll();
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
         // last at security tower
         else if(prevNode == 7)
@@ -451,9 +451,9 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[7] = false;
 
             UninteractAll();
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at bird
         else if(prevNode == 8)
@@ -462,8 +462,8 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[8] = false;
 
             UninteractAll();
-            mapButton[8].GetComponent<Button>().interactable = true; //bird
-            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[8].GetComponent<Button>().interactable = false; //bird
+            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at power grid
         else if(prevNode == 9)
@@ -472,8 +472,8 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[9] = false;
 
             UninteractAll();
-            mapButton[9].GetComponent<Button>().interactable = true; //power grid
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[9].GetComponent<Button>().interactable = false; //power grid
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at metal field
         else if(prevNode == 10)
@@ -482,11 +482,11 @@ public class CompletedNodes : MonoBehaviour
             firstLoad[10] = false;
 
             UninteractAll();
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
             if(computerNode)
             {
-                mapButton[11].GetComponent<Button>().interactable = true;//computer
+                mapButton[11].GetComponent<Button>().interactable = false;//computer
             }
         }
         // last at computer
@@ -494,8 +494,8 @@ public class CompletedNodes : MonoBehaviour
         {
 
             UninteractAll();
-            mapButton[11].GetComponent<Button>().interactable = true;//computer
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+            mapButton[11].GetComponent<Button>().interactable = false;//computer
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
         
     
