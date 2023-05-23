@@ -15,18 +15,24 @@ public class CompletedNodes : MonoBehaviour
 
     public static bool[] nodes;            
     public static bool[] firstLoad = new bool[] {
-        true, true, true, true, true,
-        true, true, true, true, true,
+        false, true, true, true, true, true,
+        true, true, true, true, false
     };
     public static bool[] firstTransition = new bool[] {
-        true, true, true, true, true,
-        true, true, true, true, true
+        false, true, true, true, true,
+        true, true, true, true, true, false
     };
 
     public Button computerNodeButton;
     private int lastNode;
 
     public GameObject youAreHereCircle;
+    [SerializeField] private float circleDrawRate;
+    [SerializeField] private Image circleSlider;
+    [SerializeField] private List<float> circleScales;
+    [SerializeField] private float circleWaitTime;
+
+    [SerializeField] private NodeSelector nodeSelector;
 
     public Sprite[] image;
 
@@ -37,18 +43,18 @@ public class CompletedNodes : MonoBehaviour
 
     /* 
     ------  KEY  ------
-    mapButton[0] = cabin
-    mapButton[1] = deer
-    mapButton[2] = river
-    mapButton[3] = gate
-    mapButton[4] = river control
-    mapButton[5] = bear
-    mapButton[6] = broken machine
-    mapButton[7] = security tower
-    mapButton[8] = bird
-    mapButton[9] = power grid
-    mapButton[10] = metal field
-    mapButton[11] = computer
+    0 = cabin
+    1 = deer
+    2 = river
+    3 = gate
+    4 = river control
+    5 = bear
+    6 = broken machine
+    7 = security tower
+    8 = bird
+    9 = power grid
+    10 = metal field
+    11 = computer
     */
 
     public void Start()
@@ -67,6 +73,21 @@ public class CompletedNodes : MonoBehaviour
         nodes[9] = powerGridNode;
         nodes[10] = metalFieldNode;
         nodes[11] = computerNode;
+        float waitTime;
+
+        if (firstTransition[PlayerData.prevNode-1] && firstLoad[PlayerData.currentNode-1])
+        {
+            waitTime = circleWaitTime * 8.5f;
+        }
+        else if ((!firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1]) || firstTransition[PlayerData.prevNode - 1] && !firstLoad[PlayerData.currentNode - 1])
+        {
+            waitTime = circleWaitTime * 5f;
+        }
+        else
+        {
+            waitTime = circleWaitTime;
+        }
+        StartCoroutine(ChangeCircleLocation(PlayerData.prevNode-1, PlayerData.currentNode-1, waitTime));
     }
 
     public void Update()
@@ -91,8 +112,6 @@ public class CompletedNodes : MonoBehaviour
         }
         if(riverNode)
         {
-            
-
             // activate river X
             if(firstLoad[2])
             {
@@ -346,149 +365,137 @@ public class CompletedNodes : MonoBehaviour
         if(prevNode == 999)
         {
             UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
         }
         // last at cabin
         else if(prevNode == 0)
         {
-            TransformYouAreHereCircle(0, 2.4f, 2.4f, 2.4f);
 
             UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
         }
         // last at deer
         else if(prevNode == 1)
         {
-            TransformYouAreHereCircle(1, 1.25f, 1.25f, 1.25f);
 
             //firstLoad[1] = false;
 
             UninteractAll();
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at river
         else if(prevNode == 2)
         {
-            TransformYouAreHereCircle(2, 1.4f, 1.4f, 1.4f);
 
             firstLoad[2] = false;
 
             UninteractAll();
-            mapButton[2].GetComponent<Button>().interactable = true; //river
-            mapButton[1].GetComponent<Button>().interactable = true; //deer
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[8].GetComponent<Button>().interactable = true; //bird
+            mapButton[2].GetComponent<Button>().interactable = false; //river
+            mapButton[1].GetComponent<Button>().interactable = false; //deer
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[8].GetComponent<Button>().interactable = false; //bird
         }
         // last at gate
         else if(prevNode == 3)
         {
-            TransformYouAreHereCircle(3, 1.4f, 1.4f, 1.4f);
 
             firstLoad[3] = false;
 
             UninteractAll();
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
-            mapButton[0].GetComponent<Button>().interactable = true; //cabin
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
+            mapButton[0].GetComponent<Button>().interactable = false; //cabin
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
         }
         // last at river control
         else if(prevNode == 4)
         {
-            TransformYouAreHereCircle(4, 1.4f, 1.4f, 1.4f);
 
             firstLoad[4] = false;
 
             UninteractAll();
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
-            mapButton[3].GetComponent<Button>().interactable = true; //gate
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
+            mapButton[3].GetComponent<Button>().interactable = false; //gate
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at bear
         else if(prevNode == 5)
         {
-            TransformYouAreHereCircle(5, 1.3f, 1.3f, 1.3f);
 
             firstLoad[5] = false;
 
             UninteractAll();
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[2].GetComponent<Button>().interactable = true; //river
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[2].GetComponent<Button>().interactable = false; //river
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at broken machine
         else if(prevNode == 6)
         {
-            TransformYouAreHereCircle(6, 1.4f, 1.4f, 1.4f);
 
             firstLoad[6] = false;
 
             UninteractAll();
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
-            mapButton[5].GetComponent<Button>().interactable = true; //bear
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
+            mapButton[5].GetComponent<Button>().interactable = false; //bear
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
         // last at security tower
         else if(prevNode == 7)
         {
-            TransformYouAreHereCircle(7, 1.3f, 1.3f, 1.3f);
 
             firstLoad[7] = false;
 
             UninteractAll();
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
-            mapButton[4].GetComponent<Button>().interactable = true; //river control
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
+            mapButton[4].GetComponent<Button>().interactable = false; //river control
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at bird
         else if(prevNode == 8)
         {
-            TransformYouAreHereCircle(8, 1.3f, 1.3f, 1.3f);
 
             firstLoad[8] = false;
 
             UninteractAll();
-            mapButton[8].GetComponent<Button>().interactable = true; //bird
-            mapButton[2].GetComponent<Button>().interactable = true; //river
+            mapButton[8].GetComponent<Button>().interactable = false; //bird
+            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at power grid
         else if(prevNode == 9)
         {
-            TransformYouAreHereCircle(9, 1.6f, 1.6f, 1.6f);
 
             firstLoad[9] = false;
 
             UninteractAll();
-            mapButton[9].GetComponent<Button>().interactable = true; //power grid
-            mapButton[7].GetComponent<Button>().interactable = true; //security tower
+            mapButton[9].GetComponent<Button>().interactable = false; //power grid
+            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at metal field
         else if(prevNode == 10)
         {
-            TransformYouAreHereCircle(10, 1.6f, 1.6f, 1.6f);
 
             firstLoad[10] = false;
 
             UninteractAll();
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
-            mapButton[6].GetComponent<Button>().interactable = true; //broken machine
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
+            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
             if(computerNode)
             {
-                mapButton[11].GetComponent<Button>().interactable = true;//computer
+                mapButton[11].GetComponent<Button>().interactable = false;//computer
             }
         }
         // last at computer
         else if(prevNode == 11)
         {
-            TransformYouAreHereCircle(11, 2.55f, 2.55f, 2.55f);
 
             UninteractAll();
-            mapButton[11].GetComponent<Button>().interactable = true;//computer
-            mapButton[10].GetComponent<Button>().interactable = true;//metal field
+            mapButton[11].GetComponent<Button>().interactable = false;//computer
+            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
         
     
@@ -512,6 +519,11 @@ public class CompletedNodes : MonoBehaviour
     // function for activating the X on any node
     private IEnumerator SliderToggle(int i, float waitTime)
     {
+        if (!firstTransition[PlayerData.prevNode - 1])
+        {
+            waitTime = 0;
+        }
+
         yield return new WaitForSeconds(waitTime);
 
         mapButton[i].SetActive(true);
@@ -534,13 +546,12 @@ public class CompletedNodes : MonoBehaviour
         }
 
         float lastVal = mapSlider[i].value;
-        print(lastVal);
 
         if(mapButton[i].GetComponent<Button>().image.sprite != image[i])
         {
             if(lastVal > .05)
             {
-                mapSlider[i].value = Mathf.Lerp(lastVal, 0f, 1f * Time.deltaTime);
+                mapSlider[i].value = Mathf.Lerp(lastVal, 0f, 1.5f * Time.deltaTime);
             }
             else
             {
@@ -573,5 +584,32 @@ public class CompletedNodes : MonoBehaviour
         mapButton[i].GetComponent<Button>().image.sprite = image[i];
         mapSlider[i].value = 1f;
         mapScenery[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    private IEnumerator ChangeCircleLocation(int startNode, int endNode, float waitTime)
+    {
+        circleSlider.fillAmount = 1;
+        youAreHereCircle.transform.position = mapButton[startNode].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[startNode] * Vector3.one;
+        while (circleSlider.fillAmount > 0)
+        {
+            circleSlider.fillAmount -= circleDrawRate * Time.deltaTime;
+            yield return null;
+        }
+        youAreHereCircle.transform.position = mapButton[endNode].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[endNode] * Vector3.one;
+        yield return new WaitForSeconds(waitTime);     
+        while (circleSlider.fillAmount < 1)
+        {
+            circleSlider.fillAmount += circleDrawRate * Time.deltaTime;
+            yield return null;
+        }
+        StartCoroutine(LoadNewNode(0.5f));
+    }
+
+    private IEnumerator LoadNewNode(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        nodeSelector.OpenScene();
     }
 }
