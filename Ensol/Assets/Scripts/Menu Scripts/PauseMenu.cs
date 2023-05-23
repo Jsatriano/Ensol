@@ -139,7 +139,8 @@ public class PauseMenu : MonoBehaviour
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
-                    nodeSelector.node = 1;
+                    PlayerData.prevNode = PlayerData.currentNode;
+                    PlayerData.currentNode = 1;
                     nodeSelector.OpenScene();
                 }
                 yield return null;
