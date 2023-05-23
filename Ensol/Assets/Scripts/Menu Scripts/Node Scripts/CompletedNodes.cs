@@ -9,24 +9,28 @@ public class CompletedNodes : MonoBehaviour
 
     public static int lNode = 0;
 
-    public static bool cabinNode  = false, deerNode  = false, riverNode  = false, gateNode  = false, riverControlNode  = false,
+    public static bool cabinNode  = false, deerNode  = false, riverNode  = false, gateNode  = true, riverControlNode  = false,
                 bearNode  = false, brokenMachineNode  = false, securityTowerNode  = false, birdNode  = false,
                 powerGridNode  = false, metalFieldNode  = false, computerNode = false;
 
     public static bool[] nodes;            
     public static bool[] firstLoad = new bool[] {
-        true, true, true, true, true,
-        true, true, true, true, true,
+        false, true, true, true, true, true,
+        true, true, true, true, false
     };
     public static bool[] firstTransition = new bool[] {
-        true, true, true, true, true,
-        true, true, true, true, true
+        false, true, true, true, true,
+        true, true, true, true, true, false
     };
 
     public Button computerNodeButton;
     private int lastNode;
 
     public GameObject youAreHereCircle;
+    [SerializeField] private float circleDrawRate;
+    [SerializeField] private Image circleSlider;
+    [SerializeField] private List<float> circleScales;
+    [SerializeField] private float circleWaitTime;
 
     [SerializeField] private NodeSelector nodeSelector;
 
@@ -69,6 +73,21 @@ public class CompletedNodes : MonoBehaviour
         nodes[9] = powerGridNode;
         nodes[10] = metalFieldNode;
         nodes[11] = computerNode;
+        float waitTime;
+
+        if (firstTransition[PlayerData.prevNode-1] && firstLoad[PlayerData.currentNode-1])
+        {
+            waitTime = circleWaitTime * 7f;
+        }
+        else if ((!firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1]) || firstTransition[PlayerData.prevNode - 1] && !firstLoad[PlayerData.currentNode - 1])
+        {
+            waitTime = circleWaitTime * 5f;
+        }
+        else
+        {
+            waitTime = circleWaitTime;
+        }
+        StartCoroutine(ChangeCircleLocation(PlayerData.prevNode-1, PlayerData.currentNode-1, waitTime));
     }
 
     public void Update()
@@ -351,7 +370,6 @@ public class CompletedNodes : MonoBehaviour
         // last at cabin
         else if(prevNode == 0)
         {
-            TransformYouAreHereCircle(0, 2.4f, 2.4f, 2.4f);
 
             UninteractAll();
             mapButton[0].GetComponent<Button>().interactable = true; //cabin
@@ -361,7 +379,6 @@ public class CompletedNodes : MonoBehaviour
         // last at deer
         else if(prevNode == 1)
         {
-            TransformYouAreHereCircle(1, 1.25f, 1.25f, 1.25f);
 
             //firstLoad[1] = false;
 
@@ -373,7 +390,6 @@ public class CompletedNodes : MonoBehaviour
         // last at river
         else if(prevNode == 2)
         {
-            TransformYouAreHereCircle(2, 1.4f, 1.4f, 1.4f);
 
             firstLoad[2] = false;
 
@@ -386,7 +402,6 @@ public class CompletedNodes : MonoBehaviour
         // last at gate
         else if(prevNode == 3)
         {
-            TransformYouAreHereCircle(3, 1.4f, 1.4f, 1.4f);
 
             firstLoad[3] = false;
 
@@ -398,7 +413,6 @@ public class CompletedNodes : MonoBehaviour
         // last at river control
         else if(prevNode == 4)
         {
-            TransformYouAreHereCircle(4, 1.4f, 1.4f, 1.4f);
 
             firstLoad[4] = false;
 
@@ -410,7 +424,6 @@ public class CompletedNodes : MonoBehaviour
         // last at bear
         else if(prevNode == 5)
         {
-            TransformYouAreHereCircle(5, 1.3f, 1.3f, 1.3f);
 
             firstLoad[5] = false;
 
@@ -422,7 +435,6 @@ public class CompletedNodes : MonoBehaviour
         // last at broken machine
         else if(prevNode == 6)
         {
-            TransformYouAreHereCircle(6, 1.4f, 1.4f, 1.4f);
 
             firstLoad[6] = false;
 
@@ -435,7 +447,6 @@ public class CompletedNodes : MonoBehaviour
         // last at security tower
         else if(prevNode == 7)
         {
-            TransformYouAreHereCircle(7, 1.3f, 1.3f, 1.3f);
 
             firstLoad[7] = false;
 
@@ -447,7 +458,6 @@ public class CompletedNodes : MonoBehaviour
         // last at bird
         else if(prevNode == 8)
         {
-            TransformYouAreHereCircle(8, 1.3f, 1.3f, 1.3f);
 
             firstLoad[8] = false;
 
@@ -458,7 +468,6 @@ public class CompletedNodes : MonoBehaviour
         // last at power grid
         else if(prevNode == 9)
         {
-            TransformYouAreHereCircle(9, 1.6f, 1.6f, 1.6f);
 
             firstLoad[9] = false;
 
@@ -469,7 +478,6 @@ public class CompletedNodes : MonoBehaviour
         // last at metal field
         else if(prevNode == 10)
         {
-            TransformYouAreHereCircle(10, 1.6f, 1.6f, 1.6f);
 
             firstLoad[10] = false;
 
@@ -484,7 +492,6 @@ public class CompletedNodes : MonoBehaviour
         // last at computer
         else if(prevNode == 11)
         {
-            TransformYouAreHereCircle(11, 2.55f, 2.55f, 2.55f);
 
             UninteractAll();
             mapButton[11].GetComponent<Button>().interactable = true;//computer
@@ -512,6 +519,11 @@ public class CompletedNodes : MonoBehaviour
     // function for activating the X on any node
     private IEnumerator SliderToggle(int i, float waitTime)
     {
+        if (!firstTransition[PlayerData.prevNode - 1])
+        {
+            waitTime = 0;
+        }
+
         yield return new WaitForSeconds(waitTime);
 
         mapButton[i].SetActive(true);
@@ -534,7 +546,6 @@ public class CompletedNodes : MonoBehaviour
         }
 
         float lastVal = mapSlider[i].value;
-        print(lastVal);
 
         if(mapButton[i].GetComponent<Button>().image.sprite != image[i])
         {
@@ -573,5 +584,32 @@ public class CompletedNodes : MonoBehaviour
         mapButton[i].GetComponent<Button>().image.sprite = image[i];
         mapSlider[i].value = 1f;
         mapScenery[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    private IEnumerator ChangeCircleLocation(int startNode, int endNode, float waitTime)
+    {
+        circleSlider.fillAmount = 1;
+        youAreHereCircle.transform.position = mapButton[startNode].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[startNode] * Vector3.one;
+        while (circleSlider.fillAmount > 0)
+        {
+            circleSlider.fillAmount -= circleDrawRate * Time.deltaTime;
+            yield return null;
+        }
+        youAreHereCircle.transform.position = mapButton[endNode].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[endNode] * Vector3.one;
+        yield return new WaitForSeconds(waitTime);     
+        while (circleSlider.fillAmount < 1)
+        {
+            circleSlider.fillAmount += circleDrawRate * Time.deltaTime;
+            yield return null;
+        }
+        StartCoroutine(LoadNewNode(0.5f));
+    }
+
+    private IEnumerator LoadNewNode(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        nodeSelector.OpenScene();
     }
 }

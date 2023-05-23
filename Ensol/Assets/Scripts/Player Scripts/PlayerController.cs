@@ -1195,7 +1195,6 @@ public class PlayerController : MonoBehaviour, IDataPersistance
 
     public void UpdateCatMode(bool activated)
     {
-        Debug.Log("CATMOD");
         foreach(GameObject catObject in catModeObjects)
         {
             catObject.SetActive(activated);

@@ -10,6 +10,7 @@ public class SceneSwitch : MonoBehaviour
     public static GameObject blackOutSquare {get; private set;}
     public bool Entrance = true;
     public static bool exitFrom = true;
+    [SerializeField] private int nodeDestination;
 
     void Start()
     {
@@ -54,6 +55,8 @@ public class SceneSwitch : MonoBehaviour
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
                 {
                     Cursor.visible = true;
+                    PlayerData.prevNode = PlayerData.currentNode;
+                    PlayerData.currentNode = nodeDestination;
                     SceneManager.LoadScene(sceneName:"MapScene");
 
                 }
