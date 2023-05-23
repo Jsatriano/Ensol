@@ -33,6 +33,8 @@ public class _03GateNode : MonoBehaviour
     private void Start()
     {
         CompletedNodes.prevNode = 3;
+        CompletedNodes.firstLoad[3] = false;
+
     }
 
     public void Update()

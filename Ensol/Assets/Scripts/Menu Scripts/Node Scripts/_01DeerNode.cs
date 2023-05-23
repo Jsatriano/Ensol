@@ -60,6 +60,7 @@ public class _01DeerNode : MonoBehaviour
     {
         
         CompletedNodes.prevNode = 1;
+        CompletedNodes.firstLoad[1] = false;
 
         //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
         if (PlayerData.hasBroom)

@@ -7,6 +7,13 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
+    public enum MenuState
+    {
+        UNPAUSED,
+        PAUSED,
+        OPTIONS
+    }
+
     public GameObject pauseMenu;
     public DataPersistanceManager dataManager;
     public GameObject resumeButton;
@@ -17,10 +24,14 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused;
     public Transform enemySpawnPoint;
     public NodeSelector nodeSelector;
+    [HideInInspector] public MenuState menuState;
+
+    [Header("Options Menu")]
+    [SerializeField] private GameObject optionsMenu;
 
     private void Start()
     {
-
+        menuState = MenuState.UNPAUSED;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
@@ -30,9 +41,28 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        switch (menuState)
         {
-            PauseUnpause();
+            case MenuState.UNPAUSED:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    PauseUnpause();
+                }
+                break;
+
+            case MenuState.PAUSED:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    PauseUnpause();
+                }
+                break;
+
+            case MenuState.OPTIONS:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    OpenCloseOptions();
+                }
+                break;
         }
     }
 
@@ -49,6 +79,7 @@ public class PauseMenu : MonoBehaviour
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0f;
             }
+            menuState = MenuState.PAUSED;
         }
         else
         {
@@ -56,6 +87,21 @@ public class PauseMenu : MonoBehaviour
             playtestMenu.SetActive(false);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
+            menuState = MenuState.UNPAUSED;
+        }
+    }
+
+    public void OpenCloseOptions()
+    {
+        if (optionsMenu.activeInHierarchy)
+        {
+            optionsMenu.SetActive(false);
+            menuState = MenuState.PAUSED;
+        }
+        else
+        {
+            optionsMenu.SetActive(true);
+            menuState = MenuState.OPTIONS;
         }
     }
 

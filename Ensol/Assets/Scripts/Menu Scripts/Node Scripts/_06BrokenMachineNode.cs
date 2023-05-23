@@ -10,6 +10,7 @@ public class _06BrokenMachineNode : MonoBehaviour
     private void Start()
     {
         CompletedNodes.prevNode = 6;
+        CompletedNodes.firstLoad[6] = false;
     }
 
     public void Update()
