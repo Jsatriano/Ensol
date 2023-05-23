@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/TurretSFX.bank
   Name: TurretSFX
   StudioPath: bank:/TurretSFX
-  lastModified: 638195859061379290
+  lastModified: 638204410074482071
   FileSizes: []
   Exists: 1
 --- !u!114 &-8480563954428279390
@@ -45,6 +45,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8371790920048123195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/ComputerSFX.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/AudioBanks/Desktop/ComputerSFX.bank
+  Name: ComputerSFX
+  StudioPath: bank:/ComputerSFX
+  lastModified: 638204410074452158
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-8214821284111776531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +110,33 @@ MonoBehaviour:
     Data4: 542167841
   Banks:
   - {fileID: 8811842289689399423}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7308125076117437959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_hudBatteryDepleted
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_hudBatteryDepleted
+  Guid:
+    Data1: 1456143814
+    Data2: 1088522916
+    Data3: 1726689193
+    Data4: -1729515382
+  Banks:
+  - {fileID: 2780395926182006473}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -720,6 +765,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 65097
+--- !u!114 &-1455193014823930289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/GeneratorSFX.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/AudioBanks/Desktop/GeneratorSFX.bank
+  Name: GeneratorSFX
+  StudioPath: bank:/GeneratorSFX
+  lastModified: 638204410074462132
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-1196050656420866172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -855,6 +918,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-628600177609231637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_TurretBoopBoop3
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_TurretBoopBoop3
+  Guid:
+    Data1: 1073998405
+    Data2: 1106884890
+    Data3: 619230127
+    Data4: 612961628
+  Banks:
+  - {fileID: -9137914703327105946}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-592841263066050880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,6 +1053,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-283915414467883148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_computerHum
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_computerHum
+  Guid:
+    Data1: 1941756957
+    Data2: 1308662681
+    Data3: -1418354539
+    Data4: 507456324
+  Banks:
+  - {fileID: -8371790920048123195}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 24659
+--- !u!114 &-258169128565946649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_generatorOn
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_generatorOn
+  Guid:
+    Data1: 1617563868
+    Data2: 1302933133
+    Data3: 402244287
+    Data4: -1401977482
+  Banks:
+  - {fileID: -1455193014823930289}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12355
 --- !u!114 &-21009867148964066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +1162,8 @@ MonoBehaviour:
   - {fileID: -9137914703327105946}
   - {fileID: 1350805551757949174}
   - {fileID: 1175161843363024344}
+  - {fileID: -8371790920048123195}
+  - {fileID: -1455193014823930289}
   EditorEvents:
   - {fileID: -4320403831323061604}
   - {fileID: 6312593585133714818}
@@ -1087,12 +1233,19 @@ MonoBehaviour:
   - {fileID: 8616327517157879769}
   - {fileID: 488315971263342188}
   - {fileID: -4385490843809600730}
+  - {fileID: 1761843808575377564}
+  - {fileID: -283915414467883148}
+  - {fileID: 9083253966167762529}
+  - {fileID: 2793869281392135590}
+  - {fileID: -258169128565946649}
+  - {fileID: -7308125076117437959}
+  - {fileID: -628600177609231637}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3131521892294444102}
   StringsBanks:
   - {fileID: 2387423250010355012}
-  cacheTime: 638195859061379290
+  cacheTime: 638204410074482071
   cacheVersion: 131601
 --- !u!114 &488315971263342188
 MonoBehaviour:
@@ -1235,7 +1388,7 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/BirdSFX.bank
   Name: BirdSFX
   StudioPath: bank:/BirdSFX
-  lastModified: 638195859061269588
+  lastModified: 638204410074432204
   FileSizes: []
   Exists: 1
 --- !u!114 &1268047312363071480
@@ -1303,6 +1456,33 @@ MonoBehaviour:
     Data4: -1284203493
   Banks:
   - {fileID: 3969275837332183478}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1761843808575377564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_birdBeepBeep
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_birdBeepBeep
+  Guid:
+    Data1: -1363930110
+    Data2: 1259293395
+    Data3: 642944672
+    Data4: 1955941105
+  Banks:
+  - {fileID: 1175161843363024344}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1397,10 +1577,10 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638195859061309477
+  lastModified: 638204410074482071
   FileSizes:
   - Name: 
-    Value: 4270
+    Value: 4708
   Exists: 1
 --- !u!114 &2392110939120058819
 MonoBehaviour:
@@ -1489,9 +1669,36 @@ MonoBehaviour:
   Path: Assets/AudioBanks/Desktop/HudSFX.bank
   Name: HudSFX
   StudioPath: bank:/HudSFX
-  lastModified: 638182275480894285
+  lastModified: 638204410074472096
   FileSizes: []
   Exists: 1
+--- !u!114 &2793869281392135590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_generatorOff
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_generatorOff
+  Guid:
+    Data1: -1898622714
+    Data2: 1138350843
+    Data3: -1365650017
+    Data4: 2096464102
+  Banks:
+  - {fileID: -1455193014823930289}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2928150550338405342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2212,3 +2419,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &9083253966167762529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/sfx_computerBeep
+  m_EditorClassIdentifier: 
+  Path: event:/sfx_computerBeep
+  Guid:
+    Data1: 1842468597
+    Data2: 1139464488
+    Data3: 961707442
+    Data4: -1331414020
+  Banks:
+  - {fileID: -8371790920048123195}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 9273
