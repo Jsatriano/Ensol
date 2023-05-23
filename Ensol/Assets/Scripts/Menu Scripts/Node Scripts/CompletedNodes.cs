@@ -28,6 +28,8 @@ public class CompletedNodes : MonoBehaviour
 
     public GameObject youAreHereCircle;
 
+    [SerializeField] private NodeSelector nodeSelector;
+
     public Sprite[] image;
 
     public GameObject[] mapButton;
@@ -538,7 +540,7 @@ public class CompletedNodes : MonoBehaviour
         {
             if(lastVal > .05)
             {
-                mapSlider[i].value = Mathf.Lerp(lastVal, 0f, 1f * Time.deltaTime);
+                mapSlider[i].value = Mathf.Lerp(lastVal, 0f, 1.5f * Time.deltaTime);
             }
             else
             {
