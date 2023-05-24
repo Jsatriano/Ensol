@@ -107,6 +107,7 @@ public class _01DeerNode : MonoBehaviour
             weaponPickedUp = true;
             combatController.PickedUpSolarUpgrade();
             Instantiate(guttedDeer, inSceneItem.transform.position, inSceneItem.transform.rotation);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, guttedDeer.transform.position);
             //transferCube.SetActive(true);
         }
 
