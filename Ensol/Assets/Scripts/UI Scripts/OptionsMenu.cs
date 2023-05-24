@@ -24,8 +24,6 @@ public class OptionsMenu : MonoBehaviour
 
     //Unity Events
     [HideInInspector] public UnityEvent<float> OnScreenShakeChange;
-    [HideInInspector] public UnityEvent<float> OnMusicVolumeChange;
-    [HideInInspector] public UnityEvent<float> OnSFXVolumeChange;
     [HideInInspector] public UnityEvent<bool> OnCatModeChange;
 
     private void Start()
@@ -50,14 +48,12 @@ public class OptionsMenu : MonoBehaviour
     public void UpdateMusicVolume()
     {
         musicValue = musicSlider.value;
-        OnMusicVolumeChange.Invoke(musicValue);
         musicVCA.setVolume(musicValue);
     }
 
     public void UpdateSFXVolume()
     {
         sfxValue = sfxSlider.value;
-        OnSFXVolumeChange.Invoke(sfxValue);
         sfxVCA.setVolume(sfxValue);
     }
 
