@@ -141,14 +141,5 @@ public class _01DeerNode : MonoBehaviour
         {
             combatController = p.GetComponent<PlayerController>();
         }
-
-        if (combatController == null)
-        {
-            print("Cabin Node Script Failed to find player");
-        }
-        else
-        {
-            print("Cabin Node Script located Player");
-        }
     }
 }

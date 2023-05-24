@@ -214,6 +214,10 @@ public class PlayerController : MonoBehaviour, IDataPersistance
             return;
         }
 
+        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeInHierarchy) {
+            Destroy(activeWeaponProjectile);
+        }
+
         animator.SetBool("hasWeapon", hasWeapon);
 
         //read inputs
