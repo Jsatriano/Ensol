@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class _07SecurityTowerNode : MonoBehaviour
 {
@@ -15,24 +16,51 @@ public class _07SecurityTowerNode : MonoBehaviour
     public GameObject gun;
     public Collider gunTrigger;
 
+    private Story story;
+    public TextAsset globals;
+
     [Header("Other Variables")]
     public float birdSpeed;
 
+    private void Awake()
+    {
+        //determine where to spawn
+        if (CompletedNodes.lNode == 4)
+        {
+            SpawnPoint.First = true;
+        } 
+        else if (CompletedNodes.lNode == 6)
+        {
+            SpawnPoint.First = false;
+        }
+        else if (CompletedNodes.lNode == 9)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = false;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+        CompletedNodes.lNode = 7;
+    }
 
     private void Start()
     {
+        //determine where to spawn part 2
         CompletedNodes.prevNode = 7;
+        CompletedNodes.firstLoad[7] = false;
     }
 
     public void Update()
     {
+        // move bird if triggered
         if(PlayerData.birdTriggered == true && PlayerData.disableBird == false && birdTrigger.gameObject.activeInHierarchy)
         {
+            // move it until it reaches end point
             if(bird.transform.position != birdEndPoint.position)
             {
                 bird.transform.position = Vector3.MoveTowards(bird.transform.position, birdEndPoint.position, birdSpeed * Time.deltaTime);
-
-                //Enemy.transform.position = Vector3.MoveTowards(Enemy.transform.position, points[current].position, speed * Time.deltaTime);
             }
             else
             {

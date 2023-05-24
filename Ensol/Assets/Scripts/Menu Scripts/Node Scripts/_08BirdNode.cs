@@ -16,6 +16,7 @@ public class _08BirdNode : MonoBehaviour
         if(PlayerData.hasTransponder) {
             bird.SetActive(false);
         }
+        CompletedNodes.firstLoad[8] = false;
     }
 
     private void Update() {

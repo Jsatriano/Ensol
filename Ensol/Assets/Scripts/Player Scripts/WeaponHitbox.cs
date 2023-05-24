@@ -99,7 +99,7 @@ public class WeaponHitbox : MonoBehaviour
                 player.attackPower = player.baseAttackPower * player.specialDamagePulseMult;
                 foreach(Collider c in damagePulse) {
                     if(c.gameObject.tag == "Enemy") { 
-                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
+                        c.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);                    
                     }
                 }
                 player.attackPower = player.baseAttackPower * player.specialAttackMult;

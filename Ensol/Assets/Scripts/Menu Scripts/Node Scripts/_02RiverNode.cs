@@ -19,7 +19,6 @@ public class _02RiverNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
         if (CompletedNodes.lNode == 1)
         {
             SpawnPoint.First = true;
@@ -31,7 +30,6 @@ public class _02RiverNode : MonoBehaviour
         else 
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
-            print(SpawnPoint.First);
         }
         CompletedNodes.lNode = 2;
     }
@@ -40,6 +38,8 @@ public class _02RiverNode : MonoBehaviour
     {
         
         CompletedNodes.prevNode = 2;
+        CompletedNodes.firstLoad[2] = false;
+
 
         // if water turned off in river node, disable water and boundaries in this node
         if (PlayerData.controlsHit && water.activeInHierarchy)

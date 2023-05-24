@@ -775,6 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Entrance: 1
+  nodeDestination: 3
 --- !u!1 &2875979563610460537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,7 +2372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924958769091613698}
   m_LocalRotation: {x: -0, y: 0.6821239, z: -0, w: 0.7312366}
-  m_LocalPosition: {x: 11.55, y: 0, z: -42.79}
+  m_LocalPosition: {x: 20.69, y: 0, z: -41.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2392,6 +2393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnpoint1: {fileID: 8925507588793244636}
   spawnpoint2: {fileID: 7924958769091613698}
+  spawnpoint3: {fileID: 0}
 --- !u!1 &8727326795591620455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnpoint1: {fileID: 8925507588793244636}
   spawnpoint2: {fileID: 7924958769091613698}
+  spawnpoint3: {fileID: 0}
 --- !u!1001 &48362554864861185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4526,6 +4529,10 @@ PrefabInstance:
     - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: GameFinished
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: nodeDestination
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_RootOrder

@@ -19,6 +19,7 @@ public static class PlayerData
 
     //Player Progress
     public static int currentNode = 1;
+    public static int prevNode = 1;
 
     //Player Tutorial Text
     public static bool shownWalkText  = false;

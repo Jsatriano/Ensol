@@ -2,7 +2,7 @@ INCLUDE ../globals.ink
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
-{ abletoleave == false: -> Intro | -> Over}
+{ abletoleave == false && deadtodeer == false: -> Intro | -> Over}
 
 
 === Intro ===
@@ -27,7 +27,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 
 
 * {abletoleave && abletoleave2} [I just want to walk around for a bit.]
-P1-USH: Okay! If you need anything let me know.
+P1-USH: Okay! If you need anything, let me know.
 -> END
 
 === Over ===
@@ -94,7 +94,7 @@ P1-USH: Of course!
 
 
 +[I don't need anything else.]
-P1-USH: Okay! If you need me, I will always be there for you!
+P1-USH: Okay! If you ever need anything else, feel free to let me know!
 ->END
 
 ===Plush_talk===
@@ -158,7 +158,13 @@ P1-USH: Okay!
 +{footprints_found}[Are there robots that leave behind human footprints?]
 P1-USH: None of our designs uses any human feet. Are you sure you haven’t looped back to the area before? Those woods can be pretty confusing for a human to navigate through successfully without being confused.
     ->Plush_talk
-
+    
+*{repair_used}[What are those metal pads in the forest?]
+P1-USH: Oh! You might be talking about the unit repair stations. Using small nanobots, the pads are able to repair any organic and inorganic material! They are out in the open so that any model that needs repairs can get it done easily.
+    ->Plush_talk
+*{river_controls}[Why was I called a denizen? What is this place exactly?]
+P1-USH: It's because denizens are denizens silly! This place is meant to take care of you in the best way possible, so don't you worry about a thing. 
+    ->Plush_talk
 +[I want to ask about something else.]
 P1-USH: Okay!
 -> Plush_unlock

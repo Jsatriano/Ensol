@@ -26,6 +26,8 @@ public class ButtonGateController : MonoBehaviour
                 matArray[1] = greenMat;
                 buttonMesh.materials = matArray;
                 text.canBeInteracted = true;
+                // give correct tag
+                gameObject.tag = "Interactable";
 
                 if(!buttonCol.enabled)
                 {
@@ -36,6 +38,7 @@ public class ButtonGateController : MonoBehaviour
             else
             {
                 // if button was pressed but other conditionals aren't met, turn collider back on
+                gameObject.tag = "Uninteractable";
                 buttonCol.enabled = true;
                 text.canBeInteracted = false;
             }

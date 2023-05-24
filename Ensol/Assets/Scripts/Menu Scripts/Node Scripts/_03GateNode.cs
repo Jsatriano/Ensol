@@ -13,7 +13,7 @@ public class _03GateNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
+        //determine where to spawn
         if (CompletedNodes.lNode == 0)
         {
             SpawnPoint.First = true;
@@ -25,14 +25,16 @@ public class _03GateNode : MonoBehaviour
         else 
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
-            print(SpawnPoint.First);
         }
         CompletedNodes.lNode = 3;
     }
 
     private void Start()
     {
+        //determine where to spawn part 2
         CompletedNodes.prevNode = 3;
+        CompletedNodes.firstLoad[3] = false;
+
     }
 
     public void Update()

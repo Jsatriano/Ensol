@@ -11,18 +11,29 @@ public class _05BearNode : MonoBehaviour
     private Story story;
     public TextAsset globals;
 
-    private void Start()
+    private void Awake()
     {
-        if (CompletedNodes.lNode == 4)
+        //determine where to spawn
+        if (CompletedNodes.lNode == 2)
         {
             SpawnPoint.First = true;
+        } 
+        else if (CompletedNodes.lNode == 6)
+        {
+            SpawnPoint.First = false;
         }
         else 
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.lNode = 5;
+    }
+
+    private void Start()
+    {
+        //determine where to spawn part 2
         CompletedNodes.prevNode = 5;
+        CompletedNodes.firstLoad[5] = false;
     }
 
     public void Update()

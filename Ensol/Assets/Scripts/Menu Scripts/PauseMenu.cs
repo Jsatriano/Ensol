@@ -7,6 +7,13 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
+    public enum MenuState
+    {
+        UNPAUSED,
+        PAUSED,
+        OPTIONS
+    }
+
     public GameObject pauseMenu;
     public DataPersistanceManager dataManager;
     public GameObject resumeButton;
@@ -16,10 +23,15 @@ public class PauseMenu : MonoBehaviour
     public PlayerController combatController;
     public static bool isPaused;
     public Transform enemySpawnPoint;
+    public NodeSelector nodeSelector;
+    [HideInInspector] public MenuState menuState;
+
+    [Header("Options Menu")]
+    [SerializeField] private GameObject optionsMenu;
 
     private void Start()
     {
-
+        menuState = MenuState.UNPAUSED;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
@@ -29,9 +41,28 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel"))
+        switch (menuState)
         {
-            PauseUnpause();
+            case MenuState.UNPAUSED:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    PauseUnpause();
+                }
+                break;
+
+            case MenuState.PAUSED:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    PauseUnpause();
+                }
+                break;
+
+            case MenuState.OPTIONS:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    OpenCloseOptions();
+                }
+                break;
         }
     }
 
@@ -48,6 +79,7 @@ public class PauseMenu : MonoBehaviour
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0f;
             }
+            menuState = MenuState.PAUSED;
         }
         else
         {
@@ -55,6 +87,21 @@ public class PauseMenu : MonoBehaviour
             playtestMenu.SetActive(false);
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
+            menuState = MenuState.UNPAUSED;
+        }
+    }
+
+    public void OpenCloseOptions()
+    {
+        if (optionsMenu.activeInHierarchy)
+        {
+            optionsMenu.SetActive(false);
+            menuState = MenuState.PAUSED;
+        }
+        else
+        {
+            optionsMenu.SetActive(true);
+            menuState = MenuState.OPTIONS;
         }
     }
 
@@ -68,6 +115,37 @@ public class PauseMenu : MonoBehaviour
     public void ReturnToNodeSelect() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName:"MapScene");
+    }
+
+    public void ReturnToCabin() {
+        StartCoroutine(ReturnToCabinFadeout());
+    }
+
+    public IEnumerator ReturnToCabinFadeout()
+    {
+        PauseUnpause();
+        GameObject blackOutSquare = GameObject.Find("Black Out Screen");
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        bool fadeToBlack = true;
+        float fadeSpeed = 1.1f;
+
+        if(fadeToBlack)
+        {
+            while(blackOutSquare.GetComponent<Image>().color.a < 1)
+            {
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
+                {
+                    PlayerData.prevNode = PlayerData.currentNode;
+                    PlayerData.currentNode = 1;
+                    nodeSelector.OpenScene();
+                }
+                yield return null;
+            }
+        }
     }
 
     public void EnterPlaytestMenu() {
