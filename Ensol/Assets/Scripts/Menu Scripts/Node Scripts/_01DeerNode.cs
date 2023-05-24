@@ -40,7 +40,7 @@ public class _01DeerNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
+
         if (CompletedNodes.lNode == 0)
         {
             SpawnPoint.First = true;
