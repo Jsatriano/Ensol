@@ -59,7 +59,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void UpdateCatMode()
     {
-        Debug.Log("CATMODeeee");
         catModeActivated = catModeToggle.isOn;
         OnCatModeChange.Invoke(catModeActivated);
     }
