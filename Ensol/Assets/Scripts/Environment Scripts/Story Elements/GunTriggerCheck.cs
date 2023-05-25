@@ -8,8 +8,6 @@ public class GunTriggerCheck : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(!PlayerData.hasTransponder) {
-            gunPivotScript.foundPlayer = true;
-        }
+        gunPivotScript.foundPlayer = true;
     }
 }

@@ -2,7 +2,7 @@ INCLUDE ../globals.ink
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
-{ abletoleave == false && deadtodeer == false: -> Intro | -> Over}
+{ abletoleave == false: -> Intro | -> Over}
 
 
 === Intro ===

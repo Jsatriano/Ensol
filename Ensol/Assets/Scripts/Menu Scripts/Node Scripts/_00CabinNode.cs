@@ -94,7 +94,6 @@ public class _00CabinNode : MonoBehaviour
         if (!broom.activeInHierarchy && !interactableBroom.activeInHierarchy && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
         }
 
         //re-picking up weapon pile

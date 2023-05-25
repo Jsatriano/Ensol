@@ -16,27 +16,18 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Toggle catModeToggle;
     public static bool catModeActivated = false;
 
-    [Header("VCAs")]
-    private FMOD.Studio.VCA musicVCA;
-    private FMOD.Studio.VCA sfxVCA;
-
-
-
     //Unity Events
     [HideInInspector] public UnityEvent<float> OnScreenShakeChange;
+    [HideInInspector] public UnityEvent<float> OnMusicVolumeChange;
+    [HideInInspector] public UnityEvent<float> OnSFXVolumeChange;
     [HideInInspector] public UnityEvent<bool> OnCatModeChange;
 
     private void Start()
     {
-        //Sets current values
         musicSlider.value = musicValue;
         sfxSlider.value = sfxValue;
         screenShakeSlider.value = screenShakeValue;
         catModeToggle.isOn = catModeActivated;
-
-        musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
-        sfxVCA   = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
-
     }
 
     public void UpdateScreenShake()
@@ -48,17 +39,18 @@ public class OptionsMenu : MonoBehaviour
     public void UpdateMusicVolume()
     {
         musicValue = musicSlider.value;
-        musicVCA.setVolume(musicValue);
+        OnMusicVolumeChange.Invoke(musicValue);
     }
 
     public void UpdateSFXVolume()
     {
         sfxValue = sfxSlider.value;
-        sfxVCA.setVolume(sfxValue);
+        OnSFXVolumeChange.Invoke(sfxValue);
     }
 
     public void UpdateCatMode()
     {
+        Debug.Log("CATMODeeee");
         catModeActivated = catModeToggle.isOn;
         OnCatModeChange.Invoke(catModeActivated);
     }
