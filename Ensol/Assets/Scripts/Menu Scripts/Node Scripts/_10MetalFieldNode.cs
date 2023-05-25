@@ -21,6 +21,7 @@ public class _10MetalFieldNode : MonoBehaviour
         if (pathToComputer)
         {
             CompletedNodes.computerNode = true;
+            CompletedNodes.completedNodes[10] = true;
         }
     }
 

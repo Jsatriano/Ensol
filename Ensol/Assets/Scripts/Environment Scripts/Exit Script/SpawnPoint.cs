@@ -5,23 +5,34 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     public static bool First = true;
+    public static bool Second = true;
     public GameObject spawnpoint1;
     public GameObject spawnpoint2;
+    public GameObject spawnpoint3;
     // Start is called before the first frame update
     void Awake()
     {
-        print("first is set to ");
-        print(First);
-        if (First == true) {
+        if (First == true) 
+        {
             spawnpoint1.SetActive(true);
             spawnpoint2.SetActive(false);
-            print("entrance spawn point is on");
+            if (spawnpoint3 != null){
+                spawnpoint3.SetActive(false);
+            }
         }
-        else 
+        else if (Second == true)
         {
             spawnpoint1.SetActive(false);
             spawnpoint2.SetActive(true);
-            print("exit spawn point is on");
+            if (spawnpoint3 != null){
+                spawnpoint3.SetActive(false);
+            }
+        }
+        else
+        {
+            spawnpoint1.SetActive(false);
+            spawnpoint2.SetActive(false);
+            spawnpoint3.SetActive(true);
         }
     }
 }

@@ -26,7 +26,7 @@ public class _04RiverControlNode : MonoBehaviour
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 5)
+        else if (CompletedNodes.lNode == 7)
         {
             SpawnPoint.First = false;
         }
@@ -76,6 +76,7 @@ public class _04RiverControlNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.securityTowerNode = true;
+            CompletedNodes.completedNodes[4] = true;
         }
     }
 }
