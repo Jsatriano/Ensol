@@ -56,8 +56,9 @@ public class DataPersistanceManager : MonoBehaviour
   public void LoadGame()
   {
     this.playerData = dataHandler.Load();
+    print(playerData);
     dataHandler.LoadStory();
-    if (this.playerData == null | this.globals == null)
+    if (this.playerData == null)
     {
         Debug.Log("No Data was found. Initializing data to defaults");
         NewGame();
@@ -68,7 +69,7 @@ public class DataPersistanceManager : MonoBehaviour
         dataPersistenceObj.LoadData(playerData);
         // dataPersistenceObj.LoadStory(globals);
     }
-    Debug.Log("Is loading working because worked is now: " + PlayerData.NGworked);
+    Debug.Log("Is loading working because ngworked is now: " + PlayerData.NGworked);
   }
 
   public void SaveGame()
@@ -78,7 +79,7 @@ public class DataPersistanceManager : MonoBehaviour
         dataPersistenceObj.SaveData(ref playerData);
         dataPersistenceObj.SaveStory(ref globals);
     }
-    Debug.Log("Is saving working because worked is now: " + playerData.NGworked);
+    Debug.Log("Is saving working because ngworked is now: " + playerData.NGworked);
     Debug.Log("Is string there?:" + globals.text);
 
     dataHandler.Save(playerData);
