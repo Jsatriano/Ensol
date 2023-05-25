@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class DataPersistanceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
 
+
     private PData playerData;
+    // private string SF = "";
+    private TextAsset globals;
     private List<IDataPersistance> dataPersistenceObjects;
 
     private FileDataHandler dataHandler;
@@ -22,24 +26,38 @@ public class DataPersistanceManager : MonoBehaviour
         Debug.LogError("Found more than one Data Persistance Manager in the scene");
     }
     instance = this;
+    // SceneManager.activeSceneChanged += sceneChange;
   }
 
   private void Start()
   {
-    this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+    this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, globals);
     this.dataPersistenceObjects = FindAllDataPersistenceObjects();
     LoadGame();
   }
 
+  // private void Update()
+  // {
+  //   SceneManager.activeSceneChanged += sceneChange;
+  // }
+
+  // private void sceneChange(Scene current, Scene next)
+  // {
+  //   print("scene has changed !!!!!!!!!!!!!!!!");
+  //   SaveGame();
+  // }
+
   public void NewGame()
   {
     this.playerData = new PData();
+    // this.SF = "";
   }
 
   public void LoadGame()
   {
     this.playerData = dataHandler.Load();
-    if (this.playerData == null)
+    dataHandler.LoadStory();
+    if (this.playerData == null | this.globals == null)
     {
         Debug.Log("No Data was found. Initializing data to defaults");
         NewGame();
@@ -48,8 +66,9 @@ public class DataPersistanceManager : MonoBehaviour
     foreach (IDataPersistance dataPersistenceObj in dataPersistenceObjects)
     {
         dataPersistenceObj.LoadData(playerData);
+        // dataPersistenceObj.LoadStory(globals);
     }
-    Debug.Log("Is loading working because NGworked is now: " + playerData.NGworked);
+    Debug.Log("Is loading working because worked is now: " + PlayerData.NGworked);
   }
 
   public void SaveGame()
@@ -57,16 +76,19 @@ public class DataPersistanceManager : MonoBehaviour
     foreach (IDataPersistance dataPersistenceObj in dataPersistenceObjects)
     {
         dataPersistenceObj.SaveData(ref playerData);
+        dataPersistenceObj.SaveStory(ref globals);
     }
-    Debug.Log("Is saving working because NGworked is now: " + playerData.NGworked);
+    Debug.Log("Is saving working because worked is now: " + playerData.NGworked);
+    Debug.Log("Is string there?:" + globals.text);
 
     dataHandler.Save(playerData);
+    dataHandler.SaveStory(globals);
   }
 
-//   private void OnApplicationQuit()
-//   {
-//     SaveGame();
-//   }
+  private void OnApplicationQuit()
+  {
+    SaveGame();
+  }
 
   private List<IDataPersistance> FindAllDataPersistenceObjects()
   {

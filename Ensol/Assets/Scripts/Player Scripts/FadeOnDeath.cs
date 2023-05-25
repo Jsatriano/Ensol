@@ -10,6 +10,22 @@ public class FadeOnDeath : MonoBehaviour
     public NodeSelector nodeSelector;
     private string sceneName;
 
+    // public void LoadData(PData data)
+    // {
+    //     this.NGworked = data.NGworked;
+    //     PlayerData.currHP = data.currHP;
+    //     PlayerData.currentlyHasBroom = data.currentlyHasBroom;
+    //     PlayerData.currentlyHasSolar = data.currentlyHasSolar;
+    // }
+
+    // public void SaveData(ref PData data)
+    // {
+    //     data.NGworked = this.NGworked;
+    //     data.currHP = PlayerData.currHP;
+    //     data.currentlyHasBroom = PlayerData.currentlyHasBroom;
+    //     data.currentlyHasSolar = PlayerData.currentlyHasSolar;
+    // }
+
 
 
     void Start() {

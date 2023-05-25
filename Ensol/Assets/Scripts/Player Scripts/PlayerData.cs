@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class PlayerData
 {
+    public static bool worked;
+    public static int NGworked = 0;
+
+
     //Weapon Upgrades
     public static bool startedGame = false;
     public static bool hasBroom = false;

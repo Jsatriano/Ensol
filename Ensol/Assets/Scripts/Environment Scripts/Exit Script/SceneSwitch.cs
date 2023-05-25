@@ -8,6 +8,7 @@ public class SceneSwitch : MonoBehaviour
 {
     // Harsha
     public static GameObject blackOutSquare {get; private set;}
+    //public DataPersistanceManager DataManager;
     public bool Entrance = true;
     public static bool exitFrom = true;
     [SerializeField] private int nodeDestination;
@@ -57,6 +58,7 @@ public class SceneSwitch : MonoBehaviour
                     Cursor.visible = true;
                     PlayerData.prevNode = PlayerData.currentNode;
                     PlayerData.currentNode = nodeDestination;
+                    //DataManager.SaveGame();
                     SceneManager.LoadScene(sceneName:"MapScene");
 
                 }

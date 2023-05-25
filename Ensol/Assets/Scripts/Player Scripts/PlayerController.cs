@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
 
-public class PlayerController : MonoBehaviour, IDataPersistance
+public class PlayerController : MonoBehaviour//, IDataPersistance
 {
     public enum State
     {
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     
     [Header("Player Combat Stats & Variables")]
     public float maxHP = 10;
-    public float currentHP = PlayerData.currHP;
+    public float currentHP;// = PlayerData.currHP;
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
@@ -133,7 +133,13 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     public TextAsset globals;
     [HideInInspector] public GameObject[] lightSlashVFX;
     [HideInInspector] public GameObject heavySlashVFX;
-    private int NGworked;
+
+
+
+    [Header("Save System Variables")]
+    bool currentlyHasBroom;
+    bool currentlyHasSolar;
+    //private int NGworked;
     [SerializeField] private OptionsMenu optionsMenu;
     [SerializeField] private List<GameObject> catModeObjects;
 
@@ -142,9 +148,29 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     private Vector3 direction;
     private bool lightAttackInput, heavyAttackInput, dashInput, throwAttackInput, shieldInput, pauseInput;
 
+
+    // public void LoadData(PData data)
+    // {
+    //     PlayerData.NGworked = data.NGworked;
+    //     // PlayerData.currHP = data.currHP;
+    //     // PlayerData.currentlyHasBroom = data.currentlyHasBroom;
+    //     // PlayerData.currentlyHasSolar = data.currentlyHasSolar;
+    //     PlayerData.worked = data.worked;
+    // }
+
+    // public void SaveData(ref PData data)
+    // {
+    //     data.NGworked = PlayerData.NGworked;
+    //     // data.currHP = PlayerData.currHP;
+    //     // data.currentlyHasBroom = PlayerData.currentlyHasBroom;
+    //     // data.currentlyHasSolar = PlayerData.currentlyHasSolar;
+    //     data.worked = PlayerData.worked;
+    // }
+
     // function is called in scene start
     private void Start()
     {
+        print(PlayerData.NGworked);
         state = State.IDLE;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -258,16 +284,6 @@ public class PlayerController : MonoBehaviour, IDataPersistance
             vialTimer = vialRechargeSpeed;
         }
         ManageVialShader();
-    }
-
-    public void LoadData(PData data)
-    {
-        this.NGworked = data.NGworked;
-    }
-
-    public void SaveData(ref PData data)
-    {
-        data.NGworked = this.NGworked;
     }
 
     void FixedUpdate() {
@@ -603,7 +619,8 @@ public class PlayerController : MonoBehaviour, IDataPersistance
 
             case State.PAUSED:
                 allowInput = false;
-                this.NGworked++;
+                PlayerData.NGworked+=1;
+                PlayerData.worked = true;
                 // pause game, make all actions unavailable
                 if(!pauseMenu.activeInHierarchy)
                 {

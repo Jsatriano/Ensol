@@ -16,10 +16,12 @@ public class OutdoorLevelManager : MonoBehaviour
     public Object[] nodePrefabs;
     public GameObject[] levelLocations;
     public GameObject player;
+    // public DataPersistanceManager DataManager;
 
     void Start()
     {
         node = NodeSelector.selectedNode;
+        //DataManager.SaveGame();
         Load(node);
     }
 
@@ -40,6 +42,7 @@ public class OutdoorLevelManager : MonoBehaviour
     }
 
     public void GoBackToMapSelection() {
+        //DataManager.SaveGame();
         SceneManager.LoadScene("MapScene");
     }
 }
