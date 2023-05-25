@@ -32,6 +32,10 @@ public class CompletedNodes : MonoBehaviour
     [SerializeField] private List<float> circleScales;
     [SerializeField] private float circleWaitTime;
 
+    [SerializeField] private float xWaitTime;
+    [SerializeField] private float xDrawRate;
+    [SerializeField] private float sceneryDrawRate;
+
     [SerializeField] private NodeSelector nodeSelector;
 
     public Sprite[] image;
@@ -75,9 +79,12 @@ public class CompletedNodes : MonoBehaviour
         nodes[11] = computerNode;
         float waitTime;
 
+        //PlayerData.prevNode = 2;
+        //PlayerData.currentNode = 3;
+
         if (firstTransition[PlayerData.prevNode-1] && firstLoad[PlayerData.currentNode-1])
         {
-            waitTime = circleWaitTime * 8.5f;
+            waitTime = circleWaitTime * 7f;
         }
         else if ((!firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1]) || firstTransition[PlayerData.prevNode - 1] && !firstLoad[PlayerData.currentNode - 1])
         {
@@ -87,21 +94,24 @@ public class CompletedNodes : MonoBehaviour
         {
             waitTime = circleWaitTime;
         }
+        
+
+        UpdateMapIcons();
         StartCoroutine(ChangeCircleLocation(PlayerData.prevNode-1, PlayerData.currentNode-1, waitTime));
     }
 
-    public void Update()
+    public void UpdateMapIcons()
     {
-        if(cabinNode)
+        if (cabinNode)
         {
             mapButton[0].SetActive(true);
             mapScenery[0].SetActive(true);
 
         }
-        if(deerNode)
+        if (deerNode)
         {
             // activate deer X
-            if(firstLoad[1])
+            if (firstLoad[1])
             {
                 StartCoroutine(SliderToggle(1, 0f));
             }
@@ -110,12 +120,12 @@ public class CompletedNodes : MonoBehaviour
                 mapButton[1].SetActive(true);
             }
         }
-        if(riverNode)
+        if (riverNode)
         {
             // activate river X
-            if(firstLoad[2])
+            if (firstLoad[2])
             {
-                StartCoroutine(SliderToggle(2, 3f));
+                StartCoroutine(SliderToggle(2, xWaitTime));
             }
             else
             {
@@ -123,35 +133,33 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate deer button and scenery
-            if(firstTransition[1])
+            if (firstTransition[1])
             {
-                ImageSwapTransition(1);
-                SceneryToggle(1);
+                StartCoroutine(ImageSwapTransition(1));
+                StartCoroutine(SceneryToggle(1));
             }
             else
             {
                 ImageAndScenery(1);
             }
         }
-        if(gateNode)
+        if (gateNode)
         {
             // activate gate X
-            if(firstLoad[3])
+            if (firstLoad[3])
             {
-                StartCoroutine(SliderToggle(3, 3f));
+                StartCoroutine(SliderToggle(3, xWaitTime));
             }
             else
             {
                 mapButton[3].SetActive(true);
             }
         }
-        if(riverControlNode)
+        if (riverControlNode)
         {
-            // activate river control X
-            mapButton[4].SetActive(true);
-            if(firstLoad[4])
+            if (firstLoad[4])
             {
-                StartCoroutine(SliderToggle(4, 3f));
+                StartCoroutine(SliderToggle(4, xWaitTime));
             }
             else
             {
@@ -159,79 +167,75 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate gate button and scenery
-            if(firstTransition[3])
+            if (firstTransition[3])
             {
-                ImageSwapTransition(3);
-                SceneryToggle(3);
+                StartCoroutine(ImageSwapTransition(3));
+                StartCoroutine(SceneryToggle(3));
             }
             else
             {
                 ImageAndScenery(3);
             }
         }
-        if(bearNode)
+        if (bearNode)
         {
-            // activate bear X
-            mapButton[5].SetActive(true);
-            if(firstLoad[5])
+            if (firstLoad[5])
             {
-                StartCoroutine(SliderToggle(5, 3f));
+                StartCoroutine(SliderToggle(5, xWaitTime));
             }
             else
             {
                 mapButton[5].SetActive(true);
             }
 
-            if(lastNode != 5 || lastNode != 7)
+            if (lastNode != 5 || lastNode != 7)
             {
                 lastNode = 5;
             }
 
             // activate river button and scenery
-            if(firstTransition[2])
+            if (firstTransition[2])
             {
-                ImageSwapTransition(2);
-                SceneryToggle(2);
+                StartCoroutine(ImageSwapTransition(2));
+                StartCoroutine(SceneryToggle(2));
             }
             else
             {
                 ImageAndScenery(2);
             }
         }
-        if(brokenMachineNode)
+        if (brokenMachineNode)
         {
-            // activate broken machine X
-            mapButton[6].SetActive(true);
-            if(firstLoad[6])
+            if (firstLoad[6])
             {
-                StartCoroutine(SliderToggle(6, 3f));
+                StartCoroutine(SliderToggle(6, xWaitTime));
             }
             else
             {
                 mapButton[6].SetActive(true);
             }
 
-            if(lastNode == 5)
+            if (lastNode == 5)
             {
 
                 //activate bear button and scenery
-                if(firstTransition[5])
+                if (firstTransition[5])
                 {
-                    ImageSwapTransition(5);
-                    SceneryToggle(5);
+                    StartCoroutine(ImageSwapTransition(5));
+                    StartCoroutine(SceneryToggle(5));
                 }
                 else
                 {
                     ImageAndScenery(5);
                 }
             }
-            if(lastNode == 7)
+            if (lastNode == 7)
             {
                 //activate security tower button and scenery
-                if(firstTransition[7])
+                if (firstTransition[7])
                 {
-                    ImageSwapTransition(7);
-                    SceneryToggle(7);
+                    StartCoroutine(ImageSwapTransition(7));
+                    StartCoroutine(SceneryToggle(7));
                 }
                 else
                 {
@@ -239,42 +243,38 @@ public class CompletedNodes : MonoBehaviour
                 }
             }
         }
-        if(securityTowerNode)
+        if (securityTowerNode)
         {
-            // activate security tower X
-            mapButton[7].SetActive(true);
-            if(firstLoad[7])
+            if (firstLoad[7])
             {
-                StartCoroutine(SliderToggle(7, 3f));
+                StartCoroutine(SliderToggle(7, xWaitTime));
             }
             else
             {
                 mapButton[7].SetActive(true);
             }
 
-            if(lastNode != 5 && lastNode != 7)
+            if (lastNode != 5 && lastNode != 7)
             {
                 lastNode = 7;
             }
 
             //activate river control button and scenery
-            if(firstTransition[4])
+            if (firstTransition[4])
             {
-                ImageSwapTransition(4);
-                SceneryToggle(4);
+                StartCoroutine(ImageSwapTransition(4));
+                StartCoroutine(SceneryToggle(4));
             }
             else
             {
                 ImageAndScenery(4);
             }
         }
-        if(birdNode)
+        if (birdNode)
         {
-            // activate bird X
-            mapButton[8].SetActive(true);
-            if(firstLoad[8])
+            if (firstLoad[8])
             {
-                StartCoroutine(SliderToggle(8, 3f));
+                StartCoroutine(SliderToggle(8, xWaitTime));
             }
             else
             {
@@ -282,23 +282,21 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate river button and scenery
-            if(firstTransition[2])
+            if (firstTransition[2])
             {
-                ImageSwapTransition(2);
-                SceneryToggle(2);
+                StartCoroutine(ImageSwapTransition(2));
+                StartCoroutine(SceneryToggle(2));
             }
             else
             {
                 ImageAndScenery(2);
             }
         }
-        if(powerGridNode)
+        if (powerGridNode)
         {
-            // activate power grid X
-            mapButton[9].SetActive(true);
-            if(firstLoad[9])
+            if (firstLoad[9])
             {
-                StartCoroutine(SliderToggle(9, 3f));
+                StartCoroutine(SliderToggle(9, xWaitTime));
             }
             else
             {
@@ -306,23 +304,21 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate broken machine button and scenery
-            if(firstTransition[7])
+            if (firstTransition[7])
             {
-                ImageSwapTransition(7);
-                SceneryToggle(7);
+                StartCoroutine(ImageSwapTransition(7));
+                StartCoroutine(SceneryToggle(7));
             }
             else
             {
                 ImageAndScenery(7);
             }
         }
-        if(metalFieldNode)
+        if (metalFieldNode)
         {
-            // activate metal field X
-            mapButton[10].SetActive(true);
-            if(firstLoad[10])
+            if (firstLoad[10])
             {
-                StartCoroutine(SliderToggle(10, 3f));
+                StartCoroutine(SliderToggle(10, xWaitTime));
             }
             else
             {
@@ -330,25 +326,25 @@ public class CompletedNodes : MonoBehaviour
             }
 
             // activate broken machine button and scenery
-            if(firstTransition[6])
+            if (firstTransition[6])
             {
-                ImageSwapTransition(6);
-                SceneryToggle(6);
+                StartCoroutine(ImageSwapTransition(6));
+                StartCoroutine(SceneryToggle(6));
             }
             else
             {
                 ImageAndScenery(6);
             }
         }
-        if(computerNode)
+        if (computerNode)
         {
             computerNodeButton.interactable = true;
 
             // activate metal field button and scenery
-            if(firstTransition[10])
+            if (firstTransition[10])
             {
-                ImageSwapTransition(10);
-                SceneryToggle(10);
+                StartCoroutine(ImageSwapTransition(10));
+                StartCoroutine(SceneryToggle(10));
             }
             else
             {
@@ -361,144 +357,85 @@ public class CompletedNodes : MonoBehaviour
 
         // ----------- CHECK WHAT NODE WE ARE AT, AND WHERE WE CAN GO -------------
 
-        // no node yet visited
-        if(prevNode == 999)
-        {
-            UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = false; //cabin
-        }
         // last at cabin
-        else if(prevNode == 0)
+        else if (PlayerData.prevNode == 0)
         {
 
-            UninteractAll();
-            mapButton[0].GetComponent<Button>().interactable = false; //cabin
-            mapButton[1].GetComponent<Button>().interactable = false; //deer
-            mapButton[3].GetComponent<Button>().interactable = false; //gate
         }
         // last at deer
-        else if(prevNode == 1)
+        else if (PlayerData.prevNode == 1)
         {
 
-            //firstLoad[1] = false;
+            firstLoad[1] = false;
 
-            UninteractAll();
-            mapButton[1].GetComponent<Button>().interactable = false; //deer
-            mapButton[0].GetComponent<Button>().interactable = false; //cabin
-            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at river
-        else if(prevNode == 2)
+        else if (PlayerData.prevNode == 2)
         {
 
             firstLoad[2] = false;
 
-            UninteractAll();
-            mapButton[2].GetComponent<Button>().interactable = false; //river
-            mapButton[1].GetComponent<Button>().interactable = false; //deer
-            mapButton[5].GetComponent<Button>().interactable = false; //bear
-            mapButton[8].GetComponent<Button>().interactable = false; //bird
         }
         // last at gate
-        else if(prevNode == 3)
+        else if (PlayerData.prevNode == 3)
         {
 
             firstLoad[3] = false;
 
-            UninteractAll();
-            mapButton[3].GetComponent<Button>().interactable = false; //gate
-            mapButton[0].GetComponent<Button>().interactable = false; //cabin
-            mapButton[4].GetComponent<Button>().interactable = false; //river control
         }
         // last at river control
-        else if(prevNode == 4)
+        else if (PlayerData.prevNode == 4)
         {
 
             firstLoad[4] = false;
 
-            UninteractAll();
-            mapButton[4].GetComponent<Button>().interactable = false; //river control
-            mapButton[3].GetComponent<Button>().interactable = false; //gate
-            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at bear
-        else if(prevNode == 5)
+        else if (PlayerData.prevNode == 5)
         {
 
             firstLoad[5] = false;
-
-            UninteractAll();
-            mapButton[5].GetComponent<Button>().interactable = false; //bear
-            mapButton[2].GetComponent<Button>().interactable = false; //river
-            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at broken machine
-        else if(prevNode == 6)
+        else if (PlayerData.prevNode == 6)
         {
 
             firstLoad[6] = false;
 
-            UninteractAll();
-            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
-            mapButton[5].GetComponent<Button>().interactable = false; //bear
-            mapButton[7].GetComponent<Button>().interactable = false; //security tower
-            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
         // last at security tower
-        else if(prevNode == 7)
+        else if (PlayerData.prevNode == 7)
         {
 
             firstLoad[7] = false;
 
-            UninteractAll();
-            mapButton[7].GetComponent<Button>().interactable = false; //security tower
-            mapButton[4].GetComponent<Button>().interactable = false; //river control
-            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
         }
         // last at bird
-        else if(prevNode == 8)
+        else if (PlayerData.prevNode == 8)
         {
 
             firstLoad[8] = false;
 
-            UninteractAll();
-            mapButton[8].GetComponent<Button>().interactable = false; //bird
-            mapButton[2].GetComponent<Button>().interactable = false; //river
         }
         // last at power grid
-        else if(prevNode == 9)
+        else if (PlayerData.prevNode == 9)
         {
 
             firstLoad[9] = false;
 
-            UninteractAll();
-            mapButton[9].GetComponent<Button>().interactable = false; //power grid
-            mapButton[7].GetComponent<Button>().interactable = false; //security tower
         }
         // last at metal field
-        else if(prevNode == 10)
+        else if (PlayerData.prevNode == 10)
         {
 
             firstLoad[10] = false;
 
-            UninteractAll();
-            mapButton[10].GetComponent<Button>().interactable = false;//metal field
-            mapButton[6].GetComponent<Button>().interactable = false; //broken machine
-            if(computerNode)
-            {
-                mapButton[11].GetComponent<Button>().interactable = false;//computer
-            }
         }
         // last at computer
-        else if(prevNode == 11)
+        else if (PlayerData.prevNode == 11)
         {
 
-            UninteractAll();
-            mapButton[11].GetComponent<Button>().interactable = false;//computer
-            mapButton[10].GetComponent<Button>().interactable = false;//metal field
         }
-        
-    
     }
 
     // resets interactable buttons
@@ -510,12 +447,6 @@ public class CompletedNodes : MonoBehaviour
         }
     }
 
-    private void TransformYouAreHereCircle(int i, float x, float y, float z)
-    {
-        youAreHereCircle.transform.position = mapButton[i].transform.position;
-        youAreHereCircle.transform.localScale = new Vector3(x, y, z);
-    }
-
     // function for activating the X on any node
     private IEnumerator SliderToggle(int i, float waitTime)
     {
@@ -523,59 +454,62 @@ public class CompletedNodes : MonoBehaviour
         {
             waitTime = 0;
         }
-
         yield return new WaitForSeconds(waitTime);
 
         mapButton[i].SetActive(true);
+        mapSlider[i].value = 0;
 
-        float lastVal = mapSlider[i].value;
-        if(lastVal == 1f)
+        //Fades X In
+        float interpolator = 0;
+        while (mapSlider[i].value < 1)
         {
-            lastVal = 0f;
+            interpolator += Time.deltaTime * xDrawRate;
+            mapSlider[i].value = Mathf.Lerp(0, 1, interpolator);
+            yield return null;
         }
-
-        mapSlider[i].value = Mathf.Lerp(lastVal, 0.99f, 1f * Time.deltaTime);
     }
 
     // function for swapping the X on any node out for its actual image
-    private void ImageSwapTransition(int i)
+    private IEnumerator ImageSwapTransition(int i)
     {
-        if(mapSlider[i].value >= 0.9f && mapButton[i].GetComponent<Button>().image.sprite == image[i])
+        //Fades X away
+        float interpolator = 1;
+        while (mapSlider[i].value > 0)
         {
-            firstTransition[i] = false;
+            interpolator -= Time.deltaTime * xDrawRate;
+            mapSlider[i].value = interpolator;
+            yield return null;
         }
 
-        float lastVal = mapSlider[i].value;
-
-        if(mapButton[i].GetComponent<Button>().image.sprite != image[i])
+        //Fade image in
+        mapButton[i].GetComponent<Button>().image.sprite = image[i];
+        interpolator = 0;
+        while (mapSlider[i].value < 1)
         {
-            if(lastVal > .05)
-            {
-                mapSlider[i].value = Mathf.Lerp(lastVal, 0f, 1.5f * Time.deltaTime);
-            }
-            else
-            {
-                mapButton[i].GetComponent<Button>().image.sprite = image[i];
-            }
-        }
-        else
-        {
-            mapSlider[i].value = Mathf.Lerp(lastVal, 1f, 1f * Time.deltaTime);
-        }
+            interpolator += Time.deltaTime * xDrawRate;
+            mapSlider[i].value = interpolator;
+            yield return null;
+        } 
     }
 
     // function for fading in the scenery
-    private void SceneryToggle(int i)
+    private IEnumerator SceneryToggle(int i)
     {
+        Image image = mapScenery[i].GetComponent<Image>();
+
         // create 2 new colors to lerp from / to
-        Color lastColor = mapScenery[i].GetComponent<Image>().color;
-        Color newColor = new Color(1f, 1f, 1f, 1f);
+        Color startColor = new Color(0f, 0f, 0f, 0f);
+        Color endColor = new Color(1f, 1f, 1f, 1f);
 
-        // create the lerped color
-        Color lerpedColor = Color.Lerp(lastColor, newColor, 1f * Time.deltaTime);
-
-        // apply the lerped color to game
-        mapScenery[i].GetComponent<Image>().color = lerpedColor;
+        //Fade the scenery in
+        float interpolator = 0;
+        image.color = startColor;
+        while (image.color.a < endColor.a)
+        {
+            interpolator += Time.deltaTime * sceneryDrawRate;
+            image.color = Color.Lerp(startColor, endColor, interpolator);
+            yield return null;
+        }
     }
 
     // function for after a node's completed animation has already been played once before
@@ -588,17 +522,24 @@ public class CompletedNodes : MonoBehaviour
 
     private IEnumerator ChangeCircleLocation(int startNode, int endNode, float waitTime)
     {
+        //Position circle on start node
         circleSlider.fillAmount = 1;
         youAreHereCircle.transform.position = mapButton[startNode].transform.position;
         youAreHereCircle.transform.localScale = circleScales[startNode] * Vector3.one;
+
+        //Erase circle
         while (circleSlider.fillAmount > 0)
         {
             circleSlider.fillAmount -= circleDrawRate * Time.deltaTime;
             yield return null;
         }
+
+        //Position circle at end node
         youAreHereCircle.transform.position = mapButton[endNode].transform.position;
         youAreHereCircle.transform.localScale = circleScales[endNode] * Vector3.one;
         yield return new WaitForSeconds(waitTime);     
+
+        //Draw circle
         while (circleSlider.fillAmount < 1)
         {
             circleSlider.fillAmount += circleDrawRate * Time.deltaTime;
