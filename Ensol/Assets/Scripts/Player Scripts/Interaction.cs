@@ -31,11 +31,7 @@ public class Interaction : MonoBehaviour
             {
                // print("picked up object");
                 targetedPickup = collider.gameObject;
-                if (collider.gameObject.name == "broom")
-                {
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
-                }
-                if (collider.gameObject.name == "Weapon Pile" || collider.gameObject.name == "Gutted Deer")
+                if (collider.gameObject.name == "Weapon Pile")
                 {
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, this.transform.position);
                 }

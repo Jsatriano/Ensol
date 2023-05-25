@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour//, IDataPersistance
     public ElectricVials electricVials;
     public GameObject FX1;
     public GameObject FX2;
+    public GameObject slowVFX;
     [SerializeField] private CameraShake cameraScript;
 
     [Header("Movement Variables")]
@@ -180,6 +181,7 @@ public class PlayerController : MonoBehaviour//, IDataPersistance
         dying = false;
         healthBar.SetMaxHealth(maxHP);
         vialTimer = vialRechargeSpeed;
+        slowVFX.SetActive(false);
 
         if(PlayerData.currHP == -1) {
             PlayerData.currHP = maxHP;
@@ -238,6 +240,10 @@ public class PlayerController : MonoBehaviour//, IDataPersistance
     void Update() {
         if(PauseMenu.isPaused) {
             return;
+        }
+
+        if(activeWeaponProjectile != null && !activeWeaponProjectile.activeInHierarchy) {
+            Destroy(activeWeaponProjectile);
         }
 
         animator.SetBool("hasWeapon", hasWeapon);
@@ -924,6 +930,9 @@ public class PlayerController : MonoBehaviour//, IDataPersistance
         }
         else
         {
+            if(speedMult < 1) {
+                slowVFX.SetActive(true);
+            }
             //New buffs/debuffs of different strength override currently active buffs/debuffs
             if (speedMultiplier != speedMult)
             {
@@ -956,6 +965,7 @@ public class PlayerController : MonoBehaviour//, IDataPersistance
         }
         speedMultiplier = 1;
         speedMultRoutine = null;
+        slowVFX.SetActive(false);
     }
 
     private void Dash() // Justin

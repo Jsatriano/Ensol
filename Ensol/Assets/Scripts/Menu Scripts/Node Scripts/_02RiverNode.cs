@@ -19,7 +19,6 @@ public class _02RiverNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
         if (CompletedNodes.lNode == 1)
         {
             SpawnPoint.First = true;
@@ -31,7 +30,6 @@ public class _02RiverNode : MonoBehaviour
         else 
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
-            print(SpawnPoint.First);
         }
         CompletedNodes.lNode = 2;
     }

@@ -58,4 +58,6 @@ public static class PlayerData
     //Security Tower Node Progression
     public static bool birdTriggered = false;
     public static bool disableBird = false;
+    public static bool killedBird = false;
+    public static bool hasTransponder = false;
 }
