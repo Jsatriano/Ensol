@@ -11,11 +11,16 @@ public class SceneSwitch : MonoBehaviour
     public bool Entrance = true;
     public static bool exitFrom = true;
     [SerializeField] private int nodeDestination;
+    private PauseMenu pauseMenu = null;
 
     void Start()
     {
         if(blackOutSquare == null){
             blackOutSquare = GameObject.Find("Black Out Screen"); // Gets black out square game object to pass it through scenes
+        }
+        if (pauseMenu == null)
+        {
+            pauseMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
         }
     }
     void OnTriggerEnter(Collider other) // Check if Player has reached exit area
@@ -57,7 +62,8 @@ public class SceneSwitch : MonoBehaviour
                     Cursor.visible = true;
                     PlayerData.prevNode = PlayerData.currentNode;
                     PlayerData.currentNode = nodeDestination;
-                    SceneManager.LoadScene(sceneName:"MapScene");
+                    pauseMenu.OpenMapForNodeTransfer();
+                    //SceneManager.LoadScene(sceneName:"MapScene");
 
                 }
                 yield return null;

@@ -7,6 +7,7 @@ public class CursorToggle : MonoBehaviour
 {
     public static bool toggleCursor = true;
     public GameObject pauseMenu = null;
+    public GameObject map = null;
     public GameObject arrow = null;
     public GameObject dialoguebox = null;
     private Scene scene;
@@ -21,7 +22,7 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy)
+        if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy)
         {
             Cursor.visible = false;
             if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
