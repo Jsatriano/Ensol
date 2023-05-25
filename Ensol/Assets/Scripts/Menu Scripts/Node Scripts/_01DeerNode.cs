@@ -120,6 +120,7 @@ public class _01DeerNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.riverNode = true;
+            CompletedNodes.completedNodes[1] = true;
         }
     }
 

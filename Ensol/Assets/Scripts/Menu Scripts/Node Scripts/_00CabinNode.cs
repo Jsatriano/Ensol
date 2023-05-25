@@ -109,11 +109,6 @@ public class _00CabinNode : MonoBehaviour
             combatController.PickedUpBroom();
         }
 
-        if (pathToDeer)
-        {
-            CompletedNodes.deerNode = true;
-        }
-
         if(electricGateToGate.opening)
         {
             CompletedNodes.gateNode = true;

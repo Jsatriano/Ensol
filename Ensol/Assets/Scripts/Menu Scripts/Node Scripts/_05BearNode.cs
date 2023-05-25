@@ -48,6 +48,7 @@ public class _05BearNode : MonoBehaviour
                 DialogueVariables.saveFile = story.state.ToJson();
             }
             CompletedNodes.brokenMachineNode = true;
+            CompletedNodes.completedNodes[5] = true;
         }
     }
 }

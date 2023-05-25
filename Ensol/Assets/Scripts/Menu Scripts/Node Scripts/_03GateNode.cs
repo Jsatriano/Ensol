@@ -49,6 +49,7 @@ public class _03GateNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.riverControlNode = true;
+            CompletedNodes.completedNodes[3] = true;
         }
     }
 }

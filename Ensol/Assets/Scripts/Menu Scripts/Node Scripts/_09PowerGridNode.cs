@@ -24,6 +24,7 @@ public class _09PowerGridNode : MonoBehaviour
         if (...)
         {
             CompletedNodes.computerNode = true;
+            CompletedNodes.completedNodes[9] = true;
         }
         */
     }

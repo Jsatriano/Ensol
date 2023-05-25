@@ -43,5 +43,6 @@ public class _08BirdNode : MonoBehaviour
         birdBody.SetActive(false);
         activeDeadBird.transform.Rotate(birdRotation);
         activeDeadBird.transform.position += birdPosition;
+        CompletedNodes.completedNodes[8] = true;
     }
 }

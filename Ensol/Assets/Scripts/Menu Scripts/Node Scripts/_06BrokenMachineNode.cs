@@ -41,6 +41,7 @@ public class _06BrokenMachineNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.metalFieldNode = true;
+            CompletedNodes.completedNodes[6] = true;
         }
     }
 }

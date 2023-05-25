@@ -76,6 +76,7 @@ public class _07SecurityTowerNode : MonoBehaviour
         if (pathToPowerGrid)
         {
             CompletedNodes.powerGridNode = true;
+            CompletedNodes.completedNodes[7] = true;
         }
     }
 

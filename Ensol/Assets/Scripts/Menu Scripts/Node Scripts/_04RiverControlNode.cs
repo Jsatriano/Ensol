@@ -76,6 +76,7 @@ public class _04RiverControlNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.securityTowerNode = true;
+            CompletedNodes.completedNodes[4] = true;
         }
     }
 }

@@ -80,6 +80,7 @@ public class _02RiverNode : MonoBehaviour
         {
             CompletedNodes.birdNode = true;
             CompletedNodes.bearNode = true;
+            CompletedNodes.completedNodes[2] = true;
         }
 
     }
