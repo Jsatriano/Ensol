@@ -238,23 +238,33 @@ public class CompletedNodes : MonoBehaviour
         youAreHereCircle.transform.localScale = circleScales[startNode] * Vector3.one;
 
         //Erase circle
+        if (circleSlider.fillAmount > 0)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapErase, this.transform.position);
+        }
         while (circleSlider.fillAmount > 0)
         {
             circleSlider.fillAmount -= circleDrawRate * Time.unscaledDeltaTime;
             yield return null;
         }
 
+
         //Position circle at end node
         youAreHereCircle.transform.position = mapButton[endNode].transform.position;
         youAreHereCircle.transform.localScale = circleScales[endNode] * Vector3.one;
-        yield return new WaitForSecondsRealtime(waitTime);     
+        yield return new WaitForSecondsRealtime(waitTime);
 
         //Draw circle
+        if (circleSlider.fillAmount < 1)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapDraw, this.transform.position);
+        }
         while (circleSlider.fillAmount < 1)
         {
             circleSlider.fillAmount += circleDrawRate * Time.unscaledDeltaTime;
             yield return null;
         }
+
         StartCoroutine(LoadNewNode(0.5f));
     }
 

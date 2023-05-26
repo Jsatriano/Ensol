@@ -71,6 +71,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
     [field: SerializeField] public EventReference hudBatteryDepleted { get; private set; }
+    [field: SerializeField] public EventReference hudMapDraw { get; private set; }
+    [field: SerializeField] public EventReference hudMapErase { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }
     [field: SerializeField] public EventReference metalMove { get; private set; }
     [field: SerializeField] public EventReference dirtMove { get; private set; }
