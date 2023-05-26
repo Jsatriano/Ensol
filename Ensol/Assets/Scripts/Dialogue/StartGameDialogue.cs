@@ -9,6 +9,7 @@ public class StartGameDialogue : MonoBehaviour
     public DialogueTrigger dialogueTrigger;
     public GameObject blackOutSquare;
     public bool finishedFading;
+    public static bool clickedDialogue = false;
     private Coroutine fadeRoutine = null;
 
     // Start is called before the first frame update
@@ -26,9 +27,9 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     void Update(){
-        if(fadeRoutine == null && PlayerData.startedGame == false && finishedFading == false) 
+        if(fadeRoutine == null && PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
         {
-            Debug.Log("this is happening");
+            clickedDialogue = true;
             fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
         }
     }
