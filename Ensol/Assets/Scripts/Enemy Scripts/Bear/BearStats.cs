@@ -59,6 +59,10 @@ public class BearStats : EnemyStats
             return;
         }
         currHP -= damage;
+        if (currHP > 0)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.bearDamaged, this.transform.position);
+        }
         if (currHP / maxHP <= 0.5f)
         {
             bearBT.root.SetData("belowHalf", true);

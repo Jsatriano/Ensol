@@ -43,6 +43,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bearThrow { get; private set; }
     [field: SerializeField] public EventReference bearMove { get; private set; }
     [field: SerializeField] public EventReference bearAlerted { get; private set; }
+    [field: SerializeField] public EventReference bearDamaged { get; private set; }
     [field: SerializeField] public EventReference bearScrapExplosion { get; private set; }
 
     [field: Header("Spider")]
