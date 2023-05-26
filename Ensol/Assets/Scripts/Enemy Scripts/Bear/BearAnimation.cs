@@ -61,6 +61,7 @@ public class BearAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("Walking");
                     state = State.WALKING;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.bearAlerted, this.transform.position);
                 }
                 return;
 

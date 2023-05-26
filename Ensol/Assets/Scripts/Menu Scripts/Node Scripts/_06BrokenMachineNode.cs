@@ -8,6 +8,9 @@ public class _06BrokenMachineNode : MonoBehaviour
     [Header("Scripts")]
     public ElectricGateController electricGateController = null;
 
+    public GameObject interactableBear;
+    public GameObject transferCube;
+
     private Story story;
     public TextAsset globals;
 
@@ -34,6 +37,12 @@ public class _06BrokenMachineNode : MonoBehaviour
         //determine where to spawn part 2
         CompletedNodes.prevNode = 6;
         CompletedNodes.firstLoad[6] = false;
+
+        // doesn't spawn interactable bear if player already has upgrade
+        if(PlayerData.hasThrowUpgrade)
+        {
+            interactableBear.SetActive(false);
+        }
     }
 
     public void Update()
@@ -42,6 +51,14 @@ public class _06BrokenMachineNode : MonoBehaviour
         {
             CompletedNodes.metalFieldNode = true;
             CompletedNodes.completedNodes[6] = true;
+        }
+
+        // if bear has been interacted with, give player spear throw and unlock gate (if enemies are also killed)
+        if(!interactableBear.activeInHierarchy)
+        {
+            PlayerData.hasThrowUpgrade = true;
+
+            transferCube.SetActive(true);
         }
     }
 }

@@ -34,12 +34,16 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bunnyAttack { get; private set; }
     [field: SerializeField] public EventReference bunnyDeath { get; private set; }
 
+    [field: Header("Bird")]
+    [field: SerializeField] public EventReference birdBeepBeep { get; private set; }
+
     [field: Header("Bear")]
     [field: SerializeField] public EventReference bearDeath { get; private set; }
     [field: SerializeField] public EventReference bearSwipe { get; private set; }
     [field: SerializeField] public EventReference bearThrow { get; private set; }
     [field: SerializeField] public EventReference bearMove { get; private set; }
     [field: SerializeField] public EventReference bearAlerted { get; private set; }
+    [field: SerializeField] public EventReference bearDamaged { get; private set; }
     [field: SerializeField] public EventReference bearScrapExplosion { get; private set; }
 
     [field: Header("Spider")]
@@ -66,6 +70,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference envLootPickup { get; private set; }
     [field: SerializeField] public EventReference hudMapOpen { get; private set; }
     [field: SerializeField] public EventReference hudBatteryCharge { get; private set; }
+    [field: SerializeField] public EventReference hudBatteryDepleted { get; private set; }
+    [field: SerializeField] public EventReference hudMapDraw { get; private set; }
+    [field: SerializeField] public EventReference hudMapErase { get; private set; }
     [field: SerializeField] public EventReference catMeow { get; private set; }
     [field: SerializeField] public EventReference metalMove { get; private set; }
     [field: SerializeField] public EventReference dirtMove { get; private set; }
