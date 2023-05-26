@@ -36,6 +36,7 @@ public class CompletedNodes : MonoBehaviour
     public GameObject[] mapScenery;
     public Slider[] mapSlider;
     [SerializeField] private Button cabinButton;
+    [SerializeField] private GameObject homeText;
 
     [Header("Circle Data")]
     public GameObject youAreHereCircle;
@@ -69,6 +70,7 @@ public class CompletedNodes : MonoBehaviour
     //Function called for just looking at the map
     public void LookAtMap()
     {
+        homeText.SetActive(true);
         cabinButton.enabled = true;
         PreDraw();
     }
@@ -76,6 +78,7 @@ public class CompletedNodes : MonoBehaviour
     //Function called when travelling between nodes to play circle anim and called the nodeSelector
     public void NodeTransferMap()
     {
+        homeText.SetActive(false);
         cabinButton.enabled = false;
         PreDraw();
         StartCoroutine(ChangeCircleLocation(PlayerData.prevNode - 1, PlayerData.currentNode - 1, GetWaitTime()));
