@@ -40,7 +40,7 @@ public class _01DeerNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
+
         if (CompletedNodes.lNode == 0)
         {
             SpawnPoint.First = true;
@@ -107,6 +107,7 @@ public class _01DeerNode : MonoBehaviour
             weaponPickedUp = true;
             combatController.PickedUpSolarUpgrade();
             Instantiate(guttedDeer, inSceneItem.transform.position, inSceneItem.transform.rotation);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envLootPickup, guttedDeer.transform.position);
             //transferCube.SetActive(true);
         }
 
@@ -119,6 +120,7 @@ public class _01DeerNode : MonoBehaviour
         if(electricGateController.opening)
         {
             CompletedNodes.riverNode = true;
+            CompletedNodes.completedNodes[1] = true;
         }
     }
 
@@ -140,15 +142,6 @@ public class _01DeerNode : MonoBehaviour
         foreach (GameObject p in players)
         {
             combatController = p.GetComponent<PlayerController>();
-        }
-
-        if (combatController == null)
-        {
-            print("Cabin Node Script Failed to find player");
-        }
-        else
-        {
-            print("Cabin Node Script located Player");
         }
     }
 }

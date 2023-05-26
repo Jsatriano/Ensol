@@ -94,6 +94,7 @@ public class _00CabinNode : MonoBehaviour
         if (!broom.activeInHierarchy && !interactableBroom.activeInHierarchy && !PlayerData.hasBroom)
         {
             combatController.PickedUpBroom();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
         }
 
         //re-picking up weapon pile
@@ -106,11 +107,6 @@ public class _00CabinNode : MonoBehaviour
         if (stick.activeInHierarchy == false && !PlayerData.currentlyHasBroom && PlayerData.hasBroom && weaponPile.activeInHierarchy == false)
         {        
             combatController.PickedUpBroom();
-        }
-
-        if (pathToDeer)
-        {
-            CompletedNodes.deerNode = true;
         }
 
         if(electricGateToGate.opening)

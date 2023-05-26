@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4ff409ca630cd4799883bfd4305f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 15
 --- !u!54 &3549388664889948593
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -832,6 +833,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2985478084322739907, guid: ed0b349ea5b817c4ca80ae899dfe42aa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2e36a9b69881ee448a0b7476f99f20c6, type: 2}
     - target: {fileID: 3575367238114737016, guid: ed0b349ea5b817c4ca80ae899dfe42aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -69.78842
