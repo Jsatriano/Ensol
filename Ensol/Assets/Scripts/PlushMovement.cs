@@ -14,6 +14,8 @@ public class PlushMovement : MonoBehaviour
     private int currPositionIndex = 0;
     private Quaternion rotation;
     private Vector3 moveDirection;
+    private bool colliding = false;
+    private bool talkingToPlush = false;
 
 
     // Start is called before the first frame update
@@ -26,7 +28,15 @@ public class PlushMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (plush.transform.localPosition != positions[currPositionIndex] && !DialogueManager.GetInstance().dialogueisPlaying) {
+        // checks if player is in dialouge with plush
+        if (colliding && DialogueManager.GetInstance().dialogueisPlaying) {
+            talkingToPlush = true;
+        }
+        else {
+            talkingToPlush = false;
+        }
+
+        if (plush.transform.localPosition != positions[currPositionIndex] && !talkingToPlush) {
             // rotate plush towards next position
             plush.transform.localRotation = Quaternion.Slerp(plush.transform.localRotation, rotation, rotateSpeed*Time.deltaTime);
             // move plush towards next position
@@ -40,5 +50,22 @@ public class PlushMovement : MonoBehaviour
             rotation = Quaternion.LookRotation(moveDirection);
         }
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log("COLLIDING");
+            colliding = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            colliding = false;
+        }
     }
 }
