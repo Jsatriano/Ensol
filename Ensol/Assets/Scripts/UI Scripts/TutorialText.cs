@@ -77,7 +77,7 @@ public class TutorialText : MonoBehaviour
             textMesh.text = solarText;
             textMesh.color = originalColor;
         }
-        else if (PlayerData.hasThrowUpgrade && PlayerData.shownThrowText)
+        else if (PlayerData.hasThrowUpgrade && !PlayerData.shownThrowText)
         {
             state = State.THROW;
             textMesh.color = originalColor;
@@ -101,13 +101,17 @@ public class TutorialText : MonoBehaviour
                 break;
 
             case State.SOLAR:
-                if (PlayerData.heavyAttacks >= heavies && PlayerData.throwAttacks >= throws)
+                if (PlayerData.heavyAttacks >= heavies)
                 {
                     StartCoroutine(FadeText());
                 }
                 break;
 
             case State.THROW:
+                if (PlayerData.throwAttacks >= throws)
+                {
+                    StartCoroutine(FadeText());
+                }
                 break;
 
             case State.NONE:
