@@ -117,6 +117,32 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
         //data.NGworked = PlayerData.NGworked;
+
+
+        // Node 1 variables
+        data.weaponPickedUp = _01DeerNode.weaponPickedUp;
+
+        // completed nodes variables
+        data.prevNode = CompletedNodes.prevNode;
+        data.lNode = CompletedNodes.lNode;
+        data.cabinNode = CompletedNodes.cabinNode;
+        data.deerNode = CompletedNodes.deerNode;
+        data.riverNode = CompletedNodes.riverNode;
+        data.gateNode = CompletedNodes.gateNode;
+        data.riverControlNode = CompletedNodes.riverControlNode;
+        data.bearNode = CompletedNodes.bearNode;
+        data.brokenMachineNode = CompletedNodes.brokenMachineNode; 
+        data.securityTowerNode = CompletedNodes.securityTowerNode;
+        data.birdNode = CompletedNodes.birdNode;
+        data.powerGridNode = CompletedNodes.powerGridNode;
+        data.metalFieldNode = CompletedNodes.metalFieldNode;
+        data.computerNode = CompletedNodes.computerNode;
+
+        data.nodes = CompletedNodes.nodes;
+
+        data.firstLoad = CompletedNodes.firstLoad;
+
+        data.firstTransition = CompletedNodes.firstTransition;
     }
 
     // public void LoadStory(TextAsset globals)

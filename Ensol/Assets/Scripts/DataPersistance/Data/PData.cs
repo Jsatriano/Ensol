@@ -59,6 +59,33 @@ public class PData
     public bool disableBird;
 
     public int NGworked;
+    
+
+
+    // Node 1 variables
+    public bool weaponPickedUp;
+
+    // completed nodes variables
+    public int prevNode;
+    public int lNode;
+    public bool cabinNode;
+    public bool deerNode;
+    public bool riverNode; 
+    public bool gateNode; 
+    public bool riverControlNode; 
+    public bool bearNode; 
+    public bool brokenMachineNode; 
+    public bool securityTowerNode; 
+    public bool birdNode; 
+    public bool powerGridNode; 
+    public bool metalFieldNode; 
+    public bool computerNode;
+
+    public bool[] nodes;
+
+    public bool[] firstLoad;
+
+    public bool[] firstTransition;
 
     public PData()
     {
@@ -111,6 +138,41 @@ public class PData
         birdTriggered = false;
         disableBird = false;
         NGworked = 0;
+
+        // Node 1 variables
+        weaponPickedUp = false;
+
+        // Completed Nodes
+        prevNode = 999;
+        lNode = 0;
+
+        cabinNode  = false;
+        deerNode  = false;
+        riverNode  = false; 
+        gateNode  = false; 
+        riverControlNode  = false; 
+        bearNode  = false; 
+        brokenMachineNode  = false; 
+        securityTowerNode  = false; 
+        birdNode  = false; 
+        powerGridNode  = false; 
+        metalFieldNode  = false; 
+        computerNode = false;
+
+        // nodes;
+
+        firstLoad = new bool[] {
+            false, true, true, true, true, true,
+            true, true, true, true, false
+        };
+
+       firstTransition = new bool[] {
+            false, true, true, true, true,
+            true, true, true, true, true, false
+        };
+
+
+        
     }
     
 }

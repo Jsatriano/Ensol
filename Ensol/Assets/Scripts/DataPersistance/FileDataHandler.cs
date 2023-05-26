@@ -144,4 +144,26 @@ public class FileDataHandler
         //return loadedStory;
 
     }
+
+    public void Delete()
+    {
+        string fullPath1 = Sys.Path.Combine(dataDirPath, dataFileName);
+        string fullPath2 = Sys.Path.Combine(dataDirPath, "DialogueState.game");
+        try
+        {
+            if (Sys.File.Exists(fullPath1))
+            {
+                Sys.File.Delete(fullPath1);
+                Sys.File.Delete(fullPath2);
+            }
+            else 
+            {
+                Debug.LogWarning("Tried to delete profile data, but data was not found at path: " + fullPath1);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to delete save file at path: " + fullPath1);
+        }
+    }
 }

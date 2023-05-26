@@ -61,6 +61,32 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         PlayerData.birdTriggered = data.birdTriggered;
         PlayerData.disableBird = data.disableBird;
+
+
+        // Node 1 variables
+        _01DeerNode.weaponPickedUp = data.weaponPickedUp;
+
+        // completed nodes variables
+        CompletedNodes.prevNode = data.prevNode;
+        CompletedNodes.lNode = data.lNode;
+        CompletedNodes.cabinNode = data.cabinNode;
+        CompletedNodes.deerNode = data.deerNode;
+        CompletedNodes.riverNode = data.riverNode;
+        CompletedNodes.gateNode = data.gateNode;
+        CompletedNodes.riverControlNode = data.riverControlNode;
+        CompletedNodes.bearNode = data.bearNode;
+        CompletedNodes.brokenMachineNode = data.brokenMachineNode; 
+        CompletedNodes.securityTowerNode = data.securityTowerNode;
+        CompletedNodes.birdNode = data.birdNode;
+        CompletedNodes.powerGridNode = data.powerGridNode;
+        CompletedNodes.metalFieldNode = data.metalFieldNode;
+        CompletedNodes.computerNode = data.computerNode;
+
+        CompletedNodes.nodes = data.nodes;
+
+        CompletedNodes.firstLoad = data.firstLoad;
+
+        CompletedNodes.firstTransition = data.firstTransition;
     }
 
     public void SaveData(ref PData data)
@@ -116,12 +142,34 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
-    }
 
-    // public void LoadStory(TextAsset globals)
-    // {
-    //     glbs = globals;
-    // }
+
+
+        // Node 1 variables
+        data.weaponPickedUp = _01DeerNode.weaponPickedUp;
+
+        // completed nodes variables
+        data.prevNode = CompletedNodes.prevNode;
+        data.lNode = CompletedNodes.lNode;
+        data.cabinNode = CompletedNodes.cabinNode;
+        data.deerNode = CompletedNodes.deerNode;
+        data.riverNode = CompletedNodes.riverNode;
+        data.gateNode = CompletedNodes.gateNode;
+        data.riverControlNode = CompletedNodes.riverControlNode;
+        data.bearNode = CompletedNodes.bearNode;
+        data.brokenMachineNode = CompletedNodes.brokenMachineNode; 
+        data.securityTowerNode = CompletedNodes.securityTowerNode;
+        data.birdNode = CompletedNodes.birdNode;
+        data.powerGridNode = CompletedNodes.powerGridNode;
+        data.metalFieldNode = CompletedNodes.metalFieldNode;
+        data.computerNode = CompletedNodes.computerNode;
+
+        data.nodes = CompletedNodes.nodes;
+
+        data.firstLoad = CompletedNodes.firstLoad;
+
+        data.firstTransition = CompletedNodes.firstTransition;
+    }
 
     public void SaveStory(ref TextAsset globals)
     {

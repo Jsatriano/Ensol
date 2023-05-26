@@ -53,6 +53,12 @@ public class DataPersistanceManager : MonoBehaviour
     // this.SF = "";
   }
 
+  public void ClearGame()
+  {
+    dataHandler.Delete();
+    LoadGame();
+  }
+
   public void LoadGame()
   {
     this.playerData = dataHandler.Load();
