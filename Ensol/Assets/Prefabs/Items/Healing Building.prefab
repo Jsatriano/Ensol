@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5763674080333750604
 Transform:
   m_ObjectHideFlags: 0
@@ -182,6 +182,8 @@ MonoBehaviour:
   players: []
   healthBar: {fileID: 0}
   renderer: {fileID: 4104450353055959178}
+  healJuice: {fileID: 7826869709748665994}
+  drainSpeed: 1
 --- !u!135 &5517158149890727427
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -246,18 +248,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -3787308114902366301, guid: cd6b924177e32d9409a5677964063d17, type: 3}
+    - target: {fileID: -5238846869398126892, guid: cd6b924177e32d9409a5677964063d17, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5238846869398126892, guid: cd6b924177e32d9409a5677964063d17, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: -3787308114902366301, guid: cd6b924177e32d9409a5677964063d17, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3787308114902366301, guid: cd6b924177e32d9409a5677964063d17, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4d699b2f9732cf541b1a8cef996dfd9d, type: 2}
+      objectReference: {fileID: 2100000, guid: 2b425e025e62ce6429a38461988f7afe, type: 2}
     - target: {fileID: -3787308114902366301, guid: cd6b924177e32d9409a5677964063d17, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: -3747601444786833699, guid: cd6b924177e32d9409a5677964063d17, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4d699b2f9732cf541b1a8cef996dfd9d, type: 2}
     - target: {fileID: 919132149155446097, guid: cd6b924177e32d9409a5677964063d17, type: 3}
       propertyPath: m_Name
       value: healing_structure
@@ -267,5 +281,10 @@ PrefabInstance:
 --- !u!4 &4918037609026176863 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd6b924177e32d9409a5677964063d17, type: 3}
+  m_PrefabInstance: {fileID: 4884954633215746228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7826869709748665994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5812888370716844482, guid: cd6b924177e32d9409a5677964063d17, type: 3}
   m_PrefabInstance: {fileID: 4884954633215746228}
   m_PrefabAsset: {fileID: 0}

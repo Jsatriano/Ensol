@@ -10,6 +10,8 @@ public class HealingBuilding : MonoBehaviour
     [HideInInspector] public GameObject[] players;
     [HideInInspector] public HealthBar healthBar;
     public Renderer renderer;
+    public GameObject healJuice;
+    public float drainSpeed = 1f;
 
     void Awake() {
         gameObject.tag = "Interactable";
@@ -37,6 +39,10 @@ public class HealingBuilding : MonoBehaviour
             healthBar.SetHealth(PlayerData.currHP);
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
+            // move the healing juice down
+            healJuice.SetActive(false);
+            //healJuice.transform.Translate(0, -1, 0);
+            // play sound
             AudioManager.instance.PlayOneShot(FMODEvents.instance.healUp, this.transform.position);
         }
         
