@@ -1150,7 +1150,7 @@ public class PlayerController : MonoBehaviour, IDataPersistance
     public void PickedUpSolarUpgrade()
     {
         PlayerData.hasSolarUpgrade = true;
-        PlayerData.hasThrowUpgrade = true;
+        //PlayerData.hasThrowUpgrade = true;
         PlayerData.currentlyHasSolar = true;
         PlayerData.currentlyHasBroom = true;
         hasWeapon = true;
