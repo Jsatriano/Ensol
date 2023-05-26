@@ -175,6 +175,7 @@ public class ElectricVials : MonoBehaviour // justin
                 isFlickering = true;
                 flickerState = true;
             }
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudBatteryDepleted, this.transform.position);
             return false;
         }
         return true;

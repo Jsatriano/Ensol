@@ -30,27 +30,26 @@ public class CompletedNodes : MonoBehaviour
         true, true, true, true, true, false
     };
 
-    public Button computerNodeButton;
-    private int lastNode;
+    [Header("References")]
+    public Sprite[] image;
+    public GameObject[] mapButton;
+    public GameObject[] mapScenery;
+    public Slider[] mapSlider;
+    [SerializeField] private Button cabinButton;
+    [SerializeField] private GameObject homeText;
 
+    [Header("Circle Data")]
     public GameObject youAreHereCircle;
     [SerializeField] private float circleDrawRate;
     [SerializeField] private Image circleSlider;
     [SerializeField] private List<float> circleScales;
     [SerializeField] private float circleWaitTime;
 
+    [Header("Map Draw Rates")]
     [SerializeField] private float xWaitTime;
     [SerializeField] private float xDrawRate;
     [SerializeField] private float sceneryDrawRate;
-
-    [SerializeField] private NodeSelector nodeSelector;
-
-    public Sprite[] image;
-
-    public GameObject[] mapButton;
-    public GameObject[] mapScenery;
-    public Slider[] mapSlider;
-    
+    [SerializeField] private NodeSelector nodeSelector; 
 
     /* 
     ------  KEY  ------
@@ -68,7 +67,24 @@ public class CompletedNodes : MonoBehaviour
     11 = computer
     */
 
-    public void Start()
+    //Function called for just looking at the map
+    public void LookAtMap()
+    {
+        homeText.SetActive(true);
+        cabinButton.enabled = true;
+        PreDraw();
+    }
+
+    //Function called when travelling between nodes to play circle anim and called the nodeSelector
+    public void NodeTransferMap()
+    {
+        homeText.SetActive(false);
+        cabinButton.enabled = false;
+        PreDraw();
+        StartCoroutine(ChangeCircleLocation(PlayerData.prevNode - 1, PlayerData.currentNode - 1, GetWaitTime()));
+    }
+
+    private void PreDraw()
     {
         nodes = new bool[12];
         nodes[0] = cabinNode;
@@ -84,11 +100,8 @@ public class CompletedNodes : MonoBehaviour
         nodes[10] = metalFieldNode;
         nodes[11] = computerNode;
 
-        float waitTime = GetWaitTime();
-
         //UpdateMapIcons();
         DrawMapIcons(PlayerData.prevNode - 1);
-        StartCoroutine(ChangeCircleLocation(PlayerData.prevNode-1, PlayerData.currentNode-1, waitTime));
     }
 
     public void DrawMapIcons(int startNode)
@@ -147,7 +160,7 @@ public class CompletedNodes : MonoBehaviour
         {
             waitTime = 0;
         }
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
 
         mapButton[endNode].SetActive(true);
         mapSlider[endNode].value = 0;
@@ -156,7 +169,7 @@ public class CompletedNodes : MonoBehaviour
         float interpolator = 0;
         while (mapSlider[endNode].value < 1)
         {
-            interpolator += Time.deltaTime * xDrawRate;
+            interpolator += Time.unscaledDeltaTime * xDrawRate;
             mapSlider[endNode].value = Mathf.Lerp(0, 1, interpolator);
             yield return null;
         }
@@ -171,7 +184,7 @@ public class CompletedNodes : MonoBehaviour
         float interpolator = 1;
         while (mapSlider[i].value > 0)
         {
-            interpolator -= Time.deltaTime * xDrawRate;
+            interpolator -= Time.unscaledDeltaTime * xDrawRate;
             mapSlider[i].value = interpolator;
             yield return null;
         }
@@ -181,7 +194,7 @@ public class CompletedNodes : MonoBehaviour
         interpolator = 0;
         while (mapSlider[i].value < 1)
         {
-            interpolator += Time.deltaTime * xDrawRate;
+            interpolator += Time.unscaledDeltaTime * xDrawRate;
             mapSlider[i].value = interpolator;
             yield return null;
         }
@@ -202,7 +215,7 @@ public class CompletedNodes : MonoBehaviour
         image.color = startColor;
         while (image.color.a < endColor.a)
         {
-            interpolator += Time.deltaTime * sceneryDrawRate;
+            interpolator += Time.unscaledDeltaTime * sceneryDrawRate;
             image.color = Color.Lerp(startColor, endColor, interpolator);
             yield return null;
         }
@@ -225,29 +238,39 @@ public class CompletedNodes : MonoBehaviour
         youAreHereCircle.transform.localScale = circleScales[startNode] * Vector3.one;
 
         //Erase circle
+        if (circleSlider.fillAmount > 0)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapErase, this.transform.position);
+        }
         while (circleSlider.fillAmount > 0)
         {
-            circleSlider.fillAmount -= circleDrawRate * Time.deltaTime;
+            circleSlider.fillAmount -= circleDrawRate * Time.unscaledDeltaTime;
             yield return null;
         }
+
 
         //Position circle at end node
         youAreHereCircle.transform.position = mapButton[endNode].transform.position;
         youAreHereCircle.transform.localScale = circleScales[endNode] * Vector3.one;
-        yield return new WaitForSeconds(waitTime);     
+        yield return new WaitForSecondsRealtime(waitTime);
 
         //Draw circle
+        if (circleSlider.fillAmount < 1)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapDraw, this.transform.position);
+        }
         while (circleSlider.fillAmount < 1)
         {
-            circleSlider.fillAmount += circleDrawRate * Time.deltaTime;
+            circleSlider.fillAmount += circleDrawRate * Time.unscaledDeltaTime;
             yield return null;
         }
+
         StartCoroutine(LoadNewNode(0.5f));
     }
 
     private IEnumerator LoadNewNode(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
         nodeSelector.OpenScene();
     }
 }

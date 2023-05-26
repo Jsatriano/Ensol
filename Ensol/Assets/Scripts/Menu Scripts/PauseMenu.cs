@@ -11,7 +11,9 @@ public class PauseMenu : MonoBehaviour
     {
         UNPAUSED,
         PAUSED,
-        OPTIONS
+        OPTIONS,
+        MAP_OPEN,
+        MAP_TRANSFER
     }
 
     public GameObject pauseMenu;
@@ -25,6 +27,10 @@ public class PauseMenu : MonoBehaviour
     public Transform enemySpawnPoint;
     public NodeSelector nodeSelector;
     [HideInInspector] public MenuState menuState;
+
+    [Header("Map")]
+    [SerializeField] private GameObject mapUI;
+    [SerializeField] private CompletedNodes completedNodes;
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
@@ -48,6 +54,10 @@ public class PauseMenu : MonoBehaviour
                 {
                     PauseUnpause();
                 }
+                else if (Input.GetButtonDown("Map"))
+                {
+                    OpenMap();
+                }
                 break;
 
             case MenuState.PAUSED:
@@ -63,7 +73,42 @@ public class PauseMenu : MonoBehaviour
                     OpenCloseOptions();
                 }
                 break;
+
+            case MenuState.MAP_OPEN:
+                if ((Input.GetButtonDown("Map") || Input.GetButtonDown("Cancel")))
+                {
+                    CloseMap();
+                }
+                break;
+
+            case MenuState.MAP_TRANSFER:
+                break;
         }
+    }
+
+    private void OpenMap()
+    {
+        menuState = MenuState.MAP_OPEN;
+        Time.timeScale = 0f;
+        mapUI.SetActive(true);
+        completedNodes.LookAtMap();
+    }
+
+    private void CloseMap()
+    {
+        Time.timeScale = 1f;
+        menuState = MenuState.UNPAUSED;       
+        completedNodes.StopAllCoroutines();
+        mapUI.SetActive(false);
+    }
+
+    public void OpenMapForNodeTransfer()
+    {   
+        menuState = MenuState.MAP_TRANSFER;
+        Time.timeScale = 0f;
+        mapUI.SetActive(true);
+        completedNodes.StopAllCoroutines();
+        completedNodes.NodeTransferMap();
     }
 
     public void PauseUnpause()
@@ -123,7 +168,14 @@ public class PauseMenu : MonoBehaviour
 
     public IEnumerator ReturnToCabinFadeout()
     {
-        PauseUnpause();
+        if (menuState == MenuState.PAUSED)
+        {
+            PauseUnpause();
+        }
+        if (menuState == MenuState.MAP_OPEN)
+        {
+            CloseMap();
+        }
         GameObject blackOutSquare = GameObject.Find("Black Out Screen");
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
@@ -134,7 +186,7 @@ public class PauseMenu : MonoBehaviour
         {
             while(blackOutSquare.GetComponent<Image>().color.a < 1)
             {
-                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                fadeAmount = objectColor.a + (fadeSpeed * Time.unscaledDeltaTime);
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 if(blackOutSquare.GetComponent<Image>().color.a >= 1)
