@@ -19,6 +19,7 @@ public class WebShotManager : MonoBehaviour
     private Rigidbody webShotPrefab;
     private Transform playerTF;
     private Rigidbody playerRB;
+    [SerializeField] private float rotationSpeed;
 
     private void Start()
     {
@@ -70,6 +71,7 @@ public class WebShotManager : MonoBehaviour
         webShotScript.debuffLength = debuffLength;
         webShotScript.speedDebuff = speedDebuff;
         webShot.velocity = data.initialVelocity;
+        webShot.AddTorque(webShot.transform.right * rotationSpeed, ForceMode.Impulse);
     }
 
     private WebData CalculateThrowData(Vector3 targetPosition, Vector3 startPosition)

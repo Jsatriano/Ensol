@@ -26,7 +26,7 @@ public class _04RiverControlNode : MonoBehaviour
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 5)
+        else if (CompletedNodes.lNode == 7)
         {
             SpawnPoint.First = false;
         }

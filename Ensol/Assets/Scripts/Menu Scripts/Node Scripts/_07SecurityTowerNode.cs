@@ -16,6 +16,9 @@ public class _07SecurityTowerNode : MonoBehaviour
     public GameObject gun;
     public Collider gunTrigger;
 
+    // timer trigger
+    private bool timerTrigger = false;
+
     private Story story;
     public TextAsset globals;
 
@@ -57,6 +60,12 @@ public class _07SecurityTowerNode : MonoBehaviour
         // move bird if triggered
         if(PlayerData.birdTriggered == true && PlayerData.disableBird == false && birdTrigger.gameObject.activeInHierarchy)
         {
+            //For the beep beep
+            if (timerTrigger == false)
+            {
+                StartCoroutine(BeepBeep());
+                timerTrigger = true;
+            }
             // move it until it reaches end point
             if(bird.transform.position != birdEndPoint.position)
             {
@@ -95,6 +104,12 @@ public class _07SecurityTowerNode : MonoBehaviour
             pathToPowerGrid = true;
         }
         
+    }
+
+    public IEnumerator BeepBeep()
+    {
+        yield return new WaitForSeconds(0.5f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, this.transform.position);
     }
 
 
