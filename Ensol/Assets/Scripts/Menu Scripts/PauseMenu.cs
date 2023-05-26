@@ -107,6 +107,7 @@ public class PauseMenu : MonoBehaviour
         menuState = MenuState.MAP_TRANSFER;
         Time.timeScale = 0f;
         mapUI.SetActive(true);
+        completedNodes.StopAllCoroutines();
         completedNodes.NodeTransferMap();
     }
 

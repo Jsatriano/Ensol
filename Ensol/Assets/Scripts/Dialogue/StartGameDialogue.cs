@@ -7,8 +7,9 @@ public class StartGameDialogue : MonoBehaviour
 {
     public Collider dialogueCollider;
     public DialogueTrigger dialogueTrigger;
-    public static GameObject blackOutSquare {get; private set;}
+    public GameObject blackOutSquare;
     public bool finishedFading;
+    private Coroutine fadeRoutine = null;
 
     // Start is called before the first frame update
     void Start()
@@ -19,14 +20,16 @@ public class StartGameDialogue : MonoBehaviour
         if (PlayerData.startedGame == false){
             dialogueTrigger.enabled = true;
             finishedFading = false;
-            blackOutSquare.GetComponent<Image>().color = new Color(blackOutSquare.GetComponent<Image>().color.r, blackOutSquare.GetComponent<Image>().color.g, blackOutSquare.GetComponent<Image>().color.b, 1);
+            Color blackColor = blackOutSquare.GetComponent<Image>().color;
+            blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
         }
     }
 
     void Update(){
-        if(PlayerData.startedGame == true && finishedFading == false) 
+        if(fadeRoutine == null && PlayerData.startedGame == false && finishedFading == false) 
         {
-            StartCoroutine(ReverseFadeBlackOutSquare());
+            Debug.Log("this is happening");
+            fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
         }
     }
 
@@ -55,12 +58,9 @@ public class StartGameDialogue : MonoBehaviour
                 fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
-                if(blackOutSquare.GetComponent<Image>().color.a <= 0)
-                {
-                    finishedFading = true;
-                }
                 yield return null;
             }
+            finishedFading = true;
         }
     }
 }
