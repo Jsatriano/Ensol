@@ -2998,6 +2998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueCollider: {fileID: 251705431347378975}
   dialogueTrigger: {fileID: 8439498149660462234}
+  blackOutSquare: {fileID: 0}
   finishedFading: 0
 --- !u!114 &8439498149660462234
 MonoBehaviour:
@@ -7947,12 +7948,38 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3000046258775880480, guid: a9d27986e0b69104485854ee7f6cd32d, type: 3}
   m_PrefabInstance: {fileID: 1127879406132283004}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4502712659974094747}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6956d14ed7bd5c4c900ce4d49e82e36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4502712659974094747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3592695023811344871, guid: a9d27986e0b69104485854ee7f6cd32d, type: 3}
+  m_PrefabInstance: {fileID: 1127879406132283004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6388907340157545972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502712659974094747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88dd49686353bd4096d3c6b9e5ebe9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions:
+  - {x: 3.63, y: 0.87, z: -0.34}
+  - {x: 4.71, y: 0.87, z: -4.95}
+  - {x: -0.27, y: 0.87, z: -5.42}
+  - {x: -0.11, y: 0.87, z: -0.31}
+  plush: {fileID: 6979338480116685115}
+  moveSpeed: 1
+  rotateSpeed: 4
+  maxWaitTime: 10
 --- !u!1001 &1233923617804316473
 PrefabInstance:
   m_ObjectHideFlags: 0
