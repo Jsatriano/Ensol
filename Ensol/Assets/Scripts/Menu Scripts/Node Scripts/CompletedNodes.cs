@@ -15,7 +15,7 @@ public class CompletedNodes : MonoBehaviour
 
     public static bool[] nodes;            
     public static bool[] firstLoad = new bool[] {
-        false, true, true, true, true, true,
+        false, false, true, true, true, true,
         true, true, true, true, false
     };
 
@@ -71,7 +71,7 @@ public class CompletedNodes : MonoBehaviour
     public void LookAtMap()
     {
         homeText.SetActive(true);
-        cabinButton.enabled = true;
+        cabinButton.interactable = true;
         PreDraw();
     }
 
@@ -79,7 +79,7 @@ public class CompletedNodes : MonoBehaviour
     public void NodeTransferMap()
     {
         homeText.SetActive(false);
-        cabinButton.enabled = false;
+        cabinButton.interactable = false;
         PreDraw();
         StartCoroutine(ChangeCircleLocation(PlayerData.prevNode - 1, PlayerData.currentNode - 1, GetWaitTime()));
     }

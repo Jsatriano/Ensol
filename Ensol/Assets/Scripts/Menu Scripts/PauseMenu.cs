@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour
                 {
                     PauseUnpause();
                 }
-                else if (Input.GetButtonDown("Map"))
+                else if (Input.GetButtonDown("Map") && PlayerData.windowInteracted)
                 {
                     OpenMap();
                 }
@@ -88,6 +88,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OpenMap()
     {
+        PlayerData.mapOpens += 1;
         menuState = MenuState.MAP_OPEN;
         Time.timeScale = 0f;
         mapUI.SetActive(true);

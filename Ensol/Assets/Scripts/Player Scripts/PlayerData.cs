@@ -23,6 +23,7 @@ public static class PlayerData
 
     //Player Tutorial Text
     public static bool shownWalkText  = false;
+    public static bool shownMapText   = false;
     public static bool shownBroomText = false;
     public static bool shownSolarText = false;
     public static bool shownThrowText = false;
@@ -34,6 +35,7 @@ public static class PlayerData
     public static float throwAttacks = 0;
     public static float deaths = 0;
     public static float distanceMoved = 0;
+    public static float mapOpens = 0;
 
     //Interactable Item States
     public static bool doorInteracted = false;

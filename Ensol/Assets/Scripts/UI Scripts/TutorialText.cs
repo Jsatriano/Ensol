@@ -7,10 +7,11 @@ using TMPro;
 
 public class TutorialText : MonoBehaviour
 {
-    private enum State
+    private enum TutorialState
     {
         NONE,
         WALK,
+        MAP,
         BROOM,
         SOLAR,
         THROW
@@ -18,10 +19,11 @@ public class TutorialText : MonoBehaviour
 
     public TextMeshProUGUI textMesh;
     [SerializeField] private Camera cam;
-    private State state;
+    private TutorialState state;
 
     [Header("Tutorial Texts")]
     [TextArea] public string walkText;
+    [TextArea] public string mapText;
     [TextArea] public string broomText;
     [TextArea] public string solarText;
     [TextArea] public string throwText;
@@ -45,7 +47,6 @@ public class TutorialText : MonoBehaviour
     private void Start()
     {
         textMesh.text = noText;
-        state = State.NONE;
         originalColor = textMesh.color;
     }
 
@@ -57,64 +58,85 @@ public class TutorialText : MonoBehaviour
         //Shows walking controls first time in cabin node
         if (!PlayerData.shownWalkText)
         {
-            state = State.WALK;
+            state = TutorialState.WALK;
             PlayerData.shownWalkText = true;
             textMesh.text = walkText;
+            textMesh.color = originalColor;
+        }
+        else if (PlayerData.windowInteracted && !PlayerData.shownMapText)
+        {
+            state = TutorialState.MAP;
+            PlayerData.shownMapText = true;
+            textMesh.text = mapText;
             textMesh.color = originalColor;
         }
         //Displays the correct text over the player's head when they get a weapon upgrade for the first time
         else if (PlayerData.hasBroom && !PlayerData.shownBroomText)
         {
-            state = State.BROOM;
+            state = TutorialState.BROOM;
             PlayerData.shownBroomText = true;
             textMesh.text = broomText;
             textMesh.color = originalColor;
         }
         else if (PlayerData.hasSolarUpgrade && !PlayerData.shownSolarText)
         {
-            state = State.SOLAR;
+            state = TutorialState.SOLAR;
             PlayerData.shownSolarText = true;
             textMesh.text = solarText;
             textMesh.color = originalColor;
         }
         else if (PlayerData.hasThrowUpgrade && !PlayerData.shownThrowText)
         {
-            state = State.THROW;
+            state = TutorialState.THROW;
+            PlayerData.shownThrowText = true;
+            textMesh.text = throwText;
             textMesh.color = originalColor;
         }
 
         //Checks if the player has met the requirements to get rid of the current text
         switch (state)
         {
-            case State.WALK:
+            case TutorialState.WALK:
                 if (PlayerData.distanceMoved >= distMoved)
                 {
+                    state = TutorialState.NONE;
                     StartCoroutine(FadeText());
                 }
                 break;
 
-            case State.BROOM:
+            case TutorialState.MAP:
+                if (PlayerData.mapOpens > 0)
+                {
+                    state = TutorialState.NONE;
+                    StartCoroutine(FadeText());
+                }
+                break;
+
+            case TutorialState.BROOM:
                 if (PlayerData.lightAttacks >= lights && PlayerData.dashes >= dashes)
                 {
+                    state = TutorialState.NONE;
                     StartCoroutine(FadeText());           
                 }
                 break;
 
-            case State.SOLAR:
+            case TutorialState.SOLAR:
                 if (PlayerData.heavyAttacks >= heavies)
                 {
+                    state = TutorialState.NONE;
                     StartCoroutine(FadeText());
                 }
                 break;
 
-            case State.THROW:
+            case TutorialState.THROW:
                 if (PlayerData.throwAttacks >= throws)
                 {
+                    state = TutorialState.NONE;
                     StartCoroutine(FadeText());
                 }
                 break;
 
-            case State.NONE:
+            case TutorialState.NONE:
                 break;
         }
     }
@@ -131,7 +153,6 @@ public class TutorialText : MonoBehaviour
             fadeTimer -= Time.deltaTime;
             yield return null;
         }
-        textMesh.text = noText;
-        state = State.NONE;
+        textMesh.text = noText;       
     }
 }
