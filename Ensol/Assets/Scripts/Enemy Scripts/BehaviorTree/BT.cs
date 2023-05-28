@@ -66,55 +66,29 @@ namespace BehaviorTree
             }
         }
 
-        
+
 
 
         /*
         private void OnDrawGizmos()
         {
-            if (Application.isPlaying && root.GetData("obstacles") != null && root.GetData("playerWeights") != null)
+            if (Application.isPlaying)
             {
-                
-               
-                //float[] move = (float[])root.GetData("final");
-                float[] obstacle = (float[])root.GetData("obstacles");
-                float[] pWeights = (float[])root.GetData("playerWeights");
-                
+                Gizmos.color = Color.red;;
+                Gizmos.DrawWireSphere(target, .35f);
 
-                //Vector3 deerRight = (Vector3)root.GetData("deerRight");
-                Gizmos.color = Color.green;
-                //print("--------");
-                for (int i = 0; i < pWeights.Length; i++)
-                {
 
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 3);
-                }
-                Gizmos.color = Color.red;
-                for (int i = 0; i < obstacle.Length; i++)
+                Gizmos.color = Color.blue;
+                for (int i = 0; i < playerBreadcrumbs.Count; i++)
                 {
-                    //print(i + ": " + obstacle[i]);
-                   Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * obstacle[i] * 3);
-                    //print(obstacle[i]);
+                    Gizmos.DrawWireSphere(playerBreadcrumbs[i], 0.25f);
                 }
-                
-                
-                Vector3 moveDir = (Vector3)root.GetData("movingDir");
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay(transform.position, moveDir * 5);
-               
-                float[] pWeights = (float[])root.GetData("obstacles");
-                Gizmos.color = Color.green;
-                for (int i = 0; i < pWeights.Length; i++)
-                {
-
-                   Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * pWeights[i] * 3);
-                }
-                 
-                
             }
+        }
+        */
             
-    }
-*/
+    
+
 
         //automatically find the player gameobject instead of putting it in the editor - Elizabeth
         public void SearchForPlayer() {

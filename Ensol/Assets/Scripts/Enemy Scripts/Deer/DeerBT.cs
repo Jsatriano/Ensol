@@ -27,7 +27,7 @@ public class DeerBT : BT
                         new FOVCheck(deerStats.enemyTF, deerStats.playerTF, deerStats.visionRange, "charging", deerStats.environmentMask, 1, false),
                         new CooldownCheck(deerStats.chargeCooldown, "charging"),
                         new DeerCharge(deerStats.chargeMaxSpeed, deerStats.chargeAccel, deerStats.playerTF,
-                                       deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitbox, deerStats.chargeTurning, deerStats.windupRotation, deerStats.obstacleMask, "charging")
+                                       deerStats.enemyTF, deerStats.enemyRB, deerStats.chargeHitbox, deerStats.chargeTurning, deerStats.windupRotation, deerStats.environmentMask, "charging")
                     }),
                     new Sequence(new List<Node>
                     {
