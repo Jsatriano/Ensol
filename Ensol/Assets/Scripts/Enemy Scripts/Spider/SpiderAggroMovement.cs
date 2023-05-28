@@ -42,7 +42,6 @@ public class SpiderAggroMovement : Node
 
     public override NodeState Evaluate()
     {
-        SetData("animation", _attackName);
         ChooseDirection();
 
         float evadeSpeed = Mathf.Lerp(_minSpeed, _maxSpeed, 1 - Mathf.Clamp01(_distanceToPlayer / _rapidAvoidDist));
@@ -57,6 +56,16 @@ public class SpiderAggroMovement : Node
         {
             //Accelerate spider when not at max speed
             _enemyRB.AddForce(movingDir * _acceleration, ForceMode.Acceleration);
+        }
+
+        if (Vector3.Dot(movingDir, _enemyTF.forward) > 0)
+        {
+            SetData("animation", "movingForward");
+        }
+        else
+        {
+            SetData("animation", "movingBackward");
+
         }
 
         RotateTowardsPlayer();
