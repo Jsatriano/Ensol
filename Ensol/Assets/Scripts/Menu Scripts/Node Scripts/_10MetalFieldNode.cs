@@ -8,6 +8,10 @@ public class _10MetalFieldNode : MonoBehaviour
     public PathCollider exitOnTriggerEnterEvent;
     private bool pathToComputer = false;
 
+    public GameObject teslaCoil01;
+    public GameObject teslaCoil02;
+    public GameObject teslaCoil03;
+
 
     private void Start()
     {
@@ -23,6 +27,25 @@ public class _10MetalFieldNode : MonoBehaviour
             CompletedNodes.computerNode = true;
             CompletedNodes.completedNodes[10] = true;
         }
+
+        // first generator hit check
+        if(PlayerData.firstGenHit)
+        {
+            teslaCoil01.SetActive(false);
+        }
+
+        // second generator hit check
+        if(PlayerData.secondGenHit)
+        {
+            teslaCoil02.SetActive(false);
+        }
+
+        // third generator hit check
+        if(PlayerData.thirdGenHit)
+        {
+            teslaCoil03.SetActive(false);
+        }
+
     }
 
     //have to detect collider on another object

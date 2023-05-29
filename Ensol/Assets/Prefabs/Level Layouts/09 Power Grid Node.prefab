@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3702722209110369217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Generator 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,8 +320,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1.0782522}
+  m_Center: {x: -2.0421697e-14, y: 0, z: 0.03912547}
 --- !u!1 &4484512166072984476
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406758751086042887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Generator 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,15 +345,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4484512166072984476}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 232.8515, y: 2, z: 890.8713}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 227.03, y: 2, z: 896.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 760047627539286357}
   m_Father: {fileID: 8727326795591620504}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &4641871737790271389
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 8
 --- !u!1 &5738439625361064178
@@ -715,7 +716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 969142592755317460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Generator 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,6 +926,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globals: {fileID: 0}
+  genPanel01: {fileID: 4628011760709874169}
+  genPanel02: {fileID: 5877289889290725855}
+  genPanel03: {fileID: 1752501834390737221}
 --- !u!1 &8773495158320339621
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +938,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8577223933102693457}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background Towers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,6 +1455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &188128526951707300 stripped
@@ -1525,6 +1533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &203779618712469336 stripped
@@ -1557,7 +1569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 217.56
+      value: 223.36002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1598,6 +1610,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -1757,6 +1773,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &5670118672177360 stripped
@@ -1830,6 +1850,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -1905,6 +1929,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &1097381618589484122 stripped
@@ -1979,6 +2007,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &1073356342459262729 stripped
@@ -1999,7 +2031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 299.29
+      value: 306.38004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2137,6 +2169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &975045033888338059 stripped
@@ -2210,6 +2246,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -2285,6 +2325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (54)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &963594779969325949 stripped
@@ -2358,6 +2402,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -2450,6 +2498,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -2703,6 +2755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &818473342668399191 stripped
@@ -2717,6 +2773,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1406758751086042887}
     m_Modifications:
+    - target: {fileID: -9081450197161020053, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -9019004949161806305, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8972109045616967044, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8738959673007304078, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2743,7 +2815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.72
+      value: -7.81
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2773,12 +2845,132 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7782569832932397374, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -6301765195123551999, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4305657984397372734, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3057692663190475780, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2963004733531336630, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2812949624175293191, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2118670710306701225, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -583798379496530248, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 235761735398400105, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: InteractableOnce
+      objectReference: {fileID: 0}
+    - target: {fileID: 552390784638605783, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_Name
       value: Generator
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283567987181946290, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432106244639034979, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440136938205496092, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526899412557565719, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265233990495183246, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: 8693429180162402418, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+--- !u!1 &128330490857640943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 938580745849859774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7457833131094247312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128330490857640943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.13, y: 8.244428, z: 9.3}
+  m_Center: {x: 0, y: 3.8027887, z: 0}
+--- !u!1 &696984258824303530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 938580745849859774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &4628011760709874169
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696984258824303530}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.02
+  m_Center: {x: -0.00000047683716, y: -0.0000000016298141, z: 0.007149152}
 --- !u!4 &760047627539286357 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
@@ -2809,7 +3001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 221.63
+      value: 227.43002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2850,6 +3042,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -2924,6 +3120,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -3083,6 +3283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &622958325789628058 stripped
@@ -3156,6 +3360,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -3248,6 +3456,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -3575,6 +3787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &1441452693166548393 stripped
@@ -3648,6 +3864,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -3723,6 +3943,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &1401574416917076033 stripped
@@ -3796,6 +4020,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -3888,6 +4116,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -4131,6 +4363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &1192932744012714476 stripped
@@ -4204,6 +4440,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -4279,6 +4519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &1222968321560174250 stripped
@@ -4352,6 +4596,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -4445,6 +4693,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &2239416959959808805 stripped
@@ -4518,6 +4770,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -4593,6 +4849,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &2217837715193667932 stripped
@@ -4667,6 +4927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &2137054043614138009 stripped
@@ -4740,6 +5004,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -4833,6 +5101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &2032460382022807522 stripped
@@ -4906,6 +5178,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -5078,6 +5354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &1947596010062976698 stripped
@@ -5151,6 +5431,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -5310,6 +5594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &1823548861685776318 stripped
@@ -5383,6 +5671,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -5458,6 +5750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &2862960061049833399 stripped
@@ -5532,6 +5828,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &2779453289328784374 stripped
@@ -5605,6 +5905,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -5782,6 +6086,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &2604731300111852790 stripped
@@ -5856,6 +6164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &2579874100056090319 stripped
@@ -5876,7 +6188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 298.86
+      value: 305.95
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6014,6 +6326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &2433292908346814608 stripped
@@ -6106,6 +6422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &2375506020065113630 stripped
@@ -6179,6 +6499,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -6506,6 +6830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3402378878606939923 stripped
@@ -6579,6 +6907,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -6654,6 +6986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3353312885361468796 stripped
@@ -6727,6 +7063,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -6886,6 +7226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &3214009054818879162 stripped
@@ -6959,6 +7303,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -7118,6 +7466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3186814623280309631 stripped
@@ -7191,6 +7543,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -7284,6 +7640,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &3159584444968461899 stripped
@@ -7358,6 +7718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3114729198418266434 stripped
@@ -7431,6 +7795,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -7674,6 +8042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &3126062706582835162 stripped
@@ -7832,6 +8204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &3061963423537602208 stripped
@@ -7905,6 +8281,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -7980,6 +8360,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (53)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3926701249714791963 stripped
@@ -8053,6 +8437,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -8145,6 +8533,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -8250,7 +8642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 268.19
+      value: 275.28003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8388,6 +8780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3781303639619485397 stripped
@@ -8480,6 +8876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &3733262291526436960 stripped
@@ -8553,6 +8953,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -8670,7 +9074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 210.23001
+      value: 216.03003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8711,6 +9115,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -8870,6 +9278,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4596016122702625060 stripped
@@ -8943,6 +9355,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -9018,6 +9434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4511528527096051935 stripped
@@ -9091,6 +9511,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -9250,6 +9674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4432758258949369028 stripped
@@ -9323,6 +9751,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -9734,6 +10166,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &4165722824408460718 stripped
@@ -9807,6 +10243,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (55)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -9882,6 +10322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4089421706558571118 stripped
@@ -9955,6 +10399,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -10030,6 +10478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &5167568159802442952 stripped
@@ -10103,6 +10555,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -10178,6 +10634,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &5077293698945866696 stripped
@@ -10251,6 +10711,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -10326,6 +10790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4972997377473776244 stripped
@@ -10399,6 +10867,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -10557,6 +11029,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -10800,6 +11276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &4855197043662298837 stripped
@@ -10873,6 +11353,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -10948,6 +11432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &4704673292490621620 stripped
@@ -11021,6 +11509,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -11264,6 +11756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &4632647802395044296 stripped
@@ -11421,6 +11917,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -11580,6 +12080,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!1 &5166741117756049016 stripped
@@ -11672,6 +12176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &5414256184867978999 stripped
@@ -11745,6 +12253,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -11820,6 +12332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &5306247750832888852 stripped
@@ -11894,6 +12410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (56)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &5324743354461185487 stripped
@@ -11967,6 +12487,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -12228,6 +12752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &6305609985402724968 stripped
@@ -12326,6 +12854,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 969142592755317460}
     m_Modifications:
+    - target: {fileID: -9081450197161020053, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -9081450197161020053, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9019004949161806305, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -9019004949161806305, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9019004949161806305, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: -8972109045616967044, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8972109045616967044, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8738959673007304078, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8738959673007304078, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8738959673007304078, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -12344,7 +12912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9
+      value: 1.79
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12382,15 +12950,325 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7782569832932397374, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7782569832932397374, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6301765195123551999, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -6301765195123551999, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6301765195123551999, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: MultipleMaterials
+      objectReference: {fileID: 0}
+    - target: {fileID: -4305657984397372734, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4305657984397372734, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3057692663190475780, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3057692663190475780, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2963004733531336630, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2963004733531336630, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2963004733531336630, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: MultipleMaterials
+      objectReference: {fileID: 0}
+    - target: {fileID: -2812949624175293191, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2812949624175293191, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2118670710306701225, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2118670710306701225, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2118670710306701225, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: -1243652320696498376, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -583798379496530248, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -583798379496530248, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -583798379496530248, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 235761735398400105, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 235761735398400105, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: InteractableStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 552390784638605783, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 552390784638605783, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_Name
       value: Generator
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283567987181946290, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283567987181946290, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283567987181946290, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432106244639034979, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432106244639034979, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432106244639034979, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440136938205496092, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440136938205496092, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440136938205496092, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526899412557565719, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526899412557565719, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265233990495183246, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265233990495183246, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: 8693429180162402418, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693429180162402418, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693429180162402418, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+--- !u!23 &1098148602223149024 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6896868805525266375, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1114679407784465495 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2309270233283824528, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1264735665749790139 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4685660704774876572, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2662576682321953131 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8392649858243993932, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5229732202564648044 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7487150490906715061, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5362743505277428611 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7284648019427048540, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5734780869897141008 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6981149897508988105, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6062228537986809139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &5877289889290725855
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062228537986809139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.02
+  m_Center: {x: -0.00000047683716, y: -0.0000000016298141, z: 0.007149152}
 --- !u!4 &6269371921124100044 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6585507567527879925 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 860079550966596818, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6650295093739216246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4024637729065477553
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650295093739216246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.13, y: 8.244428, z: 9.3}
+  m_Center: {x: 0, y: 3.8027887, z: 0}
+--- !u!114 &8282423134381202171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650295093739216246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91af03f7ef2a2c4daf7235ef7d751bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatorMeshes:
+  - {fileID: 8736771829314255160}
+  - {fileID: 7311587518371223790}
+  - {fileID: 1114679407784465495}
+  - {fileID: 2662576682321953131}
+  - {fileID: 5229732202564648044}
+  - {fileID: 6585507567527879925}
+  - {fileID: 1098148602223149024}
+  - {fileID: 1264735665749790139}
+  - {fileID: 5734780869897141008}
+  - {fileID: 5362743505277428611}
+--- !u!65 &1051272417426723019
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650295093739216246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 18.819143, y: 8.244428, z: 18.426317}
+  m_Center: {x: 0.27588406, y: 3.8027887, z: 4.5631366}
+--- !u!23 &7311587518371223790 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3889997281103329481, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 5803998587114512423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8736771829314255160 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3005253654429964575, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
   m_PrefabInstance: {fileID: 5803998587114512423}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5835428755621397651
@@ -12459,6 +13337,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -12533,6 +13415,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -12625,6 +13511,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -12784,6 +13674,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &6113825533242589419 stripped
@@ -12942,6 +13836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &6117218818507812442 stripped
@@ -13015,6 +13913,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -13090,6 +13992,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &6066619391974111535 stripped
@@ -13163,6 +14069,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -13676,6 +14586,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &5786535455531957465 stripped
@@ -13918,6 +14832,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &6771878172203026508 stripped
@@ -13991,6 +14909,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -14066,6 +14988,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &6616391599657511823 stripped
@@ -14140,6 +15066,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &6532561650429855432 stripped
@@ -14213,6 +15143,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -14382,6 +15316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &6440798111906406841 stripped
@@ -14455,6 +15393,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -14614,6 +15556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &7352269630896273704 stripped
@@ -14687,6 +15633,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -14762,6 +15712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &7209986438302565188 stripped
@@ -14835,6 +15789,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -14910,6 +15868,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &7163631603681620680 stripped
@@ -14983,6 +15945,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -15058,6 +16024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &8055057748127566815 stripped
@@ -15132,6 +16102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &8067655700369024107 stripped
@@ -15205,6 +16179,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -15364,6 +16342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &7875981864659418507 stripped
@@ -15437,6 +16419,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -15596,6 +16582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &7661346963708193833 stripped
@@ -15712,7 +16702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 213.4
+      value: 219.20001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15753,6 +16743,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -15828,6 +16822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &8542816309633426584 stripped
@@ -15901,6 +16899,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -15976,6 +16978,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &8553526442183138003 stripped
@@ -16049,6 +17055,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -16226,6 +17236,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &8425002195175804012 stripped
@@ -16299,6 +17313,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
       propertyPath: m_Name
       value: Power Tower Line (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
@@ -16458,6 +17476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &8388072240101269632 stripped
@@ -16531,6 +17553,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -16690,6 +17716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &8315709832821324188 stripped
@@ -16848,6 +17878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &8222606365828954164 stripped
@@ -16921,6 +17955,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
@@ -17080,6 +18118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &8104553978196176032 stripped
@@ -17154,6 +18196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &9222652875011461821 stripped
@@ -17174,7 +18220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 283.22
+      value: 290.31003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17312,6 +18358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &9180352880038284141 stripped
@@ -17385,6 +18435,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -17460,6 +18514,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spire_1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
 --- !u!4 &9133840700836268282 stripped
@@ -17480,7 +18538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 283.22998
+      value: 290.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17702,6 +18760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower Line (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb9022fdebcd234286be81239fbb4ee, type: 3}
 --- !u!4 &9062263298901598199 stripped
@@ -17722,7 +18784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 268.28
+      value: 275.37003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a4f8d1686ce4c1f4f861cb14852cbab7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17859,6 +18921,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -18018,6 +19084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &8901947417891536794 stripped
@@ -18091,6 +19161,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
       propertyPath: m_Name
       value: Power Tower (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
@@ -18166,6 +19240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Tower (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed8907fa1d42664ab1c0db46f0e0b88, type: 3}
 --- !u!4 &8842425128194614787 stripped
@@ -18180,6 +19258,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3702722209110369217}
     m_Modifications:
+    - target: {fileID: -9081450197161020053, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -9019004949161806305, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8972109045616967044, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8738959673007304078, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -18236,12 +19330,132 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7782569832932397374, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -6301765195123551999, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4305657984397372734, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3057692663190475780, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2963004733531336630, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2812949624175293191, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -2118670710306701225, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -583798379496530248, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 235761735398400105, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_TagString
+      value: InteractableStory
+      objectReference: {fileID: 0}
+    - target: {fileID: 552390784638605783, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
       propertyPath: m_Name
       value: Generator
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283567987181946290, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432106244639034979, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440136938205496092, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526899412557565719, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265233990495183246, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307109073415605764, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: 8693429180162402418, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+--- !u!1 &8185543958615226801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 9032405616497771744}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7571144737698537348
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185543958615226801}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.13, y: 8.244428, z: 9.3}
+  m_Center: {x: 0, y: 3.8027887, z: 0}
+--- !u!1 &8787402790913956340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 336271658553974036, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
+  m_PrefabInstance: {fileID: 9032405616497771744}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1752501834390737221
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787402790913956340}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.02
+  m_Center: {x: -0.00000047683716, y: -0.0000000016298141, z: 0.007149152}
 --- !u!4 &8850475348625367819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ddb68e23e419a074babfb7f629eada1e, type: 3}
@@ -18313,6 +19527,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
       propertyPath: m_Name
       value: spire_1 (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b92f97f66f435342bfba87534e2f18f, type: 3}
