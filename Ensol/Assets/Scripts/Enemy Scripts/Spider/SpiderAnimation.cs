@@ -8,8 +8,7 @@ public class SpiderAnimation : MonoBehaviour
     {
         IDLE,
         MOVING_FORWARD,
-        MOVING_LEFT,
-        MOVING_RIGHT,
+        MOVING_BACKWARD,
         WEB_SHOOT,
         TAZER_SHOOT,
         WEB_DEPLOY,
@@ -26,7 +25,7 @@ public class SpiderAnimation : MonoBehaviour
     private Transform playerTF;
 
     [Header("Misc")]
-    private State state = State.IDLE;
+    public State state = State.IDLE;
     private float maxWalkSpeed, minWalkSpeed;
 
     private void FixedUpdate()
@@ -50,7 +49,7 @@ public class SpiderAnimation : MonoBehaviour
             maxWalkSpeed = spiderBT.spiderStats.maxSpeed;
             minWalkSpeed = spiderBT.spiderStats.minSpeed;
         }
-
+        ResetAllTriggers();
         string anim = (string)spiderBT.root.GetData("animation");
         switch (state)
         {
@@ -60,6 +59,11 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderAlerted, this.transform.position);
+                }
+                else if (anim == "movingBackward")
+                {
+                    animController.SetTrigger("movingBackward");
+                    state = State.MOVING_BACKWARD;
                 }
                 break;
 
@@ -89,6 +93,44 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("webShot");
                     state = State.WEB_SHOOT;
                 }
+                else if (anim == "movingBackward")
+                {
+                    animController.SetTrigger("movingBackward");
+                    state = State.MOVING_BACKWARD;
+                }
+                break;
+
+            case State.MOVING_BACKWARD:
+                //Sets the speed of the walking animation based on current velocity
+                if (isMiniSpider)
+                {
+                    animController.SetFloat("animSpeed", Mathf.Clamp(((spiderRB.velocity.magnitude * 10) / minWalkSpeed) * miniSpeedMult, 1f, 2.5f));
+                }
+                else
+                {
+                    animController.SetFloat("animSpeed", Mathf.Clamp((spiderRB.velocity.magnitude * 10) / minWalkSpeed, 0.5f, 1f));
+                }
+
+                if (anim == "tazer")
+                {
+                    animController.SetTrigger("tazer");
+                    state = State.TAZER_SHOOT;
+                }
+                else if (anim == "webDeploy")
+                {
+                    animController.SetTrigger("webDeploy");
+                    state = State.WEB_DEPLOY;
+                }
+                else if (anim == "webShot")
+                {
+                    animController.SetTrigger("webShot");
+                    state = State.WEB_SHOOT;
+                }
+                else if (anim == "movingForward")
+                {
+                    animController.SetTrigger("movingForward");
+                    state = State.MOVING_FORWARD;
+                }
                 break;
 
             case State.TAZER_SHOOT:
@@ -105,6 +147,11 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
                 }
+                else if (anim == "movingBackward")
+                {
+                    animController.SetTrigger("movingBackward");
+                    state = State.MOVING_BACKWARD;
+                }
                 break;
 
             case State.WEB_DEPLOY:
@@ -112,6 +159,11 @@ public class SpiderAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
+                }
+                else if (anim == "movingBackward")
+                {
+                    animController.SetTrigger("movingBackward");
+                    state = State.MOVING_BACKWARD;
                 }
                 break;
 
@@ -121,11 +173,22 @@ public class SpiderAnimation : MonoBehaviour
                     animController.SetTrigger("movingForward");
                     state = State.MOVING_FORWARD;
                 }
+                else if (anim == "movingBackward")
+                {
+                    animController.SetTrigger("movingBackward");
+                    state = State.MOVING_BACKWARD;
+                }
                 break;
 
             case State.DYING:
                 break;
         }
+    }
+
+    private void ResetAllTriggers()
+    {
+        animController.ResetTrigger("movingForward");
+        animController.ResetTrigger("movingBackward");
     }
 
     private void TazerShoot()

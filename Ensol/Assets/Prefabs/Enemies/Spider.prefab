@@ -139,7 +139,7 @@ MonoBehaviour:
   numID: 4
   maxHP: 35
   currHP: 0
-  maxSpeed: 75
+  maxSpeed: 55
   attackingCooldown: 1
   acceleration: 30
   visionRange: 15
@@ -161,7 +161,7 @@ MonoBehaviour:
     m_Bits: 128
   players: []
   enemyRenderer: {fileID: 3818330071454690583}
-  minSpeed: 25
+  minSpeed: 20
   rapidAvoidDist: 7.5
   idealDist: 8
   sidewaysMult: 0.5
@@ -1051,6 +1051,7 @@ MonoBehaviour:
   miniSpeedMult: 0
   miniTazerMult: 0
   isMiniSpider: 0
+  state: 0
 --- !u!4 &1400978267257453353 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1072600842065334525, guid: ed0b349ea5b817c4ca80ae899dfe42aa, type: 3}
