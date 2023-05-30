@@ -15,6 +15,8 @@ public class OptionsMenu : MonoBehaviour
     public static float screenShakeValue = 1;
     [SerializeField] private Toggle catModeToggle;
     public static bool catModeActivated = false;
+    [SerializeField] private Toggle grassToggle;
+    public static bool grassActivated = true;
 
     [Header("VCAs")]
     private FMOD.Studio.VCA musicVCA;
@@ -25,18 +27,30 @@ public class OptionsMenu : MonoBehaviour
     //Unity Events
     [HideInInspector] public UnityEvent<float> OnScreenShakeChange;
     [HideInInspector] public UnityEvent<bool> OnCatModeChange;
+    [HideInInspector] public UnityEvent<bool> OnGrassActivatedChange;
 
-    private void Start()
+    private void Awake()
     {
         //Sets current values
         musicSlider.value = musicValue;
         sfxSlider.value = sfxValue;
         screenShakeSlider.value = screenShakeValue;
         catModeToggle.isOn = catModeActivated;
+        grassToggle.isOn = grassActivated;
+        UpdateAllSettings();
 
         musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         sfxVCA   = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
 
+    }
+
+    private void UpdateAllSettings()
+    {
+        UpdateScreenShake();
+        UpdateMusicVolume();
+        UpdateSFXVolume();
+        UpdateCatMode();
+        UpdateGrass();
     }
 
     public void UpdateScreenShake()
@@ -61,5 +75,11 @@ public class OptionsMenu : MonoBehaviour
     {
         catModeActivated = catModeToggle.isOn;
         OnCatModeChange.Invoke(catModeActivated);
+    }
+
+    public void UpdateGrass()
+    {
+        grassActivated = grassToggle.isOn;
+        OnGrassActivatedChange.Invoke(grassActivated);
     }
 }
