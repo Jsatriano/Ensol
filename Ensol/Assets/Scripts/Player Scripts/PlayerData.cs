@@ -58,4 +58,9 @@ public static class PlayerData
     public static bool disableBird = false;
     public static bool killedBird = false;
     public static bool hasTransponder = false;
+
+    //Power Grid Node Progression
+    public static bool firstGenHit = false;
+    public static bool secondGenHit = false;
+    public static bool thirdGenHit = false;
 }
