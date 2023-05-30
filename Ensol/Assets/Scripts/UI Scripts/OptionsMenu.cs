@@ -29,7 +29,8 @@ public class OptionsMenu : MonoBehaviour
     [HideInInspector] public UnityEvent<bool> OnCatModeChange;
     [HideInInspector] public UnityEvent<bool> OnGrassActivatedChange;
 
-    private void Awake()
+    //Called by PauseMenu script on start to make sure settings stay the same between scene transitions
+    public void Start()
     {
         //Sets current values
         musicSlider.value = musicValue;
@@ -41,7 +42,6 @@ public class OptionsMenu : MonoBehaviour
 
         musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         sfxVCA   = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
-
     }
 
     private void UpdateAllSettings()

@@ -370,7 +370,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7413345536231662011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: UpdateGrass
         m_Mode: 1
@@ -468,7 +468,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7413345536231662011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: UpdateCatMode
         m_Mode: 1
@@ -490,7 +490,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7137843604705427812}
-  - component: {fileID: 7413345536231662011}
   - component: {fileID: 104928377980412543}
   - component: {fileID: 1285865286768911407}
   m_Layer: 5
@@ -527,32 +526,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7413345536231662011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140162740222794716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b7b251dab8bc745bd08d1df69ccae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSlider: {fileID: 1384538778165077195}
-  sfxSlider: {fileID: 7973425648294060063}
-  screenShakeSlider: {fileID: 5678799724945965026}
-  catModeToggle: {fileID: 6377526152406708502}
-  grassToggle: {fileID: 2734363838889494131}
-  OnScreenShakeChange:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCatModeChange:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGrassActivatedChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!222 &104928377980412543
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -757,7 +730,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7413345536231662011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: UpdateScreenShake
         m_Mode: 1
@@ -1950,7 +1923,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7413345536231662011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: UpdateMusicVolume
         m_Mode: 1
@@ -2437,7 +2410,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7413345536231662011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
         m_MethodName: UpdateSFXVolume
         m_Mode: 1
