@@ -10,8 +10,10 @@ public class HealingBuilding : MonoBehaviour
     [HideInInspector] public GameObject[] players;
     [HideInInspector] public HealthBar healthBar;
     public Renderer renderer;
-    public GameObject healJuice;
+    public GameObject healJuice, healSprayVFX;
+    public Transform juiceDrainTarget;
     public float drainSpeed = 1f;
+    private Vector3 target;
 
     void Awake() {
         gameObject.tag = "Interactable";
@@ -20,6 +22,7 @@ public class HealingBuilding : MonoBehaviour
     void Start()
     {
         SearchForPlayer();
+        healSprayVFX.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,11 +42,18 @@ public class HealingBuilding : MonoBehaviour
             healthBar.SetHealth(PlayerData.currHP);
             Debug.Log("Healing Distributed");
             renderer.materials[1].SetFloat("_SetAlpha", 0);
-            // move the healing juice down
-            healJuice.SetActive(false);
-            //healJuice.transform.Translate(0, -1, 0);
             // play sound
             AudioManager.instance.PlayOneShot(FMODEvents.instance.healUp, this.transform.position);
+        }
+        if(wasUsed && distributedHealing && healJuice.activeInHierarchy){
+            healSprayVFX.SetActive(true);
+            if(healJuice.transform.position != juiceDrainTarget.position){
+                healJuice.transform.position = Vector3.MoveTowards(healJuice.transform.position, juiceDrainTarget.position, drainSpeed * Time.deltaTime);
+            }
+            else {
+                healJuice.SetActive(false);
+                healSprayVFX.SetActive(false);
+            }
         }
         
     }
