@@ -9,6 +9,7 @@ public class MenuButtons : MonoBehaviour
 {
     public GameObject playButton, controlsButton, exitButton;
     public NodeSelector nodeSelector;
+    public DataPersistanceManager GameManager;
 
     private void Start()
     {
@@ -17,10 +18,19 @@ public class MenuButtons : MonoBehaviour
         Cursor.visible = true;
     }
 
-    public void StartGame()
+    public void LoadGame()
     {
         // will need to change this to the cabin once its created
         //SceneManager.LoadScene(sceneName:"MapScene");
+        SceneSwitch.exitFrom = true;
+        nodeSelector.OpenScene();
+    }
+
+    public void NGame()
+    {
+        // will need to change this to the cabin once its created
+        //SceneManager.LoadScene(sceneName:"MapScene");
+        GameManager.ClearGame();
         SceneSwitch.exitFrom = true;
         nodeSelector.OpenScene();
     }

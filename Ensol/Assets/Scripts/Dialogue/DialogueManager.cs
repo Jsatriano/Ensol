@@ -116,7 +116,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
-        currentStory.UnbindExternalFunction("openDoor");
+        // currentStory.UnbindExternalFunction("openDoor");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = PlayerController.State.IDLE;
