@@ -67,7 +67,7 @@ public class PData
 
     // completed nodes variables
     public int prevNode;
-    public int lNode;
+    // public int lNode;
     public bool cabinNode;
     public bool deerNode;
     public bool riverNode; 
@@ -144,7 +144,7 @@ public class PData
 
         // Completed Nodes
         prevNode = 999;
-        lNode = 0;
+        // lNode = 0;
 
         cabinNode  = false;
         deerNode  = false;
