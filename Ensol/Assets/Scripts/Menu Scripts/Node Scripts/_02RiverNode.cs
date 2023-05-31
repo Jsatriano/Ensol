@@ -19,11 +19,11 @@ public class _02RiverNode : MonoBehaviour
 
     private void Awake() 
     {
-        if (CompletedNodes.lNode == 1)
+        if (CompletedNodes.prevNode == 1)
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 5 || CompletedNodes.lNode == 8)
+        else if (CompletedNodes.prevNode == 5 || CompletedNodes.prevNode == 8)
         {
             SpawnPoint.First = false;
         }
@@ -31,13 +31,12 @@ public class _02RiverNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 2;
+        CompletedNodes.prevNode = 2;
     }
 
     private void Start()
     {
         
-        CompletedNodes.prevNode = 2;
         CompletedNodes.firstLoad[2] = false;
 
 

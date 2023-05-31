@@ -10,6 +10,7 @@ public class _08BirdNode : MonoBehaviour
     private bool spawningBird = false;
     private Vector3 birdRotation = new Vector3(-90.298f, -77.705f + 180f, -101.751f);
     private Vector3 birdPosition = new Vector3(-0.01194038f, -0.003794938f, 0.0007437048f);
+    
     private void Start()
     {
         CompletedNodes.prevNode = 8;

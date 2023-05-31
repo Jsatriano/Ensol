@@ -14,11 +14,11 @@ public class _05BearNode : MonoBehaviour
     private void Awake()
     {
         //determine where to spawn
-        if (CompletedNodes.lNode == 2)
+        if (CompletedNodes.prevNode == 2)
         {
             SpawnPoint.First = true;
         } 
-        else if (CompletedNodes.lNode == 6)
+        else if (CompletedNodes.prevNode == 6)
         {
             SpawnPoint.First = false;
         }
@@ -26,13 +26,12 @@ public class _05BearNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 5;
+        CompletedNodes.prevNode = 5;
     }
 
     private void Start()
     {
         //determine where to spawn part 2
-        CompletedNodes.prevNode = 5;
         CompletedNodes.firstLoad[5] = false;
     }
 

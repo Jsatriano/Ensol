@@ -7,8 +7,6 @@ public class CompletedNodes : MonoBehaviour
 {
     public static int prevNode = 999;
 
-    public static int lNode = 0;
-
     public static bool cabinNode  = true, deerNode  = true, riverNode  = false, gateNode  = false, riverControlNode  = false,
                 bearNode  = false, brokenMachineNode  = false, securityTowerNode  = false, birdNode  = false,
                 powerGridNode  = false, metalFieldNode  = false, computerNode = false;

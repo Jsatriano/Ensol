@@ -28,15 +28,15 @@ public class _07SecurityTowerNode : MonoBehaviour
     private void Awake()
     {
         //determine where to spawn
-        if (CompletedNodes.lNode == 4)
+        if (CompletedNodes.prevNode == 4)
         {
             SpawnPoint.First = true;
         } 
-        else if (CompletedNodes.lNode == 6)
+        else if (CompletedNodes.prevNode == 6)
         {
             SpawnPoint.First = false;
         }
-        else if (CompletedNodes.lNode == 9)
+        else if (CompletedNodes.prevNode == 9)
         {
             SpawnPoint.First = false;
             SpawnPoint.Second = false;
@@ -45,13 +45,12 @@ public class _07SecurityTowerNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 7;
+        CompletedNodes.prevNode = 7;
     }
 
     private void Start()
     {
         //determine where to spawn part 2
-        CompletedNodes.prevNode = 7;
         CompletedNodes.firstLoad[7] = false;
     }
 

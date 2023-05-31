@@ -21,12 +21,11 @@ public class _04RiverControlNode : MonoBehaviour
 
     private void Awake() 
     {
-        print("lnode is " + CompletedNodes.lNode);
-        if (CompletedNodes.lNode == 3)
+        if (CompletedNodes.prevNode == 3)
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 7)
+        else if (CompletedNodes.prevNode == 7)
         {
             SpawnPoint.First = false;
         }
@@ -34,13 +33,12 @@ public class _04RiverControlNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 4;
+        CompletedNodes.prevNode = 4;
     }
 
     private void Start()
     {
         
-        CompletedNodes.prevNode = 4;
         CompletedNodes.firstLoad[4] = false;
     }
 

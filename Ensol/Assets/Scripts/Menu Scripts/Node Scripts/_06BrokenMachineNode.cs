@@ -17,11 +17,11 @@ public class _06BrokenMachineNode : MonoBehaviour
     private void Awake() 
     {
         //determine where to spawn
-        if (CompletedNodes.lNode == 5)
+        if (CompletedNodes.prevNode == 5)
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 10)
+        else if (CompletedNodes.prevNode == 10)
         {
             SpawnPoint.First = false;
         }
@@ -29,13 +29,12 @@ public class _06BrokenMachineNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 6;
+        CompletedNodes.prevNode = 6;
     }
 
     private void Start()
     {
         //determine where to spawn part 2
-        CompletedNodes.prevNode = 6;
         CompletedNodes.firstLoad[6] = false;
 
         // doesn't spawn interactable bear if player already has upgrade

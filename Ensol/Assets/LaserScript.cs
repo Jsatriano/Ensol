@@ -28,6 +28,9 @@ public class LaserScript : MonoBehaviour
             {
                 laserLine.enabled = false;
             }
+            if(PlayerData.hasShield) {
+                PlayerData.hasShield = false;
+            }
             if (!fired){
                 fired = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.turretFire, this.transform.position);

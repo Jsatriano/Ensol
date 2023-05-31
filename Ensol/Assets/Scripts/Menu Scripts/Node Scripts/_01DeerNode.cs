@@ -41,11 +41,11 @@ public class _01DeerNode : MonoBehaviour
     private void Awake() 
     {
 
-        if (CompletedNodes.lNode == 0)
+        if (CompletedNodes.prevNode == 0)
         {
             SpawnPoint.First = true;
         }
-        else if (CompletedNodes.lNode == 2)
+        else if (CompletedNodes.prevNode == 2)
         {
             SpawnPoint.First = false;
         }
@@ -53,13 +53,12 @@ public class _01DeerNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
-        CompletedNodes.lNode = 1;
+        CompletedNodes.prevNode = 1;
     }
 
     private void Start()
     {
         
-        CompletedNodes.prevNode = 1;
         CompletedNodes.firstLoad[1] = false;
 
         //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
