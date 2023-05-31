@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8531668403765063902}
   - component: {fileID: 1244055494517859275}
   - component: {fileID: 5140488784740050505}
-  - component: {fileID: 3040466056553951242}
   - component: {fileID: 5000250815295544714}
+  - component: {fileID: 6485624088652884255}
   m_Layer: 7
   m_Name: ElectricGate
   m_TagString: Interactable
@@ -71,25 +71,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMesh: {fileID: 3950413578124824267}
-  buttonCol: {fileID: 3040466056553951242}
+  buttonCol: {fileID: 6485624088652884255}
   requiredObj: {fileID: 0}
   gateController: {fileID: 1244055494517859275}
   greenMat: {fileID: 2100000, guid: 4d699b2f9732cf541b1a8cef996dfd9d, type: 2}
   enemiesList: []
   text: {fileID: 5000250815295544714}
---- !u!135 &3040466056553951242
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128966292059426060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: -0.7, y: -1.12, z: -0.05}
 --- !u!114 &5000250815295544714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,8 +92,24 @@ MonoBehaviour:
   canvas: {fileID: 7194244970644802851}
   canBeInteracted: 0
   interacted: 0
-  coll: {fileID: 3040466056553951242}
+  coll: {fileID: 6485624088652884255}
   transitionRate: 6
+  dialogueTrigger: {fileID: 0}
+  isDialogueText: 0
+--- !u!136 &6485624088652884255
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128966292059426060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.35
+  m_Height: 7.8
+  m_Direction: 1
+  m_Center: {x: -1.11, y: -0.91, z: 0}
 --- !u!1 &777573114983403055
 GameObject:
   m_ObjectHideFlags: 0

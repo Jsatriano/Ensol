@@ -815,7 +815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6502346387192398682}
   - component: {fileID: 5698103687557228690}
-  - component: {fileID: 5517158149890727427}
+  - component: {fileID: 4838477392003830990}
   m_Layer: 7
   m_Name: Healing Building
   m_TagString: Untagged
@@ -863,8 +863,8 @@ MonoBehaviour:
   healSprayVFX: {fileID: 9088542305976004592}
   juiceDrainTarget: {fileID: 4163034159249068479}
   drainSpeed: 0.5
---- !u!135 &5517158149890727427
-SphereCollider:
+--- !u!136 &4838477392003830990
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -873,9 +873,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.7105021
-  m_Center: {x: 0, y: 1.1299878, z: -1.516489}
+  m_Radius: 1.21
+  m_Height: 7.04
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.94, z: -2.33}
 --- !u!1 &9088542305976004592
 GameObject:
   m_ObjectHideFlags: 0
