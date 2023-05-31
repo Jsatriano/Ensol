@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using Ink.Runtime;
+
 
 public class DataPersistanceManager : MonoBehaviour
 {
-    [Header("File Storage Config")]
-    [SerializeField] private string fileName;
+  [Header("File Storage Config")]
+  [SerializeField] private string fileName;
 
 
-    private PData playerData;
-    // private string SF = "";
-    private TextAsset globals;
-    private List<IDataPersistance> dataPersistenceObjects;
+  private PData playerData;
+  // private string SF = "";
+  public TextAsset globals;
+  private List<IDataPersistance> dataPersistenceObjects;
+  private Story story;
 
-    private FileDataHandler dataHandler;
+  private FileDataHandler dataHandler;
 
   public static DataPersistanceManager instance { get; private set; }
 
@@ -55,6 +58,8 @@ public class DataPersistanceManager : MonoBehaviour
 
   public void ClearGame()
   {
+    story = new Story(globals.text);
+    DialogueVariables.saveFile = story.state.ToJson();
     dataHandler.Delete();
     LoadGame();
   }
@@ -62,7 +67,7 @@ public class DataPersistanceManager : MonoBehaviour
   public void LoadGame()
   {
     this.playerData = dataHandler.Load();
-    print(playerData);
+    Debug.Log(playerData);
     dataHandler.LoadStory();
     if (this.playerData == null)
     {
