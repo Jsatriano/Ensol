@@ -1437,6 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 8
 --- !u!1 &2555025629415799517
@@ -2353,6 +2354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 6
 --- !u!1 &5292903802815488136
@@ -7374,7 +7376,7 @@ PrefabInstance:
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: buttonCol
       value: 
-      objectReference: {fileID: 97840854077853772}
+      objectReference: {fileID: 8172888487218645337}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: requiredObj
       value: 
@@ -7461,11 +7463,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
---- !u!135 &97840854077853772 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 3040466056553951242, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
-  m_PrefabInstance: {fileID: 3128451953400684614}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3071543255651888458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 128966292059426060, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
@@ -7498,6 +7495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cce3229497e9048b4338eb192331b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &8172888487218645337 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6485624088652884255, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 3128451953400684614}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3363232490763434365
 PrefabInstance:
   m_ObjectHideFlags: 0
