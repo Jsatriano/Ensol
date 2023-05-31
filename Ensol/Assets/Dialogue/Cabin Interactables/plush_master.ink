@@ -107,9 +107,10 @@ P1-USH: Anything else I can help you with friend?
 P1-USH: Oh! That was a power-gathering model. They are quick and efficent, but also pretty sturdy! They are used to gather solar power and then transfer that power into other machines.
 -> forest_questions
 
-+{rabbit_deafeated} [Why are there robots in the shape of a bunny?] 
++{rabbit_deafeated}[Why are there robots in the shape of a bunny?]
 P1-USH: Those are the gardening models. The bunny design, while small in stature, allows the robot easy access to both small and large areas of flora that need attention. Typically, they are sent out in packs to maximize efficiency.
-->forest_questions
+-> forest_questions
+
 
 +{bear_defeated}[(More Options.)]
 P1-USH: Anything else?
