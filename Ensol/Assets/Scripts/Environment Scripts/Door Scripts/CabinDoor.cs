@@ -8,6 +8,7 @@ public class CabinDoor : MonoBehaviour
     public Collider buttonCol;
     public DoorController doorController;
     private bool opened = false;
+    public GameObject openText;
 
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
@@ -24,6 +25,7 @@ public class CabinDoor : MonoBehaviour
                     // opens door
                     gameObject.tag = "Uninteractable";
                     doorController.OpenDoor();
+                    openText.SetActive(false);
                 }
                 else
                 {
@@ -36,7 +38,7 @@ public class CabinDoor : MonoBehaviour
             if(DialogueManager.GetInstance().donePlaying == true && buttonCol.enabled != true) 
             {
                 //print("line 21");
-                buttonCol.enabled = true;
+                    buttonCol.enabled = true;
                 DialogueManager.GetInstance().donePlaying = false;
             }
 
@@ -59,6 +61,7 @@ public class CabinDoor : MonoBehaviour
                     }
                     gameObject.tag = "Uninteractable";
                     doorController.OpenDoor();
+                    openText.SetActive(false);
                     interacted = true;
                 }
             }
