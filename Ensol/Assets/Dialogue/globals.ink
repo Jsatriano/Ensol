@@ -17,3 +17,4 @@ VAR deerSeen = false
 VAR rabbitSeen = false
 VAR bearSeen = false
 VAR repair_used = false
+VAR checkpointscount = 0
