@@ -14,6 +14,7 @@ public class HealthBar : MonoBehaviour // justin
     private Vector3 endingPos;
     private float transitionTimer;
     public float transitionTime;
+    private bool animateStart = false;
     [HideInInspector] public bool finishedTransition;
 
     private void Start()
@@ -38,7 +39,7 @@ public class HealthBar : MonoBehaviour // justin
         //Moves the health bar onto the screen if the player has the broom at the start of every scene
         if (PlayerData.currentlyHasBroom && transitionTimer < transitionTime)
         {
-            slideIn();
+            StartCoroutine(slideIn());
         }
     }
 
@@ -53,17 +54,23 @@ public class HealthBar : MonoBehaviour // justin
         slider.value = health;
     }
 
-    private void slideIn()
+    IEnumerator slideIn()
     {
-        toggler.SetActive(true);
-        //Transitions the health bar onto screen 
-        interpolator = transitionTimer / transitionTime;
-        interpolator = Mathf.Sin(interpolator * Mathf.PI * 0.5f);
-        rectTransform.localPosition = Vector3.Lerp(startingPos, endingPos, interpolator);
-        transitionTimer += Time.deltaTime;
-        if (transitionTimer >= transitionTime)
-        {
-            finishedTransition = true;
+        //delay the animation starting
+        if (!animateStart){
+            yield return new WaitForSeconds(0.5f);
+            animateStart = true;
+        } else {
+            toggler.SetActive(true);
+            //Transitions the health bar onto screen 
+            interpolator = transitionTimer / transitionTime;
+            interpolator = Mathf.Sin(interpolator * Mathf.PI * 0.5f);
+            rectTransform.localPosition = Vector3.Lerp(startingPos, endingPos, interpolator);
+            transitionTimer += Time.deltaTime;
+            if (transitionTimer >= transitionTime)
+            {
+                finishedTransition = true;
+            }
         }
 
     }

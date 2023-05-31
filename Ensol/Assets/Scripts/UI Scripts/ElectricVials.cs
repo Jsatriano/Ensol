@@ -30,6 +30,7 @@ public class ElectricVials : MonoBehaviour // justin
     private Color originalColor;
     private bool flickerState;
     private bool isFlickering;
+    private bool animateStart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -68,9 +69,9 @@ public class ElectricVials : MonoBehaviour // justin
         //Moves the energyUI onto the screen if the player has the solar upgrade at the start of every scene and the health has finished transitioning onto screen
         if (PlayerData.currentlyHasSolar && healthUI.finishedTransition && transitionTimer < transitionTime)
         {
-            slideIn(startingPos, endingPos1, center.localPosition, vial1);
-            slideIn(startingPos, endingPos2, center.localPosition, vial2);
-            slideIn(startingPos, endingPos3, center.localPosition, vial3);
+            StartCoroutine (slideIn(startingPos, endingPos1, center.localPosition, vial1));
+            StartCoroutine (slideIn(startingPos, endingPos2, center.localPosition, vial2));
+            StartCoroutine (slideIn(startingPos, endingPos3, center.localPosition, vial3));
         }
 
         //Resets all the colors once flickering is over
@@ -181,21 +182,26 @@ public class ElectricVials : MonoBehaviour // justin
         return true;
     }
 
-    private void slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
+    IEnumerator slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
     {
-        toggler.SetActive(true);
-        Vector3 relativeStart = startPos - centerPos;
-        Vector3 relativeEnd = endPos - centerPos;
+        if (!animateStart){
+            yield return new WaitForSeconds(0.5f);
+            animateStart = true;
+        } else {
+            toggler.SetActive(true);
+            Vector3 relativeStart = startPos - centerPos;
+            Vector3 relativeEnd = endPos - centerPos;
 
-        //Moves the energy bar in a circle around the healthUI until it reaches its position
-        interpolator = transitionTimer / transitionTime;
-        interpolator = Mathf.Sin(interpolator * Mathf.PI * 0.5f);
-        vial.localPosition = Vector3.Slerp(relativeStart, relativeEnd, interpolator) + centerPos;
+            //Moves the energy bar in a circle around the healthUI until it reaches its position
+            interpolator = transitionTimer / transitionTime;
+            interpolator = Mathf.Sin(interpolator * Mathf.PI * 0.5f);
+            vial.localPosition = Vector3.Slerp(relativeStart, relativeEnd, interpolator) + centerPos;
 
-        //Updates rotation of energy bar
-        Vector3 dirToCenter = (centerPos - vial.localPosition).normalized;
-        vial.up = dirToCenter;
+            //Updates rotation of energy bar
+            Vector3 dirToCenter = (centerPos - vial.localPosition).normalized;
+            vial.up = dirToCenter;
 
-        transitionTimer += Time.deltaTime;
+            transitionTimer += Time.deltaTime;
+        }
     }
 }
