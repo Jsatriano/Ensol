@@ -141,6 +141,8 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.nodes = CompletedNodes.nodes;
 
         data.firstLoad = CompletedNodes.firstLoad;
+        
+        data.completedNodes = CompletedNodes.completedNodes;
 
         data.firstTransition = CompletedNodes.firstTransition;
     }

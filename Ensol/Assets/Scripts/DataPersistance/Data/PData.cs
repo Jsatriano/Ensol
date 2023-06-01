@@ -85,6 +85,8 @@ public class PData
 
     public bool[] firstLoad;
 
+    public bool[] completedNodes;
+
     public bool[] firstTransition;
 
     public PData()
@@ -162,8 +164,14 @@ public class PData
         // nodes;
 
         firstLoad = new bool[] {
-            false, true, true, true, true, true,
+            false, false, true, true, true, true,
             true, true, true, true, false
+        };
+
+        completedNodes = new bool[]
+        {
+            true, false, false, false, false, false,
+            false, false, false, false, true
         };
 
        firstTransition = new bool[] {

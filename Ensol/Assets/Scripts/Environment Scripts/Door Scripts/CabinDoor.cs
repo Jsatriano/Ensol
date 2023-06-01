@@ -12,6 +12,7 @@ public class CabinDoor : MonoBehaviour
 
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private TextAsset cannotLeave;
     public bool interacted = false;
 
     void Update()
@@ -29,6 +30,7 @@ public class CabinDoor : MonoBehaviour
                 }
                 else
                 {
+                    DialogueManager.GetInstance().EnterDialogueMode(cannotLeave);
                     buttonCol.enabled = true;
                 }
             }

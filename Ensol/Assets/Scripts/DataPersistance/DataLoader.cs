@@ -86,6 +86,8 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
         CompletedNodes.firstLoad = data.firstLoad;
 
+        CompletedNodes.completedNodes = data.completedNodes;
+
         CompletedNodes.firstTransition = data.firstTransition;
     }
 
@@ -167,6 +169,8 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.nodes = CompletedNodes.nodes;
 
         data.firstLoad = CompletedNodes.firstLoad;
+
+        data.completedNodes = CompletedNodes.completedNodes;
 
         data.firstTransition = CompletedNodes.firstTransition;
     }
