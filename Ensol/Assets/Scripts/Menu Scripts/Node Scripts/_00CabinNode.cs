@@ -89,9 +89,10 @@ public class _00CabinNode : MonoBehaviour
         {
             gateTransferCube.SetActive(true);
         }
-        //Player picking up broom
+        //Player picking up broom with a delay for audio
         if (!broom.activeInHierarchy && !interactableBroom.activeInHierarchy && !PlayerData.hasBroom)
         {
+
             combatController.PickedUpBroom();
             AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
         }
@@ -106,6 +107,7 @@ public class _00CabinNode : MonoBehaviour
         if (stick.activeInHierarchy == false && !PlayerData.currentlyHasBroom && PlayerData.hasBroom && weaponPile.activeInHierarchy == false)
         {        
             combatController.PickedUpBroom();
+            
         }
 
         if(electricGateToGate.opening)
@@ -206,4 +208,10 @@ public class _00CabinNode : MonoBehaviour
         }
         
     }
+
+    /*IEnumerator BroomPickup(){
+        combatController.PickedUpBroom();
+        yield return new WaitForSeconds(0.5f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
+    }*/
 }

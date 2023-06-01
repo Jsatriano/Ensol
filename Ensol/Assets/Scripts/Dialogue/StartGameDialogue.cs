@@ -10,6 +10,7 @@ public class StartGameDialogue : MonoBehaviour
     public GameObject blackOutSquare;
     public bool finishedFading;
     public static bool clickedDialogue = false;
+    public bool died = false;
     private Coroutine fadeRoutine = null;
 
     // Start is called before the first frame update
@@ -18,11 +19,19 @@ public class StartGameDialogue : MonoBehaviour
         if(blackOutSquare == null){
             blackOutSquare = GameObject.Find("Black Out Screen"); // Gets black out square game object to pass it through scenes
         }
+        //check if started game and play acompanying dialogue and fade sequence
         if (PlayerData.startedGame == false){
             dialogueTrigger.enabled = true;
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
+        }
+        //check if player is respawning after a death
+        if(PlayerData.startedGame == true && PlayerData.currentlyHasBroom == false){
+            finishedFading = false;
+            Color blackColor = blackOutSquare.GetComponent<Image>().color;
+            blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
+            died = true;
         }
     }
 
@@ -30,6 +39,9 @@ public class StartGameDialogue : MonoBehaviour
         if(fadeRoutine == null && PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
         {
             clickedDialogue = true;
+            fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
+        } else if (fadeRoutine == null && finishedFading == false && died == true){
+            died = false;
             fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
         }
     }
