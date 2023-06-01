@@ -4,11 +4,13 @@ INCLUDE ../globals.ink
 
 
 ===nounlocks===
-An opening leading deep underground that leads into a tunnel system. The passages seems crudely made, as if someone manualy dug them out. Following these tunnels lead into blocked exits from the otherside.  
+An opening going deep underground and into a service tunnel system. It’s not safe to travel through here when you don’t know where it leads to.
     -> END
 
 ===Hub===
-An opening leading deep underground that leads into a tunnel system. The passages seems crudely made, as if someone manualy dug them out. Following these tunnels lead into blocked exits from the otherside. 
+
+An opening going deep underground and into a service tunnel system. You can travel through undetected if you know where you are going.
+ 
 ->Hub_options
 
 ===Hub_options===

@@ -43,21 +43,21 @@ P1-USH: Hello Friend! I’m glad you’re back.
 ->After_death_options
 ===After_death_options===
 *[How am I still alive?]
-P1-USH: Still don’t remember? With that cloning machine right over there you don’t ever have to worry about dying. Using samples of your DNA from your previous body, it can replicate you along with all your memories. I’m not sure why you didn’t keep your memories last time
+P1-USH: Still don’t remember? With that cloning machine right over there you don’t ever have to worry about dying. Using samples of your DNA from your previous body, it can replicate you along with all your memories. I’m not sure why you didn’t keep your memories last time.
 ~body = true
 ->After_death_options
 
-*{body} [What do you mean by my old body?]
-P1-USH: As in your old body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
+*{body} [What do you mean by my previous body?]
+P1-USH: As in your previous body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
 ->After_death_options
 
 *[What was that outside?]
-P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe in your home.
+P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe.
 ~death = true
 ->After_death_options
 
-*{death}[That deer killed me! Is that the retrieval protocal?]
-P1-USH: It did, and it is. The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you could be cloned back home in good health.
+*{death}[That deer killed me! How is that keeping me safe?]
+P1-USH: The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you can be cloned back home safe and in good health.
 ->After_death_options
 
 *[Can I have a weapon?]
@@ -163,9 +163,40 @@ P1-USH: None of our designs uses any human feet. Are you sure you haven’t loop
 *{repair_used}[What are those metal pads in the forest?]
 P1-USH: Oh! You might be talking about the unit repair stations. Using small nanobots, the pads are able to repair any organic and inorganic material! They are out in the open so that any model that needs repairs can get it done easily.
     ->Plush_talk
-*{river_controls}[Why was I called a denizen? What is this place exactly?]
++{river_controls}[(More Options.)]
+ ->forest_other2
+
++[I want to ask about something else.]
+P1-USH: Okay!
+-> Plush_unlock
+
+
+===forest_other2===
++{river_controls}[Why was I called a denizen? What is this place exactly?]
 P1-USH: It's because denizens are denizens silly! This place is meant to take care of you in the best way possible, so don't you worry about a thing. 
     ->Plush_talk
++{scrap_change or grass_change or lighting_change}[Have you noticed something different?]
+P1-USH: Oh? About what?
+->environment_change
++[(Previous Options.)]
+P1-USH: Anything else?
+->forest_other
+
++[I want to ask about something else.]
+P1-USH: Okay!
+-> Plush_unlock
+
+===environment_change===
++{scrap_change}[Why are there trash everywhere?]
+P1-USH: The trash collecting models are not picking those up? More should be made then. Hopefully the other models are fine, wouldn't want them to be breaking down.
+    ->environment_change
++{grass_change}[Why is the grass getting overgrown?]
+P1-USH: Oh no! That shouldn't have happened. The gardening models should have trimmed the grass before they reach those levels. Hopefully new ones get made to help out.
+    ->environment_change
++{lighting_change}[Why is it darker outside?]
+P1-USH: I don't know. The environment should be getting lots of power from the power gathering models. Maybe something is wrong with the system? Hopefully it's not the power gathering models themselves, that could be detrimental to everything!
+    ->environment_change
+
 +[I want to ask about something else.]
 P1-USH: Okay!
 -> Plush_unlock
