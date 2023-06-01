@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour
 {
     public PlayerController player;
     private GameObject targetedPickup;
+    public GameObject blackOutSquare;
     void Awake() {
         player = gameObject.GetComponent<PlayerController>();
     }
@@ -44,6 +46,8 @@ public class Interaction : MonoBehaviour
                     interactTarget = collider.gameObject.transform;
                     player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
                 }
+                //fade the camera out and in to hide pickup transition
+                StartCoroutine(FadeOutAndIn());
                 player.state = PlayerController.State.INTERACTIONANIMATION;
             }
             else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
@@ -72,5 +76,48 @@ public class Interaction : MonoBehaviour
     //anim events for pickups
     private void DeactivatePickup(){
         targetedPickup.SetActive(false);
+    }
+
+    //quick fade out and in
+    public IEnumerator FadeOutAndIn(){
+
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        bool fadeToBlack = true;
+        bool fadeBackIn = false;
+        float fadeSpeed = 1.1f;
+
+        if(fadeToBlack)
+        {
+            while(blackOutSquare.GetComponent<Image>().color.a < 1)
+            {
+                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
+                {
+                    //start fading back in
+                    fadeToBlack = false;
+                    yield return new WaitForSeconds(1f);
+                    fadeBackIn = true;
+                }
+                yield return null;
+            }
+        }
+        if(fadeBackIn)
+        {
+            while(blackOutSquare.GetComponent<Image>().color.a > 0)
+            {
+                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                if(blackOutSquare.GetComponent<Image>().color.a <= 0)
+                {
+                    //stop fading
+                    fadeBackIn = false;
+                }
+                yield return null;
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
 
-public class PlayerController : MonoBehaviour, IDataPersistance
+public class PlayerController : MonoBehaviour
 {
     public enum State
     {
