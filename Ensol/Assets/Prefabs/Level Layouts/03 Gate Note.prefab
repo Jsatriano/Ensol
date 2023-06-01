@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 1
 --- !u!1 &715807838142236643
@@ -307,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnpoint1: {fileID: 4417091999374101853}
   spawnpoint2: {fileID: 715807838142236643}
+  spawnpoint3: {fileID: 0}
 --- !u!1 &880462946532467440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,6 +1928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnpoint1: {fileID: 4417091999374101853}
   spawnpoint2: {fileID: 715807838142236643}
+  spawnpoint3: {fileID: 0}
 --- !u!1 &4483895672703168721
 GameObject:
   m_ObjectHideFlags: 0
@@ -8508,7 +8511,7 @@ PrefabInstance:
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: buttonCol
       value: 
-      objectReference: {fileID: 6890279830029880130}
+      objectReference: {fileID: 3436043674002166359}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 9
@@ -8612,6 +8615,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8531668403765063902, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
   m_PrefabInstance: {fileID: 8479951797652273992}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &3436043674002166359 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6485624088652884255, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+  m_PrefabInstance: {fileID: 8479951797652273992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3672817898171194625 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
@@ -8623,11 +8631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cce3229497e9048b4338eb192331b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &6890279830029880130 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 3040466056553951242, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
-  m_PrefabInstance: {fileID: 8479951797652273992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7272489703820204163 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1244055494517859275, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
