@@ -5,7 +5,7 @@ It doesn’t take long to unlock the computer. Taking a quick glance at the cont
 ->start2
 
 ===start2===
-As you are browsing through the programs, several notifications appear with requests made from P1-USH units. The computer, or program, seems to be self-automated, as you witness several programs activate to help analyze and complete each request.
+As you browse through the programs, several notifications appear with requests made from P1-USH units. The computer, or program, seems to be self-automated, as you witness several programs activate to help analyze and complete each request.
 ->start3
 ===start3===
 Delving further in, you realize that you could shut it down easily and end all of it. You begin the process to do so. 
