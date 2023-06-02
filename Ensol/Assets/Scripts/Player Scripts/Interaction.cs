@@ -70,7 +70,7 @@ public class Interaction : MonoBehaviour
                 }
                 player.state = PlayerController.State.INTERACTIONANIMATION;
             }
-            else if(collider.gameObject.tag == "Checkpoint"){
+            else if(collider.gameObject.tag == "Checkpoint" && !collider.gameObject.GetComponent<Checkpoint>().active){
                 Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
                 player.animator.SetBool("isPickup", true);
                 if(interactTarget != null) {
@@ -81,13 +81,11 @@ public class Interaction : MonoBehaviour
                     player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
                 }
                 player.state = PlayerController.State.INTERACTIONANIMATION;
-
-                if(!collider.gameObject.active){
-                    collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
-                }
-                else {
-                    collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
-                }
+                collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
+            }
+            else if(collider.gameObject.tag == "Checkpoint" && collider.gameObject.GetComponent<Checkpoint>().active){
+                player.state = PlayerController.State.DIALOGUE;
+                collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
             }
         }
     }

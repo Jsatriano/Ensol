@@ -59,9 +59,6 @@ public class Checkpoint : MonoBehaviour
             SearchForCheckpointMenu();
         }
 
-        if(active && !col.enabled) {
-            col.enabled = true;
-        }
     }
 
     public void ActivateCheckpoint(){
@@ -78,6 +75,7 @@ public class Checkpoint : MonoBehaviour
     public void SearchForCheckpointMenu() {
         menuSearch = GameObject.FindGameObjectsWithTag("CheckpointMenu");
         checkpointMenu = menuSearch[0];
+        col.enabled = false;
     }
 
 }
