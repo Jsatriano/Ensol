@@ -63,6 +63,7 @@ public class _07SecurityTowerNode : MonoBehaviour
             if (timerTrigger == false)
             {
                 StartCoroutine(BeepBeep());
+                StartCoroutine(Squawk());
                 timerTrigger = true;
             }
             // move it until it reaches end point
@@ -109,6 +110,12 @@ public class _07SecurityTowerNode : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, bird.transform.position);
+    }
+
+    public IEnumerator Squawk()
+    {
+        yield return new WaitForSeconds(0.1f);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.birdSquawk, bird.transform.position);
     }
 
 

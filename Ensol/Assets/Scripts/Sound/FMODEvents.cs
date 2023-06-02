@@ -36,6 +36,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Bird")]
     [field: SerializeField] public EventReference birdBeepBeep { get; private set; }
+    [field: SerializeField] public EventReference birdSquawk { get; private set; }
 
     [field: Header("Bear")]
     [field: SerializeField] public EventReference bearDeath { get; private set; }
