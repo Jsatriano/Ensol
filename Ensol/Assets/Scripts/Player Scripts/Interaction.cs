@@ -70,6 +70,25 @@ public class Interaction : MonoBehaviour
                 }
                 player.state = PlayerController.State.INTERACTIONANIMATION;
             }
+            else if(collider.gameObject.tag == "Checkpoint"){
+                Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
+                player.animator.SetBool("isPickup", true);
+                if(interactTarget != null) {
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                else{
+                    interactTarget = collider.gameObject.transform;
+                    player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
+                }
+                player.state = PlayerController.State.INTERACTIONANIMATION;
+
+                if(!collider.gameObject.active){
+                    collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
+                }
+                else {
+                    collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
+                }
+            }
         }
     }
 

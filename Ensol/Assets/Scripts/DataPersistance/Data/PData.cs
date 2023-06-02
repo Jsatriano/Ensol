@@ -89,6 +89,8 @@ public class PData
 
     public bool[] firstTransition;
 
+    public bool[] checkpoints;
+
     public PData()
     {
         worked = false;

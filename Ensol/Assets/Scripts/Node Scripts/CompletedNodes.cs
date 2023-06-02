@@ -28,6 +28,10 @@ public class CompletedNodes : MonoBehaviour
         true, true, true, true, true, false
     };
 
+    public static bool[] checkpoints = new bool[] {
+        false, false, false, false
+    };
+
     [Header("References")]
     public Sprite[] image;
     public GameObject[] mapButton;
