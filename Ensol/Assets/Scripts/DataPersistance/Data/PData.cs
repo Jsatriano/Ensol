@@ -148,8 +148,8 @@ public class PData
         prevNode = 999;
         // lNode = 0;
 
-        cabinNode  = false;
-        deerNode  = false;
+        cabinNode  = true;
+        deerNode  = true;
         riverNode  = false; 
         gateNode  = false; 
         riverControlNode  = false; 
