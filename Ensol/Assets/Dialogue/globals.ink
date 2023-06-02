@@ -18,3 +18,7 @@ VAR rabbitSeen = false
 VAR bearSeen = false
 VAR repair_used = false
 VAR checkpointscount = 0
+VAR scrap_change = false
+VAR grass_change = false
+VAR lighting_change = false
+VAR riveroff  = false

@@ -43,21 +43,21 @@ P1-USH: Hello Friend! I’m glad you’re back.
 ->After_death_options
 ===After_death_options===
 *[How am I still alive?]
-P1-USH: Still don’t remember? With that cloning machine right over there you don’t ever have to worry about dying. Using samples of your DNA from your previous body, it can replicate you along with all your memories. I’m not sure why you didn’t keep your memories last time
+P1-USH: Still don’t remember? With that cloning machine right over there you don’t ever have to worry about dying. Using samples of your DNA from your previous body, it can replicate you along with all your memories. I’m not sure why you didn’t keep your memories last time.
 ~body = true
 ->After_death_options
 
-*{body} [What do you mean by my old body?]
-P1-USH: As in your old body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
+*{body} [What do you mean by my previous body?]
+P1-USH: As in your previous body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
 ->After_death_options
 
 *[What was that outside?]
-P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe in your home.
+P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe.
 ~death = true
 ->After_death_options
 
-*{death}[That deer killed me! Is that the retrieval protocal?]
-P1-USH: It did, and it is. The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you could be cloned back home in good health.
+*{death}[That deer killed me! How is that keeping me safe?]
+P1-USH: The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you can be cloned back home safe and in good health.
 ->After_death_options
 
 *[Can I have a weapon?]
@@ -104,11 +104,11 @@ P1-USH: Anything else I can help you with friend?
 
 ===forest_questions===
 +[What is the purpose of those deer robots?]
-P1-USH: Oh! That was a power-gathering model. They are quick and efficent, but also pretty sturdy! They are used to gather solar power and then transfer that power into other machines.
+P1-USH: Oh! That was a power-gathering model. They are quick and efficient, but also pretty sturdy! They gather solar power, then transfer that power to other machines.
 -> forest_questions
 
 +{rabbit_deafeated}[Why are there robots in the shape of a bunny?]
-P1-USH: Those are the gardening models. The bunny design, while small in stature, allows the robot easy access to both small and large areas of flora that need attention. Typically, they are sent out in packs to maximize efficiency.
+P1-USH: Those are the gardening models. The bunny design, while small in stature, allows easy access to both small and large areas of flora that need attention. They are typically sent out in packs to maximize efficiency.
 -> forest_questions
 
 
@@ -122,7 +122,7 @@ P1-USH: Okay!
 
 ===plush_questions===
 *{dear_defeated}[ Why do you keep staring at my equipment.]
-P1-USH: Oh, sorry! It’s just not every day I get to see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
+P1-USH: It’s not every day I see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
     ->plush_questions
     
 +[Can you play my favorite tune? (Not working)]
@@ -133,18 +133,46 @@ P1-USH: Sure!
 P1-USH: Sure! 
     ->plush_questions
     
++{dear_defeated == false}[Can I pet you?(Not working)]
+P1-USH: Absolutely! 
+    ->plush_questions
+
++{dear_defeated} [(More Options.)]
+    ->Plush_unlock_2
 +[I want to ask about something else.]
 P1-USH: Okay!
 -> Plush_unlock
 
+===Plush_unlock_2===
++[Can I pet you?(Not working)]
+P1-USH: Absolutely! 
+    ->plush_questions
+
+*{dear_defeated}[ Why do you keep staring at my equipment.]
+P1-USH: It’s not every day I see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
+    ->plush_questions
+
+
++[(Previous Options.)]
+P1-USH: Anything else?
+->forest_questions
+
++[I want to ask about something else.]
+P1-USH: Okay!
+-> Plush_unlock
+
+
+
+
+
 ===forest_questions_v2===
 +{bear_defeated}[The bear robots, what are they?]
-P1-USH: That’s the trash-collecting model. It uses a combination of powerful magnets with its strong arms to gather and collect trash onto its back. Wouldn’t want to be in front of a trash-collecting model while it's working.
+P1-USH: That’s the recycling model. It uses a combination of powerful magnets and industrial arms to gather refuse in its back for later recycling. Wouldn’t want to be in front of one while it's working.
     ~bearSeen = true
 ->forest_questions
 
 +{spider_defeated} [Those spider robots, what were they used for?]
-P1-USH: They are used to make powerlines effectively. They’re kept in that area specifically and are rarely sent out anywhere else. They can climb walls extremely well, and send out powerlines from a great distance. Be careful when they’re working as you wouldn’t want one to fall on you, they’re heavy.
+P1-USH: Those are power-line models. They can build and climb infrastructure to erect and maintain power lines that cover great distances. They’re usually only found in power grids, so I’m not sure how you saw one.
 ->forest_questions
 
 +[(Previous Options.)]
@@ -156,16 +184,47 @@ P1-USH: Okay!
 -> Plush_unlock
 
 ===forest_other===
-+{footprints_found}[Are there robots that leave behind human footprints?]
-P1-USH: None of our designs uses any human feet. Are you sure you haven’t looped back to the area before? Those woods can be pretty confusing for a human to navigate through successfully without being confused.
++{footprints_found}[Are there robots that leave human footprints?]
+P1-USH: None of the models have human designs. Are you sure you haven’t been to the area before? Those woods can be pretty confusing, but that’s why it’s important to stay here.
     ->Plush_talk
     
 *{repair_used}[What are those metal pads in the forest?]
-P1-USH: Oh! You might be talking about the unit repair stations. Using small nanobots, the pads are able to repair any organic and inorganic material! They are out in the open so that any model that needs repairs can get it done easily.
+P1-USH: Oh! You might be talking about the repair stations. Those stations use nanobots to repair any organic and inorganic material! They are out in the open so that any damaged model can get repairs easily.
     ->Plush_talk
-*{river_controls}[Why was I called a denizen? What is this place exactly?]
++{river_controls}[(More Options.)]
+ ->forest_other2
+
++[I want to ask about something else.]
+P1-USH: Okay!
+-> Plush_unlock
+
+
+===forest_other2===
++{river_controls}[Why was I called a denizen? What is this place exactly?]
 P1-USH: It's because denizens are denizens silly! This place is meant to take care of you in the best way possible, so don't you worry about a thing. 
     ->Plush_talk
++{scrap_change or grass_change or lighting_change}[Have you noticed something different?]
+P1-USH: Oh? About what?
+->environment_change
++[(Previous Options.)]
+P1-USH: Anything else?
+->forest_other
+
++[I want to ask about something else.]
+P1-USH: Okay!
+-> Plush_unlock
+
+===environment_change===
++{scrap_change}[There is trash everywhere]
+P1-USH: The recycling models are not picking those up? More should be made then. Hopefully the other models are fine, wouldn't want them to be breaking down.
+    ->environment_change
++{grass_change}[The grass is growing really tall]
+P1-USH: Oh no! The gardening models should have trimmed the grass before they reached those levels. Hopefully new ones get made to help out.
+    ->environment_change
++{lighting_change}[It’s getting darker, but not that much time has passed]
+P1-USH: Strange. The environment should be getting plenty of energy from the power-gathering models. Maybe something is wrong with the system? Hopefully it's not the power-gathering models themselves, that could be detrimental to everything!
+    ->environment_change
+
 +[I want to ask about something else.]
 P1-USH: Okay!
 -> Plush_unlock

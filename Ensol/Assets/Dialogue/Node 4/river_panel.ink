@@ -6,23 +6,26 @@ INCLUDE ../globals.ink
 
 ===Intro ===
 
-A control panel that controls the flow of the river. You attempt to turn off the river.
+A control panel that controls the flow of the river. There are options displayed for water flow and purity.
 
-
-The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
-
-*[Break the control panel.]
+*[Turn off the water.]
 ->2nd
 
 
 
 ===2nd===
-You thrust your weapon into the control panel, breaking it. 
+The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
 
-{footprints_found: <u>The water is no longer flowing to the north</u>.}
+*[Short circuit the control panel.]
+->3rd
 ~river_controls = true
 
 ->END
+
+===3rd===
+<u>The water is no longer flowing to the north</u>.
+->END
+~riveroff = true
 
 ===off===
 The control panel for the river is broken. The river is no longer flowing <u><b>north</b></u>.
