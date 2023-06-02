@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3594011253122794764}
   - component: {fileID: 5505592811815123828}
   - component: {fileID: 7554874005510558037}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon Pile
   m_TagString: InteractablePickup
   m_Icon: {fileID: 0}
@@ -27,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3089612561864959193}
-  m_LocalRotation: {x: 0.6993101, y: 0.6847437, z: 0.09079242, w: 0.18397877}
+  m_LocalRotation: {x: 0.69930905, y: 0.68474567, z: 0.090787135, w: 0.18397813}
   m_LocalPosition: {x: -8.605544, y: 0.336, z: -7.2442074}
-  m_LocalScale: {x: 43, y: 43, z: 43}
+  m_LocalScale: {x: 42.999996, y: 42.999996, z: 43}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4093650628599298570}
@@ -106,8 +106,10 @@ MonoBehaviour:
   canvas: {fileID: 5714013344332473496}
   canBeInteracted: 0
   interacted: 0
-  coll: {fileID: 7554874005510558037}
+  collider: {fileID: 7554874005510558037}
   transitionRate: 6
+  dialogueTrigger: {fileID: 0}
+  isDialogueText: 0
 --- !u!136 &7554874005510558037
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -116,12 +118,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3089612561864959193}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.027240006
-  m_Height: 0.05448003
+  m_Radius: 0.04
+  m_Height: 0.08
   m_Direction: 1
-  m_Center: {x: 3.5348183e-11, y: -0.0062765856, z: -0.001083202}
+  m_Center: {x: 2.7551978e-11, y: -0.008304009, z: -0.0020892564}
 --- !u!1 &4451958421777585549
 GameObject:
   m_ObjectHideFlags: 0

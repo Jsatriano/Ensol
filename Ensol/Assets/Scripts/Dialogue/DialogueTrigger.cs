@@ -9,23 +9,24 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
 
-    public Collider dialogue;
+    public Collider collider;
+
+    //checker to tell other code when an object has been interacted with
     public bool interacted = false;
-    public bool repeatInteractable = false;
 
     private void Update()
     {
-        if(DialogueManager.GetInstance().donePlaying == true && dialogue.enabled != true) 
+        if(DialogueManager.GetInstance().donePlaying == true && collider.enabled != true) 
         {
-            DialogueManager.GetInstance().donePlaying = false;
-            if (dialogue.gameObject.tag == "InteractableOnce")
+            StartCoroutine(ColliderReenable());
+            if (collider.gameObject.tag == "InteractableOnce")
             {
-                interacted = true;
+                collider.gameObject.tag = "Uninteractable";
             }
-            dialogue.enabled = true;
+            interacted = true;
         }
 
-        if(dialogue.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false && interacted == false) 
+        if(collider.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
         {
             print("start dialogue");
             //Debug.Log(inkJSON.text);
@@ -35,5 +36,11 @@ public class DialogueTrigger : MonoBehaviour
         }
         //(DialogueManager.GetInstance().donePlaying);
         
+    }
+
+    public IEnumerator ColliderReenable(){
+            yield return new WaitForSeconds(0.3f);
+            DialogueManager.GetInstance().donePlaying = false;
+            collider.enabled = true;
     }
 }

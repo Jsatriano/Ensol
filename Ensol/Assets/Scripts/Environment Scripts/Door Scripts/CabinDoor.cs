@@ -5,21 +5,23 @@ using Ink.Runtime;
 
 public class CabinDoor : MonoBehaviour
 {
-    public Collider buttonCol;
+    public Collider collider;
     public DoorController doorController;
     private bool opened = false;
     public GameObject openText;
 
+    //checker to tell other code when an object has been interacted with
+    public bool interacted = false;
+
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
     [SerializeField] private TextAsset cannotLeave;
-    public bool interacted = false;
 
     void Update()
     {
         if (PlayerData.diedToCrackDeer)
         {
-            if(!buttonCol.enabled)
+            if(!collider.enabled)
             {
                 if(PlayerData.hasBroom)
                 {
@@ -31,20 +33,19 @@ public class CabinDoor : MonoBehaviour
                 else
                 {
                     DialogueManager.GetInstance().EnterDialogueMode(cannotLeave);
-                    buttonCol.enabled = true;
+                    StartCoroutine(ColliderReenable());
                 }
             }
         }
         else
         {
-            if(DialogueManager.GetInstance().donePlaying == true && buttonCol.enabled != true) 
+            if(DialogueManager.GetInstance().donePlaying == true && collider.enabled != true) 
             {
                 //print("line 21");
-                    buttonCol.enabled = true;
-                DialogueManager.GetInstance().donePlaying = false;
+                StartCoroutine(ColliderReenable());
             }
 
-            if(buttonCol.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
+            if(collider.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
             {
                // print("start dialogue");
                 //Debug.Log(inkJSON.text);
@@ -53,7 +54,7 @@ public class CabinDoor : MonoBehaviour
             }
             if (DialogueManager.GetInstance().openSesame == true)
             {
-                if(!buttonCol.enabled)
+                if(!collider.enabled)
                 {
                     // opens door
                     if(opened == false)
@@ -68,5 +69,11 @@ public class CabinDoor : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator ColliderReenable(){
+            yield return new WaitForSeconds(0.3f);
+            DialogueManager.GetInstance().donePlaying = false;
+            collider.enabled = true;
     }
 }

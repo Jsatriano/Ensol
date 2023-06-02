@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     private IEnumerator Delay(){
-        yield return new WaitForSeconds(0.0001f);
+        yield return new WaitForSeconds(0.1f);
         ContinueStory();
     } 
 

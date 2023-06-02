@@ -47,10 +47,12 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider hitter){
-        
+
+        //trigger the dialogue
         if (hitter.tag == "Player" && PlayerData.startedGame == false){
             //DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             dialogueCollider.enabled = false;
+
         }
         
     }
