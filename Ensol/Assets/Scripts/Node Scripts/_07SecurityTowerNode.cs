@@ -107,7 +107,7 @@ public class _07SecurityTowerNode : MonoBehaviour
 
     public IEnumerator BeepBeep()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, bird.transform.position);
     }
 

@@ -75,6 +75,8 @@ public class CompletedNodes : MonoBehaviour
         homeText.SetActive(true);
         cabinButton.interactable = true;
         PreDraw();
+        //play open map sound
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapOpen, this.transform.position);
     }
 
     //Function called when travelling between nodes to play circle anim and called the nodeSelector
