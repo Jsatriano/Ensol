@@ -17,12 +17,12 @@ public class DialogueTrigger : MonoBehaviour
     {
         if(DialogueManager.GetInstance().donePlaying == true && dialogue.enabled != true) 
         {
+            DialogueManager.GetInstance().donePlaying = false;
             if (dialogue.gameObject.tag == "InteractableOnce")
             {
                 interacted = true;
             }
             dialogue.enabled = true;
-            DialogueManager.GetInstance().donePlaying = false;
         }
 
         if(dialogue.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false && interacted == false) 
