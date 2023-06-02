@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private GameObject enemiesParent;
     [SerializeField] private float completeRespawnTime;
-    public List<GameObject> aliveEnemies = new List<GameObject>();
+    [HideInInspector] public List<GameObject> aliveEnemies = new List<GameObject>();
 
     private void Start()
     {
-        SpawnEnemies();
-        PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+        //Is set to -1 when its the player's first time entering a node during a life (all are reset to -1 when the player dies)
+        if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
+        {
+            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+            SpawnEnemies(1);
+        }
+        else
+        {
+            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode];
+            SpawnEnemies(Mathf.Clamp01(PlayerData.timeSinceAtNode[PlayerData.currentNode] / completeRespawnTime));
+        }       
     }
 
-    private void SpawnEnemies()
+    private void SpawnEnemies(float percentToSpawn)
     {
+        Debug.Log(percentToSpawn);
         List<Transform> allEnemies = new List<Transform>();
 
         //Creating a list of all enemies, and making them default off
-        foreach (Transform enemy in enemiesParent.transform)
+        foreach (Transform enemy in transform)
         {
             enemy.gameObject.SetActive(false);
             allEnemies.Add(enemy);
         }
 
         //Calculate how many enemies to spawn based on respawn timer
-        int numSpawning = Mathf.FloorToInt(allEnemies.Count * (completeRespawnTime / PlayerData.timeSinceAtNode[PlayerData.currentNode]));
+        int numSpawning = Mathf.FloorToInt(allEnemies.Count * percentToSpawn);
 
         //Set active randomly selected enemies and fill the public list with them for the gate controller to access
         allEnemies = ShuffleList(allEnemies);

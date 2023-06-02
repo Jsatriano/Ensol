@@ -89,18 +89,20 @@ public class PData
 
     public bool[] firstTransition;
 
+    public float[] timeSinceAtNode;
+
     public PData()
     {
         worked = false;
-        startedGame = false;
-        hasBroom = false;
-        hasSolarUpgrade = false;
+        startedGame = true;
+        hasBroom = true;
+        hasSolarUpgrade = true;
         hasThrowUpgrade = false;
-        diedToCrackDeer = false;
+        diedToCrackDeer = true;
         hasShield = false;
 
-        currentlyHasBroom = false;
-        currentlyHasSolar = false;
+        currentlyHasBroom = true;
+        currentlyHasSolar = true;
         currHP = -1;
 
         //Player Progress
@@ -174,13 +176,15 @@ public class PData
             false, false, false, false, true
         };
 
-       firstTransition = new bool[] {
+        firstTransition = new bool[] {
             false, true, true, true, true,
             true, true, true, true, true, false
         };
 
-
-        
-    }
-    
+        //Enemy Respawn System
+        timeSinceAtNode = new float[] {
+            -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1
+        };
+    } 
 }

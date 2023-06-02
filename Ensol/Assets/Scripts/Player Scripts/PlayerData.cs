@@ -66,7 +66,7 @@ public static class PlayerData
 
     //Enemy Respawn System
     public static float[] timeSinceAtNode = new float[] {
-        9999f, 9999f, 9999f, 9999f, 9999f, 9999f,
-        9999f, 9999f, 9999f, 9999f, 9999f
+        -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1
     };
 }

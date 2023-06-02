@@ -145,6 +145,8 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.completedNodes = CompletedNodes.completedNodes;
 
         data.firstTransition = CompletedNodes.firstTransition;
+
+        data.timeSinceAtNode = PlayerData.timeSinceAtNode;
     }
 
     // public void LoadStory(TextAsset globals)
