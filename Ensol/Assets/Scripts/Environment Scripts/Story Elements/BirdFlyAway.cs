@@ -9,6 +9,8 @@ public class BirdFlyAway : MonoBehaviour
     public bool birdIsFlying = false;
     public int birdSpeed = 23;
 
+    private bool trigger = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,11 @@ public class BirdFlyAway : MonoBehaviour
     {
         if(birdIsFlying) {
             birdAnim.SetBool("isFlying", true);
+            if (trigger == false)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, this.transform.position);
+                trigger = true;
+            }
             if(gameObject.transform.position != flyTarget.transform.position) {
                 gameObject.transform.LookAt(flyTarget.transform);
                 gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, flyTarget.transform.position, birdSpeed * Time.deltaTime);
