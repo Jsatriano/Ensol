@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using BehaviorTree;
 
 public class SceneSwitch : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class SceneSwitch : MonoBehaviour
     [SerializeField] private int nodeDestination;
     private PauseMenu pauseMenu = null;
     private Coroutine fadeToBlack = null;
+    [SerializeField] private Transform enemyParent = null;
 
     void Start()
     {
@@ -56,8 +58,40 @@ public class SceneSwitch : MonoBehaviour
             yield return null;
         }
         Cursor.visible = true;
+        SetEnemiesDefeated();
+        SetTimeAtNode();
         PlayerData.prevNode = PlayerData.currentNode;
-        PlayerData.currentNode = nodeDestination;
+        PlayerData.currentNode = nodeDestination;       
         pauseMenu.OpenMapForNodeTransfer();      
+    }
+
+    private void SetTimeAtNode()
+    {
+        if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
+        {
+            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+        }
+        else
+        {
+            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode];
+        }
+    }
+
+    private void SetEnemiesDefeated()
+    {
+        if (!enemyParent)
+        {
+            return;
+        }
+
+        int enemiesAlive = 0;
+        foreach (Transform enemy in enemyParent)
+        {
+            if (enemy.gameObject.activeSelf && enemy.GetComponent<BT>().isAlive)
+            {
+                enemiesAlive++;
+            }
+        }
+        PlayerData.enemiesAliveInNode[PlayerData.currentNode] = enemiesAlive;
     }
 }

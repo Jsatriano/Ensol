@@ -91,6 +91,8 @@ public class PData
 
     public float[] timeSinceAtNode;
 
+    public static int[] enemiesAliveInNode;
+
     public PData()
     {
         worked = false;
@@ -184,7 +186,12 @@ public class PData
         //Enemy Respawn System
         timeSinceAtNode = new float[] {
             -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1
+            -1, -1, -1, -1, -1
+        };
+
+        enemiesAliveInNode = new int[] {
+            999, 999, 999, 999, 999, 999,
+            999, 999, 999, 999, 999
         };
     } 
 }
