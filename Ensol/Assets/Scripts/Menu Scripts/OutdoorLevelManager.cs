@@ -15,11 +15,12 @@ public class OutdoorLevelManager : MonoBehaviour
     public Object[] nodePrefabs;
     public GameObject[] levelLocations;
     public GameObject player;
-    public bool isCheckpointTransition;
+    public bool isCheckpointTransition = false;
 
     void Start()
     {
         node = NodeSelector.selectedNode;
+        print("Selected node is" + node);
         Load(node);
     }
 
@@ -35,9 +36,24 @@ public class OutdoorLevelManager : MonoBehaviour
         }
         /*set player to that Node's spawn point*/
         if(isCheckpointTransition) {
+            print("checkpoint transition");
             spawn_point = GameObject.FindWithTag("CheckpointSpawnpoint");
+            isCheckpointTransition = false;
+            if(PlayerData.currentNode == 1) {
+                PlayerData.prevNode = 1;
+            }
+            else if(PlayerData.currentNode == 5) {
+                PlayerData.prevNode = 3;
+            }
+            else if(PlayerData.currentNode == 9) {
+                PlayerData.prevNode = 8;
+            }
+            else if(PlayerData.currentNode == 11) {
+                PlayerData.prevNode = 10;
+            }
         }
         else{
+            print("not checkpoint transition");
             spawn_point = GameObject.FindWithTag("Spawnpoint");
         }
         player.transform.position = spawn_point.transform.position;

@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused;
     public Transform enemySpawnPoint;
     public NodeSelector nodeSelector;
+    public OutdoorLevelManager outdoorLevelManager;
     [HideInInspector] public MenuState menuState;
     [HideInInspector] public DataPersistanceManager DPM;
 
@@ -39,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Checkpoint Menu")]
     [SerializeField] private GameObject checkpointMenu;
+    [SerializeField] private GameObject[] checkpointButtons;
 
     private void Start()
     {
@@ -104,18 +106,42 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         checkpointMenu.SetActive(true);
         menuState = MenuState.CHECKPOINT;
+        
+        for(int i = 0; i < CompletedNodes.checkpoints.Length; i++) {
+            if(!CompletedNodes.checkpoints[i]) {
+                checkpointButtons[i].SetActive(false);
+            }
+            else{
+                checkpointButtons[i].SetActive(true);
+            }
+        }
+
+        if(PlayerData.currentNode == 1) {
+            checkpointButtons[0].SetActive(false);
+        }
+        if(PlayerData.currentNode == 5) {
+            checkpointButtons[1].SetActive(false);
+        }
+        if(PlayerData.currentNode == 9) {
+            checkpointButtons[2].SetActive(false);
+        }
+        if(PlayerData.currentNode == 11) {
+            checkpointButtons[3].SetActive(false);
+        }
     }
-    
+
     public void CloseCheckpointMenu(){
         Time.timeScale = 1f;
         checkpointMenu.SetActive(false);
         menuState = MenuState.UNPAUSED;
+        combatController.state = PlayerController.State.IDLE;
     }
 
     public void TransferViaCheckpoint(int nodeDestination) {
         checkpointMenu.SetActive(false);
         PlayerData.prevNode = PlayerData.currentNode;
         PlayerData.currentNode = nodeDestination;
+        outdoorLevelManager.isCheckpointTransition = true;
         OpenMapForNodeTransfer();
     }
     // map functions
