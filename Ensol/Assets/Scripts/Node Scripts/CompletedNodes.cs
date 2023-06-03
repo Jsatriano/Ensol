@@ -29,7 +29,7 @@ public class CompletedNodes : MonoBehaviour
     };
 
     public static bool[] checkpoints = new bool[] {
-        false, false, false, false
+        true, true, true, true
     };
 
     [Header("References")]

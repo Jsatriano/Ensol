@@ -13,7 +13,8 @@ public class PauseMenu : MonoBehaviour
         PAUSED,
         OPTIONS,
         MAP_OPEN,
-        MAP_TRANSFER
+        MAP_TRANSFER,
+        CHECKPOINT
     }
 
     public GameObject pauseMenu;
@@ -34,6 +35,9 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
+
+    [Header("Checkpoint Menu")]
+    [SerializeField] private GameObject checkpointMenu;
 
     private void Start()
     {
@@ -83,9 +87,36 @@ public class PauseMenu : MonoBehaviour
 
             case MenuState.MAP_TRANSFER:
                 break;
+
+            case MenuState.CHECKPOINT:
+                if((Input.GetButtonDown("Cancel"))) {
+                    CloseCheckpointMenu();
+                }
+                break;
         }
     }
 
+    //checkpoint menu functions
+
+    public void OpenCheckpointMenu() {
+        Time.timeScale = 0f;
+        checkpointMenu.SetActive(true);
+        menuState = MenuState.CHECKPOINT;
+    }
+    
+    public void CloseCheckpointMenu(){
+        Time.timeScale = 1f;
+        checkpointMenu.SetActive(false);
+        menuState = MenuState.UNPAUSED;
+    }
+
+    public void TransferViaCheckpoint(int nodeDestination) {
+        checkpointMenu.SetActive(false);
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = nodeDestination;
+        OpenMapForNodeTransfer();
+    }
+    // map functions
     private void OpenMap()
     {
         PlayerData.mapOpens += 1;

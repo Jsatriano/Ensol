@@ -92,7 +92,9 @@ public class Interaction : MonoBehaviour
 
     //anim events for pickups
     private void DeactivatePickup(){
-        targetedPickup.SetActive(false);
+        if(targetedPickup != null) {
+            targetedPickup.SetActive(false);
+        }
     }
 
     //quick fade out and in

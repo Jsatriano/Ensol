@@ -23,7 +23,7 @@ public class Checkpoint : MonoBehaviour
     public int index;
     [HideInInspector] public bool active;
     private Collider col;
-    private GameObject checkpointMenu;
+    private PauseMenu checkpointMenu;
     private GameObject[] menuSearch;
 
     //KEY: INDEX - TARGET NODE
@@ -33,14 +33,6 @@ public class Checkpoint : MonoBehaviour
     // 3 - Computer Exterior
 
     void Awake() {
-        //record activation status when the scene loads, so that we can determine if it has already been interacted with.
-        active = CompletedNodes.checkpoints[index];
-
-        //if this is the first checkpoint and no others have been activated, hide it
-        if(index == 0 && !active) {
-            gameObject.SetActive(false);
-        }  
-
         gameObject.tag = "Checkpoint";
     }
     // Start is called before the first frame update
@@ -59,23 +51,31 @@ public class Checkpoint : MonoBehaviour
             SearchForCheckpointMenu();
         }
 
+        if(active == null) {
+            active = CompletedNodes.checkpoints[index];
+
+            //if this is the first checkpoint and no others have been activated, hide it
+            if(index == 0 && !active) {
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     public void ActivateCheckpoint(){
-        col.enabled = false;
         active = true;
         CompletedNodes.checkpoints[index] = active;
+        if(!CompletedNodes.checkpoints[0]) {
+            CompletedNodes.checkpoints[0] = true;
+        }
     }
 
     public void UseActiveCheckpoint() {
-        checkpointMenu.SetActive(true);
-        //NYI - make a script for the checkpoint menu which includes functions for enabling/disabling buttons and travelling to nodes
+        checkpointMenu.OpenCheckpointMenu();
     }
 
     public void SearchForCheckpointMenu() {
         menuSearch = GameObject.FindGameObjectsWithTag("CheckpointMenu");
-        checkpointMenu = menuSearch[0];
-        col.enabled = false;
+        checkpointMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
     }
 
 }
