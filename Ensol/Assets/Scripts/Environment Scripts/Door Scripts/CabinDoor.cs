@@ -10,12 +10,14 @@ public class CabinDoor : MonoBehaviour
     private bool opened = false;
     public GameObject openText;
 
+
     //checker to tell other code when an object has been interacted with
     public bool interacted = false;
 
     [Header("Ink")]
     [SerializeField] private TextAsset inkJSON;
     [SerializeField] private TextAsset cannotLeave;
+
 
     void Update()
     {

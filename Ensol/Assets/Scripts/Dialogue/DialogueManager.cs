@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
     private static DialogueVariables dialogueVariables;
 
     //for cat meowing dialogue
-    private Meower meower;
+    private GameObject meower;
 
     private void Awake()
     {
@@ -61,7 +61,9 @@ public class DialogueManager : MonoBehaviour
         choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
-
+        if (PlayerData.currentNode == 0){
+            meower = GameObject.FindGameObjectWithTag("Meower");
+        }
 
         foreach (GameObject choice in choices)
         {
@@ -112,6 +114,10 @@ public class DialogueManager : MonoBehaviour
             openSesame = true;
         });
 
+        currentStory.BindExternalFunction("meowing", () => {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+        });
+
         ContinueStory();
     }
 
@@ -144,8 +150,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //reset cat meow
-            Meower.meowAgain = false;
             StartCoroutine(ExitDialogueMode());
         }
     }
