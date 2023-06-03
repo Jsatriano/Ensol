@@ -12,7 +12,7 @@ public class Interaction : MonoBehaviour
         player = gameObject.GetComponent<PlayerController>();
     }
 
-    public void LateUpdate()
+    public void Update()
     {
         if(DialogueManager.GetInstance().dialogueisPlaying == false)
         {

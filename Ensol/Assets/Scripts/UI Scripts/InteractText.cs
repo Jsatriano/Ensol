@@ -10,7 +10,7 @@ public class InteractText : MonoBehaviour
     private Camera cam;
     [HideInInspector] public bool canBeInteracted;
     public bool interacted;
-    [SerializeField] private Collider coll;
+    [SerializeField] private Collider collider;
     private float originalScale;
     [SerializeField] private float transitionRate = 6;
     private Coroutine fadeRoutine;
@@ -37,14 +37,18 @@ public class InteractText : MonoBehaviour
             }
         }
         //Turns off text once interacted with
-        if (!coll.enabled)
+        if (collider.enabled && gameObject.tag != "Uninteractable")
+        {
+            interacted = false;
+        } 
+        else if (collider.enabled && DialogueManager.GetInstance().dialogueisPlaying)
+        {
+            interacted = false;
+        }
+        else
         {
             interacted = true;
             canvas.SetActive(false);
-        }
-        else if (coll.enabled && gameObject.tag != "InteractableOnce")
-        {
-            interacted = false;
         }
 
         if (interacted)
