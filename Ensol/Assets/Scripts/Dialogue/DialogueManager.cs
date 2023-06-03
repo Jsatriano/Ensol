@@ -34,6 +34,9 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueVariables dialogueVariables;
 
+    //for cat meowing dialogue
+    private GameObject meower;
+
     private void Awake()
     {
         if (instance != null)
@@ -58,7 +61,9 @@ public class DialogueManager : MonoBehaviour
         choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
-
+        if (PlayerData.currentNode == 0){
+            meower = GameObject.FindGameObjectWithTag("Meower");
+        }
 
         foreach (GameObject choice in choices)
         {
@@ -91,7 +96,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     private IEnumerator Delay(){
-        yield return new WaitForSeconds(0.0001f);
+        yield return new WaitForSeconds(0.1f);
         ContinueStory();
     } 
 
@@ -104,9 +109,25 @@ public class DialogueManager : MonoBehaviour
         
         dialogueVariables.StartListening(currentStory);
 
+        //functions called by the dialogue//
+
         currentStory.BindExternalFunction("openDoor", () => {
-            Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
             openSesame = true;
+        });
+
+        currentStory.BindExternalFunction("meowing", () => {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+        });
+
+        currentStory.BindExternalFunction("endingOne", () => {
+            //everything shuts down
+            //go to credits
+        });
+
+        currentStory.BindExternalFunction("endingTwo", () => {
+            //player erases memory
+            //Plush starting dialogue plays again
+            //go to credits
         });
 
         ContinueStory();
@@ -134,7 +155,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            //print("continue story tried to continue");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -142,7 +162,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //print("continue story tried to exit");
             StartCoroutine(ExitDialogueMode());
         }
     }

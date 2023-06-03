@@ -8,7 +8,6 @@ public class DoorController : MonoBehaviour
     public int soundDoor;
     private bool opened = false;
     [HideInInspector] public bool opening = false;
-    
 
 
     // Update is called once per frame
@@ -31,7 +30,7 @@ public class DoorController : MonoBehaviour
         {
             if (soundDoor == 1)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.envCabinDoorOpen, this.transform.position);
+                //AudioManager.instance.PlayOneShot(FMODEvents.instance.envCabinDoorOpen, this.transform.position);
             }
             else if (soundDoor == 2)
             {

@@ -10,6 +10,8 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
 
     private Button _button;
 
+    public int nodeType;
+
     public static GameObject highlightedChoice;
 
     void Awake()

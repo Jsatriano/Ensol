@@ -34,7 +34,7 @@ public class DialogueVariables
         {
             VariablesToStory(globalVariablesStory);
             saveFile = globalVariablesStory.state.ToJson();
-            Debug.Log(saveFile);
+            //Debug.Log(saveFile);
         }
     }
 

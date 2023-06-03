@@ -5,16 +5,16 @@ using UnityEngine;
 public static class PlayerData
 {
     //Weapon Upgrades
-    public static bool startedGame = false;
-    public static bool hasBroom = false;
-    public static bool hasSolarUpgrade = false;
+    public static bool startedGame = true;
+    public static bool hasBroom = true;
+    public static bool hasSolarUpgrade = true;
     public static bool hasThrowUpgrade = false;
-    public static bool diedToCrackDeer = false;
+    public static bool diedToCrackDeer = true;
     public static bool hasShield = false;
 
     //Player Death Stuff
-    public static bool currentlyHasBroom = false;
-    public static bool currentlyHasSolar = false;
+    public static bool currentlyHasBroom = true;
+    public static bool currentlyHasSolar = true;
     public static float currHP = -1;
 
     //Player Progress
@@ -22,10 +22,10 @@ public static class PlayerData
     public static int prevNode = 1;
 
     //Player Tutorial Text
-    public static bool shownWalkText  = false;
-    public static bool shownMapText   = false;
-    public static bool shownBroomText = false;
-    public static bool shownSolarText = false;
+    public static bool shownWalkText  = true;
+    public static bool shownMapText   = true;
+    public static bool shownBroomText = true;
+    public static bool shownSolarText = true;
     public static bool shownThrowText = false;
 
     //Player Stats (used for tutorial text)

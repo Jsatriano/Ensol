@@ -88,7 +88,7 @@ public class ToggleWalls : MonoBehaviour
         //walls.SetActive(false);
         inside = true;
         outside = false;
-        Debug.Log("walls off");
+        //Debug.Log("walls off");
     }
 
     void OnTriggerExit(Collider other) // Check if Player is outside
@@ -96,7 +96,7 @@ public class ToggleWalls : MonoBehaviour
         walls.SetActive(true);
         inside = false;
         outside = true;
-        Debug.Log("walls on");
+        //Debug.Log("walls on");
     }
 
     // function used to set alpha of all materials
