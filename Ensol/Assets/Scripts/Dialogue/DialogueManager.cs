@@ -109,13 +109,25 @@ public class DialogueManager : MonoBehaviour
         
         dialogueVariables.StartListening(currentStory);
 
+        //functions called by the dialogue//
+
         currentStory.BindExternalFunction("openDoor", () => {
-            //Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
             openSesame = true;
         });
 
         currentStory.BindExternalFunction("meowing", () => {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+        });
+
+        currentStory.BindExternalFunction("endingOne", () => {
+            //everything shuts down
+            //go to credits
+        });
+
+        currentStory.BindExternalFunction("endingTwo", () => {
+            //player erases memory
+            //Plush starting dialogue plays again
+            //go to credits
         });
 
         ContinueStory();

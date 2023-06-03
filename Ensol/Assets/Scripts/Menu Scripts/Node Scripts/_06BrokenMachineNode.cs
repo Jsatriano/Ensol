@@ -9,10 +9,14 @@ public class _06BrokenMachineNode : MonoBehaviour
     public ElectricGateController electricGateController = null;
 
     public GameObject interactableBear;
+    public Collider bearUpgradeCollider;
     public GameObject transferCube;
 
     private Story story;
     public TextAsset globals;
+
+    [Header("Interactable Object Interactors")]
+    public DialogueTrigger bearInteractor;
 
     private void Awake() 
     {
@@ -41,6 +45,7 @@ public class _06BrokenMachineNode : MonoBehaviour
         if(PlayerData.hasThrowUpgrade)
         {
             interactableBear.SetActive(false);
+            transferCube.SetActive(true);
         }
     }
 
@@ -53,10 +58,10 @@ public class _06BrokenMachineNode : MonoBehaviour
         }
 
         // if bear has been interacted with, give player spear throw and unlock gate (if enemies are also killed)
-        if(!interactableBear.activeInHierarchy)
+        if(bearInteractor.interacted)
         {
             PlayerData.hasThrowUpgrade = true;
-
+            interactableBear.SetActive(false);
             transferCube.SetActive(true);
         }
     }
