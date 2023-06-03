@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
     public Transform enemySpawnPoint;
     public NodeSelector nodeSelector;
     [HideInInspector] public MenuState menuState;
+    [HideInInspector] public DataPersistanceManager DPM;
 
     [Header("Map")]
     [SerializeField] private GameObject mapUI;
@@ -42,6 +43,7 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         menuState = MenuState.UNPAUSED;
+        DPM = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPersistanceManager>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
@@ -185,6 +187,7 @@ public class PauseMenu : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        DPM.SaveGame();
         SceneManager.LoadScene(sceneName:"MenuScene");
         amInPlaytestScene = false;
     }

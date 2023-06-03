@@ -11,7 +11,6 @@ public class StartGameDialogue : MonoBehaviour
     public bool finishedFading;
     public static bool clickedDialogue = false;
     public bool died = false;
-    private Coroutine fadeRoutine = null;
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +35,13 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     void Update(){
-        if(fadeRoutine == null && PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
+        if(PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
         {
             clickedDialogue = true;
-            fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
-        } else if (fadeRoutine == null && finishedFading == false && died == true){
+            StartCoroutine(ReverseFadeBlackOutSquare());
+        } else if (finishedFading == false && died == true){
             died = false;
-            fadeRoutine = StartCoroutine(ReverseFadeBlackOutSquare());
+            StartCoroutine(ReverseFadeBlackOutSquare());
         }
     }
 

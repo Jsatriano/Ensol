@@ -1,0 +1,650 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1863040903164454805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863040903164454807}
+  - component: {fileID: 1863040903164454804}
+  - component: {fileID: 1863040903164454806}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863040903164454807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040903164454805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.781178, y: 54.603283, z: -1045.7024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1863040904170910149}
+  - {fileID: 1863040904259877238}
+  - {fileID: 1863040903606639340}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863040903164454804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040903164454805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f32c78e388ef8e46ab57e30cb363f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1863040903164454806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040903164454805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeType: 1
+--- !u!1 &1863040903606639341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863040903606639340}
+  - component: {fileID: 1863040903606639343}
+  m_Layer: 0
+  m_Name: FMODButtonEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863040903606639340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040903606639341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1863040903164454807}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863040903606639343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040903606639341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142a95a9e8883954e9ccbd903a4771b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <envbeepboop>k__BackingField:
+    Guid:
+      Data1: -1968099728
+      Data2: 1325420120
+      Data3: -891105369
+      Data4: -1642179380
+    Path: event:/sfx_hudBeepBoop
+--- !u!1 &1863040904170910146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863040904170910149}
+  - component: {fileID: 1863040904170910148}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863040904170910149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040904170910146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1863040903164454807}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863040904170910148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040904170910146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b93b7da1e8e074db75eac381bd8931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <playerWeaponLightStab>k__BackingField:
+    Guid:
+      Data1: -604703461
+      Data2: 1174071331
+      Data3: 519657649
+      Data4: 685634304
+    Path: event:/sfx_playerWeaponLightStab
+  <playerWeaponSpecial>k__BackingField:
+    Guid:
+      Data1: 1191544273
+      Data2: 1266887187
+      Data3: -557827660
+      Data4: 1401390694
+    Path: event:/sfx_playerWeaponSpecial
+  <playerWeaponSpecialPrep>k__BackingField:
+    Guid:
+      Data1: 988049737
+      Data2: 1178731394
+      Data3: -1855017855
+      Data4: 632005917
+    Path: event:/sfx_playerWeaponSpecialPrepare
+  <playerWeaponSpecialReturn>k__BackingField:
+    Guid:
+      Data1: 432414289
+      Data2: 1283798507
+      Data3: 467928485
+      Data4: -945973403
+    Path: event:/sfx_playerWeaponSpecialReturned
+  <playerWeaponSpecialThunk>k__BackingField:
+    Guid:
+      Data1: -730451431
+      Data2: 1089037883
+      Data3: -868627565
+      Data4: -1275870593
+    Path: event:/sfx_playerWeaponSpecialThunk
+  <playerWeaponLight>k__BackingField:
+    Guid:
+      Data1: -772741830
+      Data2: 1290824625
+      Data3: 2089637302
+      Data4: 457326458
+    Path: event:/sfx_playerWeaponLight
+  <playerWeaponLightNormal>k__BackingField:
+    Guid:
+      Data1: -779596541
+      Data2: 1271306681
+      Data3: 926430904
+      Data4: 270182091
+    Path: event:/sfx_playerWeaponLightNormal
+  <playerWeaponHeavy>k__BackingField:
+    Guid:
+      Data1: -1248884715
+      Data2: 1089267165
+      Data3: 901492616
+      Data4: -1919590239
+    Path: event:/sfx_playerWeaponHeavy
+  <playerWeaponHeavyPrep>k__BackingField:
+    Guid:
+      Data1: 1250327302
+      Data2: 1285062656
+      Data3: 1152619175
+      Data4: 1121510191
+    Path: event:/sfx_playerWeaponHeavyPrepare
+  <playerDodge>k__BackingField:
+    Guid:
+      Data1: 950859811
+      Data2: 1160268086
+      Data3: -808648522
+      Data4: 872472597
+    Path: event:/sfx_playerDodge
+  <playerDeath>k__BackingField:
+    Guid:
+      Data1: -841264987
+      Data2: 1317211908
+      Data3: 1232070044
+      Data4: -1585512458
+    Path: event:/sfx_playerDeath
+  <playerWalk>k__BackingField:
+    Guid:
+      Data1: -904257908
+      Data2: 1162442346
+      Data3: 1632583578
+      Data4: -941012307
+    Path: event:/sfx_playerWalk
+  <playerSpin>k__BackingField:
+    Guid:
+      Data1: -158340655
+      Data2: 1127334718
+      Data3: -1679044989
+      Data4: 1498206156
+    Path: event:/sfx_playerSpin
+  <playerShieldOn>k__BackingField:
+    Guid:
+      Data1: -124567267
+      Data2: 1217847754
+      Data3: 1848008065
+      Data4: -1298933742
+    Path: event:/sfx_playerShieldShort
+  <playerShieldBreak>k__BackingField:
+    Guid:
+      Data1: 478175587
+      Data2: 1079180907
+      Data3: 1769391793
+      Data4: -1500994300
+    Path: event:/sfx_playerShieldBreak
+  <deerDeath>k__BackingField:
+    Guid:
+      Data1: -461766985
+      Data2: 1326358068
+      Data3: -1562530643
+      Data4: 387807047
+    Path: event:/sfx_deerDeath
+  <deerAttack>k__BackingField:
+    Guid:
+      Data1: -1905693009
+      Data2: 1108176824
+      Data3: -135620190
+      Data4: -174690736
+    Path: event:/sfx_deerAttack
+  <deerMove>k__BackingField:
+    Guid:
+      Data1: -2104935696
+      Data2: 1099368106
+      Data3: 270180274
+      Data4: -1467431993
+    Path: event:/sfx_deerMove
+  <deerAlerted>k__BackingField:
+    Guid:
+      Data1: -2019711363
+      Data2: 1180891128
+      Data3: 2044213902
+      Data4: 1780558258
+    Path: event:/sfx_deerAlerted
+  <deerGutted>k__BackingField:
+    Guid:
+      Data1: -669083601
+      Data2: 1200522446
+      Data3: -1172715615
+      Data4: 542167841
+    Path: event:/sfx_deerGutted
+  <bunnyMove>k__BackingField:
+    Guid:
+      Data1: -1253390221
+      Data2: 1317822758
+      Data3: -1385966441
+      Data4: 484087289
+    Path: event:/sfx_bunnyMove
+  <bunnyAttack>k__BackingField:
+    Guid:
+      Data1: 1784876671
+      Data2: 1131597225
+      Data3: -281036668
+      Data4: -818188515
+    Path: event:/sfx_bunnyAttack
+  <bunnyDeath>k__BackingField:
+    Guid:
+      Data1: -1016399523
+      Data2: 1095304444
+      Data3: 691120031
+      Data4: -1734664290
+    Path: event:/sfx_bunnyDeath
+  <birdBeepBeep>k__BackingField:
+    Guid:
+      Data1: -1363930110
+      Data2: 1259293395
+      Data3: 642944672
+      Data4: 1955941105
+    Path: event:/sfx_birdBeepBeep
+  <birdSquawk>k__BackingField:
+    Guid:
+      Data1: -654049274
+      Data2: 1238042160
+      Data3: 1855678896
+      Data4: -1180698640
+    Path: event:/sfx_birdCall
+  <bearDeath>k__BackingField:
+    Guid:
+      Data1: -679057254
+      Data2: 1278396145
+      Data3: -308739957
+      Data4: 561126823
+    Path: event:/sfx_bearDeath
+  <bearSwipe>k__BackingField:
+    Guid:
+      Data1: -65024092
+      Data2: 1078613567
+      Data3: -1394297978
+      Data4: 1658966181
+    Path: event:/sfx_bearSwipe
+  <bearThrow>k__BackingField:
+    Guid:
+      Data1: 1689550691
+      Data2: 1200726615
+      Data3: 1579803555
+      Data4: -1257932314
+    Path: event:/sfx_bearThrow
+  <bearMove>k__BackingField:
+    Guid:
+      Data1: -1012030307
+      Data2: 1235329126
+      Data3: -340997247
+      Data4: -264535016
+    Path: event:/sfx_bearMove
+  <bearAlerted>k__BackingField:
+    Guid:
+      Data1: -801061164
+      Data2: 1264204363
+      Data3: -100998237
+      Data4: 389382415
+    Path: event:/sfx_bearAlerted
+  <bearDamaged>k__BackingField:
+    Guid:
+      Data1: 280378237
+      Data2: 1170391277
+      Data3: -1849953382
+      Data4: 1037660570
+    Path: event:/sfx_bearDamaged
+  <bearScrapExplosion>k__BackingField:
+    Guid:
+      Data1: 2060339018
+      Data2: 1141923928
+      Data3: 84408763
+      Data4: 695641907
+    Path: event:/sfx_bearScrapExplosion
+  <spiderAlerted>k__BackingField:
+    Guid:
+      Data1: 1532135182
+      Data2: 1158951014
+      Data3: -1356159080
+      Data4: 1941254619
+    Path: event:/sfx_spiderAlerted
+  <spiderCogs>k__BackingField:
+    Guid:
+      Data1: 1262476122
+      Data2: 1177755987
+      Data3: -635004533
+      Data4: -159730817
+    Path: event:/sfx_spiderCogs
+  <spiderCogs2>k__BackingField:
+    Guid:
+      Data1: -988627739
+      Data2: 1149108907
+      Data3: -1762009194
+      Data4: 455431105
+    Path: event:/sfx_spiderCogs2
+  <spiderTazer>k__BackingField:
+    Guid:
+      Data1: -1141848229
+      Data2: 1277510779
+      Data3: 1768555964
+      Data4: -1405293750
+    Path: event:/sfx_spiderTazer
+  <spiderWeb>k__BackingField:
+    Guid:
+      Data1: -664636916
+      Data2: 1230635178
+      Data3: -397016437
+      Data4: -1905063551
+    Path: event:/sfx_spiderWeb
+  <spiderWebShoot>k__BackingField:
+    Guid:
+      Data1: -560168888
+      Data2: 1242219129
+      Data3: -1253423980
+      Data4: -1468134941
+    Path: event:/sfx_spiderWebShoot
+  <spiderDeath>k__BackingField:
+    Guid:
+      Data1: -1797405291
+      Data2: 1284293683
+      Data3: 402863535
+      Data4: 106456639
+    Path: event:/sfx_spiderDeath
+  <turretFire>k__BackingField:
+    Guid:
+      Data1: -873881357
+      Data2: 1269695185
+      Data3: -452598898
+      Data4: -1836795407
+    Path: event:/sfx_TurretFire
+  <minorCut>k__BackingField:
+    Guid:
+      Data1: -2062127367
+      Data2: 1244638590
+      Data3: 556036771
+      Data4: -1284203493
+    Path: event:/sfx_minorCut
+  <deathCut>k__BackingField:
+    Guid:
+      Data1: 1977827587
+      Data2: 1200649861
+      Data3: 8924350
+      Data4: -1461833110
+    Path: event:/sfx_deathCut
+  <envGateOpen>k__BackingField:
+    Guid:
+      Data1: -378304594
+      Data2: 1287172765
+      Data3: -773328201
+      Data4: 1439007006
+    Path: event:/sfx_envGateOpen
+  <envFenceGateOpen>k__BackingField:
+    Guid:
+      Data1: 1794245213
+      Data2: 1238913523
+      Data3: 943953322
+      Data4: 417277033
+    Path: event:/sfx_envFenceGateOpen
+  <envCabinDoorOpen>k__BackingField:
+    Guid:
+      Data1: 615353681
+      Data2: 1309184206
+      Data3: 114709691
+      Data4: -729518468
+    Path: event:/sfx_envCabinDoorOpen
+  <envRiver>k__BackingField:
+    Guid:
+      Data1: 1924812275
+      Data2: 1207309856
+      Data3: -595645271
+      Data4: 631222764
+    Path: event:/sfx_envRiver
+  <envBroomBreak>k__BackingField:
+    Guid:
+      Data1: -1623389634
+      Data2: 1244065794
+      Data3: -614700623
+      Data4: -460008934
+    Path: event:/sfx_envBroomBreak
+  <envBroomPickup>k__BackingField:
+    Guid:
+      Data1: -1759232017
+      Data2: 1267791007
+      Data3: -291288139
+      Data4: -1386450221
+    Path: event:/sfx_envBroomPickup
+  <envLootPickup>k__BackingField:
+    Guid:
+      Data1: -1565822897
+      Data2: 1223724624
+      Data3: 1404637614
+      Data4: 87085794
+    Path: event:/sfx_envLootPickup
+  <hudMapOpen>k__BackingField:
+    Guid:
+      Data1: 1036411544
+      Data2: 1130071514
+      Data3: -1953637990
+      Data4: -57267102
+    Path: event:/sfx_hudMapOpen
+  <hudBatteryCharge>k__BackingField:
+    Guid:
+      Data1: -453217568
+      Data2: 1138883870
+      Data3: -2037166193
+      Data4: -1951991911
+    Path: event:/sfx_hudBatteryCharge
+  <hudBatteryDepleted>k__BackingField:
+    Guid:
+      Data1: 1456143814
+      Data2: 1088522916
+      Data3: 1726689193
+      Data4: -1729515382
+    Path: event:/sfx_hudBatteryDepleted
+  <hudMapDraw>k__BackingField:
+    Guid:
+      Data1: 1278593537
+      Data2: 1122927681
+      Data3: 1547138963
+      Data4: -1100537797
+    Path: event:/sfx_hudMapDraw
+  <hudMapErase>k__BackingField:
+    Guid:
+      Data1: -1109290890
+      Data2: 1214068151
+      Data3: -987963759
+      Data4: -229620449
+    Path: event:/sfx_hudMapErase
+  <catMeow>k__BackingField:
+    Guid:
+      Data1: -89133625
+      Data2: 1277916940
+      Data3: -1289259107
+      Data4: 730341271
+    Path: event:/sfx_catMeow
+  <metalMove>k__BackingField:
+    Guid:
+      Data1: 850384541
+      Data2: 1241398492
+      Data3: 1452883373
+      Data4: -2021823706
+    Path: event:/sfx_metalMove
+  <dirtMove>k__BackingField:
+    Guid:
+      Data1: 833366262
+      Data2: 1137212243
+      Data3: 1043926458
+      Data4: 1409510749
+    Path: event:/sfx_dirtMove
+  <stoneMove>k__BackingField:
+    Guid:
+      Data1: -774054752
+      Data2: 1241819394
+      Data3: 1391641516
+      Data4: -1024387928
+    Path: event:/sfx_stoneMove
+  <healUp>k__BackingField:
+    Guid:
+      Data1: -617817001
+      Data2: 1181005320
+      Data3: 307330694
+      Data4: -81877178
+    Path: event:/sfx_healUp
+--- !u!1 &1863040904259877239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863040904259877238}
+  - component: {fileID: 1863040904259877241}
+  m_Layer: 0
+  m_Name: FMODMusicEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863040904259877238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040904259877239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1863040903164454807}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863040904259877241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863040904259877239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zone1>k__BackingField:
+    Guid:
+      Data1: -306719351
+      Data2: 1134475466
+      Data3: -590200649
+      Data4: 218596890
+    Path: event:/music_zone1
+  <zone2>k__BackingField:
+    Guid:
+      Data1: -1772189187
+      Data2: 1180186044
+      Data3: -2135727179
+      Data4: 1490653231
+    Path: event:/music_zone2
+  <zone3>k__BackingField:
+    Guid:
+      Data1: 266967680
+      Data2: 1327150024
+      Data3: 1978142909
+      Data4: 1825268685
+    Path: event:/music_zone3
+  <mainMenu>k__BackingField:
+    Guid:
+      Data1: 540807462
+      Data2: 1157657243
+      Data3: 489966778
+      Data4: -62656151
+    Path: event:/music_mainMenu
+  <cabin>k__BackingField:
+    Guid:
+      Data1: 1747515694
+      Data2: 1085036983
+      Data3: -187198335
+      Data4: -915788467
+    Path: event:/music_cabin

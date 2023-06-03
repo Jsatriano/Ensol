@@ -10,6 +10,8 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
 
     private Button _button;
 
+    public int nodeType;
+
     public static GameObject highlightedChoice;
 
     void Awake()
@@ -28,8 +30,6 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
         if(highlightedChoice == this.gameObject && Input.GetKeyDown(_key)){
             //print("button pressed by E");
             _button.onClick.Invoke();
-            //play cat meow
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, this.transform.position);
         }
     }
 }

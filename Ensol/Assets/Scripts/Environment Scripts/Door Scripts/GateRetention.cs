@@ -14,12 +14,12 @@ public class GateRetention : MonoBehaviour
         //get array of active nodes from CompletedNodes
         //check if completedNodesarray[nextNodeNumber] is true
 
-        print ("check1");
+        //print ("check1");
 
-        if (PlayerData.startedGame){
-            print ("check2");
+        if (PlayerData.diedToCrackDeer){
+            //print ("check2");
             if (CompletedNodes.nodes[nextNodeNumber]){
-                print ("check3");
+                //print ("check3");
                 openGate.SetActive(true);
                 closedGate.SetActive(false);
             }

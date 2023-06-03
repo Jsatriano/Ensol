@@ -105,7 +105,7 @@ public class DialogueManager : MonoBehaviour
         dialogueVariables.StartListening(currentStory);
 
         currentStory.BindExternalFunction("openDoor", () => {
-            Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
+            //Debug.Log("opening Door!!!!!!!!!!!!!!!!!!");
             openSesame = true;
         });
 
