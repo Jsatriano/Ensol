@@ -28,9 +28,7 @@ public class CompletedNodes : MonoBehaviour
         true, true, true, true, true, false
     };
 
-    public static bool[] checkpoints = new bool[] {
-        true, true, true, true
-    };
+    public static bool[] checkpoints = new bool[4];
 
     [Header("References")]
     public Sprite[] image;
@@ -142,6 +140,8 @@ public class CompletedNodes : MonoBehaviour
 
     private float GetWaitTime()
     {
+        print("prevnode: " + PlayerData.prevNode);
+        print("prevnode: " + PlayerData.currentNode);
         if (firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1])
         {
             return circleWaitTime * 7f;

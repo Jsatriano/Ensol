@@ -181,6 +181,10 @@ public class PData
             true, true, true, true, true, false
         };
 
+        checkpoints = new bool[] {
+            true, true, true, true
+        };
+
 
         
     }

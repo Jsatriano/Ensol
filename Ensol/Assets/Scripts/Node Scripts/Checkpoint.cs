@@ -24,7 +24,6 @@ public class Checkpoint : MonoBehaviour
     [HideInInspector] public bool active;
     private Collider col;
     private PauseMenu checkpointMenu;
-    private GameObject[] menuSearch;
 
     //KEY: INDEX - TARGET NODE
     // 0 - Cabin
@@ -43,8 +42,10 @@ public class Checkpoint : MonoBehaviour
             SearchForCheckpointMenu();
         }
 
-        foreach(bool c in CompletedNodes.checkpoints) {
-            print("c is " + c);
+        active = CompletedNodes.checkpoints[index];
+        //if this is the first checkpoint and no others are active, hide it
+        if(index == 0 && !active) {
+            gameObject.SetActive(false);
         }
     }
 
@@ -54,15 +55,6 @@ public class Checkpoint : MonoBehaviour
         if(checkpointMenu == null) {
             SearchForCheckpointMenu();
         }
-
-        /*if(active == null) {
-            active = CompletedNodes.checkpoints[index];
-
-            //if this is the first checkpoint and no others have been activated, hide it
-            if(index == 0 && !active) {
-                gameObject.SetActive(false);
-            }
-        }*/
     }
 
     public void ActivateCheckpoint(){
@@ -78,7 +70,6 @@ public class Checkpoint : MonoBehaviour
     }
 
     public void SearchForCheckpointMenu() {
-        menuSearch = GameObject.FindGameObjectsWithTag("CheckpointMenu");
         checkpointMenu = GameObject.Find("UI").GetComponent<PauseMenu>();
     }
 

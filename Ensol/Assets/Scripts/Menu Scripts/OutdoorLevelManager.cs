@@ -12,10 +12,10 @@ public class OutdoorLevelManager : MonoBehaviour
     */
     [HideInInspector] public int node;
     [HideInInspector] public GameObject spawn_point;
-
     public Object[] nodePrefabs;
     public GameObject[] levelLocations;
     public GameObject player;
+    public bool isCheckpointTransition;
 
     void Start()
     {
@@ -34,7 +34,12 @@ public class OutdoorLevelManager : MonoBehaviour
             Instantiate(nodePrefabs[nodeIndex], levelLocations[nodeIndex].transform);
         }
         /*set player to that Node's spawn point*/
-        spawn_point = GameObject.FindWithTag("Spawnpoint");
+        if(isCheckpointTransition) {
+            spawn_point = GameObject.FindWithTag("CheckpointSpawnpoint");
+        }
+        else{
+            spawn_point = GameObject.FindWithTag("Spawnpoint");
+        }
         player.transform.position = spawn_point.transform.position;
         player.transform.rotation = spawn_point.transform.rotation;
     }
