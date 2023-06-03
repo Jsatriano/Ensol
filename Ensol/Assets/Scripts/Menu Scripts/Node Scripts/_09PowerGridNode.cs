@@ -45,6 +45,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             PlayerData.firstGenHit = true;
             genPanel01.gameObject.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.generatorOff, this.transform.position);
             generator1.stop(STOP_MODE.ALLOWFADEOUT);
             generator1.release();
         }
@@ -54,6 +55,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             PlayerData.secondGenHit = true;
             genPanel02.gameObject.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.generatorOff, this.transform.position);
             generator2.stop(STOP_MODE.ALLOWFADEOUT);
             generator2.release();
         }
@@ -63,6 +65,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             PlayerData.thirdGenHit = true;
             genPanel03.gameObject.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.generatorOff, this.transform.position);
             generator3.stop(STOP_MODE.ALLOWFADEOUT);
             generator3.release();
         }

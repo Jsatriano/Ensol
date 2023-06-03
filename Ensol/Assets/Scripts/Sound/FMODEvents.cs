@@ -61,6 +61,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Generator")]
     [field: SerializeField] public EventReference generatorOn { get; private set; }
+    [field: SerializeField] public EventReference generatorOff { get; private set; }
 
     [field: Header("Neutral")]
     [field: SerializeField] public EventReference minorCut { get; private set; }
