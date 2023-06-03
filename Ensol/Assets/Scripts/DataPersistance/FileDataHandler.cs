@@ -94,7 +94,7 @@ public class FileDataHandler
             Sys.Directory.CreateDirectory(Sys.Path.GetDirectoryName(fullPath));
 
             string dataToStore = story.state.ToJson();
-            Debug.Log("hello" + dataToStore);
+            //Debug.Log("hello" + dataToStore);
 
             using (Sys.FileStream stream = new Sys.FileStream(fullPath, Sys.FileMode.Create))
             {

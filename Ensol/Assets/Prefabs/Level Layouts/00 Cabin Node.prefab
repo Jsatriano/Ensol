@@ -1764,8 +1764,6 @@ GameObject:
   - component: {fileID: 5429369649577211125}
   - component: {fileID: 6237775713342408360}
   - component: {fileID: 4825165009243015989}
-  - component: {fileID: 640365085040537364}
-  - component: {fileID: 3595137788672745442}
   m_Layer: 0
   m_Name: Meower
   m_TagString: Meower
@@ -1781,7 +1779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102568779377823515}
   m_LocalRotation: {x: -0, y: 0.51849645, z: -0, w: 0.8550798}
-  m_LocalPosition: {x: 0, y: 10.56, z: 0}
+  m_LocalPosition: {x: 0, y: 6.23, z: 0}
   m_LocalScale: {x: 7.0000005, y: 7.0000005, z: 7.0000005}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1838,35 +1836,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &640365085040537364
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102568779377823515}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 5.5
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.5, z: 0}
---- !u!114 &3595137788672745442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102568779377823515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ca9816c9f724b45b0fc8af9fa95bf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collider: {fileID: 640365085040537364}
-  cat: {fileID: 6979338480116685115}
-  _key: 0
 --- !u!1 &2342293453757035123
 GameObject:
   m_ObjectHideFlags: 0
