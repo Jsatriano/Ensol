@@ -42,6 +42,10 @@ public class Checkpoint : MonoBehaviour
         if(checkpointMenu == null) {
             SearchForCheckpointMenu();
         }
+
+        foreach(bool c in CompletedNodes.checkpoints) {
+            print("c is " + c);
+        }
     }
 
     // Update is called once per frame
@@ -51,14 +55,14 @@ public class Checkpoint : MonoBehaviour
             SearchForCheckpointMenu();
         }
 
-        if(active == null) {
+        /*if(active == null) {
             active = CompletedNodes.checkpoints[index];
 
             //if this is the first checkpoint and no others have been activated, hide it
             if(index == 0 && !active) {
                 gameObject.SetActive(false);
             }
-        }
+        }*/
     }
 
     public void ActivateCheckpoint(){
