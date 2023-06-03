@@ -110,6 +110,9 @@ public class _07SecurityTowerNode : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, bird.transform.position);
+        //boopboop here
+        //yield return new WaitForSeconds(1.0f);
+        //AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, gun.transform.position);
     }
 
     public IEnumerator Squawk()
