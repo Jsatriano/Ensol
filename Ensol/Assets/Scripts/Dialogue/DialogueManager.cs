@@ -34,6 +34,9 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueVariables dialogueVariables;
 
+    //for cat meowing dialogue
+    private Meower meower;
+
     private void Awake()
     {
         if (instance != null)
@@ -134,7 +137,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            //print("continue story tried to continue");
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
@@ -142,7 +144,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //print("continue story tried to exit");
+            //reset cat meow
+            Meower.meowAgain = false;
             StartCoroutine(ExitDialogueMode());
         }
     }
