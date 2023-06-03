@@ -28,7 +28,7 @@ public class DialogueTrigger : MonoBehaviour
 
         if(collider.enabled == false && !DialogueManager.GetInstance().dialogueisPlaying && DialogueManager.GetInstance().donePlaying == false) 
         {
-            print("start dialogue");
+            //print("start dialogue");
             //Debug.Log(inkJSON.text);
             if(this.gameObject.name == "screen 1") triggered = true;
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
