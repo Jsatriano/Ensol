@@ -4,24 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class KeyClicker : MonoBehaviour, ISelectHandler
+public class KeyClicker : MonoBehaviour
 {
     public KeyCode _key;
 
     private Button _button;
 
-    public int nodeType;
-
-    public static GameObject highlightedChoice;
-
     void Awake()
     {
         _button = GetComponent<Button>();
-    }
-
-    public void OnSelect(BaseEventData eventData)
-    {
-        highlightedChoice = this.gameObject;
     }
 
     // Update is called once per frame
