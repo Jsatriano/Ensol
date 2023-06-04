@@ -125,30 +125,30 @@ public class PauseMenu : MonoBehaviour
 
         if(PlayerData.currentNode == 1) {
             checkpointButtons[0].SetActive(false);
-            StartCoroutine(SelectFirstChoice(1));
+            //StartCoroutine(SelectFirstChoice(1));
         }
         if(PlayerData.currentNode == 6) {
             checkpointButtons[1].SetActive(false);
-            StartCoroutine(SelectFirstChoice(0));
+            //StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
-            StartCoroutine(SelectFirstChoice(0));
+            //StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 12) {
             checkpointButtons[3].SetActive(false);
-            StartCoroutine(SelectFirstChoice(0));
+            //StartCoroutine(SelectFirstChoice(0));
 
         }
     }
 
-    private IEnumerator SelectFirstChoice(int thisChoice)
+    /*private IEnumerator SelectFirstChoice(int thisChoice)
     {
         //print("hello from line 177");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(checkpointButtons[thisChoice].gameObject);
-    }
+    }*/
 
     public void CloseCheckpointMenu(){
         Time.timeScale = 1f;
