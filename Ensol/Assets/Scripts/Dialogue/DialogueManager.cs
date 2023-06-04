@@ -119,6 +119,10 @@ public class DialogueManager : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
         });
 
+        currentStory.BindExternalFunction("hackRiver", () => {
+            //hack river
+        });
+
         currentStory.BindExternalFunction("endingOne", () => {
             //everything shuts down
             //go to credits
