@@ -65,7 +65,7 @@ public class SceneSwitch : MonoBehaviour
         pauseMenu.OpenMapForNodeTransfer();      
     }
 
-    private void SetTimeAtNode()
+    public void SetTimeAtNode()
     {
         if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
         {
@@ -77,7 +77,7 @@ public class SceneSwitch : MonoBehaviour
         }
     }
 
-    private void SetEnemiesDefeated()
+    public void SetEnemiesDefeated()
     {
         if (!enemyParent)
         {

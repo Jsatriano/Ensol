@@ -223,6 +223,17 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void ReturnToCabin() {
+        //Save stuff for enemy manager
+        GameObject transferCube = GameObject.Find("Entrance");
+        if (transferCube)
+        {
+            SceneSwitch sceneSwitcher = transferCube.GetComponent<SceneSwitch>();
+            if (sceneSwitcher)
+            {
+                sceneSwitcher.SetTimeAtNode();
+                sceneSwitcher.SetEnemiesDefeated();
+            }
+        }
         StartCoroutine(ReturnToCabinFadeout());
     }
 

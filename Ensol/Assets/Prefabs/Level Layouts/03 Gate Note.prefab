@@ -262,6 +262,7 @@ MonoBehaviour:
   blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 1
+  enemyParent: {fileID: 41140346803431328}
 --- !u!1 &715807838142236643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,6 +2618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 41140346803431328}
+  - component: {fileID: 2884670357214077461}
   m_Layer: 6
   m_Name: Enemies
   m_TagString: Untagged
@@ -2648,6 +2650,20 @@ Transform:
   m_Father: {fileID: 8727326795591620504}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2884670357214077461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279648362107382479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c6aac697cefe64786c21cf901c1e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completeRespawnTime: 180
+  aliveEnemies: []
 --- !u!1 &5626262207631540974
 GameObject:
   m_ObjectHideFlags: 0
@@ -8302,6 +8318,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
     - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: enemyParent
+      value: 
+      objectReference: {fileID: 41140346803431328}
+    - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: nodeDestination
       value: 5
       objectReference: {fileID: 0}
@@ -8512,6 +8532,10 @@ PrefabInstance:
       propertyPath: buttonCol
       value: 
       objectReference: {fileID: 3436043674002166359}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: enemyManager
+      value: 
+      objectReference: {fileID: 2884670357214077461}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 9

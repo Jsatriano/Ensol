@@ -17,14 +17,14 @@ public class EnemyManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Time Passed: " + (Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]));
+            //Debug.Log("Time Passed: " + (Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]));
             SpawnEnemies(Mathf.Clamp01((Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]) / completeRespawnTime));
         }       
     }
 
     private void SpawnEnemies(float percentToSpawn)
     {
-        Debug.Log(percentToSpawn);
+        //Debug.Log(percentToSpawn);
         List<Transform> allEnemies = new List<Transform>();
 
         //Creating a list of all enemies, and making them default off
@@ -35,8 +35,8 @@ public class EnemyManager : MonoBehaviour
             allEnemies.Add(enemy);
         }
 
-        Debug.Log("Percent Spawn: " + Mathf.FloorToInt(allEnemies.Count * percentToSpawn));
-        Debug.Log("Previously Alive: " + PlayerData.enemiesAliveInNode[PlayerData.currentNode]);
+        //Debug.Log("Percent Spawn: " + Mathf.FloorToInt(allEnemies.Count * percentToSpawn));
+        //Debug.Log("Previously Alive: " + PlayerData.enemiesAliveInNode[PlayerData.currentNode]);
         //Calculate how many enemies to spawn based on respawn timer
         int numSpawning = Mathf.Clamp(Mathf.FloorToInt(allEnemies.Count * percentToSpawn) + PlayerData.enemiesAliveInNode[PlayerData.currentNode], 0, allEnemies.Count);
 

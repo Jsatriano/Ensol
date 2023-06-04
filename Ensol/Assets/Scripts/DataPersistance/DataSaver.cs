@@ -147,6 +147,9 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.firstTransition = CompletedNodes.firstTransition;
         
         data.checkpoints = CompletedNodes.checkpoints;
+
+        data.timeSinceAtNode = PlayerData.timeSinceAtNode;
+        data.enemiesAliveInNode = PlayerData.enemiesAliveInNode;
     }
 
     // public void LoadStory(TextAsset globals)

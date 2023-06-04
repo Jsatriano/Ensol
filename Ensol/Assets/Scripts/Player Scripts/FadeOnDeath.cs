@@ -9,6 +9,7 @@ public class FadeOnDeath : MonoBehaviour
     public GameObject blackOutSquare;
     public NodeSelector nodeSelector;
     private string sceneName;
+    private Coroutine fadeRoutine = null;
 
 
 
@@ -20,23 +21,22 @@ public class FadeOnDeath : MonoBehaviour
     void Update()
     {
 
-        if(PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
+        if(fadeRoutine == null && PlayerData.currHP <= 0 && sceneName != "PlaytestingScene") 
         {
             Time.timeScale = 0.5f;
-            StartCoroutine(FadeBlackOutSquare());
+            fadeRoutine = StartCoroutine(FadeBlackOutSquare());
         }
     }
 
     public IEnumerator FadeBlackOutSquare()
     {
-
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.65f);
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
         bool fadeToBlack = true;
-        float fadeSpeed = 1.1f;
+        float fadeSpeed = 1.6f;
 
-        if(fadeToBlack)
+        if (fadeToBlack)
         {
             while(blackOutSquare.GetComponent<Image>().color.a < 1)
             {

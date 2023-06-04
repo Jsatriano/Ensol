@@ -12,7 +12,7 @@ public class ButtonGateController : MonoBehaviour
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
     public InteractText text;
-    [SerializeField] private EnemyManager enemyManager;
+    [SerializeField] private EnemyManager enemyManager = null;
 
     void Update()
     {
@@ -73,6 +73,11 @@ public class ButtonGateController : MonoBehaviour
 
     private bool AllEnemiesDefeated()
     {
+        if (!enemyManager)
+        {
+            return true;
+        }
+
         foreach (BT enemy in enemyManager.aliveEnemies)
         {
             if (enemy.isAlive)
