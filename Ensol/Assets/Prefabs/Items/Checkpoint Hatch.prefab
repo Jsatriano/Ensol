@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1805788365976857701}
   m_Layer: 0
   m_Name: Checkpoint Hatch
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 2233767898103710956}
   index: 0
   active: 0
-  hatch: {fileID: 3734036902649719526}
+  hatch: {fileID: 1323120307845223379}
 --- !u!65 &3809290846139408235
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7256144699845494044}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 11.927256, y: 5.182788, z: 12.610352}
@@ -203,9 +203,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: checkpoint
       objectReference: {fileID: 0}
-    - target: {fileID: 7644178007985531426, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
+    - target: {fileID: 5447331667604542231, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447331667604542231, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
+    - target: {fileID: 7644178007985531426, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7644178007985531426, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -213,9 +221,9 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
---- !u!23 &3734036902649719526 stripped
+--- !u!23 &1323120307845223379 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7644178007985531426, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5447331667604542231, guid: c0dcb99d50cf214479fa3384d498cfb6, type: 3}
   m_PrefabInstance: {fileID: 6468406714314408132}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6795611741503563567 stripped
@@ -234,6 +242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoDialogueInteractable
       objectReference: {fileID: 0}
+    - target: {fileID: 691865078985170049, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
+      propertyPath: m_TagString
+      value: InteractableStory
+      objectReference: {fileID: 0}
     - target: {fileID: 1904977668522527870, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -248,15 +260,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.3456
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.3456
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.3456
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalPosition.x
@@ -264,7 +276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.109236
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 2059565355601439783, guid: f7db9f0ca5abbee4d8669d864f6bf001, type: 3}
       propertyPath: m_LocalPosition.z

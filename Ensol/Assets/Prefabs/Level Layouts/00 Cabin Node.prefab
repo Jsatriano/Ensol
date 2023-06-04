@@ -1487,7 +1487,7 @@ GameObject:
   - component: {fileID: 2757026396156381844}
   - component: {fileID: 2392191827035325966}
   - component: {fileID: 7249781191620628984}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light Blocker WALL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14858,6 +14858,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
+    - target: {fileID: 1323120307845223379, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323120307845223379, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a2c64d21870a6b1488c61eca02f3c7c5, type: 2}
     - target: {fileID: 1943588121114764880, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
       propertyPath: m_RootOrder
       value: 35
@@ -14926,13 +14934,49 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 10.6
       objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514054145946476458, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734036902649719526, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3734036902649719526, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1026fcc97cf4ac94c957a32d6d7a4835, type: 2}
+      objectReference: {fileID: 2100000, guid: c188d196854af164dad6b723eff681a5, type: 2}
     - target: {fileID: 7256144699845494044, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
       propertyPath: m_Name
       value: Checkpoint Hatch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807575927635045865, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807575927635045865, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7e8650c406141e4f9b6aaf49ce63e9c, type: 3}

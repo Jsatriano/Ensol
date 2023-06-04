@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Checkpoint Menu")]
     [SerializeField] private GameObject checkpointMenu;
     [SerializeField] private GameObject[] checkpointButtons;
+    public TextMeshProUGUI checkpointDescription;
 
     private void Start()
     {
@@ -102,9 +104,15 @@ public class PauseMenu : MonoBehaviour
     //checkpoint menu functions
 
     public void OpenCheckpointMenu() {
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         checkpointMenu.SetActive(true);
         menuState = MenuState.CHECKPOINT;
+
+        if (PlayerData.currentNode == 0){
+            checkpointDescription.text = "You can take this newly revealed service tunnel back to anywhere you have found an access hatch. Where would you like to go?";
+        } else {
+            checkpointDescription.text = "A smaller panel has been pried open here, revealing a series of service tunnels lined with large pipes and wires. You could use them to travel back and forth anywhere quickly and undetected, if you know where you’re going.";
+        }
         
         for(int i = 0; i < CompletedNodes.checkpoints.Length; i++) {
             if(!CompletedNodes.checkpoints[i]) {
@@ -117,16 +125,29 @@ public class PauseMenu : MonoBehaviour
 
         if(PlayerData.currentNode == 1) {
             checkpointButtons[0].SetActive(false);
+            StartCoroutine(SelectFirstChoice(1));
         }
         if(PlayerData.currentNode == 6) {
             checkpointButtons[1].SetActive(false);
+            StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
+            StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 12) {
             checkpointButtons[3].SetActive(false);
+            StartCoroutine(SelectFirstChoice(0));
+
         }
+    }
+
+    private IEnumerator SelectFirstChoice(int thisChoice)
+    {
+        //print("hello from line 177");
+        EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(checkpointButtons[thisChoice].gameObject);
     }
 
     public void CloseCheckpointMenu(){
