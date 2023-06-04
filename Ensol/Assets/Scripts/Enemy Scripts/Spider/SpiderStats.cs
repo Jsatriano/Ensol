@@ -101,16 +101,6 @@ public class SpiderStats : EnemyStats
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
         }
 
-        // tells door and gate scripts that this bear has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisSpider);
-        }
-        if (buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisSpider);
-        }
-
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");  
     }
 }

@@ -6,11 +6,11 @@ using BehaviorTree;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private float completeRespawnTime;
-    [HideInInspector] public List<GameObject> aliveEnemies = new List<GameObject>();
+    [HideInInspector] public List<BT> aliveEnemies = new List<BT>();
 
     private void Start()
     {
-        //Is set to -1 when its the player's first time entering a node during a life (all are reset to -1 when the player dies)
+        //Is set to -1 when its the player's first time entering a node, spawns all enemies
         if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
         {
             SpawnEnemies(1);
@@ -30,6 +30,7 @@ public class EnemyManager : MonoBehaviour
         //Creating a list of all enemies, and making them default off
         foreach (Transform enemy in transform)
         {
+            Debug.Log(enemy.name);
             enemy.gameObject.SetActive(false);
             allEnemies.Add(enemy);
         }
@@ -44,7 +45,7 @@ public class EnemyManager : MonoBehaviour
         while (numSpawning > 0)
         {
             allEnemies[numSpawning - 1].gameObject.SetActive(true);
-            aliveEnemies.Add(allEnemies[numSpawning - 1].gameObject);
+            aliveEnemies.Add(allEnemies[numSpawning - 1].GetComponent<BT>());
             numSpawning--;
         }
     }

@@ -73,7 +73,7 @@ public class SceneSwitch : MonoBehaviour
         }
         else
         {
-            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode];
+            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
         }
     }
 

@@ -16,6 +16,8 @@ public class _01DeerNode : MonoBehaviour
     [Header("Deer")]
     public GameObject normalDeer;
     public GameObject crackDeer;
+    [SerializeField] private Transform deerSpawnPoint;
+    private GameObject deer;
 
     private bool dropped = false;
     private GameObject inSceneItem = null;
@@ -54,24 +56,22 @@ public class _01DeerNode : MonoBehaviour
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.prevNode = 1;
+
+        //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
+        if (PlayerData.hasBroom)
+        {
+            deer = Instantiate(normalDeer, deerSpawnPoint);
+        }
+        else
+        {
+            deer = Instantiate(crackDeer, deerSpawnPoint);
+        }
     }
 
     private void Start()
     {
         
         CompletedNodes.firstLoad[1] = false;
-
-        //Picks whether the node has the normal or crack deer depending on if the player has picked up the broom
-        if (PlayerData.hasBroom)
-        {
-            normalDeer.SetActive(true);
-            crackDeer.SetActive(false);
-        }
-        else
-        {
-            normalDeer.SetActive(false);
-            crackDeer.SetActive(true);
-        }
     }
 
     public void Update()
@@ -85,7 +85,7 @@ public class _01DeerNode : MonoBehaviour
         // spawns weapon pickup item after short delay if dropDeer is dead
         if (timer >= timerLength)
         {
-            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && normalDeer.GetComponent<DeerBT>().isAlive == false && dropped == false && normalDeer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
+            if (!PlayerData.hasSolarUpgrade && PlayerData.hasBroom && deer.GetComponent<DeerBT>().isAlive == false && dropped == false && deer.GetComponentInChildren<DeerAnimation>().finishedDeathAnim)
             {
                 if (PlayerData.deerKilled >= 1) 
                 {
@@ -95,7 +95,7 @@ public class _01DeerNode : MonoBehaviour
                     DialogueVariables.saveFile = story.state.ToJson();
                 }
                 
-                ReplaceDeadDeer(deadDear, normalDeer);
+                ReplaceDeadDeer(deadDear, deer);
                 dropped = true;
             }
         }
@@ -127,7 +127,7 @@ public class _01DeerNode : MonoBehaviour
     {
         // spawn item, spawn particles and parent item
         Vector3 offset = new Vector3(-.0529f, 0.7787f, -.22846f);
-        normalDeer.SetActive(false);
+        enemy.SetActive(false);
         inSceneItem = Instantiate(item, enemy.transform.position + offset, enemy.transform.rotation);
         inSceneItem.transform.Rotate(-90, 0, 0);    
     }

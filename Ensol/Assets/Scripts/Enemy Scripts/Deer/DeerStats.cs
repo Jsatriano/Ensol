@@ -82,17 +82,7 @@ public class DeerStats : EnemyStats
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
         }
-
-        // tells door and gate scripts that this deer has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisDeer);
-        }
-        if(buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisDeer);
-        }
-        
+       
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
     }
 

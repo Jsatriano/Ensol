@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorTree;
 
 public class ButtonGateController : MonoBehaviour
 {
@@ -10,16 +11,15 @@ public class ButtonGateController : MonoBehaviour
     public ElectricGateController gateController;
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
-    private GameObject[] enemiesTotal;
-    private int enemiesKilled;
     public InteractText text;
+    [SerializeField] private EnemyManager enemyManager;
 
     void Update()
     {
         // if there IS a pickup required to open gate
         if(requiredObj != null)
         {
-            if(requiredObj.activeInHierarchy && enemiesList.Count == 0)
+            if(requiredObj.activeInHierarchy && AllEnemiesDefeated())
             {
                 // turns button green
                 Material[] matArray = buttonMesh.materials;
@@ -46,7 +46,7 @@ public class ButtonGateController : MonoBehaviour
         // if there ISNT a pickup required to open gate
         else
         {
-            if(enemiesList.Count == 0)
+            if(AllEnemiesDefeated())
             {
                 // turns button green
                 Material[] matArray = buttonMesh.materials;
@@ -71,12 +71,15 @@ public class ButtonGateController : MonoBehaviour
         }
     }
 
-    // called by DeerStats when an enemy dies
-    public void enemyKilled(GameObject enemy)
+    private bool AllEnemiesDefeated()
     {
-        if(enemiesList.Contains(enemy))
+        foreach (BT enemy in enemyManager.aliveEnemies)
         {
-            enemiesList.Remove(enemy);
+            if (enemy.isAlive)
+            {
+                return false;
+            }
         }
+        return true;
     }
 }

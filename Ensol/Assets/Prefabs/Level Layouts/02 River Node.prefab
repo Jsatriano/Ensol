@@ -4155,6 +4155,7 @@ MonoBehaviour:
   blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 2
+  enemyParent: {fileID: 6787772823763212642}
 --- !u!1 &8596969251912861778
 GameObject:
   m_ObjectHideFlags: 0
@@ -5264,6 +5265,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6336162510837254237}
     - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
+      propertyPath: enemyManager
+      value: 
+      objectReference: {fileID: 8196010321829525766}
+    - target: {fileID: 5140488784740050505, guid: a3cd1229213f1a8478e8dfc2fabc486f, type: 3}
       propertyPath: enemiesList.Array.size
       value: 8
       objectReference: {fileID: 0}
@@ -5713,6 +5718,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
+    - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: enemyParent
+      value: 
+      objectReference: {fileID: 6787772823763212642}
     - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: nodeDestination
       value: 6
@@ -9159,6 +9168,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
+    - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+      propertyPath: enemyParent
+      value: 
+      objectReference: {fileID: 6787772823763212642}
     - target: {fileID: 20081849712281655, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: nodeDestination
       value: 9

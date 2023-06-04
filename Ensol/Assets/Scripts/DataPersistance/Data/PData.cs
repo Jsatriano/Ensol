@@ -96,15 +96,15 @@ public class PData
     public PData()
     {
         worked = false;
-        startedGame = true;
-        hasBroom = true;
-        hasSolarUpgrade = true;
+        startedGame = false;
+        hasBroom = false;
+        hasSolarUpgrade = false;
         hasThrowUpgrade = false;
-        diedToCrackDeer = true;
+        diedToCrackDeer = false;
         hasShield = false;
 
-        currentlyHasBroom = true;
-        currentlyHasSolar = true;
+        currentlyHasBroom = false;
+        currentlyHasSolar = false;
         currHP = -1;
 
         //Player Progress
