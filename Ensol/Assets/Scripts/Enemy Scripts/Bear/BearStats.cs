@@ -35,8 +35,6 @@ public class BearStats : EnemyStats
     public BearBT bearBT;
     public GameObject thisBear;
     [SerializeField] private DamageFlash damageFlash;
-    [SerializeField] private ButtonGateController buttonGateController = null;
-    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
     protected override void Start()
     {
@@ -96,16 +94,6 @@ public class BearStats : EnemyStats
         if (Random.Range(0f, 1f) < shieldDropChance)
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
-        }
-
-        // tells door and gate scripts that this bear has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisBear);
-        }
-        if(buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisBear);
         }
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");

@@ -1030,18 +1030,32 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("PlaytestingScene");
                 return;
             }
-            state = State.DEAD;
-            PlayerData.currentlyHasBroom = false;
-            PlayerData.currentlyHasSolar = false;
-            PlayerData.currentNode = 1;
-            animator.SetBool("isDead", true);
             //sfx
-            if (dying == false){
+            if (dying == false)
+            {
+                //Save stuff for enemy manager
+                GameObject transferCube = GameObject.Find("Entrance");
+                if (transferCube)
+                {
+                    SceneSwitch sceneSwitcher = transferCube.GetComponent<SceneSwitch>();
+                    if (sceneSwitcher)
+                    {
+                        sceneSwitcher.SetTimeAtNode();
+                        sceneSwitcher.SetEnemiesDefeated();
+                    }
+                }
+
                 PlayerData.deaths += 1;
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
             }
+
+            state = State.DEAD;
+            PlayerData.currentlyHasBroom = false;
+            PlayerData.currentlyHasSolar = false;
+            PlayerData.currentNode = 1;
+            animator.SetBool("isDead", true);
         } 
     }
 

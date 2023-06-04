@@ -52,8 +52,6 @@ public class SpiderStats : EnemyStats
     [SerializeField] private SpiderBT spiderBT;
     public GameObject thisSpider;
     [SerializeField] private DamageFlash damageFlash;
-    [SerializeField] private ButtonGateController buttonGateController = null;
-    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
 
     protected override void Start()
@@ -99,16 +97,6 @@ public class SpiderStats : EnemyStats
         if (Random.Range(0f, 1f) < shieldDropChance)
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
-        }
-
-        // tells door and gate scripts that this bear has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisSpider);
-        }
-        if (buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisSpider);
         }
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");  

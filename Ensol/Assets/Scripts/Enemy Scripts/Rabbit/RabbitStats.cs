@@ -21,8 +21,6 @@ public class RabbitStats : EnemyStats
     [Header("References")]
     [SerializeField] private RabbitBT rabbitBT;
     public DamageFlash damageFlash;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
     [SerializeField] private GameObject thisRabbit;
 
     protected override void Start()
@@ -75,16 +73,6 @@ public class RabbitStats : EnemyStats
         if (Random.Range(0f, 1f) < shieldDropChance)
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
-        }
-
-        // tells door and gate scripts that this rabbit has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisRabbit);
-        }
-        if (buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisRabbit);
-        }     
+        } 
     }
 }

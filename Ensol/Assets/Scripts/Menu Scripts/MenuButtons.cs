@@ -7,14 +7,13 @@ using UnityEngine.EventSystems;
 
 public class MenuButtons : MonoBehaviour
 {
-    public GameObject playButton, controlsButton, exitButton, firstOptions, newGameQuery, loadButton;
+    public GameObject nGButton, noButton, controlsButton, exitButton, firstOptions, newGameQuery, loadButton;
     public NodeSelector nodeSelector;
     public DataPersistanceManager GameManager;
 
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(playButton);
         Cursor.visible = true;
         print (PlayerData.startedGame);
         if (PlayerData.startedGame == false){
@@ -53,6 +52,8 @@ public class MenuButtons : MonoBehaviour
         AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         firstOptions.SetActive(false);
         newGameQuery.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(noButton);
     }
 
     public void NGChangeMind()
@@ -61,6 +62,8 @@ public class MenuButtons : MonoBehaviour
         AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         firstOptions.SetActive(true);
         newGameQuery.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(nGButton);
     }
 
     public void Controls()

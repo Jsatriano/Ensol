@@ -10,6 +10,9 @@ public class PlushMovement : MonoBehaviour
     [SerializeField] public float moveSpeed = 1.0f;
     [SerializeField] public float rotateSpeed = 4.0f;
     [SerializeField] public int maxWaitTime = 10;
+    [SerializeField] public Animator plushAnims;
+
+    public _00CabinNode nodeScript;
 
 
     private int currPositionIndex = 0;
@@ -24,16 +27,19 @@ public class PlushMovement : MonoBehaviour
     {
         moveDirection = (plush.transform.localPosition - positions[currPositionIndex]).normalized;
         rotation = Quaternion.LookRotation(moveDirection);
+        //StartCoroutine(ignorePlush());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (colliding && DialogueManager.GetInstance().dialogueisPlaying && !hasInteractedOnce) {
+        if ((colliding && DialogueManager.GetInstance().dialogueisPlaying && !hasInteractedOnce) || (Vector3.Distance(transform.position, nodeScript.players[0].transform.position) > 5.0f && !hasInteractedOnce)) {
             hasInteractedOnce = true;
         }
 
         if (plush.transform.localPosition != positions[currPositionIndex] && !(colliding && DialogueManager.GetInstance().dialogueisPlaying) && !waiting && hasInteractedOnce) {
+            plushAnims.ResetTrigger("Sitting");
+            plushAnims.SetTrigger("Walking");
             // rotate plush towards next position
             plush.transform.localRotation = Quaternion.Slerp(plush.transform.localRotation, rotation, rotateSpeed*Time.deltaTime);
             // move plush towards next position
@@ -56,9 +62,16 @@ public class PlushMovement : MonoBehaviour
     IEnumerator PlushWait()
     {
         waiting = true;
+        plushAnims.ResetTrigger("Walking");
+        plushAnims.SetTrigger("Sitting");
         var time = Random.Range(0, maxWaitTime);
         yield return new WaitForSeconds(time);
         waiting = false;
+    }
+
+    IEnumerator ignorePlush() {
+        yield return new WaitForSeconds(30);
+        hasInteractedOnce = true;
     }
 
     private void OnTriggerEnter(Collider other)

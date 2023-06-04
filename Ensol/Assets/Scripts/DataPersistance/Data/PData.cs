@@ -89,6 +89,12 @@ public class PData
 
     public bool[] firstTransition;
 
+    public bool[] checkpoints;
+
+    public float[] timeSinceAtNode;
+
+    public int[] enemiesAliveInNode;
+
     public PData()
     {
         worked = false;
@@ -179,8 +185,18 @@ public class PData
             true, true, true, true, true, false
         };
 
+        checkpoints = new bool[] {
+            false, false, false, false
+        };
 
-        
+        timeSinceAtNode = new float[] {
+            -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1
+        };
+
+        enemiesAliveInNode = new int[] {
+            999, 999, 999, 999, 999, 999,
+            999, 999, 999, 999, 999
+        };
     }
-    
 }

@@ -27,7 +27,7 @@ public class KeyClicker : MonoBehaviour, ISelectHandler
     // Update is called once per frame
     void Update()
     {
-        if(highlightedChoice == this.gameObject && Input.GetKeyDown(_key)){
+        if(EventSystem.current.currentSelectedGameObject == this.gameObject && Input.GetKeyDown(_key)){
             //print("button pressed by E");
             _button.onClick.Invoke();
         }

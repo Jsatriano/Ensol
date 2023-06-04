@@ -27,8 +27,6 @@ public class DeerStats : EnemyStats
     [Header("References")]
     public DeerBT deerBT;
     public DamageFlash damageFlash;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
     public GameObject thisDeer;
 
     // Start is called before the first frame update
@@ -82,17 +80,7 @@ public class DeerStats : EnemyStats
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
         }
-
-        // tells door and gate scripts that this deer has died
-        if (buttonGateController != null)
-        {
-            buttonGateController.enemyKilled(thisDeer);
-        }
-        if(buttonDoorController != null)
-        {
-            buttonDoorController.enemyKilled(thisDeer);
-        }
-        
+       
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
     }
 

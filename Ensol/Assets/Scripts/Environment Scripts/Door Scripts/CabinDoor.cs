@@ -28,6 +28,11 @@ public class CabinDoor : MonoBehaviour
                 if(PlayerData.hasBroom)
                 {
                     // opens door
+                    if(opened == false)
+                    {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envCabinDoorOpen, this.transform.position);
+                        opened = true;
+                    }
                     gameObject.tag = "Uninteractable";
                     doorController.OpenDoor();
                     openText.SetActive(false);
