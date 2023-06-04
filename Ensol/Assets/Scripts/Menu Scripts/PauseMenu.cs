@@ -13,7 +13,8 @@ public class PauseMenu : MonoBehaviour
         PAUSED,
         OPTIONS,
         MAP_OPEN,
-        MAP_TRANSFER
+        MAP_TRANSFER,
+        CHECKPOINT
     }
 
     public GameObject pauseMenu;
@@ -35,6 +36,10 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
+
+    [Header("Checkpoint Menu")]
+    [SerializeField] private GameObject checkpointMenu;
+    [SerializeField] private GameObject[] checkpointButtons;
 
     private void Start()
     {
@@ -85,9 +90,60 @@ public class PauseMenu : MonoBehaviour
 
             case MenuState.MAP_TRANSFER:
                 break;
+
+            case MenuState.CHECKPOINT:
+                if((Input.GetButtonDown("Cancel"))) {
+                    CloseCheckpointMenu();
+                }
+                break;
         }
     }
 
+    //checkpoint menu functions
+
+    public void OpenCheckpointMenu() {
+        Time.timeScale = 0f;
+        checkpointMenu.SetActive(true);
+        menuState = MenuState.CHECKPOINT;
+        
+        for(int i = 0; i < CompletedNodes.checkpoints.Length; i++) {
+            if(!CompletedNodes.checkpoints[i]) {
+                checkpointButtons[i].SetActive(false);
+            }
+            else{
+                checkpointButtons[i].SetActive(true);
+            }
+        }
+
+        if(PlayerData.currentNode == 1) {
+            checkpointButtons[0].SetActive(false);
+        }
+        if(PlayerData.currentNode == 6) {
+            checkpointButtons[1].SetActive(false);
+        }
+        if(PlayerData.currentNode == 10) {
+            checkpointButtons[2].SetActive(false);
+        }
+        if(PlayerData.currentNode == 12) {
+            checkpointButtons[3].SetActive(false);
+        }
+    }
+
+    public void CloseCheckpointMenu(){
+        Time.timeScale = 1f;
+        checkpointMenu.SetActive(false);
+        menuState = MenuState.UNPAUSED;
+        combatController.state = PlayerController.State.IDLE;
+    }
+
+    public void TransferViaCheckpoint(int nodeDestination) {
+        checkpointMenu.SetActive(false);
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = nodeDestination;
+        OutdoorLevelManager.isCheckpointTransition = true;
+        OpenMapForNodeTransfer();
+    }
+    // map functions
     private void OpenMap()
     {
         PlayerData.mapOpens += 1;

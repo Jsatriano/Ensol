@@ -89,8 +89,8 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         CompletedNodes.completedNodes = data.completedNodes;
 
         CompletedNodes.firstTransition = data.firstTransition;
-
-        PlayerData.timeSinceAtNode = data.timeSinceAtNode;
+        
+        CompletedNodes.checkpoints = data.checkpoints;
     }
 
     public void SaveData(ref PData data)
