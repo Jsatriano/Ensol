@@ -21,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public DataPersistanceManager dataManager;
     public GameObject resumeButton;
+    public GameObject resumeButtonPT;
     public GameObject playtestMenu;
     public bool amInPlaytestScene = false;
     public GameObject[] enemyPrefabs;
@@ -125,30 +126,18 @@ public class PauseMenu : MonoBehaviour
 
         if(PlayerData.currentNode == 1) {
             checkpointButtons[0].SetActive(false);
-            //StartCoroutine(SelectFirstChoice(1));
         }
         if(PlayerData.currentNode == 6) {
             checkpointButtons[1].SetActive(false);
-            //StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
-            //StartCoroutine(SelectFirstChoice(0));
         }
         if(PlayerData.currentNode == 12) {
             checkpointButtons[3].SetActive(false);
-            //StartCoroutine(SelectFirstChoice(0));
 
         }
     }
-
-    /*private IEnumerator SelectFirstChoice(int thisChoice)
-    {
-        //print("hello from line 177");
-        EventSystem.current.SetSelectedGameObject(null);
-        yield return new WaitForEndOfFrame();
-        EventSystem.current.SetSelectedGameObject(checkpointButtons[thisChoice].gameObject);
-    }*/
 
     public void CloseCheckpointMenu(){
         Time.timeScale = 1f;
@@ -198,10 +187,12 @@ public class PauseMenu : MonoBehaviour
             isPaused = true;
             if(amInPlaytestScene) {
                 playtestMenu.SetActive(true);
+                StartCoroutine(SelectFirstChoice(resumeButtonPT));
                 Time.timeScale = 0f;
             }
             else {
                 pauseMenu.SetActive(true);
+                StartCoroutine(SelectFirstChoice(resumeButton));
                 Time.timeScale = 0f;
             }
             menuState = MenuState.PAUSED;
@@ -408,5 +399,13 @@ public class PauseMenu : MonoBehaviour
                 Instantiate(enemyPrefabs[i], enemySpawnPoint.position, enemySpawnPoint.rotation);
             }
         }
+    }
+
+    private IEnumerator SelectFirstChoice(GameObject selectedButton)
+    {
+        //print("hello from line 177");
+        EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(selectedButton);
     }
 }
