@@ -24,6 +24,7 @@ public class Checkpoint : MonoBehaviour
     [HideInInspector] public bool active;
     private Collider col;
     private PauseMenu checkpointMenu;
+    [SerializeField] private Renderer hatch;
 
     //KEY: INDEX - TARGET NODE
     // 0 - Cabin
@@ -47,6 +48,10 @@ public class Checkpoint : MonoBehaviour
         if(index == 0 && !active) {
             gameObject.SetActive(false);
         }
+
+        if(active) {
+            hatch.materials[0].SetFloat("_SetAlpha", 0);
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +68,7 @@ public class Checkpoint : MonoBehaviour
         if(!CompletedNodes.checkpoints[0]) {
             CompletedNodes.checkpoints[0] = true;
         }
+        hatch.materials[0].SetFloat("_SetAlpha", 0);
     }
 
     public void UseActiveCheckpoint() {

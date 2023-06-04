@@ -27,7 +27,6 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused;
     public Transform enemySpawnPoint;
     public NodeSelector nodeSelector;
-    public OutdoorLevelManager outdoorLevelManager;
     [HideInInspector] public MenuState menuState;
     [HideInInspector] public DataPersistanceManager DPM;
 
@@ -119,13 +118,13 @@ public class PauseMenu : MonoBehaviour
         if(PlayerData.currentNode == 1) {
             checkpointButtons[0].SetActive(false);
         }
-        if(PlayerData.currentNode == 5) {
+        if(PlayerData.currentNode == 6) {
             checkpointButtons[1].SetActive(false);
         }
-        if(PlayerData.currentNode == 9) {
+        if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
         }
-        if(PlayerData.currentNode == 11) {
+        if(PlayerData.currentNode == 12) {
             checkpointButtons[3].SetActive(false);
         }
     }
@@ -141,7 +140,7 @@ public class PauseMenu : MonoBehaviour
         checkpointMenu.SetActive(false);
         PlayerData.prevNode = PlayerData.currentNode;
         PlayerData.currentNode = nodeDestination;
-        outdoorLevelManager.isCheckpointTransition = true;
+        OutdoorLevelManager.isCheckpointTransition = true;
         OpenMapForNodeTransfer();
     }
     // map functions
