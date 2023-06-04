@@ -10,7 +10,6 @@ public class ButtonGateController : MonoBehaviour
     public GameObject requiredObj = null;
     public ElectricGateController gateController;
     public Material greenMat;
-    public List<GameObject> enemiesList = new List<GameObject>();
     public InteractText text;
     [SerializeField] private EnemyManager enemyManager = null;
 

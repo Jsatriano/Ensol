@@ -21,8 +21,6 @@ public class RabbitStats : EnemyStats
     [Header("References")]
     [SerializeField] private RabbitBT rabbitBT;
     public DamageFlash damageFlash;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
     [SerializeField] private GameObject thisRabbit;
 
     protected override void Start()

@@ -52,8 +52,6 @@ public class SpiderStats : EnemyStats
     [SerializeField] private SpiderBT spiderBT;
     public GameObject thisSpider;
     [SerializeField] private DamageFlash damageFlash;
-    [SerializeField] private ButtonGateController buttonGateController = null;
-    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
 
     protected override void Start()

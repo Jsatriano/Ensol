@@ -35,8 +35,6 @@ public class BearStats : EnemyStats
     public BearBT bearBT;
     public GameObject thisBear;
     [SerializeField] private DamageFlash damageFlash;
-    [SerializeField] private ButtonGateController buttonGateController = null;
-    [SerializeField] private ButtonDoorController buttonDoorController = null;
 
     protected override void Start()
     {

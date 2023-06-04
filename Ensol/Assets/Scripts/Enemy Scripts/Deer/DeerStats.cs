@@ -27,8 +27,6 @@ public class DeerStats : EnemyStats
     [Header("References")]
     public DeerBT deerBT;
     public DamageFlash damageFlash;
-    public ButtonGateController buttonGateController = null;
-    public ButtonDoorController buttonDoorController = null;
     public GameObject thisDeer;
 
     // Start is called before the first frame update
