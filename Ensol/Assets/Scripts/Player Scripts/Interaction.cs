@@ -104,10 +104,12 @@ public class Interaction : MonoBehaviour
                 }
                 player.state = PlayerController.State.INTERACTIONANIMATION;
                 collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
+                removePickup = false;
             }
             else if(collider.gameObject.tag == "Checkpoint" && collider.gameObject.GetComponent<Checkpoint>().active){
                 player.state = PlayerController.State.DIALOGUE;
                 collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
+                removePickup = false;
             }
         }
     }
