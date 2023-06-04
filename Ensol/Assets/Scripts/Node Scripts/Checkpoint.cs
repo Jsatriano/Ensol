@@ -50,7 +50,7 @@ public class Checkpoint : MonoBehaviour
         }
 
         if(active) {
-            hatch.materials[0].SetFloat("_SetAlpha", 0);
+            hatch.materials[1].SetFloat("_SetAlpha", 0);
         }
     }
 
@@ -68,7 +68,7 @@ public class Checkpoint : MonoBehaviour
         if(!CompletedNodes.checkpoints[0]) {
             CompletedNodes.checkpoints[0] = true;
         }
-        hatch.materials[0].SetFloat("_SetAlpha", 0);
+        hatch.materials[1].SetFloat("_SetAlpha", 0);
     }
 
     public void UseActiveCheckpoint() {

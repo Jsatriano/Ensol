@@ -186,7 +186,7 @@ public class PData
         };
 
         checkpoints = new bool[] {
-            true, true, true, true
+            false, false, false, false
         };
 
         timeSinceAtNode = new float[] {
