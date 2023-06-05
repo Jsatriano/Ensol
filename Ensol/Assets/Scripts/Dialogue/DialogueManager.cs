@@ -261,6 +261,7 @@ public class DialogueManager : MonoBehaviour
     {
          dialogueText.text = "";
          canContinuetoNextLine = false;
+         DisplayChoices();
          hideChoices();
          
           //for each letter one at a time
