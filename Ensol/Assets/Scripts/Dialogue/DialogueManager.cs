@@ -14,13 +14,18 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject choicesPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private float typingspeed = 0.024f;
+
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
+    private Coroutine displaylineCoroutine;
+    private bool canContinuetoNextLine = false;
 
 
     public PlayerController charController;
+    public KeyCode _key;
 
     public bool donePlaying;
     public bool openSesame;
@@ -35,7 +40,6 @@ public class DialogueManager : MonoBehaviour
     private static DialogueVariables dialogueVariables;
 
     //for cat meowing dialogue
-    private GameObject meower;
 
     private void Awake()
     {
@@ -61,9 +65,11 @@ public class DialogueManager : MonoBehaviour
         choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
-        if (PlayerData.currentNode == 0){
+        /*if (NodeSelector.selectedNode == 1){
+            Debug.Log("should meow");
             meower = GameObject.FindGameObjectWithTag("Meower");
-        }
+            print(meower);
+        }*/
 
         foreach (GameObject choice in choices)
         {
@@ -79,7 +85,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         /*Allow e and mouse to continue dialogue if there are no more choices*/
-        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
+        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
         {
             if (PlayerData.startedGame == false){
                 PlayerData.startedGame = true;
@@ -116,22 +122,25 @@ public class DialogueManager : MonoBehaviour
         });
 
         currentStory.BindExternalFunction("meowing", () => {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
         });
 
         currentStory.BindExternalFunction("hackRiver", () => {
             //hack river
+            Debug.Log("hacking river");
         });
 
         currentStory.BindExternalFunction("endingOne", () => {
             //everything shuts down
             //go to credits
+            Debug.Log("ending 1");
         });
 
         currentStory.BindExternalFunction("endingTwo", () => {
             //player erases memory
             //Plush starting dialogue plays again
             //go to credits
+            Debug.Log("ending two");
         });
 
         ContinueStory();
@@ -142,12 +151,12 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
         // currentStory.UnbindExternalFunction("openDoor");
+        currentStory.UnbindExternalFunction("meowing");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = PlayerController.State.IDLE;
         dialoguePanel.SetActive(false);
         choicesPanel.SetActive(false);
-        dialogueText.text = "";
         if (dialogueVariables != null)
         {
             dialogueVariables.SaveVariables();
@@ -158,11 +167,16 @@ public class DialogueManager : MonoBehaviour
     private void ContinueStory()
     {
         if (currentStory.canContinue)
+        //Check so Lines don't overwrite themselves
         {
+            if (displaylineCoroutine != null)
+            {
+                StopCoroutine(displaylineCoroutine);
+            }
             // set text for current dialogue line
-            dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
-            DisplayChoices();
+            displaylineCoroutine = StartCoroutine(textScroll(currentStory.Continue()));
+
         }
         else
         {
@@ -241,5 +255,41 @@ public class DialogueManager : MonoBehaviour
         // return variableValue;
         bool b = (bool) variableValue;
         return b;
+    }
+
+
+    private IEnumerator textScroll(string text)
+    {
+        print ("start scrolling");
+        dialogueText.text = "";
+        canContinuetoNextLine = false;
+        int timer = 0;
+        int timeLimit = 2;
+        DisplayChoices();
+        hideChoices();
+         
+          //for each letter one at a time
+         foreach (char letter in text.ToCharArray())
+         {
+            if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && timer >= timeLimit)
+            {
+                print ("trying to skip");
+                dialogueText.text = text;
+                break;
+            }
+            timer += 1;
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(typingspeed);
+         }
+         canContinuetoNextLine = true;
+         DisplayChoices();
+
+    }
+    private void hideChoices()
+    {
+        foreach (GameObject choicebutton in choices)
+        {
+            choicebutton.SetActive(false);
+        }
     }
 }

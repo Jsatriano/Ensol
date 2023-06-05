@@ -1,4 +1,5 @@
 INCLUDE ../globals.ink
+EXTERNAL meowing()
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
@@ -14,8 +15,9 @@ INCLUDE ../globals.ink
 
 ===Dialogue_options===
 *[What is going on? Where am I?]
-{abletoleave:P1-USH|???}: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game?
+{abletoleave:P1-USH|???}: What do you mean? You’re back home! Would you like me to start off the day with your morning tunes? How about your favorite game? 
 ~ abletoleave2 = true
+
 
 ->Dialogue_options
 
@@ -23,11 +25,13 @@ INCLUDE ../globals.ink
 *[ Who are you? What are you?]
 P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and social system! Would you like me to start off the day with your morning tunes? How about your favorite game?
 ~ abletoleave = true
+// 
 ->Dialogue_options
 
 
 * {abletoleave && abletoleave2} [I just want to walk around for a bit.]
 P1-USH: Okay! If you need anything, let me know.
+
 -> END
 
 === Over ===
@@ -40,24 +44,29 @@ VAR death = false
 
 ===After_death===
 P1-USH: Hello Friend! I’m glad you’re back.
+
 ->After_death_options
 ===After_death_options===
 *[How am I still alive?]
 P1-USH: Still don’t remember? With that cloning machine right over there you don’t ever have to worry about dying. Using samples of your DNA from your previous body, it can replicate you along with all your memories. I’m not sure why you didn’t keep your memories last time.
 ~body = true
+
 ->After_death_options
 
 *{body} [What do you mean by my previous body?]
 P1-USH: As in your previous body! It gets cleaned up while I wait for you to wake up, so you don’t need to worry about it. Anything you had with you will be set aside for you to pick back up.
+
 ->After_death_options
 
 *[What was that outside?]
 P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe.
 ~death = true
+
 ->After_death_options
 
 *{death}[That deer killed me! How is that keeping me safe?]
 P1-USH: The retrieval protocol allows the unit to bring you back here in the fastest manner possible, so that you can be cloned back home safe and in good health.
+
 ->After_death_options
 
 *[Can I have a weapon?]
@@ -89,7 +98,7 @@ P1-USH: Sure thing!
 P1-USH: Sure thing!
 ->forest_other
 +[I want to ask something about you.]
-P1-USH: Of course! 
+P1-USH: Of course!
 ->plush_questions
 
 
@@ -122,7 +131,7 @@ P1-USH: Okay!
 
 ===plush_questions===
 *{dear_defeated}[ Why do you keep staring at my equipment.]
-P1-USH: It’s not every day I see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind! 
+P1-USH: It’s not every day I see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind!
     ->plush_questions
     
 +[Can you play my favorite tune? (Not working)]
