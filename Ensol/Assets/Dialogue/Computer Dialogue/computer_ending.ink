@@ -1,3 +1,5 @@
+EXTERNAL endingOne()
+EXTERNAL endingTwo()
 ->start
 
 ===start===
@@ -30,8 +32,10 @@ I found the file for the cloning tubes and the panel that hides the memory resto
 
 ===ending_choices===
 *[Shut down the system]
+~endingOne()
 -> Ending_shut_down
 *[Leave it running]
+~endingTwo()
 ->Ending_erase_memories
 
 ===Ending_shut_down===

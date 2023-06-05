@@ -1,4 +1,5 @@
 INCLUDE ../globals.ink
+EXTERNAL hackRiver()
 { river_controls == true: -> off}
 
 
@@ -17,6 +18,7 @@ A control panel that controls the flow of the river. There are options displayed
 The terminal denies your access, flashing the error message: “Denizen’s are not permitted to modify environmental settings.”
 
 *[Short circuit the control panel.]
+~hackRiver()
 ->3rd
 ~river_controls = true
 

@@ -116,22 +116,26 @@ public class DialogueManager : MonoBehaviour
         });
 
         currentStory.BindExternalFunction("meowing", () => {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+            // AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
+            Debug.Log("should meow");
         });
 
         currentStory.BindExternalFunction("hackRiver", () => {
             //hack river
+            Debug.Log("hacking river");
         });
 
         currentStory.BindExternalFunction("endingOne", () => {
             //everything shuts down
             //go to credits
+            Debug.Log("ending 1");
         });
 
         currentStory.BindExternalFunction("endingTwo", () => {
             //player erases memory
             //Plush starting dialogue plays again
             //go to credits
+            Debug.Log("ending two");
         });
 
         ContinueStory();
@@ -142,6 +146,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
         // currentStory.UnbindExternalFunction("openDoor");
+        currentStory.UnbindExternalFunction("meowing");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = PlayerController.State.IDLE;
