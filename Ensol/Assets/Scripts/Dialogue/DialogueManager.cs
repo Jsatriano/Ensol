@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
 
 
     public PlayerController charController;
+    public KeyCode _key;
 
     public bool donePlaying;
     public bool openSesame;
@@ -267,7 +268,7 @@ public class DialogueManager : MonoBehaviour
           //for each letter one at a time
          foreach (char letter in text.ToCharArray())
          {
-            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key))
             {
                 dialogueText.text = text;
                 break;
