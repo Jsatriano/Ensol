@@ -14,10 +14,13 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject choicesPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private float typingspeed = 0.024f;
+
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
+    private Coroutine displaylineCoroutine;
 
 
     public PlayerController charController;
@@ -33,9 +36,9 @@ public class DialogueManager : MonoBehaviour
     private static DialogueManager instance;
 
     private static DialogueVariables dialogueVariables;
+    private bool canContinuetoNextLine = false;
 
     //for cat meowing dialogue
-    private GameObject meower;
 
     private void Awake()
     {
@@ -81,7 +84,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         /*Allow e and mouse to continue dialogue if there are no more choices*/
-        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false)
+        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
         {
             if (PlayerData.startedGame == false){
                 PlayerData.startedGame = true;
@@ -165,10 +168,15 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
+         if (displaylineCoroutine != null)
+         {
+            StopCoroutine(displaylineCoroutine);
+         }
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
-            DisplayChoices();
+            displaylineCoroutine = StartCoroutine(textScroll(currentStory.Continue()));
+
         }
         else
         {
@@ -247,5 +255,35 @@ public class DialogueManager : MonoBehaviour
         // return variableValue;
         bool b = (bool) variableValue;
         return b;
+    }
+
+
+    private IEnumerator textScroll(string text)
+    {
+         dialogueText.text = "";
+         canContinuetoNextLine = false;
+         hideChoices();
+         
+          //for each letter one at a time
+         foreach (char letter in text.ToCharArray())
+         {
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0))
+            {
+                dialogueText.text = text;
+                break;
+            }
+             dialogueText.text += letter;
+             yield return new WaitForSeconds(typingspeed);
+         }
+         canContinuetoNextLine = true;
+         DisplayChoices();
+
+    }
+    private void hideChoices()
+    {
+        foreach (GameObject choicebutton in choices)
+        {
+            choicebutton.SetActive(false);
+        }
     }
 }
