@@ -61,9 +61,11 @@ public class DialogueManager : MonoBehaviour
         choicesPanel.SetActive(false);
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
-        if (PlayerData.currentNode == 0){
+        /*if (NodeSelector.selectedNode == 1){
+            Debug.Log("should meow");
             meower = GameObject.FindGameObjectWithTag("Meower");
-        }
+            print(meower);
+        }*/
 
         foreach (GameObject choice in choices)
         {
@@ -116,8 +118,7 @@ public class DialogueManager : MonoBehaviour
         });
 
         currentStory.BindExternalFunction("meowing", () => {
-            // AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
-            Debug.Log("should meow");
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
         });
 
         currentStory.BindExternalFunction("hackRiver", () => {

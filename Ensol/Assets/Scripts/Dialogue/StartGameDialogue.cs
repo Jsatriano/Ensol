@@ -9,8 +9,9 @@ public class StartGameDialogue : MonoBehaviour
     public DialogueTrigger dialogueTrigger;
     public GameObject blackOutSquare;
     public bool finishedFading;
-    public static bool clickedDialogue = false;
-    public bool died = false;
+    private bool clickedDialogue = false;
+    private bool died = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +22,19 @@ public class StartGameDialogue : MonoBehaviour
         //check if started game and play acompanying dialogue and fade sequence
         if (PlayerData.startedGame == false){
             dialogueTrigger.enabled = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, this.transform.position);
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
+            //print("case1");
         }
         //check if player is respawning after a death
         if(PlayerData.startedGame == true && PlayerData.currentlyHasBroom == false){
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
-            died = true;
+            //died = true;
+            //print("case2");
         }
     }
 
@@ -39,10 +43,12 @@ public class StartGameDialogue : MonoBehaviour
         {
             clickedDialogue = true;
             StartCoroutine(ReverseFadeBlackOutSquare());
-        } else if (finishedFading == false && died == true){
+            //print("resolution1");
+        } /*else if (finishedFading == false && died == true){
             died = false;
             StartCoroutine(ReverseFadeBlackOutSquare());
-        }
+            print("resolution2");
+        }*/
     }
 
     public void OnTriggerEnter(Collider hitter){

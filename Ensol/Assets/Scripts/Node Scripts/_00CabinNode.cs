@@ -37,6 +37,7 @@ public class _00CabinNode : MonoBehaviour
     [SerializeField] private GameObject interactableBroom;
     [HideInInspector] public GameObject[] players = null;
     private PlayerController combatController = null;
+    public GameObject doorMeower;
     
 
     private void Start()
@@ -165,6 +166,13 @@ public class _00CabinNode : MonoBehaviour
             plushInteractor.interacted = true;
             // removes highlight material from mesh
             plushInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+        }
+
+        //doorMeower
+        if (PlayerData.conveyerInteracted && PlayerData.windowInteracted && PlayerData.podInteracted){
+            doorMeower.SetActive(true);
+        } else {
+            doorMeower.SetActive(false);
         }
 
         /* ------------------------------------------------------------------ */
