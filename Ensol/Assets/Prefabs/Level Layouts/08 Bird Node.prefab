@@ -735,6 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8519489077443292760}
+  - component: {fileID: 4273146761901571760}
   m_Layer: 6
   m_Name: Enemies
   m_TagString: Untagged
@@ -765,6 +766,20 @@ Transform:
   m_Father: {fileID: 8727326795591620504}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4273146761901571760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3172195191696218529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c6aac697cefe64786c21cf901c1e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completeRespawnTime: 180
+  aliveEnemies: []
 --- !u!1 &3686299386539275287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,8 +1506,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671d9f1e93e3ee846a761d90757305ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
   Entrance: 1
   nodeDestination: 3
+  enemyParent: {fileID: 8519489077443292760}
 --- !u!1 &7353304388827061322
 GameObject:
   m_ObjectHideFlags: 0
