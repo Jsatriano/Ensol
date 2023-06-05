@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
     private Coroutine displaylineCoroutine;
+    private bool canContinuetoNextLine = false;
 
 
     public PlayerController charController;
@@ -36,7 +37,6 @@ public class DialogueManager : MonoBehaviour
     private static DialogueManager instance;
 
     private static DialogueVariables dialogueVariables;
-    private bool canContinuetoNextLine = false;
 
     //for cat meowing dialogue
 
@@ -156,7 +156,6 @@ public class DialogueManager : MonoBehaviour
         charController.state = PlayerController.State.IDLE;
         dialoguePanel.SetActive(false);
         choicesPanel.SetActive(false);
-        dialogueText.text = "";
         if (dialogueVariables != null)
         {
             dialogueVariables.SaveVariables();
@@ -167,13 +166,13 @@ public class DialogueManager : MonoBehaviour
     private void ContinueStory()
     {
         if (currentStory.canContinue)
+        //Check so Lines don't overwrite themselves
         {
          if (displaylineCoroutine != null)
          {
             StopCoroutine(displaylineCoroutine);
          }
             // set text for current dialogue line
-            dialogueText.text = currentStory.Continue();
             // display choices, if any, for this dialogue line
             displaylineCoroutine = StartCoroutine(textScroll(currentStory.Continue()));
 
