@@ -30,7 +30,6 @@ public class EnemyManager : MonoBehaviour
         //Creating a list of all enemies, and making them default off
         foreach (Transform enemy in transform)
         {
-            Debug.Log(enemy.name);
             enemy.gameObject.SetActive(false);
             allEnemies.Add(enemy);
         }
