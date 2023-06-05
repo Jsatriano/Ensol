@@ -169,10 +169,10 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue)
         //Check so Lines don't overwrite themselves
         {
-         if (displaylineCoroutine != null)
-         {
-            StopCoroutine(displaylineCoroutine);
-         }
+            if (displaylineCoroutine != null)
+            {
+                StopCoroutine(displaylineCoroutine);
+            }
             // set text for current dialogue line
             // display choices, if any, for this dialogue line
             displaylineCoroutine = StartCoroutine(textScroll(currentStory.Continue()));
@@ -260,21 +260,26 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator textScroll(string text)
     {
-         dialogueText.text = "";
-         canContinuetoNextLine = false;
-         DisplayChoices();
-         hideChoices();
+        print ("start scrolling");
+        dialogueText.text = "";
+        canContinuetoNextLine = false;
+        int timer = 0;
+        int timeLimit = 2;
+        DisplayChoices();
+        hideChoices();
          
           //for each letter one at a time
          foreach (char letter in text.ToCharArray())
          {
-            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key))
+            if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && timer >= timeLimit)
             {
+                print ("trying to skip");
                 dialogueText.text = text;
                 break;
             }
-             dialogueText.text += letter;
-             yield return new WaitForSeconds(typingspeed);
+            timer += 1;
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(typingspeed);
          }
          canContinuetoNextLine = true;
          DisplayChoices();

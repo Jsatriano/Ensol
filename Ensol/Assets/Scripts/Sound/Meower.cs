@@ -17,7 +17,7 @@ public class Meower : MonoBehaviour
     void Update()
     {
         if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(interactKey)) && inRange){
-            print("try to meow");
+            //print("try to meow");
             StartCoroutine(DelayedMeow());
         }
         
@@ -26,7 +26,7 @@ public class Meower : MonoBehaviour
     void OnTriggerEnter(Collider collider){
         if (collider.gameObject.tag == "Player"){
             inRange = true;
-            print("in range");
+            //print("in range");
         }
 
     }
@@ -34,15 +34,15 @@ public class Meower : MonoBehaviour
     void OnTriggerExit(Collider collider){
         if (collider.gameObject.tag == "Player"){
             inRange = false;
-            print("out of range");
+            //print("out of range");
         }
     }
 
     IEnumerator DelayedMeow(){
-        print("waiting to meow");
+        //print("waiting to meow");
         yield return new WaitForSeconds(0.32f);
         if (DialogueManager.GetInstance().donePlaying == false){
-            print("meow");
+            //print("meow");
             AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
         }
     }
