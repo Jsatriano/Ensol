@@ -11,17 +11,10 @@ public class AutoDownDoor : MonoBehaviour
     private bool nearDoor = false;
 
 
-
-    void Start()
-    {
-
-    }
-
-
     void Update()
     {
 
-        // if (player is colliding with hitbox)
+        // if (player is in hitbox)
         //      door moves towards intended position at openSpeed
         // else 
         //      door moves towards rest position
@@ -30,7 +23,6 @@ public class AutoDownDoor : MonoBehaviour
             if (door.transform.position != doorOpenTarget.position)
             {
                 door.transform.position = Vector3.MoveTowards(door.transform.position, doorOpenTarget.position, openSpeed * Time.deltaTime);
-                Debug.Log("OPENING");
             }
         }
 
@@ -39,21 +31,19 @@ public class AutoDownDoor : MonoBehaviour
             if (door.transform.position != doorRestTarget.position)
             {
                 door.transform.position = Vector3.MoveTowards(door.transform.position, doorRestTarget.position, openSpeed * Time.deltaTime);
-                Debug.Log("CLOSING");
             }
         }
     }
 
-
+    //when nearing door
     void OnTriggerEnter(Collider doorRadius)
     {
         nearDoor = true;
-        Debug.Log("opening door");
     }
 
+    //when leaving the door
     void OnTriggerExit(Collider doorRadius)
     {
         nearDoor = false;
-        Debug.Log("closing door");
     }
 }
