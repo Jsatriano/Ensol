@@ -18,7 +18,7 @@ public static class PlayerData
     public static float currHP = -1;
 
     //Player Progress
-    public static int currentNode = 1;
+    public static int currentNode = 1; // CHANGE BACK TO 1
     public static int prevNode = 1;
 
     //Player Tutorial Text
