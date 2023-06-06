@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using FMOD.Studio;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class DialogueManager : MonoBehaviour
 
     private Story currentStory;
     private bool skipping;
+    public bool musicPlaying = false; 
 
     public bool dialogueisPlaying { get; private set; }
 
@@ -119,14 +121,10 @@ public class DialogueManager : MonoBehaviour
         
         dialogueVariables.StartListening(currentStory);
 
-        //functions called by the dialogue//
+        /////////functions called by the dialogue/////////
 
         currentStory.BindExternalFunction("openDoor", () => {
             openSesame = true;
-        });
-
-        currentStory.BindExternalFunction("meowing", () => {
-            //AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, meower.transform.position);
         });
 
         currentStory.BindExternalFunction("hackRiver", () => {
@@ -155,6 +153,26 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("ending two");
         });
 
+        currentStory.BindExternalFunction("favoriteTunes", () => {
+            //plush plays music
+            if (musicPlaying == false){
+                musicPlaying = true;
+                MusicController bGMusic = GameObject.Find("00 Cabin Node(Clone)").GetComponent<MusicController>();
+                bGMusic.zoneMusic.stop(STOP_MODE.ALLOWFADEOUT);
+                bGMusic.zoneMusic.release();
+                bGMusic.zoneMusic = AudioManager.instance.CreateEventInstance(FMODEvents.instance.favoriteTunes); 
+                bGMusic.zoneMusic.start(); 
+                Debug.Log("play tunes");
+            }
+        });
+
+        currentStory.BindExternalFunction("petCat", () => {
+            //pet the cat
+            Debug.Log("pet cat");
+        });
+
+        ////////////////////////////////////////////////////
+
         ContinueStory();
     }
 
@@ -162,8 +180,8 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         dialogueVariables.StopListening(currentStory);
-        // currentStory.UnbindExternalFunction("openDoor");
-        currentStory.UnbindExternalFunction("meowing");
+        //currentStory.UnbindExternalFunction("openDoor");
+        //currentStory.UnbindExternalFunction("meowing");
         dialogueisPlaying = false;
         donePlaying = true;
         charController.state = PlayerController.State.IDLE;

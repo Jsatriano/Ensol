@@ -31,7 +31,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1863040904170910149}
-  - {fileID: 1863040904259877238}
   - {fileID: 1863040903606639340}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,12 +54,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863040903164454805}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeType: 1
 --- !u!1 &1863040903606639341
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +89,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1863040903164454807}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1863040903606639343
 MonoBehaviour:
@@ -296,6 +294,13 @@ MonoBehaviour:
       Data3: -1172715615
       Data4: 542167841
     Path: event:/sfx_deerGutted
+  <deerMoveMetal>k__BackingField:
+    Guid:
+      Data1: 2081026706
+      Data2: 1268456698
+      Data3: -400133982
+      Data4: -546915621
+    Path: event:/sfx_deerMoveMetal
   <bunnyMove>k__BackingField:
     Guid:
       Data1: -1253390221
@@ -436,6 +441,13 @@ MonoBehaviour:
       Data3: -452598898
       Data4: -1836795407
     Path: event:/sfx_TurretFire
+  <boopboop>k__BackingField:
+    Guid:
+      Data1: 1073998405
+      Data2: 1106884890
+      Data3: 619230127
+      Data4: 612961628
+    Path: event:/sfx_TurretBoopBoop3
   <generatorOn>k__BackingField:
     Guid:
       Data1: 1617563868
@@ -583,82 +595,10 @@ MonoBehaviour:
       Data3: 307330694
       Data4: -81877178
     Path: event:/sfx_healUp
---- !u!1 &1863040904259877239
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1863040904259877238}
-  - component: {fileID: 1863040904259877241}
-  m_Layer: 0
-  m_Name: FMODMusicEvents
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1863040904259877238
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863040904259877239}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1863040903164454807}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1863040904259877241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863040904259877239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <zone1>k__BackingField:
+  <favoriteTunes>k__BackingField:
     Guid:
-      Data1: -306719351
-      Data2: 1134475466
-      Data3: -590200649
-      Data4: 218596890
-    Path: event:/music_zone1
-  <zone2>k__BackingField:
-    Guid:
-      Data1: -1772189187
-      Data2: 1180186044
-      Data3: -2135727179
-      Data4: 1490653231
-    Path: event:/music_zone2
-  <zone3>k__BackingField:
-    Guid:
-      Data1: 266967680
-      Data2: 1327150024
-      Data3: 1978142909
-      Data4: 1825268685
-    Path: event:/music_zone3
-  <mainMenu>k__BackingField:
-    Guid:
-      Data1: 540807462
-      Data2: 1157657243
-      Data3: 489966778
-      Data4: -62656151
-    Path: event:/music_mainMenu
-  <cabin>k__BackingField:
-    Guid:
-      Data1: 1747515694
-      Data2: 1085036983
-      Data3: -187198335
-      Data4: -915788467
-    Path: event:/music_cabin
+      Data1: 1937511925
+      Data2: 1184631154
+      Data3: -1348959823
+      Data4: -1216020430
+    Path: event:/music_nostalgia

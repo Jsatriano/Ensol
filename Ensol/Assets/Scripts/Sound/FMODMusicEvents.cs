@@ -6,16 +6,7 @@ using FMODUnity;
 public class FMODMusicEvents : MonoBehaviour
 {
     [field: Header("Music")]
-    [field: Header("zone1")]
-    [field: SerializeField] public EventReference zone1 { get; private set; }
-    [field: Header("zone2")]
-    [field: SerializeField] public EventReference zone2 { get; private set; }
-    [field: Header("zone3")]
-    [field: SerializeField] public EventReference zone3 { get; private set; }
-    [field: Header("Menu")]
-    [field: SerializeField] public EventReference mainMenu { get; private set; }
-    [field: Header("Cabin")]
-    [field: SerializeField] public EventReference cabin { get; private set; }
+    [field: SerializeField] public EventReference zoneMusic { get; private set; }
     
 
     public static FMODMusicEvents instance { get; private set; }

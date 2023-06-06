@@ -69,11 +69,11 @@ public class SceneSwitch : MonoBehaviour
     {
         if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
         {
-            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+            PlayerData.timeSinceAtNode[PlayerData.currentNode-1] = Time.time;
         }
         else
         {
-            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+            PlayerData.timeSinceAtNode[PlayerData.currentNode-1] = Time.time;
         }
     }
 
@@ -92,6 +92,6 @@ public class SceneSwitch : MonoBehaviour
                 enemiesAlive++;
             }
         }
-        PlayerData.enemiesAliveInNode[PlayerData.currentNode] = enemiesAlive;
+        PlayerData.enemiesAliveInNode[PlayerData.currentNode-1] = enemiesAlive;
     }
 }

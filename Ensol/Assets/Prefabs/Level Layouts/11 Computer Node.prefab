@@ -1578,7 +1578,7 @@ GameObject:
   - component: {fileID: 5590912092734744734}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2050,6 +2050,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8727326795591620504}
   - component: {fileID: 7149476098474249377}
+  - component: {fileID: 7717514236103855007}
+  - component: {fileID: 8785963510212973774}
   m_Layer: 0
   m_Name: 11 Computer Node
   m_TagString: Untagged
@@ -2095,6 +2097,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f543f8a686e2bcc4faedb20b15cabd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7717514236103855007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8785963510212973774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zoneMusic>k__BackingField:
+    Guid:
+      Data1: -1589926901
+      Data2: 1075304727
+      Data3: -17841744
+      Data4: 768577858
+    Path: event:/music_relic
 --- !u!1 &8797443301008110097
 GameObject:
   m_ObjectHideFlags: 0
@@ -20132,11 +20165,33 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5cd1547e6b009e14ba7ceb0a371c4c16, type: 3}
+      propertyPath: m_TagString
+      value: FloorMetal
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5cd1547e6b009e14ba7ceb0a371c4c16, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cd1547e6b009e14ba7ceb0a371c4c16, type: 3}
+--- !u!1 &8393554992716779051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5cd1547e6b009e14ba7ceb0a371c4c16, type: 3}
+  m_PrefabInstance: {fileID: 8699419676127146874}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3026447863334584547
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393554992716779051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.7526748, y: 3.752674, z: 0.12}
+  m_Center: {x: 0, y: 0, z: -3.637979e-12}
 --- !u!4 &9164883962041422993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5cd1547e6b009e14ba7ceb0a371c4c16, type: 3}

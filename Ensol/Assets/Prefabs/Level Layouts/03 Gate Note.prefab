@@ -4300,6 +4300,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8727326795591620504}
   - component: {fileID: 5848787006628160146}
+  - component: {fileID: 8145121441861549679}
+  - component: {fileID: 8219086113847013421}
   m_Layer: 12
   m_Name: 03 Gate Note
   m_TagString: Untagged
@@ -4349,6 +4351,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electricGateController: {fileID: 7272489703820204163}
   globals: {fileID: 4900000, guid: 1f903892a9295ef438b7539f29586e53, type: 3}
+--- !u!114 &8145121441861549679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8219086113847013421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zoneMusic>k__BackingField:
+    Guid:
+      Data1: -1939483149
+      Data2: 1144481304
+      Data3: 170263442
+      Data4: 600912778
+    Path: event:/music_nondualAwareness
 --- !u!1 &8801029164665540151
 GameObject:
   m_ObjectHideFlags: 0
@@ -7632,6 +7665,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8727326795591620504}
     m_Modifications:
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018204145682832633, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268095881786060474, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268095881786060474, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6502346387192398682, guid: f7673e3ec481775498a8e171d0652d3e, type: 3}
       propertyPath: m_RootOrder
       value: 12

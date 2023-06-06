@@ -33667,7 +33667,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8065283643768261474}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -43807,6 +43807,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8727326795591620504}
   - component: {fileID: 1041646929668272864}
+  - component: {fileID: 6255905133697420725}
+  - component: {fileID: 5872761503258980031}
   m_Layer: 0
   m_Name: 04 River Control Node
   m_TagString: Untagged
@@ -43875,6 +43877,37 @@ MonoBehaviour:
   waterfalls: {fileID: 1997706331069546356}
   endY: 0
   speed: 0.7
+--- !u!114 &6255905133697420725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5872761503258980031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zoneMusic>k__BackingField:
+    Guid:
+      Data1: 954758565
+      Data2: 1129829309
+      Data3: 1911467397
+      Data4: -1294530616
+    Path: event:/music_walkingDownhill
 --- !u!1 &8896761624703148854
 GameObject:
   m_ObjectHideFlags: 0

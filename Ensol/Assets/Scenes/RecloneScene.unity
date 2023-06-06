@@ -402,7 +402,6 @@ GameObject:
   m_Component:
   - component: {fileID: 725647570}
   - component: {fileID: 725647569}
-  - component: {fileID: 725647568}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -410,19 +409,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &725647568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725647567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeType: 1
 --- !u!114 &725647569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,7 +1263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd882065625dca4428aac96fc8edb085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charController: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  map: {fileID: 0}
+  checkpointUI: {fileID: 0}
+  arrow: {fileID: 0}
+  dialoguebox: {fileID: 0}
 --- !u!1 &1314642363
 GameObject:
   m_ObjectHideFlags: 0

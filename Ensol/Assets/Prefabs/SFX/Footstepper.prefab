@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5977346360995692262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1305132546756474456}
+  - component: {fileID: 4121086429803362709}
+  - component: {fileID: 7691470634876953710}
+  - component: {fileID: 4517910430645535702}
+  - component: {fileID: 1224396786187315483}
+  m_Layer: 6
+  m_Name: Footstepper
+  m_TagString: Sound
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1305132546756474456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977346360995692262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0188, z: 0}
+  m_LocalScale: {x: 0.0060000005, y: 0.0059999954, z: 0.0059999977}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4121086429803362709
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977346360995692262}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7691470634876953710
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977346360995692262}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4517910430645535702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977346360995692262}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1224396786187315483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977346360995692262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0df248a1fec09145a95e9e187e192da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footType: 2
+  footstep:
+  - Guid:
+      Data1: -904257908
+      Data2: 1162442346
+      Data3: 1632583578
+      Data4: -941012307
+    Path: event:/sfx_playerWalk
+  - Guid:
+      Data1: -2104935696
+      Data2: 1099368106
+      Data3: 270180274
+      Data4: -1467431993
+    Path: event:/sfx_deerMove
+  - Guid:
+      Data1: -1012030307
+      Data2: 1235329126
+      Data3: -340997247
+      Data4: -264535016
+    Path: event:/sfx_bearMove
+  - Guid:
+      Data1: -1253390221
+      Data2: 1317822758
+      Data3: -1385966441
+      Data4: 484087289
+    Path: event:/sfx_bunnyMove
+  - Guid:
+      Data1: 2081026706
+      Data2: 1268456698
+      Data3: -400133982
+      Data4: -546915621
+    Path: event:/sfx_deerMoveMetal
+  - Guid:
+      Data1: -1253390221
+      Data2: 1317822758
+      Data3: -1385966441
+      Data4: 484087289
+    Path: event:/sfx_bunnyMove
+  cogsteper: 0
+  cogType: 1
+  cogstep:
+  - Guid:
+      Data1: 1262476122
+      Data2: 1177755987
+      Data3: -635004533
+      Data4: -159730817
+    Path: event:/sfx_spiderCogs
+  - Guid:
+      Data1: -988627739
+      Data2: 1149108907
+      Data3: -1762009194
+      Data4: 455431105
+    Path: event:/sfx_spiderCogs2
