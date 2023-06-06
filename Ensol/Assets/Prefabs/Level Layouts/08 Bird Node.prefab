@@ -1800,6 +1800,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8727326795591620504}
   - component: {fileID: 957298187226701958}
+  - component: {fileID: 3826082582550994355}
+  - component: {fileID: 3268326634395906073}
   m_Layer: 0
   m_Name: 08 Bird Node
   m_TagString: Untagged
@@ -1848,6 +1850,37 @@ MonoBehaviour:
   birdBody: {fileID: 6960000621457615411}
   deadBird: {fileID: 758564553308371988, guid: fc0dd3c12cdc5244e8b13672752fd5c6, type: 3}
   transferCube: {fileID: 7054716711600474535}
+--- !u!114 &3826082582550994355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee8cb0a86376254a9561d8c551c73c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3268326634395906073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cf580d2b5242145be0043735ea173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zoneMusic>k__BackingField:
+    Guid:
+      Data1: -1836837107
+      Data2: 1088182681
+      Data3: 1853909148
+      Data4: 602766299
+    Path: event:/music_funkRevolution
 --- !u!1001 &138656240399661757
 PrefabInstance:
   m_ObjectHideFlags: 0

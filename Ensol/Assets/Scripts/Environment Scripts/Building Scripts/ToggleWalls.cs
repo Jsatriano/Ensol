@@ -52,7 +52,7 @@ public class ToggleWalls : MonoBehaviour
 
     void Update()
     {
-        print("Inside = " + inside + " Outside = " + outside + " CurrAlpha = " + currAlpha);
+        //print("Inside = " + inside + " Outside = " + outside + " CurrAlpha = " + currAlpha);
 
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
 

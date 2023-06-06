@@ -28,6 +28,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deerMove { get; private set; }
     [field: SerializeField] public EventReference deerAlerted { get; private set; }
     [field: SerializeField] public EventReference deerGutted { get; private set; }
+    [field: SerializeField] public EventReference deerMoveMetal { get; private set; }
 
     [field: Header("Bunny")]
     [field: SerializeField] public EventReference bunnyMove { get; private set; }
@@ -58,6 +59,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Turret")]
     [field: SerializeField] public EventReference turretFire { get; private set; }
+    [field: SerializeField] public EventReference boopboop { get; private set; }
 
     [field: Header("Generator")]
     [field: SerializeField] public EventReference generatorOn { get; private set; }
@@ -83,6 +85,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference dirtMove { get; private set; }
     [field: SerializeField] public EventReference stoneMove { get; private set; }
     [field: SerializeField] public EventReference healUp { get; private set; }
+    [field: SerializeField] public EventReference favoriteTunes { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 
