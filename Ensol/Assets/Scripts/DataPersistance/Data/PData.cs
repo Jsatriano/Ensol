@@ -171,18 +171,18 @@ public class PData
 
         firstLoad = new bool[] {
             false, false, true, true, true, true,
-            true, true, true, true, false
+            true, true, true, true, true, false
         };
 
         completedNodes = new bool[]
         {
             true, false, false, false, false, false,
-            false, false, false, false, true
+            false, false, false, false, false, true
         };
 
        firstTransition = new bool[] {
             false, true, true, true, true,
-            true, true, true, true, true, false
+            true, true, true, true, true, true, false
         };
 
         checkpoints = new bool[] {
