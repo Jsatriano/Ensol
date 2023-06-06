@@ -28,7 +28,6 @@ public class ToggleWalls : MonoBehaviour
 
     private bool inside = false;
     private bool outside = false;
-    private bool zoom_now = true;
     private float currAlpha = 0.0f;
 
     // list of mesh renderers in cabin exterior prefab
@@ -41,17 +40,21 @@ public class ToggleWalls : MonoBehaviour
         brain = mainCam.GetComponent<CinemachineBrain>();
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
         wallMeshes = walls.GetComponentsInChildren<MeshRenderer>();
-        setAlpha(currAlpha);
+        if(PlayerData.currentNode == 1)
+        {
+            setAlpha(currAlpha);
+        }
+        else 
+        {
+            currAlpha = 1;
+        }
     }
 
     void Update()
     {
+        print("Inside = " + inside + " Outside = " + outside + " CurrAlpha = " + currAlpha);
+
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
-        if (zoom_now && vcam) {
-            vcam.m_Lens.OrthographicSize = zoomed_in;
-            zoom_now = false;
-            cursorCam.orthographicSize = zoomed_in;
-        }
 
         // if player walks inside, zoom in the camera
         if (vcam && vcam.m_Lens.OrthographicSize <= zoomed_out && outside) { 
@@ -85,18 +88,24 @@ public class ToggleWalls : MonoBehaviour
     
     void OnTriggerEnter(Collider other) // Check if Player is inside
     {
-        //walls.SetActive(false);
-        inside = true;
-        outside = false;
-        //Debug.Log("walls off");
+        if(other.tag == "Player")
+        {
+            //walls.SetActive(false);
+            inside = true;
+            outside = false;
+            //Debug.Log("walls off");
+        }
     }
 
     void OnTriggerExit(Collider other) // Check if Player is outside
     {
-        walls.SetActive(true);
-        inside = false;
-        outside = true;
-        //Debug.Log("walls on");
+        if(other.tag == "Player")
+        {
+            walls.SetActive(true);
+            inside = false;
+            outside = true;
+            //Debug.Log("walls on");
+        }
     }
 
     // function used to set alpha of all materials
