@@ -1,5 +1,4 @@
 INCLUDE ../globals.ink
-EXTERNAL meowing()
 EXTERNAL petCat()
 EXTERNAL favoriteTunes()
 
