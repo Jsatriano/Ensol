@@ -1,5 +1,6 @@
 INCLUDE ../globals.ink
 EXTERNAL meowing()
+EXTERNAL petCat()
 EXTERNAL favoriteTunes()
 
 { deerdead == true: ->Intro3}
@@ -156,6 +157,7 @@ P1-USH: Okay!
 
 ===Plush_unlock_2===
 +[Can I pet you?(Not working)]
+~ petCat()
 P1-USH: Absolutely! 
     ->plush_questions
 
