@@ -264,7 +264,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         canContinuetoNextLine = false;
         int timer = 0;
-        int timeLimit = 2;
+        int timeLimit = 1;
         DisplayChoices();
         hideChoices();
          
