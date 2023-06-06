@@ -127,6 +127,14 @@ public class DialogueManager : MonoBehaviour
 
         currentStory.BindExternalFunction("hackRiver", () => {
             //hack river
+            print("Starting test");
+            //charController.state = PlayerController.State.INTERACTIONANIMATION;
+            charController.animator.SetBool("isHack", true);
+            //if we ever remove test nodes, be sure to remove the "(Clone)" part of the Find
+            print("test 1");
+            _04RiverControlNode RiverControlscript = GameObject.Find("04 River Control Node(Clone)").GetComponent<_04RiverControlNode>();
+            print("test 2");
+            RiverControlscript.TurnOffWater();
             Debug.Log("hacking river");
         });
 
@@ -260,7 +268,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator textScroll(string text)
     {
-        print ("start scrolling");
+        //print ("start scrolling");
         dialogueText.text = "";
         canContinuetoNextLine = false;
         int timer = 0;
@@ -273,7 +281,7 @@ public class DialogueManager : MonoBehaviour
          {
             if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && timer >= timeLimit)
             {
-                print ("trying to skip");
+                //print ("trying to skip");
                 dialogueText.text = text;
                 break;
             }

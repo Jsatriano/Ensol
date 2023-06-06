@@ -115,6 +115,11 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    //anim events for hacking
+    private void HackSounds(){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, this.transform.position);
+    }
+
     //quick fade out and in
     public IEnumerator FadeOutAndIn(){
 
