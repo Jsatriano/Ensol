@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
     private Coroutine displaylineCoroutine;
-    private bool canContinuetoNextLine = false;
+    private bool canContinuetoNextLine = true;
 
 
     public PlayerController charController;
@@ -32,6 +32,7 @@ public class DialogueManager : MonoBehaviour
 
 
     private Story currentStory;
+    private bool skipping;
 
     public bool dialogueisPlaying { get; private set; }
 
@@ -91,6 +92,9 @@ public class DialogueManager : MonoBehaviour
                 PlayerData.startedGame = true;
             }
             StartCoroutine(Delay());
+        } else if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && !canContinuetoNextLine){
+            /*Allow skipping scroll*/
+            skipping = true;
         }
         
     }
@@ -279,7 +283,7 @@ public class DialogueManager : MonoBehaviour
           //for each letter one at a time
          foreach (char letter in text.ToCharArray())
          {
-            if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && timer >= timeLimit)
+            if (skipping && timer >= timeLimit)
             {
                 //print ("trying to skip");
                 dialogueText.text = text;
@@ -289,6 +293,7 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingspeed);
          }
+         skipping = false;
          canContinuetoNextLine = true;
          DisplayChoices();
 
