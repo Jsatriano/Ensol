@@ -20,6 +20,7 @@ public class RabbitAnimation : MonoBehaviour
     private float minSpeed;
     private float maxSpeed;
     [SerializeField] private Rigidbody rabbitRB;
+    private bool audioPlayed = false;
 
     private void Start()
     {
@@ -45,9 +46,12 @@ public class RabbitAnimation : MonoBehaviour
                     animController.SetBool("Sitting", false);
                     animController.SetBool("Leaping", true);
                     state = State.LEAPING;
-                    attackSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.bunnyAttack);
-                    attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
-                    attackSound.start();
+                    if (!audioPlayed){
+                        audioPlayed = true;
+                        attackSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.bunnyAttack);
+                        attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+                        attackSound.start();
+                    }
                 }
                 break;
 
