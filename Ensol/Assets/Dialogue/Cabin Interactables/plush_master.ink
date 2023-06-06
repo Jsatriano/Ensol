@@ -1,5 +1,6 @@
 INCLUDE ../globals.ink
 EXTERNAL meowing()
+EXTERNAL favoriteTunes()
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
@@ -135,12 +136,13 @@ P1-USH: It’s not every day I see a solar panel shaped like that. Those edges l
     ->plush_questions
     
 +[Can you play my favorite tune? (Not working)]
+~ favoriteTunes()
 P1-USH: Sure! 
     ->plush_questions
     
-+[Can you play my favorite game? (Not working)]
-P1-USH: Sure! 
-    ->plush_questions
+// +[Can you play my favorite game? (Not working)]
+// P1-USH: Sure! 
+//     ->plush_questions
     
 +{dear_defeated == false}[Can I pet you?(Not working)]
 P1-USH: Absolutely! 
