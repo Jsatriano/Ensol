@@ -11,14 +11,14 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         //Is set to -1 when its the player's first time entering a node, spawns all enemies
-        if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
+        if (PlayerData.timeSinceAtNode[PlayerData.currentNode-1] == -1)
         {
             SpawnEnemies(1);
         }
         else
         {
             //Debug.Log("Time Passed: " + (Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]));
-            SpawnEnemies(Mathf.Clamp01((Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]) / completeRespawnTime));
+            SpawnEnemies(Mathf.Clamp01((Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode-1]) / completeRespawnTime));
         }       
     }
 
@@ -37,7 +37,7 @@ public class EnemyManager : MonoBehaviour
         //Debug.Log("Percent Spawn: " + Mathf.FloorToInt(allEnemies.Count * percentToSpawn));
         //Debug.Log("Previously Alive: " + PlayerData.enemiesAliveInNode[PlayerData.currentNode]);
         //Calculate how many enemies to spawn based on respawn timer
-        int numSpawning = Mathf.Clamp(Mathf.FloorToInt(allEnemies.Count * percentToSpawn) + PlayerData.enemiesAliveInNode[PlayerData.currentNode], 0, allEnemies.Count);
+        int numSpawning = Mathf.Clamp(Mathf.FloorToInt(allEnemies.Count * percentToSpawn) + PlayerData.enemiesAliveInNode[PlayerData.currentNode-1], 0, allEnemies.Count);
 
         //Set active randomly selected enemies and fill the public list with them for the gate controller to access
         allEnemies = ShuffleList(allEnemies);
