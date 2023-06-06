@@ -28,7 +28,6 @@ public class ToggleWalls : MonoBehaviour
 
     private bool inside = false;
     private bool outside = false;
-    private bool zoom_now = true;
     private float currAlpha = 0.0f;
 
     // list of mesh renderers in cabin exterior prefab
@@ -47,11 +46,6 @@ public class ToggleWalls : MonoBehaviour
     void Update()
     {
         vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
-        if (zoom_now && vcam) {
-            vcam.m_Lens.OrthographicSize = zoomed_in;
-            zoom_now = false;
-            cursorCam.orthographicSize = zoomed_in;
-        }
 
         // if player walks inside, zoom in the camera
         if (vcam && vcam.m_Lens.OrthographicSize <= zoomed_out && outside) { 
