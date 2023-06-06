@@ -27,7 +27,7 @@ public class ToggleWalls : MonoBehaviour
     [SerializeField] private float zoomed_in = 4.88f;
 
     private bool inside = false;
-    private bool outside = false;
+    private bool outside = true;
     private float currAlpha = 0.0f;
 
     // list of mesh renderers in cabin exterior prefab
