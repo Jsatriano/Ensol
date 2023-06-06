@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public GameObject pauseMenu;
+    public Image blackOutSquare;
     public DataPersistanceManager dataManager;
     public GameObject resumeButton;
     public GameObject resumeButtonPT;
@@ -148,10 +149,11 @@ public class PauseMenu : MonoBehaviour
 
     public void TransferViaCheckpoint(int nodeDestination) {
         checkpointMenu.SetActive(false);
-        PlayerData.prevNode = PlayerData.currentNode;
-        PlayerData.currentNode = nodeDestination;
-        OutdoorLevelManager.isCheckpointTransition = true;
-        OpenMapForNodeTransfer();
+        //trigger animations
+        combatController.state = PlayerController.State.INTERACTIONANIMATION;
+        combatController.animator.SetBool("isPickup", true);
+        //delay transition
+        StartCoroutine(FadeBlackOutSquare(nodeDestination));
     }
     // map functions
     private void OpenMap()
@@ -407,5 +409,22 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(selectedButton);
+    }
+
+    public IEnumerator FadeBlackOutSquare(int nodeDestination) // function to slowly fade the screen to black and load map scene
+    {
+        Color objectColor = blackOutSquare.color;
+        float fadeAmount = 0;
+        int fadeSpeed = 1;
+        while(blackOutSquare.color.a < 1)
+        {      
+            fadeAmount += fadeSpeed * Time.unscaledDeltaTime;
+            blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            yield return null;
+        }
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = nodeDestination;
+        OutdoorLevelManager.isCheckpointTransition = true;
+        OpenMapForNodeTransfer();     
     }
 }

@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
     private Coroutine displaylineCoroutine;
-    private bool canContinuetoNextLine = false;
+    private bool canContinuetoNextLine = true;
 
 
     public PlayerController charController;
@@ -32,6 +32,7 @@ public class DialogueManager : MonoBehaviour
 
 
     private Story currentStory;
+    private bool skipping;
 
     public bool dialogueisPlaying { get; private set; }
 
@@ -91,6 +92,9 @@ public class DialogueManager : MonoBehaviour
                 PlayerData.startedGame = true;
             }
             StartCoroutine(Delay());
+        } else if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && !canContinuetoNextLine){
+            /*Allow skipping scroll*/
+            skipping = true;
         }
         
     }
@@ -127,6 +131,14 @@ public class DialogueManager : MonoBehaviour
 
         currentStory.BindExternalFunction("hackRiver", () => {
             //hack river
+            print("Starting test");
+            //charController.state = PlayerController.State.INTERACTIONANIMATION;
+            charController.animator.SetBool("isHack", true);
+            //if we ever remove test nodes, be sure to remove the "(Clone)" part of the Find
+            print("test 1");
+            _04RiverControlNode RiverControlscript = GameObject.Find("04 River Control Node(Clone)").GetComponent<_04RiverControlNode>();
+            print("test 2");
+            RiverControlscript.TurnOffWater();
             Debug.Log("hacking river");
         });
 
@@ -260,20 +272,20 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator textScroll(string text)
     {
-        print ("start scrolling");
+        //print ("start scrolling");
         dialogueText.text = "";
         canContinuetoNextLine = false;
         int timer = 0;
-        int timeLimit = 2;
+        int timeLimit = 1;
         DisplayChoices();
         hideChoices();
          
           //for each letter one at a time
          foreach (char letter in text.ToCharArray())
          {
-            if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && timer >= timeLimit)
+            if (skipping && timer >= timeLimit)
             {
-                print ("trying to skip");
+                //print ("trying to skip");
                 dialogueText.text = text;
                 break;
             }
@@ -281,6 +293,7 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingspeed);
          }
+         skipping = false;
          canContinuetoNextLine = true;
          DisplayChoices();
 

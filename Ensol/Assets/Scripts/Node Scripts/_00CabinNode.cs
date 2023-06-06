@@ -16,6 +16,9 @@ public class _00CabinNode : MonoBehaviour
     public GameObject podInteractable;
     public GameObject windowInteractable;
     public GameObject conveyerInteractable;
+    public GameObject podInteractableText;
+    public GameObject windowInteractableText;
+    public GameObject conveyerInteractableText;
     public GameObject plushInteractable;
     
     [Header("Interactable Object Interactors")]
@@ -135,7 +138,7 @@ public class _00CabinNode : MonoBehaviour
             podInteractor.interacted = true;
             // removes highlight material from mesh
             podInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
-            
+            podInteractableText.tag = "Uninteractable";
         }
 
         // Window
@@ -147,7 +150,7 @@ public class _00CabinNode : MonoBehaviour
             windowInteractable.GetComponent<Renderer>().materials[0].SetFloat("_SetAlpha", 0f);
             // disable object in scene
             windowInteractable.SetActive(false);
-
+            windowInteractableText.tag = "Uninteractable";
         }
 
         // Conveyer
@@ -157,6 +160,7 @@ public class _00CabinNode : MonoBehaviour
             conveyerInteractor.interacted = true;
             // removes highlight material from mesh
             conveyerInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            conveyerInteractableText.tag = "Uninteractable";
         }
 
         // Plush

@@ -11,6 +11,7 @@ public class StartGameDialogue : MonoBehaviour
     public bool finishedFading;
     private bool clickedDialogue = false;
     private bool died = false;
+    private float fadeSpeed = 0.5f;
 
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class StartGameDialogue : MonoBehaviour
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
+            fadeSpeed = 0.8f;
             //died = true;
             //print("case2");
         }
@@ -69,7 +71,6 @@ public class StartGameDialogue : MonoBehaviour
         Color objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
         bool fadeToBlack = true;
-        float fadeSpeed = 0.5f;
 
         if(fadeToBlack)
         {

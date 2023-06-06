@@ -52,24 +52,9 @@ public class _04RiverControlNode : MonoBehaviour
     public void Update()
     {
         // if player interacted with river control tower
-        if((PlayerData.controlsHit && water.transform.position.y > endY) || (controlsCollider.enabled == false && water.transform.position.y > endY))
+        if(PlayerData.controlsHit && water.transform.position.y > endY)
         {  
-            // removes highlight material from mesh
-            screen.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
-
-            //turns off waterfalls
-            waterfalls.SetActive(false);
-            riverOn = false;
-            river.stop(STOP_MODE.ALLOWFADEOUT);
-            river.release();
-
-            // moves water down to look like its draining
-            water.transform.position = Vector3.Lerp(water.transform.position, 
-                                       new Vector3(water.transform.position.x, water.transform.position.y - 1, water.transform.position.z), 
-                                       speed * Time.deltaTime);
-
-            // signals to other nodes that controls have been hit
-            PlayerData.controlsHit = true;
+            TurnOffWater();
         }
         // once water is gone, disables water colliders
         if(water.transform.position.y <= endY)
@@ -86,5 +71,24 @@ public class _04RiverControlNode : MonoBehaviour
             CompletedNodes.securityTowerNode = true;
             CompletedNodes.completedNodes[4] = true;
         }
+    }
+
+    public void TurnOffWater(){
+        // removes highlight material from mesh
+        screen.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+
+        //turns off waterfalls
+        waterfalls.SetActive(false);
+        riverOn = false;
+        river.stop(STOP_MODE.ALLOWFADEOUT);
+        river.release();
+
+        // moves water down to look like its draining
+        water.transform.position = Vector3.Lerp(water.transform.position, 
+                                    new Vector3(water.transform.position.x, water.transform.position.y - 1, water.transform.position.z), 
+                                    speed * Time.deltaTime);
+
+        // signals to other nodes that controls have been hit
+        PlayerData.controlsHit = true;
     }
 }
