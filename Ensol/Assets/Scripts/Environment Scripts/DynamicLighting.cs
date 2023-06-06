@@ -19,12 +19,13 @@ public class DynamicLighting : MonoBehaviour
                 completed++;
             }
         }
-        //StartCoroutine(LightChange());
         //Does minus 2 to exclude the cabin/computer node which are always completed
-        Debug.Log((float)(completed - 2) / (float)(CompletedNodes.completedNodes.Length - 2));
         sunlight.color = Color.Lerp(startingColor, endingColor, (float)(completed-2) / (float)(CompletedNodes.completedNodes.Length - 2));
+
+        //StartCoroutine(LightChange());
     }
 
+    //Was used for showing the transition from start to finish
     private IEnumerator LightChange()
     {
         float interpolator = 0;
