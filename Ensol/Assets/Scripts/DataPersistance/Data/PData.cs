@@ -171,18 +171,18 @@ public class PData
 
         firstLoad = new bool[] {
             false, false, true, true, true, true,
-            true, true, true, true, true, false
+            true, true, true, true, true, false, false
         };
 
         completedNodes = new bool[]
         {
             true, false, false, false, false, false,
-            false, false, false, false, false, true
+            false, false, false, false, false, true, true
         };
 
        firstTransition = new bool[] {
             false, true, true, true, true,
-            true, true, true, true, true, true, false
+            true, true, true, true, true, true, false, false
         };
 
         checkpoints = new bool[] {
@@ -191,7 +191,7 @@ public class PData
 
         timeSinceAtNode = new float[] {
             -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1
+            -1, -1, -1, -1, -1, -1, -1
         };
 
         enemiesAliveInNode = new int[] {

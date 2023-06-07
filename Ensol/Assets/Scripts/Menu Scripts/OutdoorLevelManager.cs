@@ -20,7 +20,7 @@ public class OutdoorLevelManager : MonoBehaviour
     void Start()
     {
         node = NodeSelector.selectedNode;
-        print("Selected node is" + node);
+        print("Selected node is " + node);
         Load(node);
     }
 
@@ -29,6 +29,7 @@ public class OutdoorLevelManager : MonoBehaviour
             point.SetActive(false);
         }
         int nodeIndex = node - 1;
+        print("nodeIndex is " + nodeIndex);
         if(nodeIndex >= 0 && nodeIndex < nodePrefabs.Length) {
             levelLocations[nodeIndex].SetActive(true);
             Instantiate(nodePrefabs[nodeIndex], levelLocations[nodeIndex].transform);
