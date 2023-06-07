@@ -16,6 +16,7 @@ public class _02RiverNode : MonoBehaviour
     
     [Header("Interactable Object Interactors")]
     public DialogueTrigger footstepsInteractor;
+    public GameObject footstepsDialogue;
 
     [Header("Water Variables")]
     public GameObject water;
@@ -46,6 +47,7 @@ public class _02RiverNode : MonoBehaviour
         if(_04RiverControlNode.riverOn == true)
         {
             river.start();
+            footstepsDialogue.SetActive(false);
         }
         CompletedNodes.firstLoad[2] = false;
 

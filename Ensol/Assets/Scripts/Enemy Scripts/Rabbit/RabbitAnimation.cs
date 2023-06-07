@@ -104,4 +104,10 @@ public class RabbitAnimation : MonoBehaviour
         attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
     }
 
+    void OnDisable()
+    {
+        attackSound.stop(STOP_MODE.IMMEDIATE);
+        attackSound.release();
+    }
+
 }
