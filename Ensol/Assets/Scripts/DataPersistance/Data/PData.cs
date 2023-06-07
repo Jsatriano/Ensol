@@ -191,7 +191,7 @@ public class PData
 
         timeSinceAtNode = new float[] {
             -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1
+            -1, -1, -1, -1, -1, -1, -1
         };
 
         enemiesAliveInNode = new int[] {
