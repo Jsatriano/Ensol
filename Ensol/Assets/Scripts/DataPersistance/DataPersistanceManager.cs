@@ -10,6 +10,7 @@ public class DataPersistanceManager : MonoBehaviour
 {
   [Header("File Storage Config")]
   [SerializeField] private string fileName;
+  [SerializeField] private string skippingFileName;
 
 
   private PData playerData;
@@ -19,6 +20,7 @@ public class DataPersistanceManager : MonoBehaviour
   private Story story;
 
   private FileDataHandler dataHandler;
+  private FileDataHandler dataSkipHandler;
 
   public static DataPersistanceManager instance { get; private set; }
 
@@ -35,6 +37,7 @@ public class DataPersistanceManager : MonoBehaviour
   private void Start()
   {
     this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, globals);
+    this.dataSkipHandler = new FileDataHandler(Application.dataPath+"/TestingSaveData", skippingFileName, globals);
     this.dataPersistenceObjects = FindAllDataPersistenceObjects();
     LoadGame();
   }
@@ -69,6 +72,25 @@ public class DataPersistanceManager : MonoBehaviour
     this.playerData = dataHandler.Load();
     Debug.Log(playerData);
     dataHandler.LoadStory();
+    if (this.playerData == null)
+    {
+        Debug.Log("No Data was found. Initializing data to defaults");
+        NewGame();
+    }
+
+    foreach (IDataPersistance dataPersistenceObj in dataPersistenceObjects)
+    {
+        dataPersistenceObj.LoadData(playerData);
+        // dataPersistenceObj.LoadStory(globals);
+    }
+    // Debug.Log("Is loading working because ngworked is now: " + PlayerData.NGworked);
+  }
+
+   public void LoadSkippingGame()
+  {
+    this.playerData = dataSkipHandler.Load();
+    Debug.Log(playerData);
+    dataSkipHandler.LoadSkippedStory();
     if (this.playerData == null)
     {
         Debug.Log("No Data was found. Initializing data to defaults");
