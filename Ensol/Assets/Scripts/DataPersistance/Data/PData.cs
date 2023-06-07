@@ -57,6 +57,7 @@ public class PData
     //Security Tower Node Progression
     public bool birdTriggered;
     public bool disableBird;
+    public bool hasTransponder;
 
     public int NGworked;
     
@@ -146,6 +147,7 @@ public class PData
         birdTriggered = false;
         disableBird = false;
         NGworked = 0;
+        hasTransponder = false;
 
         // Node 1 variables
         weaponPickedUp = false;

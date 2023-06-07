@@ -26,7 +26,9 @@ public class _08BirdNode : MonoBehaviour
             spawningBird = true;
             StartCoroutine(SpawnDeadBird());
         }
-        if(activeDeadBird != null) {
+        if(activeDeadBird != null && !PlayerData.hasTransponder) {
+            Debug.Log("Bird active: " + activeDeadBird.activeInHierarchy);
+            Debug.Log("Has Trans: " + PlayerData.hasTransponder);
             if(!activeDeadBird.activeInHierarchy && !PlayerData.hasTransponder){ 
                 PlayerData.hasTransponder = true;
                 transferCube.SetActive(true);
@@ -35,6 +37,10 @@ public class _08BirdNode : MonoBehaviour
                 transferCube.SetActive(false);
             }
             
+        }
+        else
+        {
+            transferCube.SetActive(true);
         }
     }
 

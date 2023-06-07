@@ -6,13 +6,17 @@ public class SpawnPoint : MonoBehaviour
 {
     public static bool First = true;
     public static bool Second = true;
-    public GameObject spawnpoint1;
-    public GameObject spawnpoint2;
-    public GameObject spawnpoint3;
+    public GameObject spawnpoint1 = null;
+    public GameObject spawnpoint2 = null;
+    public GameObject spawnpoint3 = null;
     // Start is called before the first frame update
     void Awake()
     {
-        if (First == true) 
+        if (spawnpoint2 == null && spawnpoint3 == null)
+        {
+            spawnpoint1.SetActive(true);
+        }
+        else if (First == true) 
         {
             spawnpoint1.SetActive(true);
             spawnpoint2.SetActive(false);

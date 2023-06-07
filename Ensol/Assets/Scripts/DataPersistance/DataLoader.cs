@@ -61,6 +61,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         PlayerData.birdTriggered = data.birdTriggered;
         PlayerData.disableBird = data.disableBird;
+        PlayerData.hasTransponder = data.hasTransponder;
 
 
         // Node 1 variables
@@ -149,6 +150,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
+        data.hasTransponder = PlayerData.hasTransponder;
 
 
 
@@ -178,6 +180,9 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.completedNodes = CompletedNodes.completedNodes;
 
         data.firstTransition = CompletedNodes.firstTransition;
+
+        data.timeSinceAtNode = PlayerData.timeSinceAtNode;
+        data.enemiesAliveInNode = PlayerData.enemiesAliveInNode;
     }
 
     public void SaveStory(ref TextAsset globals)
