@@ -27,7 +27,6 @@ public class FileDataHandler
     {
 
         string fullPath = Sys.Path.Combine(dataDirPath, dataFileName);
-        Debug.Log(fullPath);
 
         PData loadedData = null;
 
@@ -46,8 +45,6 @@ public class FileDataHandler
                 }
 
                 loadedData = JsonUtility.FromJson<PData>(dataToLoad);
-                Debug.Log("checking data");
-                Debug.Log(loadedData);
 
             }
             catch (Exception e)

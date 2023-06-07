@@ -98,8 +98,9 @@ public class Interaction : MonoBehaviour
                     interactTarget = collider.gameObject.transform;
                     player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
                 }
-                player.state = PlayerController.State.INTERACTIONANIMATION;
+                player.state = PlayerController.State.DIALOGUE;
                 collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
+                collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
             }
             else if(collider.gameObject.tag == "Checkpoint" && collider.gameObject.GetComponent<Checkpoint>().active){
                 player.state = PlayerController.State.DIALOGUE;

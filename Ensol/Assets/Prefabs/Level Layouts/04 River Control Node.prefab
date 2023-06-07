@@ -44371,9 +44371,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
       propertyPath: m_Name
       value: Water Treatment Building
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800250516343163423, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
@@ -44382,6 +44390,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
   m_PrefabInstance: {fileID: 508312033116479027}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2008490796048675394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7146521406498821007, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
+  m_PrefabInstance: {fileID: 508312033116479027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &620727761848351709
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008490796048675394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.104363896, y: 0.0490049, z: 0.083400935}
+  m_Center: {x: 0.024065217, y: -0.06252959, z: 0.04717293}
+--- !u!1 &2436902715478758444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2800250516343163423, guid: 8f969b398b936b74094d86360c6e85f0, type: 3}
+  m_PrefabInstance: {fileID: 508312033116479027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2909216004261492846
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2436902715478758444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.029457057
+  m_Height: 0.09000001
+  m_Direction: 1
+  m_Center: {x: -0.032, y: -0.027, z: 0.016202241}
 --- !u!1001 &734486478073172266
 PrefabInstance:
   m_ObjectHideFlags: 0

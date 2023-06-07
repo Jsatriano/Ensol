@@ -88,7 +88,6 @@ public class DataPersistanceManager : MonoBehaviour
 
    public void LoadSkippingGame()
   {
-    print("trying to load skip");
     this.playerData = dataSkipHandler.Load();
     Debug.Log(playerData);
     dataSkipHandler.LoadSkippedStory();

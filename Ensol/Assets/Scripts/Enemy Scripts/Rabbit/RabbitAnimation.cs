@@ -62,6 +62,8 @@ public class RabbitAnimation : MonoBehaviour
                 {
                     animController.SetBool("Leaping", false);
                     animController.SetBool("Dying", true);
+                    attackSound.stop(STOP_MODE.IMMEDIATE);
+                    attackSound.release();
                     state = State.DYING;
                     return;
                 }
@@ -69,8 +71,6 @@ public class RabbitAnimation : MonoBehaviour
 
             case State.DYING:
                 //Do nothing once rabbit is dead
-                attackSound.stop(STOP_MODE.IMMEDIATE);
-                attackSound.release();
                 return;
         }
     }
