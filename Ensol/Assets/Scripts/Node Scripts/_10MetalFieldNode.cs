@@ -8,6 +8,8 @@ public class _10MetalFieldNode : MonoBehaviour
     public PathCollider exitOnTriggerEnterEvent;
     private bool pathToComputer = false;
 
+
+    [Header("Teslas")]
     public GameObject teslaCoil01;
     public GameObject teslaCoil02;
     public GameObject teslaCoil03;
