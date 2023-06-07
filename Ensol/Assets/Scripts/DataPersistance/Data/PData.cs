@@ -177,7 +177,7 @@ public class PData
         completedNodes = new bool[]
         {
             true, false, false, false, false, false,
-            false, false, false, false, false, true
+            false, false, false, false, false, true, true
         };
 
        firstTransition = new bool[] {

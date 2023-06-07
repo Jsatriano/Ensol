@@ -20,7 +20,7 @@ public class CompletedNodes : MonoBehaviour
     public static bool[] completedNodes = new bool[]
     {
         true, false, false, false, false, false,
-        false, false, false, false, false, true
+        false, false, false, false, false, true, true
     };
 
     public static bool[] firstTransition = new bool[] {
@@ -65,6 +65,7 @@ public class CompletedNodes : MonoBehaviour
     9 = power grid
     10 = metal field
     11 = computer
+    12 = computer interior
     */
 
     //Function called for just looking at the map
