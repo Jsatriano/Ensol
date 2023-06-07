@@ -88,12 +88,13 @@ public class DataPersistanceManager : MonoBehaviour
 
    public void LoadSkippingGame()
   {
+    print("trying to load skip");
     this.playerData = dataSkipHandler.Load();
     Debug.Log(playerData);
     dataSkipHandler.LoadSkippedStory();
     if (this.playerData == null)
     {
-        Debug.Log("No Data was found. Initializing data to defaults");
+        Debug.Log("should not be in here");
         NewGame();
     }
 
