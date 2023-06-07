@@ -9,12 +9,12 @@ public class CompletedNodes : MonoBehaviour
 
     public static bool cabinNode  = true, deerNode  = true, riverNode  = false, gateNode  = false, riverControlNode  = false,
                 bearNode  = false, brokenMachineNode  = false, securityTowerNode  = false, birdNode  = false,
-                powerGridNode  = false, metalFieldNode  = false, computerNode = false;
+                powerGridNode  = false, metalFieldNode  = false, computerNode = false, computerInterior = false;
 
     public static bool[] nodes;            
     public static bool[] firstLoad = new bool[] {
         false, false, true, true, true, true,
-        true, true, true, true, true, false
+        true, true, true, true, true, false, false
     };
 
     public static bool[] completedNodes = new bool[]
@@ -25,7 +25,7 @@ public class CompletedNodes : MonoBehaviour
 
     public static bool[] firstTransition = new bool[] {
         false, true, true, true, true,
-        true, true, true, true, true, true, false
+        true, true, true, true, true, true, false, false
     };
 
     public static bool[] checkpoints = new bool[4];
@@ -89,7 +89,7 @@ public class CompletedNodes : MonoBehaviour
 
     private void PreDraw()
     {
-        nodes = new bool[12];
+        nodes = new bool[13];
         nodes[0] = cabinNode;
         nodes[1] = deerNode;
         nodes[2] = riverNode;
@@ -102,6 +102,7 @@ public class CompletedNodes : MonoBehaviour
         nodes[9] = powerGridNode;
         nodes[10] = metalFieldNode;
         nodes[11] = computerNode;
+        nodes[12] = computerInterior;
 
         //UpdateMapIcons();
         DrawMapIcons(PlayerData.prevNode - 1);
@@ -237,6 +238,7 @@ public class CompletedNodes : MonoBehaviour
 
     private IEnumerator ChangeCircleLocation(int startNode, int endNode, float waitTime)
     {
+        print(endNode);
         //Position circle on start node
         circleSlider.fillAmount = 1;
         youAreHereCircle.transform.position = mapButton[startNode].transform.position;

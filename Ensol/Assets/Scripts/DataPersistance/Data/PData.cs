@@ -171,7 +171,7 @@ public class PData
 
         firstLoad = new bool[] {
             false, false, true, true, true, true,
-            true, true, true, true, true, false
+            true, true, true, true, true, false, false
         };
 
         completedNodes = new bool[]
@@ -182,7 +182,7 @@ public class PData
 
        firstTransition = new bool[] {
             false, true, true, true, true,
-            true, true, true, true, true, true, false
+            true, true, true, true, true, true, false, false
         };
 
         checkpoints = new bool[] {
