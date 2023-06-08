@@ -45,7 +45,7 @@ public class WebShot : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-        else
+        else if (other.isTrigger == false)
         {
             activeDustVFX = Instantiate(dustVFX, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(DeleteWeb());

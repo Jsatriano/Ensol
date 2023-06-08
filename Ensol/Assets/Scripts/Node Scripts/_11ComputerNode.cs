@@ -14,6 +14,7 @@ public class _11ComputerNode : MonoBehaviour
 
     private void Start()
     {
+        SpawnPoint.First = true;
         CompletedNodes.prevNode = 11;
         redLight.SetActive(false);
         enemyWave.SetActive(false);

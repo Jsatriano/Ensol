@@ -5,7 +5,8 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     public static bool First = true;
-    public static bool Second = true;
+    public static bool Second = false;
+    public static bool Mapped = false;
     public GameObject spawnpoint1 = null;
     public GameObject spawnpoint2 = null;
     public GameObject spawnpoint3 = null;

@@ -33,6 +33,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.shownBroomText = data.shownBroomText;
         PlayerData.shownSolarText = data.shownSolarText;
         PlayerData.shownThrowText = data.shownThrowText;
+        PlayerData.shownMapText   = data.shownMapText;
 
         //Player Stats (used for tutorial text)
         PlayerData.lightAttacks = data.lightAttacks;
@@ -62,6 +63,11 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.birdTriggered = data.birdTriggered;
         PlayerData.disableBird = data.disableBird;
         PlayerData.hasTransponder = data.hasTransponder;
+
+        //Power Grid Node Progression
+        PlayerData.firstGenHit = data.firstGenHit;
+        PlayerData.secondGenHit = data.secondGenHit;
+        PlayerData.thirdGenHit = data.thirdGenHit;
 
 
         // Node 1 variables

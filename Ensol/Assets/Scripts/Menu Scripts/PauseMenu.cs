@@ -244,6 +244,7 @@ public class PauseMenu : MonoBehaviour
             SceneSwitch sceneSwitcher = transferCube.GetComponent<SceneSwitch>();
             if (sceneSwitcher)
             {
+                SpawnPoint.Mapped = true;
                 sceneSwitcher.SetTimeAtNode();
                 sceneSwitcher.SetEnemiesDefeated();
             }

@@ -27,21 +27,34 @@ public class _09PowerGridNode : MonoBehaviour
 
     private void Awake()
     {
-        generator1 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator1.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel01.gameObject));
-        generator2 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator2.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel02.gameObject));
-        generator3 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator3.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel03.gameObject));
+        SpawnPoint.First = true;
     }
 
     private void Start()
     {
         CompletedNodes.prevNode = 9;
         CompletedNodes.firstLoad[9] = false;
-        generator1.start();
-        generator2.start();
-        generator3.start();
+        if (!PlayerData.firstGenHit){
+            generator1 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+            generator1.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel01.gameObject));
+            generator1.start();
+        } else {
+            genPanel01.enabled = false;
+        }
+        if (!PlayerData.secondGenHit){
+            generator2 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+            generator2.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel02.gameObject));
+            generator2.start();
+        } else {
+            genPanel02.enabled = false;
+        }
+        if (!PlayerData.thirdGenHit){
+            generator3 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+            generator3.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel03.gameObject));
+            generator3.start();
+        } else {
+            genPanel03.enabled = false;
+        }
     }
 
     public void Update()

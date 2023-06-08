@@ -15,6 +15,7 @@ public class _08BirdNode : MonoBehaviour
     
     private void Start()
     {
+        SpawnPoint.First = true;
         CompletedNodes.prevNode = 8;
         if(PlayerData.hasTransponder) {
             bird.SetActive(false);

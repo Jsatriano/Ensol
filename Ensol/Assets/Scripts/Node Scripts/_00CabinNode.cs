@@ -42,6 +42,34 @@ public class _00CabinNode : MonoBehaviour
     private PlayerController combatController = null;
     public GameObject doorMeower;
     
+    private void Awake() 
+    {
+        if (PlayerData.currHP == -1)
+        {
+            SpawnPoint.First = true;
+            SpawnPoint.Second = false;
+        }
+        else if (SpawnPoint.Mapped)
+        {
+            SpawnPoint.First = true;
+            SpawnPoint.Second = false;
+            SpawnPoint.Mapped = false;
+        }
+        else if (CompletedNodes.prevNode == 1)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = true;
+        }
+        else if (CompletedNodes.prevNode == 3)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = false;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+    }
 
     private void Start()
     {
