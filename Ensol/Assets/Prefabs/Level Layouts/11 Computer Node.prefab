@@ -1718,7 +1718,7 @@ GameObject:
   - component: {fileID: 1838766732485316825}
   - component: {fileID: 5715633318520410681}
   - component: {fileID: 5590912092734744734}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Terrain
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -9529,7 +9529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 325.4
+      value: 321.25
       objectReference: {fileID: 0}
     - target: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9570,6 +9570,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 908515907770323951, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
   m_PrefabInstance: {fileID: 3257373457386733928}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4753143410116466996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7836840978457139292, guid: c918536fa77895a448c1b932e4099e4c, type: 3}
+  m_PrefabInstance: {fileID: 3257373457386733928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &985488800758672180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4753143410116466996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0555270fab60a3b42b033101fff4502e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killbox: {fileID: 7251469185974516334}
 --- !u!1001 &3348407613285440420
 PrefabInstance:
   m_ObjectHideFlags: 0
