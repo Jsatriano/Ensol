@@ -29,10 +29,12 @@ public class _04RiverControlNode : MonoBehaviour
         if (CompletedNodes.prevNode == 3)
         {
             SpawnPoint.First = true;
+            SpawnPoint.Second = false;
         }
         else if (CompletedNodes.prevNode == 7)
         {
             SpawnPoint.First = false;
+            SpawnPoint.Second = true;
         }
         else 
         {

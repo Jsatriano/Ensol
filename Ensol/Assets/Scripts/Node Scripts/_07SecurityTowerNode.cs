@@ -32,10 +32,12 @@ public class _07SecurityTowerNode : MonoBehaviour
         if (CompletedNodes.prevNode == 4)
         {
             SpawnPoint.First = true;
+            SpawnPoint.Second = false;
         } 
         else if (CompletedNodes.prevNode == 6)
         {
             SpawnPoint.First = false;
+            SpawnPoint.Second = true;
         }
         else if (CompletedNodes.prevNode == 9)
         {
