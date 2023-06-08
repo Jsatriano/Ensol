@@ -19,6 +19,7 @@ public class JunkBall : MonoBehaviour
     private Rigidbody ballRB;      //Rigidbody of the junk ball
     public GameObject ballModel;   //Visual model for the junk ball
     private Vector3 bearPos;
+    private bool explodedAudio = false;
 
     private void Start()
     {
@@ -106,6 +107,10 @@ public class JunkBall : MonoBehaviour
     //Explodes the ball
     private void Explode()
     {     
+        if (explodedAudio == false){
+            explodedAudio = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position); 
+        }
         Destroy(junkCollider);
         ballModel.SetActive(false);
         explosionTF.gameObject.SetActive(true);
@@ -113,7 +118,6 @@ public class JunkBall : MonoBehaviour
         interpolater   = 0;
         explosionTimer = 0;
         isExploding    = true;    
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position); 
     }
 }
 

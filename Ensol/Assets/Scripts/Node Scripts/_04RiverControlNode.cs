@@ -15,6 +15,7 @@ public class _04RiverControlNode : MonoBehaviour
     [Header("Control Tower Variables")]
     public Collider controlsCollider;
     public GameObject screen;
+    public GameObject footstepsDialogue;
 
     [Header("Water Variables")]
     public GameObject water;
@@ -41,6 +42,11 @@ public class _04RiverControlNode : MonoBehaviour
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.prevNode = 4;
+
+        if (PlayerData.controlsHit == true){
+            footstepsDialogue.SetActive(false);
+        }
+
     }
 
     private void Start()
