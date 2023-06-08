@@ -283,6 +283,11 @@ public class CompletedNodes : MonoBehaviour
         circleSlider.fillAmount = 1;
     }
 
+    public void LoadNode()
+    {
+        nodeSelector.OpenScene();
+    }
+
     private IEnumerator LoadNewNode(float waitTime)
     {
         yield return new WaitForSecondsRealtime(waitTime);

@@ -182,6 +182,11 @@ public class PauseMenu : MonoBehaviour
         completedNodes.NodeTransferMap();
     }
 
+    public void InstantlyTransferNode()
+    {
+        completedNodes.LoadNode();
+    }
+
     public void PauseUnpause()
     {
         if(!pauseMenu.activeInHierarchy && !playtestMenu.activeInHierarchy)

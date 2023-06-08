@@ -61,8 +61,16 @@ public class SceneSwitch : MonoBehaviour
         SetEnemiesDefeated();
         SetTimeAtNode();
         PlayerData.prevNode = PlayerData.currentNode;
-        PlayerData.currentNode = nodeDestination;       
-        pauseMenu.OpenMapForNodeTransfer();      
+        PlayerData.currentNode = nodeDestination;   
+        //no map cutscene for entering computer interior
+        if (nodeDestination == 13)
+        {
+            pauseMenu.InstantlyTransferNode();
+        }
+        else
+        {
+            pauseMenu.OpenMapForNodeTransfer();      
+        }
     }
 
     public void SetTimeAtNode()
