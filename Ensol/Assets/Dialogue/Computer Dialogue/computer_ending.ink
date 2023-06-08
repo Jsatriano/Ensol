@@ -32,14 +32,16 @@ I found the file for the cloning tubes and the panel that hides the memory resto
 
 ===ending_choices===
 *[Shut down the system]
-~endingOne()
 -> Ending_shut_down
 *[Leave it running]
-~endingTwo()
 ->Ending_erase_memories
 
 ===Ending_shut_down===
+You begin the process...
+~endingOne()
 ->END
 
 ===Ending_erase_memories===
+You make your way back to the cabin...
+~endingTwo()
 ->END
