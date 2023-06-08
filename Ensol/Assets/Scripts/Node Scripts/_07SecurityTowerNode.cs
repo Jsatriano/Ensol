@@ -15,6 +15,7 @@ public class _07SecurityTowerNode : MonoBehaviour
     public Transform birdEndPoint;
     public GameObject gun;
     public Collider gunTrigger;
+    public GameObject player;
 
     // timer trigger
     private bool timerTrigger = false;
@@ -46,6 +47,8 @@ public class _07SecurityTowerNode : MonoBehaviour
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
         CompletedNodes.prevNode = 7;
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
@@ -62,7 +65,7 @@ public class _07SecurityTowerNode : MonoBehaviour
             //For the beep beep
             if (timerTrigger == false)
             {
-                StartCoroutine(BeepBeep());
+                StartCoroutine(BeepBeep(bird));
                 StartCoroutine(Squawk());
                 timerTrigger = true;
             }
@@ -77,6 +80,12 @@ public class _07SecurityTowerNode : MonoBehaviour
 
                 //disables bird for next visits to this node
                 PlayerData.disableBird = true;
+            }
+        } else if (PlayerData.birdTriggered == true && PlayerData.hasTransponder){
+            if (timerTrigger == false)
+            {
+                StartCoroutine(BeepBeep(player));
+                timerTrigger = true;
             }
         }
 
@@ -106,13 +115,14 @@ public class _07SecurityTowerNode : MonoBehaviour
         
     }
 
-    public IEnumerator BeepBeep()
+    public IEnumerator BeepBeep(GameObject beepPosition)
     {
         yield return new WaitForSeconds(1.2f);
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, bird.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, beepPosition.transform.position);
         //boopboop here
         yield return new WaitForSeconds(1f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.boopboop, gun.transform.position);
+        PlayerData.birdTriggered = false;
     }
 
     public IEnumerator Squawk()

@@ -54,17 +54,17 @@ public class Footsteps : MonoBehaviour
         if (other.tag == "Floor"){
             if (touchingMetal > 0){
                 if (footType == 0){
-                    print("playerMetalStep");
+                    //print("playerMetalStep");
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.metalMove, this.transform.position);
                 } else {
-                    print("deerMetalStep");
+                    //print("deerMetalStep");
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.deerMoveMetal, this.transform.position);
                 }
             } else if (touchingDirt > 0){
-                print("playerDirtStep");
+                //print("playerDirtStep");
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.dirtMove, this.transform.position);
             } else if (touchingStone > 0){
-                print("playerStoneStep");
+                //print("playerStoneStep");
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.stoneMove, this.transform.position);
             } else {
                 RuntimeManager.PlayOneShot(footstep[footType], this.transform.position);

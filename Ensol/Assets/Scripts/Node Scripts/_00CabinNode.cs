@@ -47,6 +47,11 @@ public class _00CabinNode : MonoBehaviour
     {
         CompletedNodes.prevNode = 0;
 
+        //make sure player doesnt get hardlocked from health
+        if (PlayerData.currHP < 1){
+            PlayerData.currHP = 10;
+        }
+
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
         {

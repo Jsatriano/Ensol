@@ -29,6 +29,7 @@ public class PData
     public bool shownBroomText;
     public bool shownSolarText;
     public bool shownThrowText;
+    public bool shownMapText;
 
     //Player Stats (used for tutorial text)
     public float lightAttacks;
@@ -58,6 +59,11 @@ public class PData
     public bool birdTriggered;
     public bool disableBird;
     public bool hasTransponder;
+
+    //Power Grid Node Progression
+    public bool firstGenHit;
+    public bool secondGenHit;
+    public bool thirdGenHit;
 
     public int NGworked;
     
@@ -118,6 +124,7 @@ public class PData
         shownBroomText = false;
         shownSolarText = false;
         shownThrowText = false;
+        shownMapText   = false;
 
         //Player Stats (used for tutorial text)
         lightAttacks = 0;
@@ -148,6 +155,11 @@ public class PData
         disableBird = false;
         NGworked = 0;
         hasTransponder = false;
+
+        //Power Grid Node Progression
+        firstGenHit = false;
+        secondGenHit = false;
+        thirdGenHit = false;
 
         // Node 1 variables
         weaponPickedUp = false;

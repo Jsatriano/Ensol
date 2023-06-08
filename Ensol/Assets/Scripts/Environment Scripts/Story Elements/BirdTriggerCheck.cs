@@ -7,6 +7,8 @@ public class BirdTriggerCheck : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        PlayerData.birdTriggered = true;
+        if (col.tag == "Player"){
+            PlayerData.birdTriggered = true;
+        }
     }
 }

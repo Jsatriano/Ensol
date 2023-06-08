@@ -15,7 +15,7 @@ public class _04RiverControlNode : MonoBehaviour
     [Header("Control Tower Variables")]
     public Collider controlsCollider;
     public GameObject screen;
-    public GameObject footstepsDialogue;
+    public GameObject compDialogue;
 
     [Header("Water Variables")]
     public GameObject water;
@@ -26,9 +26,6 @@ public class _04RiverControlNode : MonoBehaviour
 
     private void Awake() 
     {
-        river = AudioManager.instance.CreateEventInstance(FMODEvents.instance.envRiver);
-        river.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(water.gameObject));
-
         if (CompletedNodes.prevNode == 3)
         {
             SpawnPoint.First = true;
@@ -44,14 +41,18 @@ public class _04RiverControlNode : MonoBehaviour
         CompletedNodes.prevNode = 4;
 
         if (PlayerData.controlsHit == true){
-            footstepsDialogue.SetActive(false);
+            compDialogue.SetActive(false);
+            // disables water colliders
+            foreach (GameObject waterBound in waterBounds)
+            {
+                waterBound.SetActive(false);
+            }
         }
 
     }
 
     private void Start()
     {
-        river.start();
         CompletedNodes.firstLoad[4] = false;
     }
 
@@ -86,8 +87,6 @@ public class _04RiverControlNode : MonoBehaviour
         //turns off waterfalls
         waterfalls.SetActive(false);
         riverOn = false;
-        river.stop(STOP_MODE.ALLOWFADEOUT);
-        river.release();
 
         // moves water down to look like its draining
         water.transform.position = Vector3.Lerp(water.transform.position, 

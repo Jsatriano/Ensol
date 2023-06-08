@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mouseFollower;
     public GameObject pauseMenu;
     public Animator animator;
+    public GameObject birdHead;
 
     [Header("VFX & UI References")]
     public GameObject[] noElectricLightSlashVFX;
@@ -165,6 +166,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("hasWeapon", true);
         }
 
+        if(PlayerData.hasTransponder && PlayerData.currentlyHasBroom){
+            birdHead.SetActive(true);
+        } else {
+            birdHead.SetActive(false);
+        }
+
         backpackVialMaterial = backpack.GetComponent<Renderer>().materials[0];
 
         if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
@@ -177,6 +184,7 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            birdHead.SetActive(false);
             hasWeapon = false;
             lightSlashVFX = noElectricLightSlashVFX;
             heavySlashVFX = noElectricHeavySlashVFX;
@@ -190,6 +198,7 @@ public class PlayerController : MonoBehaviour
             backpack.SetActive(false);
             FX1.SetActive(false);
             FX2.SetActive(false);
+            birdHead.SetActive(false);
             hasWeapon = true;
             lightSlashVFX = noElectricLightSlashVFX;
             heavySlashVFX = noElectricHeavySlashVFX;
@@ -1177,6 +1186,9 @@ public class PlayerController : MonoBehaviour
         FX2.SetActive(true);
         lightSlashVFX = electricLightSlashVFX;
         heavySlashVFX = electricHeavySlashVFX;
+        if (PlayerData.hasTransponder){
+            birdHead.SetActive(true);
+        }
     }
 
     public void TestPickedUpSolarUpgrade()
@@ -1194,6 +1206,11 @@ public class PlayerController : MonoBehaviour
         FX2.SetActive(true);
         lightSlashVFX = electricLightSlashVFX;
         heavySlashVFX = electricHeavySlashVFX;
+    }
+
+    public void PickedUpTransponder()
+    {
+        birdHead.SetActive(true);
     }
 
     public void RemoveThrowUpgrade()
