@@ -10,6 +10,7 @@ public class WebShotManager : MonoBehaviour
     private float maxPrediction;
     private float debuffLength;
     private float speedDebuff;
+    private float damage;
 
     //References
     private SpiderStats spiderStats;
@@ -33,6 +34,7 @@ public class WebShotManager : MonoBehaviour
         maxPrediction = spiderStats.webMaxPrediction;
         debuffLength = spiderStats.webShotDebuffLength;
         speedDebuff = spiderStats.webShotDebuff;
+        damage = spiderStats.webShotDamage;
     }
 
     public void StartWebShotAttack()
@@ -70,6 +72,7 @@ public class WebShotManager : MonoBehaviour
         webShotScript.spiderTF = enemyTF;
         webShotScript.debuffLength = debuffLength;
         webShotScript.speedDebuff = speedDebuff;
+        webShotScript.webDamage = damage;
         webShot.velocity = data.initialVelocity;
         webShot.AddTorque(webShot.transform.right * rotationSpeed, ForceMode.Impulse);
     }

@@ -51,6 +51,10 @@ public class SpiderAnimation : MonoBehaviour
         }
         ResetAllTriggers();
         string anim = (string)spiderBT.root.GetData("animation");
+        if (anim == null)
+        {
+            return;
+        }
         switch (state)
         {
             case State.IDLE:
@@ -64,6 +68,7 @@ public class SpiderAnimation : MonoBehaviour
                 {
                     animController.SetTrigger("movingBackward");
                     state = State.MOVING_BACKWARD;
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderAlerted, this.transform.position);
                 }
                 break;
 

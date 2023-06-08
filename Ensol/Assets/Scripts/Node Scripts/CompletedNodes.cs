@@ -74,6 +74,7 @@ public class CompletedNodes : MonoBehaviour
         homeText.SetActive(true);
         cabinButton.interactable = true;
         PreDraw();
+        PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
         AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapOpen, this.transform.position);
     }
@@ -273,6 +274,13 @@ public class CompletedNodes : MonoBehaviour
         }
 
         StartCoroutine(LoadNewNode(0.5f));
+    }
+
+    private void PlaceCircle(int node)
+    {
+        youAreHereCircle.transform.position = mapButton[node].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[node] * Vector3.one;
+        circleSlider.fillAmount = 1;
     }
 
     private IEnumerator LoadNewNode(float waitTime)

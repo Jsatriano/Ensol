@@ -28,6 +28,7 @@ public class SpiderWebDeploy : Node
         {
             ClearData("webEnded");
             ClearData("attacking");
+            ClearData("animation");
             state = NodeState.SUCCESS;
             return state;
         }

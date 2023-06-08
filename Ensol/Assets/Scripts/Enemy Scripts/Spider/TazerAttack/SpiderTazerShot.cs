@@ -34,6 +34,7 @@ public class SpiderTazerShot : Node
         {
             ClearData("tazerEnded");
             ClearData("attacking");
+            ClearData("animation");
             state = NodeState.SUCCESS;
             return state;
         }
