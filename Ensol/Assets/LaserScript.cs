@@ -29,6 +29,7 @@ public class LaserScript : MonoBehaviour
                 laserLine.enabled = false;
             }
             if(PlayerData.hasShield) {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
                 PlayerData.hasShield = false;
             }
             if (!fired){

@@ -8,6 +8,8 @@ public class TeslaCoilKill : MonoBehaviour
     {
         if(col.tag == "Player")
         {
+            PlayerData.hasShield = false;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, damageVFXLocation.transform.position);
             PlayerData.currHP = 0;
         }
     }
