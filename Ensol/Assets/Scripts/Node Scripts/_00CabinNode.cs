@@ -44,7 +44,7 @@ public class _00CabinNode : MonoBehaviour
     
     private void Awake() 
     {
-        if (PlayerData.currHP == -1)
+        if (PlayerData.diedToCrackDeer && PlayerData.currentlyHasBroom == false)
         {
             SpawnPoint.First = true;
             SpawnPoint.Second = false;
