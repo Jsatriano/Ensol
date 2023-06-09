@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     private int NGworked;
     [SerializeField] private OptionsMenu optionsMenu;
     [SerializeField] private List<GameObject> catModeObjects;
-
+    [HideInInspector] public bool doorBarred = false;
     
     //Input Read Variables
     private Vector3 direction;
@@ -236,16 +236,16 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(Input.GetButtonDown("SpecialAttack") && allowInput) {
+        if(Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(Input.GetButtonDown("LightAttack") && allowInput) {
+        if(Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(Input.GetButtonDown("HeavyAttack") && allowInput) {
+        if(Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
-        if(Input.GetButtonDown("Shield") && allowInput) {
+        if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
             shieldInput = true;
         }
         if(Input.GetButtonDown("Cancel") && allowInput) {
@@ -682,6 +682,18 @@ public class PlayerController : MonoBehaviour
     //ANIMATION EVENTS
 
     //Generic Anim Events
+
+    private void BarDoor() {
+        doorBarred = true;
+        _12ComputerInterior.doorBarred = true;
+        weapon.SetActive(false);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+        hasWeapon = false;
+
+    }
 
     private void LookAtMouse() {
         if(!controller) {
