@@ -17,6 +17,7 @@ public class StartGameDialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        finishedFading = true;
         if(blackOutSquare == null){
             blackOutSquare = GameObject.Find("Black Out Screen"); // Gets black out square game object to pass it through scenes
         }
@@ -41,7 +42,7 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     void Update(){
-        if(PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
+        if(PlayerData.startedGame == true && finishedFading == false) 
         {
             clickedDialogue = true;
             StartCoroutine(ReverseFadeBlackOutSquare());
