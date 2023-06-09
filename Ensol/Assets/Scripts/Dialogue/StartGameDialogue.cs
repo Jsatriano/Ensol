@@ -9,6 +9,7 @@ public class StartGameDialogue : MonoBehaviour
     public DialogueTrigger dialogueTrigger;
     public GameObject blackOutSquare;
     public bool finishedFading;
+    public static bool clickedDialogue = false;
     private bool died = false;
     private float fadeSpeed = 0.5f;
 
@@ -29,7 +30,7 @@ public class StartGameDialogue : MonoBehaviour
             //print("case1");
         }
         //check if player is respawning after a death
-        if(PlayerData.startedGame == true && PlayerData.currentlyHasBroom == false && PlayerData.clickedStartDialogue == true){
+        if(PlayerData.diedToCrackDeer == true && PlayerData.currentlyHasBroom == false){
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
@@ -40,9 +41,9 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     void Update(){
-        if(PlayerData.startedGame == true && finishedFading == false && PlayerData.clickedStartDialogue == false) 
+        if(PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
         {
-            PlayerData.clickedStartDialogue = true;
+            clickedDialogue = true;
             StartCoroutine(ReverseFadeBlackOutSquare());
             //print("resolution1");
         } /*else if (finishedFading == false && died == true){

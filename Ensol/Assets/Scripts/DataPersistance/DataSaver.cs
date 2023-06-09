@@ -70,7 +70,6 @@ public class DataSaver : MonoBehaviour, IDataPersistance
 
 
         data.startedGame = PlayerData.startedGame;
-        data.clickedStartDialogue = PlayerData.clickedStartDialogue;
         data.hasBroom = PlayerData.hasBroom;
         data.hasSolarUpgrade = PlayerData.hasSolarUpgrade;
         data.hasThrowUpgrade =  PlayerData.hasThrowUpgrade;
