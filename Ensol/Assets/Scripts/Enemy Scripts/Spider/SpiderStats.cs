@@ -23,6 +23,7 @@ public class SpiderStats : EnemyStats
 
     [Header("Web Shot Attack")]
     public float webShotCooldown;
+    public float webShotDamage;
     public float webShotMinRange;
     public float webShotMaxRange;
     public float webShotDebuff;

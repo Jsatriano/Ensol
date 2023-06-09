@@ -71,9 +71,18 @@ public class CompletedNodes : MonoBehaviour
     //Function called for just looking at the map
     public void LookAtMap()
     {
-        homeText.SetActive(true);
-        cabinButton.interactable = true;
+        if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
+        {
+            homeText.SetActive(true);
+            cabinButton.interactable = true;
+        }
+        else
+        {
+            homeText.SetActive(false);
+            cabinButton.interactable = false;
+        }
         PreDraw();
+        PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
         AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapOpen, this.transform.position);
     }
@@ -273,6 +282,18 @@ public class CompletedNodes : MonoBehaviour
         }
 
         StartCoroutine(LoadNewNode(0.5f));
+    }
+
+    private void PlaceCircle(int node)
+    {
+        youAreHereCircle.transform.position = mapButton[node].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[node] * Vector3.one;
+        circleSlider.fillAmount = 1;
+    }
+
+    public void LoadNode()
+    {
+        nodeSelector.OpenScene();
     }
 
     private IEnumerator LoadNewNode(float waitTime)

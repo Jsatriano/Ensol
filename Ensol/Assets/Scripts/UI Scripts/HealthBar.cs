@@ -46,12 +46,12 @@ public class HealthBar : MonoBehaviour // justin
     public void SetMaxHealth(float health)
     {
         slider.maxValue = health;
-        slider.value = PlayerData.currHP + 1;
+        slider.value = PlayerData.currHP;
     }
 
     public void SetHealth(float health)
     {
-        slider.value = health;
+        slider.value = health + 1;
     }
 
     IEnumerator slideIn()

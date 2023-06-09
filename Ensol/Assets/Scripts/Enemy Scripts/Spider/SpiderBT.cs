@@ -16,7 +16,7 @@ public class SpiderBT : BT
         {
             new Sequence(new List<Node>
             {
-                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"tazer", "webDeploy", "webShot"}),
+                new AttackingCooldown(spiderStats.attackingCooldown, new List<string> {"tazer", "webShot", "webDeploy"}),
                 new Selector(new List<Node>
                 {
                     new Sequence(new List<Node>
