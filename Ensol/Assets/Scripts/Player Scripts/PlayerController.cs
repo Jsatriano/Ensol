@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public GameObject FX2;
     public GameObject slowVFX;
     [SerializeField] private CameraShake cameraScript;
+    public GameObject bloodPrefab;
 
     [Header("Movement Variables")]
     [SerializeField] private float moveSpeed;
@@ -1069,6 +1070,8 @@ public class PlayerController : MonoBehaviour
                 }
 
                 PlayerData.deaths += 1;
+                PlayerData.bloodLocations.Enqueue(this.transform.position);
+                Instantiate(bloodPrefab, this.transform.position, new Quaternion());
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);

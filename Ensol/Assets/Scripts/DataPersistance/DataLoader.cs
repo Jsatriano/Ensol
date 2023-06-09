@@ -27,6 +27,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
         //Player Progress
         PlayerData.currentNode = data.currentNode;
+        PlayerData.bloodLocations = data.bloodLocations;
 
         //Player Tutorial Text
         PlayerData.shownWalkText  = data.shownWalkText;
@@ -122,6 +123,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
         //Player Progress
         data.currentNode = PlayerData.currentNode;
+        data.bloodLocations = PlayerData.bloodLocations;
 
         //Player Tutorial Text
         data.shownWalkText = PlayerData.shownWalkText;
