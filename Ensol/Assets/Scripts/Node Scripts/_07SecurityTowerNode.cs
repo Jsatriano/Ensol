@@ -25,6 +25,7 @@ public class _07SecurityTowerNode : MonoBehaviour
 
     [Header("Other Variables")]
     public float birdSpeed;
+    private Coroutine birdRoutine = null;
 
     private void Awake()
     {
@@ -71,17 +72,9 @@ public class _07SecurityTowerNode : MonoBehaviour
                 StartCoroutine(Squawk());
                 timerTrigger = true;
             }
-            // move it until it reaches end point
-            if(bird.transform.position != birdEndPoint.position)
+            if (birdRoutine == null)
             {
-                bird.transform.position = Vector3.MoveTowards(bird.transform.position, birdEndPoint.position, birdSpeed * Time.deltaTime);
-            }
-            else
-            {
-                birdTrigger.gameObject.SetActive(false);
-
-                //disables bird for next visits to this node
-                PlayerData.disableBird = true;
+                birdRoutine = StartCoroutine(MoveBird());
             }
         } else if (PlayerData.birdTriggered == true && PlayerData.hasTransponder){
             if (timerTrigger == false)
@@ -115,6 +108,22 @@ public class _07SecurityTowerNode : MonoBehaviour
             pathToPowerGrid = true;
         }
         
+    }
+
+
+    private IEnumerator MoveBird()
+    {
+        while (bird.transform.position != birdEndPoint.position)
+        {
+            Debug.Log("moving");
+            bird.transform.position = Vector3.MoveTowards(bird.transform.position, birdEndPoint.position, birdSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        birdTrigger.gameObject.SetActive(false);
+
+        //disables bird for next visits to this node
+        PlayerData.disableBird = true;
     }
 
     public IEnumerator BeepBeep(GameObject beepPosition)
