@@ -9,6 +9,7 @@ public class DramaticMusicCollider : MonoBehaviour
     private bool inRange = false;
     public KeyCode interactKey;
     public EventInstance zoneMusic;
+    public EndingManager endMNG;
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +20,14 @@ public class DramaticMusicCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(interactKey) && inRange && !musicPlaying){
+        if (Input.GetKeyDown(interactKey) && inRange && !musicPlaying && endMNG.killMusic == false){
             musicPlaying = true;
             zoneMusic = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zoneMusic); 
             zoneMusic.start();
+        }
+        if (endMNG.killMusic){
+            zoneMusic.stop(STOP_MODE.ALLOWFADEOUT);
+            zoneMusic.release();
         }
         
     }

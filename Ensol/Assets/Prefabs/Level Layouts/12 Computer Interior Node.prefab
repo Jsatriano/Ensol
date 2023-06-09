@@ -3773,6 +3773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicPlaying: 0
   interactKey: 101
+  endMNG: {fileID: 7923178978230325643}
 --- !u!1 &5838550994305878114
 GameObject:
   m_ObjectHideFlags: 0
@@ -5039,6 +5040,8 @@ GameObject:
   - component: {fileID: 8727326795591620504}
   - component: {fileID: 2074898417462616292}
   - component: {fileID: 5576252074931376344}
+  - component: {fileID: 6876551068397680163}
+  - component: {fileID: 3062665419141878481}
   m_Layer: 0
   m_Name: 12 Computer Interior Node
   m_TagString: Untagged
@@ -5077,6 +5080,7 @@ Transform:
   - {fileID: 219571963150955094}
   - {fileID: 8713267637350747419}
   - {fileID: 3354118717340287621}
+  - {fileID: 7200935774054125529}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -5113,6 +5117,94 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorBar: {fileID: 2722401370006018111}
   lookTarget: {fileID: 8713267637350747419}
+--- !u!114 &6876551068397680163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dc2e7d5ceb11240b0ba4973fde1bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <zoneAmbiance>k__BackingField:
+    Guid:
+      Data1: 1941756957
+      Data2: 1308662681
+      Data3: -1418354539
+      Data4: 507456324
+    Path: event:/sfx_computerHum
+  <zoneAmbiance2>k__BackingField:
+    Guid:
+      Data1: 1842468597
+      Data2: 1139464488
+      Data3: 961707442
+      Data4: -1331414020
+    Path: event:/sfx_computerBeep
+--- !u!114 &3062665419141878481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727326795591620455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5148211ab170b234eae1cb6f982dcb36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computer: {fileID: 2324645128507387842}
+  endMNG: {fileID: 7923178978230325643}
+--- !u!1 &8739027107338616831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7200935774054125529}
+  - component: {fileID: 7923178978230325643}
+  m_Layer: 0
+  m_Name: EndingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7200935774054125529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739027107338616831}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 395.5, y: 0, z: 381.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8727326795591620504}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7923178978230325643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739027107338616831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84f2912537acfe48b65ff36525e22ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: 458c1587a25afcb498a006a12231d191, type: 3}
+  blackOutSquare: {fileID: 0}
+  killAmbiance: 0
+  killMusic: 0
 --- !u!1 &9104945482036034627
 GameObject:
   m_ObjectHideFlags: 0
@@ -6171,7 +6263,7 @@ PrefabInstance:
     - target: {fileID: 3000046258775880480, guid: a9d27986e0b69104485854ee7f6cd32d, type: 3}
       propertyPath: inkJSON
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4900000, guid: 1ff602522d88e3c48a685ebd45a0f236, type: 3}
     - target: {fileID: 3592695023811344871, guid: a9d27986e0b69104485854ee7f6cd32d, type: 3}
       propertyPath: m_Name
       value: DialogueInteractable
@@ -6506,6 +6598,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a0334a83e6e30dc4cbc1df8d51046b0f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3160fce8b8c76ae469a1eb1e7bc65335, type: 3}
+--- !u!1 &2324645128507387842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8867937338241767861, guid: 3160fce8b8c76ae469a1eb1e7bc65335, type: 3}
+  m_PrefabInstance: {fileID: 6580870025414227575}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6690461282239893916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3160fce8b8c76ae469a1eb1e7bc65335, type: 3}

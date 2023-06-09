@@ -26,7 +26,7 @@ public class CursorToggle : MonoBehaviour
         if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy && !checkpointUI.activeInHierarchy)
         {
             Cursor.visible = false;
-            if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom) || scene.name == "PlaytestingScene"){
+            if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom && PlayerData.prevNode != 12) || scene.name == "PlaytestingScene"){
                 arrow.SetActive(true);
             }
         }

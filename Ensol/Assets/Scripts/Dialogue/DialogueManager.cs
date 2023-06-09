@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     public PlayerController charController;
     public KeyCode _key;
+    public EndingManager endMNG;
 
     public bool donePlaying;
     public bool openSesame;
@@ -148,12 +149,18 @@ public class DialogueManager : MonoBehaviour
         });
 
         currentStory.BindExternalFunction("endingOne", () => {
+            StartCoroutine(ExitDialogueMode());
+            endMNG = GameObject.Find("EndingManager").GetComponent<EndingManager>();
+            endMNG.EndOne();
             //everything shuts down
             //go to credits
             Debug.Log("ending 1");
         });
 
         currentStory.BindExternalFunction("endingTwo", () => {
+            StartCoroutine(ExitDialogueMode());
+            endMNG = GameObject.Find("EndingManager").GetComponent<EndingManager>();
+            endMNG.EndTwo();
             //player erases memory
             //Plush starting dialogue plays again
             //go to credits
