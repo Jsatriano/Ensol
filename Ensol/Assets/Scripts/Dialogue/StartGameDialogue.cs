@@ -29,7 +29,7 @@ public class StartGameDialogue : MonoBehaviour
             //print("case1");
         }
         //check if player is respawning after a death
-        if(PlayerData.startedGame == true && PlayerData.currentlyHasBroom == false){
+        if(PlayerData.startedGame == true && PlayerData.currentlyHasBroom == false && PlayerData.clickedStartDialogue == true){
             finishedFading = false;
             Color blackColor = blackOutSquare.GetComponent<Image>().color;
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
