@@ -855,6 +855,8 @@ public class PlayerController : MonoBehaviour
         state = State.IDLE;
         animator.SetBool("isHack", false);
         animator.SetBool("isPickup", false);
+        animator.SetBool("isPettingCat", false);
+        animator.SetBool("isClosingDoor", false);
     }
 
 

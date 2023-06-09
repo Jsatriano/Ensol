@@ -42,6 +42,8 @@ public class DialogueManager : MonoBehaviour
 
     private static DialogueVariables dialogueVariables;
 
+    public GameObject cat;
+
     //for cat meowing dialogue
 
     private void Awake()
@@ -169,6 +171,10 @@ public class DialogueManager : MonoBehaviour
         currentStory.BindExternalFunction("petCat", () => {
             //pet the cat
             Debug.Log("pet cat");
+            charController.state = PlayerController.State.INTERACTIONANIMATION;
+            GameObject cat = GameObject.Find("Plush");
+            charController.transform.LookAt(new Vector3(cat.transform.position.x, charController.transform.position.y, cat.transform.position.z));
+            charController.animator.SetBool("isPettingCat", true);
         });
 
         ////////////////////////////////////////////////////
