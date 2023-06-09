@@ -53,6 +53,11 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
         Time.timeScale = 1f;
+
+        if (PlayerData.startedGame)
+        {
+            StartCoroutine(FadeIn());
+        }
     }
 
     // Update is called once per frame
@@ -267,29 +272,40 @@ public class PauseMenu : MonoBehaviour
         {
             CloseMap();
         }
-        GameObject blackOutSquare = GameObject.Find("Black Out Screen");
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
         float fadeAmount;
-        bool fadeToBlack = true;
         float fadeSpeed = 1.1f;
 
-        if(fadeToBlack)
+        while (blackOutSquare.color.a < 1)
         {
-            while(blackOutSquare.GetComponent<Image>().color.a < 1)
-            {
-                fadeAmount = objectColor.a + (fadeSpeed * Time.unscaledDeltaTime);
-                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-                blackOutSquare.GetComponent<Image>().color = objectColor;
-                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
-                {
-                    PlayerData.prevNode = PlayerData.currentNode;
-                    PlayerData.currentNode = 1;
-                    nodeSelector.OpenScene();
-                }
-                yield return null;
-            }
+            fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
+        }
+
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = 1;
+        nodeSelector.OpenScene();
+    }
+
+    public IEnumerator FadeIn()
+    {
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 1);
+        float fadeAmount;
+        float fadeSpeed = 1f;
+
+        while (blackOutSquare.color.a > 0)
+        {
+            fadeAmount = blackOutSquare.color.a - (fadeSpeed * Time.deltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
         }
     }
+
 
     public void EnterPlaytestMenu() {
         Time.timeScale = 1f;

@@ -30,15 +30,6 @@ public class StartGameDialogue : MonoBehaviour
             blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
             //print("case1");
         }
-        //check if player is respawning after a death
-        if(PlayerData.diedToCrackDeer == true && PlayerData.currentlyHasBroom == false){
-            finishedFading = false;
-            Color blackColor = blackOutSquare.GetComponent<Image>().color;
-            blackOutSquare.GetComponent<Image>().color = new Color(blackColor.r, blackColor.g, blackColor.b, 1);
-            fadeSpeed = 0.8f;
-            //died = true;
-            //print("case2");
-        }
     }
 
     void Update(){
