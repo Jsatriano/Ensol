@@ -31,6 +31,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 
 
 * {abletoleave && abletoleave2} [I just want to walk around for a bit.]
+~petCat()
 P1-USH: Okay! If you need anything, let me know.
 
 -> END
