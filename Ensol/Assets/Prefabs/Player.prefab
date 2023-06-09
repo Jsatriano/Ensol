@@ -4862,16 +4862,16 @@ MonoBehaviour:
   walkText: 'Move: WASD'
   mapText: "Open Map: TAB\nClick the cabin on the map to \nreturn home when out in
     the wild."
-  broomText: 'Light Attack Combo: LMB -> LMB -> LMB
+  broomText: 'Light Attack Combo: Left Mouse Button
 
     Dash: Space
 
     Your attacks
     will go in the direction of the cursor.'
-  solarText: 'Heavy Attack: RMB
+  solarText: 'Heavy Attack: Right Mouse Button
 
-    This attack costs 2 energy. Energy recharges
-    over time.'
+    This attack costs 2 energy. Energy
+    recharges over time.'
   throwText: 'Throw Attack: Q then Q to recall
 
     This attack costs 2 energy.'
@@ -8663,6 +8663,7 @@ MonoBehaviour:
   FX2: {fileID: 2078645230}
   slowVFX: {fileID: 6590911137481975680}
   cameraScript: {fileID: 0}
+  bloodPrefab: {fileID: 0}
   moveSpeed: 5
   acceleration: 100
   normalDrag: 5
@@ -8713,6 +8714,7 @@ MonoBehaviour:
   catModeObjects:
   - {fileID: 4690045328289542862}
   - {fileID: 6259017213598082199}
+  doorBarred: 0
 --- !u!4 &6945511219158108138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3742407835892290726, guid: b2eb6f6cf03d17641a2a8597a26ccd76, type: 3}
