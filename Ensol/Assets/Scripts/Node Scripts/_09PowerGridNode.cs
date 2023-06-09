@@ -28,6 +28,12 @@ public class _09PowerGridNode : MonoBehaviour
     private void Awake()
     {
         SpawnPoint.First = true;
+        generator1 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+        generator2 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+        generator3 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
+        generator1.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel01.gameObject));
+        generator2.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel02.gameObject));
+        generator3.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel03.gameObject));
     }
 
     private void Start()
@@ -35,22 +41,16 @@ public class _09PowerGridNode : MonoBehaviour
         CompletedNodes.prevNode = 9;
         CompletedNodes.firstLoad[9] = false;
         if (!PlayerData.firstGenHit){
-            generator1 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-            generator1.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel01.gameObject));
             generator1.start();
         } else {
             genPanel01.enabled = false;
         }
         if (!PlayerData.secondGenHit){
-            generator2 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-            generator2.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel02.gameObject));
             generator2.start();
         } else {
             genPanel02.enabled = false;
         }
         if (!PlayerData.thirdGenHit){
-            generator3 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-            generator3.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel03.gameObject));
             generator3.start();
         } else {
             genPanel03.enabled = false;
@@ -96,6 +96,8 @@ public class _09PowerGridNode : MonoBehaviour
         yield return new WaitForSeconds(1f);
         thisGenerator.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.generatorOff, thisGenerator.transform.position);
+        thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
+        thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
         thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
         thisGenSound.release();
     }
