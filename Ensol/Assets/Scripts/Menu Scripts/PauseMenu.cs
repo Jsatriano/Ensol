@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
         UNPAUSED,
         PAUSED,
         OPTIONS,
+        CONTROLS,
         MAP_OPEN,
         MAP_TRANSFER,
         CHECKPOINT
@@ -39,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject controlsMenu;
 
     [Header("Checkpoint Menu")]
     [SerializeField] private GameObject checkpointMenu;
@@ -87,6 +89,13 @@ public class PauseMenu : MonoBehaviour
                 if (Input.GetButtonDown("Cancel"))
                 {
                     OpenCloseOptions();
+                }
+                break;
+
+            case MenuState.CONTROLS:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    OpenCloseControls();
                 }
                 break;
 
@@ -142,6 +151,20 @@ public class PauseMenu : MonoBehaviour
         if(PlayerData.currentNode == 12) {
             checkpointButtons[3].SetActive(false);
 
+        }
+    }
+
+    public void OpenCloseControls()
+    {
+        if (controlsMenu.activeInHierarchy)
+        {
+            controlsMenu.SetActive(false);
+            menuState = MenuState.OPTIONS;
+        }
+        else
+        {
+            controlsMenu.SetActive(true);
+            menuState = MenuState.CONTROLS;
         }
     }
 
