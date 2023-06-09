@@ -15,6 +15,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
 
         PlayerData.startedGame = data.startedGame;
+        PlayerData.clickedStartDialogue = data.clickedStartDialogue;
         PlayerData.hasBroom = data.hasBroom;
         PlayerData.hasSolarUpgrade = data.hasSolarUpgrade;
         PlayerData.hasThrowUpgrade = data.hasThrowUpgrade;

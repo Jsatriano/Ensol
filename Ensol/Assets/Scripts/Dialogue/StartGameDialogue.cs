@@ -9,7 +9,6 @@ public class StartGameDialogue : MonoBehaviour
     public DialogueTrigger dialogueTrigger;
     public GameObject blackOutSquare;
     public bool finishedFading;
-    private bool clickedDialogue = false;
     private bool died = false;
     private float fadeSpeed = 0.5f;
 
@@ -41,9 +40,9 @@ public class StartGameDialogue : MonoBehaviour
     }
 
     void Update(){
-        if(PlayerData.startedGame == true && finishedFading == false && clickedDialogue == false) 
+        if(PlayerData.startedGame == true && finishedFading == false && PlayerData.clickedStartDialogue == false) 
         {
-            clickedDialogue = true;
+            PlayerData.clickedStartDialogue = true;
             StartCoroutine(ReverseFadeBlackOutSquare());
             //print("resolution1");
         } /*else if (finishedFading == false && died == true){

@@ -10,6 +10,7 @@ public class PData
 
 
     public bool startedGame;
+    public bool clickedStartDialogue;
     public bool hasBroom;
     public bool hasSolarUpgrade;
     public bool hasThrowUpgrade;
@@ -106,6 +107,7 @@ public class PData
     {
         worked = false;
         startedGame = false;
+        clickedStartDialogue = false;
         hasBroom = false;
         hasSolarUpgrade = false;
         hasThrowUpgrade = false;
