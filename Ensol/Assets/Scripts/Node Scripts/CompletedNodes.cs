@@ -71,8 +71,16 @@ public class CompletedNodes : MonoBehaviour
     //Function called for just looking at the map
     public void LookAtMap()
     {
-        homeText.SetActive(true);
-        cabinButton.interactable = true;
+        if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
+        {
+            homeText.SetActive(true);
+            cabinButton.interactable = true;
+        }
+        else
+        {
+            homeText.SetActive(false);
+            cabinButton.interactable = false;
+        }
         PreDraw();
         PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
