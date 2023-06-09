@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     public GameObject FX2;
     public GameObject slowVFX;
     [SerializeField] private CameraShake cameraScript;
+    public GameObject bloodPrefab;
 
     [Header("Movement Variables")]
     [SerializeField] private float moveSpeed;
@@ -138,7 +139,7 @@ public class PlayerController : MonoBehaviour
     private int NGworked;
     [SerializeField] private OptionsMenu optionsMenu;
     [SerializeField] private List<GameObject> catModeObjects;
-
+    [HideInInspector] public bool doorBarred = false;
     
     //Input Read Variables
     private Vector3 direction;
@@ -236,16 +237,16 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(Input.GetButtonDown("SpecialAttack") && allowInput) {
+        if(Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(Input.GetButtonDown("LightAttack") && allowInput) {
+        if(Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(Input.GetButtonDown("HeavyAttack") && allowInput) {
+        if(Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
-        if(Input.GetButtonDown("Shield") && allowInput) {
+        if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
             shieldInput = true;
         }
         if(Input.GetButtonDown("Cancel") && allowInput) {
@@ -683,6 +684,18 @@ public class PlayerController : MonoBehaviour
 
     //Generic Anim Events
 
+    private void BarDoor() {
+        doorBarred = true;
+        _12ComputerInterior.doorBarred = true;
+        weapon.SetActive(false);
+        weaponHead.SetActive(false);
+        weaponBase.SetActive(false);
+        FX1.SetActive(false);
+        FX2.SetActive(false);
+        hasWeapon = false;
+
+    }
+
     private void LookAtMouse() {
         if(!controller) {
             Vector3 toMouse = (mouseFollower.transform.position - transform.position);
@@ -855,6 +868,8 @@ public class PlayerController : MonoBehaviour
         state = State.IDLE;
         animator.SetBool("isHack", false);
         animator.SetBool("isPickup", false);
+        animator.SetBool("isPettingCat", false);
+        animator.SetBool("isClosingDoor", false);
     }
 
 
@@ -1055,6 +1070,8 @@ public class PlayerController : MonoBehaviour
                 }
 
                 PlayerData.deaths += 1;
+                PlayerData.bloodLocations.Enqueue(this.transform.position);
+                Instantiate(bloodPrefab, this.transform.position, new Quaternion());
                 dying = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeath, this.transform.position);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);

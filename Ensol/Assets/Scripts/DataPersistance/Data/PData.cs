@@ -20,6 +20,7 @@ public class PData
     public bool currentlyHasBroom;
     public bool currentlyHasSolar;
     public float currHP;
+    public Queue<Vector3> bloodLocations;
 
     //Player Progress
     public int currentNode;
@@ -212,5 +213,7 @@ public class PData
             999, 999, 999, 999, 999, 999,
             999, 999, 999, 999, 999, 999
         };
+
+        bloodLocations = new Queue<Vector3>();
     }
 }

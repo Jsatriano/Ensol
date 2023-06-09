@@ -41,7 +41,7 @@ public class _00CabinNode : MonoBehaviour
     [HideInInspector] public GameObject[] players = null;
     private PlayerController combatController = null;
     public GameObject doorMeower;
-    
+
     private void Awake() 
     {
         if (PlayerData.diedToCrackDeer && PlayerData.currentlyHasBroom == false)

@@ -82,6 +82,7 @@ public class DataSaver : MonoBehaviour, IDataPersistance
 
         //Player Progress
         data.currentNode = PlayerData.currentNode;
+        data.bloodLocations = PlayerData.bloodLocations;
 
         //Player Tutorial Text
         data.shownWalkText = PlayerData.shownWalkText;
