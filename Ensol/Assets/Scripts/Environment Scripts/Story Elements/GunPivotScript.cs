@@ -20,7 +20,7 @@ public class GunPivotScript : MonoBehaviour
         if(foundPlayer)
         {
             Vector3 direction = player.transform.position - transform.position;
-            Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+            Quaternion toRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
 
             //transform.LookAt(player.transform);
