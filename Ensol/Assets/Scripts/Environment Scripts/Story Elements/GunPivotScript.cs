@@ -7,6 +7,7 @@ public class GunPivotScript : MonoBehaviour
     [HideInInspector] public bool foundPlayer = false;
     private GameObject player;
     public LaserScript laserScript;
+    public float speed;
 
     void Start()
     {
@@ -18,7 +19,11 @@ public class GunPivotScript : MonoBehaviour
     {
         if(foundPlayer)
         {
-            transform.LookAt(player.transform);
+            Vector3 direction = player.transform.position - transform.position;
+            Quaternion toRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+
+            //transform.LookAt(player.transform);
             StartCoroutine(Shoot());
         }
     }
