@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
+using Cinemachine;
 
 public class DramaticMusicCollider : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DramaticMusicCollider : MonoBehaviour
     public KeyCode interactKey;
     public EventInstance zoneMusic;
     public EndingManager endMNG;
+    [SerializeField] private Transform cameraTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,13 @@ public class DramaticMusicCollider : MonoBehaviour
             musicPlaying = true;
             zoneMusic = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zoneMusic); 
             zoneMusic.start();
+
+            GameObject mainCam = GameObject.Find("MainCamera");
+            CinemachineBrain brain = mainCam.GetComponent<CinemachineBrain>();
+            CinemachineVirtualCamera vcam = brain.ActiveVirtualCamera as CinemachineVirtualCamera;
+            vcam.LookAt = cameraTarget;
+            vcam.Follow = cameraTarget;
+
         }
         if (endMNG.killMusic){
             zoneMusic.stop(STOP_MODE.ALLOWFADEOUT);
