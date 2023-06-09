@@ -25,26 +25,44 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemies(float percentToSpawn)
     {
         //Debug.Log(percentToSpawn);
-        List<Transform> allEnemies = new List<Transform>();
+        List<Transform> deadEnemies = new List<Transform>();
+        List<GameObject> prevAliveEnemies = new List<GameObject>();
 
         //Creating a list of all enemies, and making them default off
         foreach (Transform enemy in transform)
+        {            
+            if (PlayerData.enemiesAliveInNode[PlayerData.currentNode-1].Contains(enemy.name))
+            {
+                prevAliveEnemies.Add(enemy.gameObject);
+                enemy.gameObject.SetActive(true);
+                aliveEnemies.Add(enemy.GetComponent<BT>());
+            }
+            else
+            {
+                enemy.gameObject.SetActive(false);
+                deadEnemies.Add(enemy);
+            }
+        }
+
+        int numSpawning = Mathf.Clamp(Mathf.FloorToInt((deadEnemies.Count + prevAliveEnemies.Count) * percentToSpawn), 0, deadEnemies.Count);
+
+        if (PlayerData.currentNode == 2 && (PlayerData.enemiesAliveInNode[PlayerData.currentNode - 1].Contains("Crack Deer Variant(Clone)")) && aliveEnemies.Count == 0) 
         {
-            enemy.gameObject.SetActive(false);
-            allEnemies.Add(enemy);
+            numSpawning = 1;
         }
 
         //Debug.Log("Percent Spawn: " + Mathf.FloorToInt(allEnemies.Count * percentToSpawn));
         //Debug.Log("Previously Alive: " + PlayerData.enemiesAliveInNode[PlayerData.currentNode]);
         //Calculate how many enemies to spawn based on respawn timer
-        int numSpawning = Mathf.Clamp(Mathf.FloorToInt(allEnemies.Count * percentToSpawn) + PlayerData.enemiesAliveInNode[PlayerData.currentNode-1], 0, allEnemies.Count);
+
+        
 
         //Set active randomly selected enemies and fill the public list with them for the gate controller to access
-        allEnemies = ShuffleList(allEnemies);
+        deadEnemies = ShuffleList(deadEnemies);
         while (numSpawning > 0)
         {
-            allEnemies[numSpawning - 1].gameObject.SetActive(true);
-            aliveEnemies.Add(allEnemies[numSpawning - 1].GetComponent<BT>());
+            deadEnemies[numSpawning - 1].gameObject.SetActive(true);
+            aliveEnemies.Add(deadEnemies[numSpawning - 1].GetComponent<BT>());
             numSpawning--;
         }
     }

@@ -101,7 +101,7 @@ public class PData
 
     public float[] timeSinceAtNode;
 
-    public int[] enemiesAliveInNode;
+    public List<List<string>> enemiesAliveInNode;
 
     public PData()
     {
@@ -209,9 +209,10 @@ public class PData
             -1, -1, -1, -1, -1, -1, -1
         };
 
-        enemiesAliveInNode = new int[] {
-            999, 999, 999, 999, 999, 999,
-            999, 999, 999, 999, 999, 999
+        enemiesAliveInNode = new List<List<string>> {
+            new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>()
         };
 
         bloodLocations = new Queue<Vector3>();

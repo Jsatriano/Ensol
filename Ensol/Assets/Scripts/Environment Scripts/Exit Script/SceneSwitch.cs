@@ -92,14 +92,14 @@ public class SceneSwitch : MonoBehaviour
             return;
         }
 
-        int enemiesAlive = 0;
+        List<string> aliveEnemies = new List<string>();
         foreach (Transform enemy in enemyParent)
         {
             if (enemy.gameObject.activeSelf && enemy.GetComponent<BT>().isAlive)
             {
-                enemiesAlive++;
+                aliveEnemies.Add(enemy.name);
             }
         }
-        PlayerData.enemiesAliveInNode[PlayerData.currentNode-1] = enemiesAlive;
+        PlayerData.enemiesAliveInNode[PlayerData.currentNode-1] = aliveEnemies;
     }
 }

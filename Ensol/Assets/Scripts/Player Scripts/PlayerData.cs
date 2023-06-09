@@ -71,8 +71,9 @@ public static class PlayerData
         -1, -1, -1, -1, -1, -1, -1
     };
 
-    public static int[] enemiesAliveInNode = new int[] {
-        999, 999, 999, 999, 999, 999,
-        999, 999, 999, 999, 999, 999
+    public static List<List<string>> enemiesAliveInNode = new List<List<string>> {
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>()
     };
 }
