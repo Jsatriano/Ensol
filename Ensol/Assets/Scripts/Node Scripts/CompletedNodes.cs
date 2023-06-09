@@ -37,6 +37,7 @@ public class CompletedNodes : MonoBehaviour
     public Slider[] mapSlider;
     [SerializeField] private Button cabinButton;
     [SerializeField] private GameObject homeText;
+    [SerializeField] private Image blackOutSquare;
 
     [Header("Circle Data")]
     public GameObject youAreHereCircle;
@@ -71,6 +72,7 @@ public class CompletedNodes : MonoBehaviour
     //Function called for just looking at the map
     public void LookAtMap()
     {
+        blackOutSquare.enabled = false;
         if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
         {
             homeText.SetActive(true);
@@ -90,6 +92,7 @@ public class CompletedNodes : MonoBehaviour
     //Function called when travelling between nodes to play circle anim and called the nodeSelector
     public void NodeTransferMap()
     {
+        blackOutSquare.enabled = false;
         homeText.SetActive(false);
         cabinButton.interactable = false;
         PreDraw();
@@ -151,8 +154,6 @@ public class CompletedNodes : MonoBehaviour
 
     private float GetWaitTime()
     {
-        print("prevnode: " + PlayerData.prevNode);
-        print("currentnode: " + PlayerData.currentNode);
         if (firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1])
         {
             return circleWaitTime * 7f;
@@ -299,6 +300,24 @@ public class CompletedNodes : MonoBehaviour
     private IEnumerator LoadNewNode(float waitTime)
     {
         yield return new WaitForSecondsRealtime(waitTime);
+        StartCoroutine(FadeOutAndTransfer()); 
+    }
+
+    private IEnumerator FadeOutAndTransfer()
+    {
+        blackOutSquare.enabled = true;
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
+        float fadeAmount;
+        float fadeSpeed = 2f;
+
+        while (blackOutSquare.color.a < 1)
+        {
+            fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
+        }
         nodeSelector.OpenScene();
     }
 }

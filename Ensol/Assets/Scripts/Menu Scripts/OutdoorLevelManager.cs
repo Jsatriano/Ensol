@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class OutdoorLevelManager : MonoBehaviour 
@@ -16,6 +17,7 @@ public class OutdoorLevelManager : MonoBehaviour
     public GameObject[] levelLocations;
     public GameObject player;
     public static bool isCheckpointTransition;
+    [SerializeField] private Image blackOutSquare;
 
     void Start()
     {
