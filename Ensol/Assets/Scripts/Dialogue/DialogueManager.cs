@@ -89,6 +89,11 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
+        else{
+            if(charController.state != PlayerController.State.DIALOGUE || charController.state != PlayerController.State.INTERACTIONANIMATION){
+                charController.state = PlayerController.State.DIALOGUE;
+            }
+        }
         /*Allow e and mouse to continue dialogue if there are no more choices*/
         if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
         {
