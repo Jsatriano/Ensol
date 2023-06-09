@@ -9,6 +9,7 @@ public class LaserScript : MonoBehaviour
     public Transform startPoint;
     [HideInInspector] public Transform endPoint;
     LineRenderer laserLine;
+    public GameObject laserBeamWindup;
     private bool fired = false;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,8 @@ public class LaserScript : MonoBehaviour
         {
             if(PlayerData.currHP <= 0)
             {
-                laserLine.enabled = false;
+                StartCoroutine(TurnOffLaser());
+                laserBeamWindup.SetActive(false);
             }
             if(PlayerData.hasShield) {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerShieldBreak, endPoint.transform.position);
@@ -40,5 +42,11 @@ public class LaserScript : MonoBehaviour
             laserLine.SetPosition(1, new Vector3(endPoint.position.x, endPoint.position.y + 1f, endPoint.position.z));
             PlayerData.currHP = 0;
         }
+    }
+
+    private IEnumerator TurnOffLaser()
+    {
+        yield return new WaitForSeconds(.25f);
+        laserLine.enabled = false;
     }
 }
