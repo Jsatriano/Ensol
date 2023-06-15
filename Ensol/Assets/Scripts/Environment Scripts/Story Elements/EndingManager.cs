@@ -19,12 +19,14 @@ public class EndingManager : MonoBehaviour
     private bool gameEndingOne;
     private bool dialoguePlayed = false;
     private bool doneFading = false;
+    public DataPersistanceManager DPM;
 
     // Start is called before the first frame update
     void Start()
     {
         blackOutSquare = GameObject.Find("Black Out Screen");
         sceneName = SceneManager.GetActiveScene().name;  
+        DPM = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPersistanceManager>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,8 @@ public class EndingManager : MonoBehaviour
     {
         //takes player to credits after exiting dialogue
         if (dialoguePlayed && !DialogueManager.GetInstance().dialogueisPlaying){
+            PlayerData.prevNode = 11;
+            DPM.SaveGame();
             SceneManager.LoadScene(sceneName:"CreditScene");
         }
         if (gameEnding && doneFading == false){
@@ -76,8 +80,9 @@ public class EndingManager : MonoBehaviour
                     doneFading = true;
                     //Takes player to credits
                     if (gameEndingOne){
+                        PlayerData.prevNode = 11;
+                        DPM.SaveGame();
                         SceneManager.LoadScene(sceneName:"CreditScene");
-                        Cursor.visible = false;
                     } else {
                         killAmbiance = true;
                         DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
