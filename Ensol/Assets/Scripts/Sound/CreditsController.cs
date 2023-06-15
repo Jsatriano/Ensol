@@ -9,7 +9,7 @@ using UnityEngine.Video;
 public class CreditsController : MonoBehaviour
 {
     public EventInstance zoneMusic;
-    public GameObject camera;
+    public GameObject screen;
     [SerializeField] private VideoPlayer videoPlayer;
     public bool musicStart = false;
 
@@ -34,6 +34,20 @@ public class CreditsController : MonoBehaviour
             musicStart = true;
             zoneMusic.start(); 
         }
+
+        if ((videoPlayer.frame > 0) && (videoPlayer.isPlaying == false))
+        {
+            //Video has finshed playing!
+            videoPlayer.gameObject.SetActive(false);
+            screen.SetActive(false);
+        }
+
+    }
+
+    public void BackToMenu()
+    {
+        AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
+        SceneManager.LoadScene(sceneName:"MenuScene");
     }
 
 
