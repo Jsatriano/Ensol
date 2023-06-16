@@ -1148,6 +1148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38357c67ac1503499d06e6be4c8af24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  birdOnTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3927979425013386091
 GameObject:
   m_ObjectHideFlags: 0
@@ -8167,12 +8170,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitOnTriggerEnterEvent: {fileID: 7902500008475433224}
+  birdCollider: {fileID: 1206809782090978363}
   bird: {fileID: 1757511254961736953}
   birdTrigger: {fileID: 3694145286382305619}
   birdEndPoint: {fileID: 6187065059869336142}
   gun: {fileID: 1603797281374216271}
   gunTrigger: {fileID: 4124650137360518353}
   player: {fileID: 0}
+  beepsCollided: 0
   globals: {fileID: 4900000, guid: 1f903892a9295ef438b7539f29586e53, type: 3}
   birdSpeed: 23
 --- !u!114 &1289216145704049329

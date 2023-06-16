@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
+using FMOD.Studio;
 
 public class _07SecurityTowerNode : MonoBehaviour
 {
     [Header("Exitting Variables")]
     public PathCollider exitOnTriggerEnterEvent;
+    public BirdTriggerCheck birdCollider;
     private bool pathToPowerGrid;
 
     [Header("Story Variables")]
     public GameObject bird;
     public Collider birdTrigger;
     public Transform birdEndPoint;
+    public EventInstance birdFlaps;
     public GameObject gun;
     public Collider gunTrigger;
     public GameObject player;
+    public bool beepsCollided = false;
 
     // timer trigger
     private bool timerTrigger = false;
@@ -63,20 +67,24 @@ public class _07SecurityTowerNode : MonoBehaviour
     public void Update()
     {
         // move bird if triggered
-        if(PlayerData.birdTriggered == true && PlayerData.disableBird == false && birdTrigger.gameObject.activeInHierarchy)
+        if(beepsCollided == true && PlayerData.killedBird == false && birdTrigger.gameObject.activeInHierarchy)
         {
+            print ("bird go");
             //For the beep beep
             if (timerTrigger == false)
             {
+                print ("go go go");
                 StartCoroutine(BeepBeep(bird));
                 StartCoroutine(Squawk());
                 timerTrigger = true;
+                print ("timer is " + timerTrigger);
+                
             }
             if (birdRoutine == null)
             {
                 birdRoutine = StartCoroutine(MoveBird());
             }
-        } else if (PlayerData.birdTriggered == true && PlayerData.hasTransponder){
+        } else if (beepsCollided == true && PlayerData.hasTransponder){
             if (timerTrigger == false)
             {
                 StartCoroutine(BeepBeep(player));
@@ -96,10 +104,12 @@ public class _07SecurityTowerNode : MonoBehaviour
     //have to detect collider on another object
     void OnEnable(){
         exitOnTriggerEnterEvent.exitOnTriggerEnter.AddListener(ExitTriggerMethod);
+        birdCollider.birdOnTriggerEnter.AddListener(BirdTriggerMethod);
     }
 
     void OnDisable(){
         exitOnTriggerEnterEvent.exitOnTriggerEnter.RemoveListener(ExitTriggerMethod);
+        birdCollider.birdOnTriggerEnter.RemoveListener(BirdTriggerMethod);
     }
 
     void ExitTriggerMethod(Collider col){
@@ -108,6 +118,12 @@ public class _07SecurityTowerNode : MonoBehaviour
             pathToPowerGrid = true;
         }
         
+    }
+
+    void BirdTriggerMethod(Collider col){
+        if (col.tag == "Player"){
+            beepsCollided = true;
+        }
     }
 
 
@@ -123,7 +139,7 @@ public class _07SecurityTowerNode : MonoBehaviour
         birdTrigger.gameObject.SetActive(false);
 
         //disables bird for next visits to this node
-        PlayerData.disableBird = true;
+        //PlayerData.disableBird = true;
     }
 
     public IEnumerator BeepBeep(GameObject beepPosition)
@@ -140,6 +156,9 @@ public class _07SecurityTowerNode : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.birdSquawk, bird.transform.position);
+        birdFlaps = AudioManager.instance.CreateEventInstance(FMODEvents.instance.birdFly); 
+        birdFlaps.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(bird.gameObject));
+        birdFlaps.start();
     }
 
 

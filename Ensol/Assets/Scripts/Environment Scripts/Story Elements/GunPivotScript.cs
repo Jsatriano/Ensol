@@ -9,6 +9,7 @@ public class GunPivotScript : MonoBehaviour
     public LaserScript laserScript;
     public GameObject laserBeamWindup;
     public float speed;
+    private bool chargingSound = false;
 
     void Start()
     {
@@ -32,6 +33,10 @@ public class GunPivotScript : MonoBehaviour
     IEnumerator Shoot()
     {
         laserBeamWindup.SetActive(true);
+        if (!chargingSound) {
+            chargingSound = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.turretCharge, laserBeamWindup.transform.position);
+        }
 
         yield return new WaitForSeconds(3f);
 

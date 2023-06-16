@@ -11,6 +11,7 @@ public class EndingManager : MonoBehaviour
     [SerializeField] private TextAsset inkJSON;
 
     public GameObject blackOutSquare;
+    public GameObject computerObject;
     public bool killAmbiance = false;
     public bool killMusic = false;
     private string sceneName;
@@ -49,9 +50,10 @@ public class EndingManager : MonoBehaviour
         gameEndingOne = true;
         gameEnding = true;
         killMusic = true;
-        print("ambiance is "+killAmbiance);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.computerShutdown, computerObject.transform.position);
+        //print("ambiance is "+killAmbiance);
         killAmbiance = true;
-        print("ambiance is "+killAmbiance);
+        //print("ambiance is "+killAmbiance);
     }
 
     public void EndTwo(){
