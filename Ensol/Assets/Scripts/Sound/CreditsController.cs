@@ -38,8 +38,9 @@ public class CreditsController : MonoBehaviour
         if ((videoPlayer.frame > 0) && (videoPlayer.isPlaying == false))
         {
             //Video has finshed playing!
-            videoPlayer.gameObject.SetActive(false);
-            screen.SetActive(false);
+            //videoPlayer.gameObject.SetActive(false);
+            //screen.SetActive(false);
+            SceneManager.LoadScene(sceneName:"MenuScene");
         }
 
     }

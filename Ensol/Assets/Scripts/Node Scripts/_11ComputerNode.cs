@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class _11ComputerNode : MonoBehaviour
 {
     public TextAsset exteriorCutscene;
     public GameObject enemyWave;
     public GameObject redLight;
+    public EventInstance alarmSound;
     public float enemyWaveSpeed = 15;
     private bool seenCutsceneDialogue;
     private DialogueManager dialogueManager;
     private PlayerController player;
+    private bool playingAlarm = false;
 
     private void Start()
     {
@@ -39,5 +42,16 @@ public class _11ComputerNode : MonoBehaviour
         seenCutsceneDialogue = true;
         dialogueManager.EnterDialogueMode(exteriorCutscene);
         redLight.SetActive(true);
+        if (!playingAlarm){
+            playingAlarm = true;
+            alarmSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.ensolAlarm);
+            alarmSound.start();
+        }
+    }
+
+    void OnDestroy()
+    {
+        alarmSound.stop(STOP_MODE.ALLOWFADEOUT);
+        alarmSound.release();
     }
 }

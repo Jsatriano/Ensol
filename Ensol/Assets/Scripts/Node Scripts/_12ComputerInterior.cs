@@ -14,7 +14,8 @@ public class _12ComputerInterior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerData.prevNode = 12;
+        PlayerData.prevNode = 11;
+        PlayerData.currentNode = 12; //10 and 11 because we want load game to start outside the building
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerAnimator = player.GetComponent<Animator>();
         doorBar.SetActive(false);
