@@ -94,6 +94,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference favoriteTunes { get; private set; }
     [field: SerializeField] public EventReference computerShutdown { get; private set; }
     [field: SerializeField] public EventReference envComputerDoor { get; private set; }
+    [field: SerializeField] public EventReference envComputerUp { get; private set; }
     [field: SerializeField] public EventReference ensolAlarm { get; private set; }
     [field: SerializeField] public EventReference envFieldNodeBuzz { get; private set; }
     [field: SerializeField] public EventReference shieldDrop { get; private set; }

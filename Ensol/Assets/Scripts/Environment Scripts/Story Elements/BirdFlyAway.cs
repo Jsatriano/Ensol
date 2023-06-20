@@ -45,6 +45,12 @@ public class BirdFlyAway : MonoBehaviour
         
     }
 
+    void OnDisable()
+    {
+        birdFlaps.stop(STOP_MODE.IMMEDIATE);
+        birdFlaps.release();
+    }
+
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.layer == 8) {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.birdDie, bird.transform.position);

@@ -60,6 +60,7 @@ public class HealthBar : MonoBehaviour // justin
         if (!animateStart){
             yield return new WaitForSeconds(0.5f);
             animateStart = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudHealthSlideIn, this.transform.position);
         } else {
             toggler.SetActive(true);
             //Transitions the health bar onto screen 
