@@ -50,7 +50,10 @@ public class SceneSwitch : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         Color objectColor = blackOutSquare.color;
         float fadeAmount = 0;
-        int fadeSpeed = 1;
+        float fadeSpeed = 1f;
+        if(nodeDestination == 13) {
+            fadeSpeed = 3f;
+        }
         while(blackOutSquare.color.a < 1)
         {      
             fadeAmount += fadeSpeed * Time.unscaledDeltaTime;
