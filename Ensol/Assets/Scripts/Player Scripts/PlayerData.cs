@@ -72,7 +72,7 @@ public static class PlayerData
     };
 
     public static List<List<string>> enemiesAliveInNode = new List<List<string>> {
-        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+            new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
         new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
         new List<string>(), new List<string>(), new List<string>()
     };

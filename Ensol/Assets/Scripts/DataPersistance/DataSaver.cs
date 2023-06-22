@@ -158,7 +158,19 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.checkpoints = CompletedNodes.checkpoints;
 
         data.timeSinceAtNode = PlayerData.timeSinceAtNode;
-        data.enemiesAliveInNode = PlayerData.enemiesAliveInNode;
+        data.cabinEnemiesAlive = PlayerData.enemiesAliveInNode[0];
+        data.deerEnemiesAlive = PlayerData.enemiesAliveInNode[1];
+        data.riverEnemiesAlive = PlayerData.enemiesAliveInNode[2];
+        data.gateEnemiesAlive = PlayerData.enemiesAliveInNode[3];
+        data.riverControlEnemiesAlive = PlayerData.enemiesAliveInNode[4];
+        data.bearEnemiesAlive = PlayerData.enemiesAliveInNode[5];
+        data.brokenMachineEnemiesAlive = PlayerData.enemiesAliveInNode[6];
+        data.securityTowerEnemiesAlive = PlayerData.enemiesAliveInNode[7];
+        data.birdEnemiesAlive = PlayerData.enemiesAliveInNode[8];
+        data.powerGridEnemiesAlive = PlayerData.enemiesAliveInNode[9];
+        data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
+        data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
+        data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
     }
 
     // public void LoadStory(TextAsset globals)

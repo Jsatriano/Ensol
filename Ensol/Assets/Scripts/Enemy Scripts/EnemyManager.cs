@@ -7,6 +7,8 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private float completeRespawnTime;
     [HideInInspector] public List<BT> aliveEnemies = new List<BT>();
+    private List<Transform> deadEnemies = new List<Transform>();
+    private List<GameObject> prevAliveEnemies = new List<GameObject>();
 
     private void Start()
     {
@@ -15,9 +17,13 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnEnemies(1);
         }
+        //Bandaid fix for saveload interaction with repsawn timer
+        else if (Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode - 1] < 0)
+        {
+            SpawnEnemies(0.25f);
+        }
         else
         {
-            //Debug.Log("Time Passed: " + (Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode]));
             SpawnEnemies(Mathf.Clamp01((Time.time - PlayerData.timeSinceAtNode[PlayerData.currentNode-1]) / completeRespawnTime));
         }       
     }
@@ -25,28 +31,22 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemies(float percentToSpawn)
     {
         //Debug.Log(percentToSpawn);
-        List<Transform> deadEnemies = new List<Transform>();
-        List<GameObject> prevAliveEnemies = new List<GameObject>();
 
-        //Creating a list of all enemies, and making them default off
-        foreach (Transform enemy in transform)
-        {            
-            if (PlayerData.enemiesAliveInNode[PlayerData.currentNode-1].Contains(enemy.name))
-            {
-                prevAliveEnemies.Add(enemy.gameObject);
-                enemy.gameObject.SetActive(true);
-                aliveEnemies.Add(enemy.GetComponent<BT>());
-            }
-            else
-            {
-                enemy.gameObject.SetActive(false);
-                deadEnemies.Add(enemy);
-            }
-        }
+        deadEnemies.Clear();
+        prevAliveEnemies.Clear();
+
+        SetEnemyListsEnemies();
+
+        
 
         int numSpawning = Mathf.Clamp(Mathf.FloorToInt((deadEnemies.Count + prevAliveEnemies.Count) * percentToSpawn), 0, deadEnemies.Count);
 
         if (PlayerData.currentNode == 2 && (PlayerData.enemiesAliveInNode[PlayerData.currentNode - 1].Contains("Crack Deer Variant(Clone)")) && aliveEnemies.Count == 0) 
+        {
+            numSpawning = 1;
+        }
+
+        if (PlayerData.currentNode == 2 && !PlayerData.hasSolarUpgrade)
         {
             numSpawning = 1;
         }
@@ -77,5 +77,25 @@ public class EnemyManager : MonoBehaviour
             list[randIndex] = temp;
         }
         return list;
+    }
+
+    private void SetEnemyListsEnemies()
+    {
+        //Creating a list of all enemies, and making them default off
+        foreach (Transform enemy in transform)
+        {
+
+            if (PlayerData.enemiesAliveInNode[PlayerData.currentNode - 1].Contains(enemy.name))
+            {
+                prevAliveEnemies.Add(enemy.gameObject);
+                enemy.gameObject.SetActive(true);
+                aliveEnemies.Add(enemy.GetComponent<BT>());
+            }
+            else
+            {
+                enemy.gameObject.SetActive(false);
+                deadEnemies.Add(enemy);
+            }
+        }
     }
 }
