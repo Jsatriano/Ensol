@@ -13,12 +13,14 @@ public class PauseMenu : MonoBehaviour
         UNPAUSED,
         PAUSED,
         OPTIONS,
+        CONTROLS,
         MAP_OPEN,
         MAP_TRANSFER,
         CHECKPOINT
     }
 
     public GameObject pauseMenu;
+    public Image blackOutSquare;
     public DataPersistanceManager dataManager;
     public GameObject resumeButton;
     public GameObject resumeButtonPT;
@@ -38,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject controlsMenu;
 
     [Header("Checkpoint Menu")]
     [SerializeField] private GameObject checkpointMenu;
@@ -52,6 +55,11 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
         Time.timeScale = 1f;
+
+        if (PlayerData.startedGame)
+        {
+            StartCoroutine(FadeIn());
+        }
     }
 
     // Update is called once per frame
@@ -81,6 +89,13 @@ public class PauseMenu : MonoBehaviour
                 if (Input.GetButtonDown("Cancel"))
                 {
                     OpenCloseOptions();
+                }
+                break;
+
+            case MenuState.CONTROLS:
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    OpenCloseControls();
                 }
                 break;
 
@@ -139,6 +154,20 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void OpenCloseControls()
+    {
+        if (controlsMenu.activeInHierarchy)
+        {
+            controlsMenu.SetActive(false);
+            menuState = MenuState.OPTIONS;
+        }
+        else
+        {
+            controlsMenu.SetActive(true);
+            menuState = MenuState.CONTROLS;
+        }
+    }
+
     public void CloseCheckpointMenu(){
         Time.timeScale = 1f;
         checkpointMenu.SetActive(false);
@@ -148,10 +177,11 @@ public class PauseMenu : MonoBehaviour
 
     public void TransferViaCheckpoint(int nodeDestination) {
         checkpointMenu.SetActive(false);
-        PlayerData.prevNode = PlayerData.currentNode;
-        PlayerData.currentNode = nodeDestination;
-        OutdoorLevelManager.isCheckpointTransition = true;
-        OpenMapForNodeTransfer();
+        //trigger animations
+        combatController.state = PlayerController.State.INTERACTIONANIMATION;
+        combatController.animator.SetBool("isPickup", true);
+        //delay transition
+        StartCoroutine(FadeBlackOutSquare(nodeDestination));
     }
     // map functions
     private void OpenMap()
@@ -178,6 +208,11 @@ public class PauseMenu : MonoBehaviour
         mapUI.SetActive(true);
         completedNodes.StopAllCoroutines();
         completedNodes.NodeTransferMap();
+    }
+
+    public void InstantlyTransferNode()
+    {
+        completedNodes.LoadNode();
     }
 
     public void PauseUnpause()
@@ -242,6 +277,7 @@ public class PauseMenu : MonoBehaviour
             SceneSwitch sceneSwitcher = transferCube.GetComponent<SceneSwitch>();
             if (sceneSwitcher)
             {
+                SpawnPoint.Mapped = true;
                 sceneSwitcher.SetTimeAtNode();
                 sceneSwitcher.SetEnemiesDefeated();
             }
@@ -259,29 +295,40 @@ public class PauseMenu : MonoBehaviour
         {
             CloseMap();
         }
-        GameObject blackOutSquare = GameObject.Find("Black Out Screen");
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
         float fadeAmount;
-        bool fadeToBlack = true;
         float fadeSpeed = 1.1f;
 
-        if(fadeToBlack)
+        while (blackOutSquare.color.a < 1)
         {
-            while(blackOutSquare.GetComponent<Image>().color.a < 1)
-            {
-                fadeAmount = objectColor.a + (fadeSpeed * Time.unscaledDeltaTime);
-                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
-                blackOutSquare.GetComponent<Image>().color = objectColor;
-                if(blackOutSquare.GetComponent<Image>().color.a >= 1)
-                {
-                    PlayerData.prevNode = PlayerData.currentNode;
-                    PlayerData.currentNode = 1;
-                    nodeSelector.OpenScene();
-                }
-                yield return null;
-            }
+            fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
+        }
+
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = 1;
+        nodeSelector.OpenScene();
+    }
+
+    public IEnumerator FadeIn()
+    {
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 1);
+        float fadeAmount;
+        float fadeSpeed = 1f;
+
+        while (blackOutSquare.color.a > 0)
+        {
+            fadeAmount = blackOutSquare.color.a - (fadeSpeed * Time.deltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
         }
     }
+
 
     public void EnterPlaytestMenu() {
         Time.timeScale = 1f;
@@ -407,5 +454,22 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(selectedButton);
+    }
+
+    public IEnumerator FadeBlackOutSquare(int nodeDestination) // function to slowly fade the screen to black and load map scene
+    {
+        Color objectColor = blackOutSquare.color;
+        float fadeAmount = 0;
+        int fadeSpeed = 1;
+        while(blackOutSquare.color.a < 1)
+        {      
+            fadeAmount += fadeSpeed * Time.unscaledDeltaTime;
+            blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            yield return null;
+        }
+        PlayerData.prevNode = PlayerData.currentNode;
+        PlayerData.currentNode = nodeDestination;
+        OutdoorLevelManager.isCheckpointTransition = true;
+        OpenMapForNodeTransfer();     
     }
 }

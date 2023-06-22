@@ -19,34 +19,14 @@ public class JunkBall : MonoBehaviour
     private Rigidbody ballRB;      //Rigidbody of the junk ball
     public GameObject ballModel;   //Visual model for the junk ball
     private Vector3 bearPos;
+    private bool explodedAudio = false;
+    private Coroutine explosionRoutine;
 
     private void Start()
     {
         isExploding = false;
         ballRB = gameObject.GetComponent<Rigidbody>();
         bearPos = bearTF.position;
-    }
-
-    private void FixedUpdate()
-    {
-        //Increases explosion size when the ball is exploding
-        if (isExploding)
-        {
-            ballRB.velocity = Vector3.zero;
-            if (explosionTimer >= explosionLength)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                //Uses sin with the Lerp so that it slows down as it reaches the end
-                interpolater = explosionTimer / explosionLength;
-                interpolater = Mathf.Sin(Mathf.PI * interpolater * 0.5f) * 2f;
-
-                explosionTF.localScale = Vector3.Lerp(explosionStartingSize, explosionFinalSize, interpolater);
-                explosionTimer += Time.deltaTime;
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,15 +85,42 @@ public class JunkBall : MonoBehaviour
 
     //Explodes the ball
     private void Explode()
-    {     
-        Destroy(junkCollider);
-        ballModel.SetActive(false);
-        explosionTF.gameObject.SetActive(true);
-        explosionTF.localScale = explosionStartingSize;
-        interpolater   = 0;
-        explosionTimer = 0;
-        isExploding    = true;    
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position); 
+    {
+        if (explosionRoutine == null)
+        {
+            if (explodedAudio == false)
+            {
+                explodedAudio = true;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.bearScrapExplosion, this.transform.position);
+            }
+            Destroy(junkCollider);
+            ballModel.SetActive(false);
+            explosionTF.gameObject.SetActive(true);
+            explosionTF.localScale = explosionStartingSize;
+            isExploding = true;
+            explosionRoutine = StartCoroutine(ExplosionRoutine());
+
+        }   
+    }
+
+    private IEnumerator ExplosionRoutine()
+    {
+
+        yield return null;
+        explosionCollider.enabled = false;
+
+        ballRB.velocity = Vector3.zero;
+        while (explosionTimer < explosionLength)
+        {
+            //Uses sin with the Lerp so that it slows down as it reaches the end
+            interpolater = explosionTimer / explosionLength;
+            interpolater = Mathf.Sin(Mathf.PI * interpolater * 0.5f) * 2f;
+
+            explosionTF.localScale = Vector3.Lerp(explosionStartingSize, explosionFinalSize, interpolater);
+            explosionTimer += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
 

@@ -9,23 +9,23 @@ public class CompletedNodes : MonoBehaviour
 
     public static bool cabinNode  = true, deerNode  = true, riverNode  = false, gateNode  = false, riverControlNode  = false,
                 bearNode  = false, brokenMachineNode  = false, securityTowerNode  = false, birdNode  = false,
-                powerGridNode  = false, metalFieldNode  = false, computerNode = false;
+                powerGridNode  = false, metalFieldNode  = false, computerNode = false, computerInterior = false;
 
     public static bool[] nodes;            
     public static bool[] firstLoad = new bool[] {
         false, false, true, true, true, true,
-        true, true, true, true, false
+        true, true, true, true, true, false, false
     };
 
     public static bool[] completedNodes = new bool[]
     {
         true, false, false, false, false, false,
-        false, false, false, false, true
+        false, false, false, false, false, true, true
     };
 
     public static bool[] firstTransition = new bool[] {
         false, true, true, true, true,
-        true, true, true, true, true, false
+        true, true, true, true, true, true, false, false
     };
 
     public static bool[] checkpoints = new bool[4];
@@ -37,6 +37,7 @@ public class CompletedNodes : MonoBehaviour
     public Slider[] mapSlider;
     [SerializeField] private Button cabinButton;
     [SerializeField] private GameObject homeText;
+    [SerializeField] private Image blackOutSquare;
 
     [Header("Circle Data")]
     public GameObject youAreHereCircle;
@@ -65,14 +66,25 @@ public class CompletedNodes : MonoBehaviour
     9 = power grid
     10 = metal field
     11 = computer
+    12 = computer interior
     */
 
     //Function called for just looking at the map
     public void LookAtMap()
     {
-        homeText.SetActive(true);
-        cabinButton.interactable = true;
+        blackOutSquare.enabled = false;
+        if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
+        {
+            homeText.SetActive(true);
+            cabinButton.interactable = true;
+        }
+        else
+        {
+            homeText.SetActive(false);
+            cabinButton.interactable = false;
+        }
         PreDraw();
+        PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
         AudioManager.instance.PlayOneShot(FMODEvents.instance.hudMapOpen, this.transform.position);
     }
@@ -80,6 +92,7 @@ public class CompletedNodes : MonoBehaviour
     //Function called when travelling between nodes to play circle anim and called the nodeSelector
     public void NodeTransferMap()
     {
+        blackOutSquare.enabled = false;
         homeText.SetActive(false);
         cabinButton.interactable = false;
         PreDraw();
@@ -88,7 +101,7 @@ public class CompletedNodes : MonoBehaviour
 
     private void PreDraw()
     {
-        nodes = new bool[12];
+        nodes = new bool[13];
         nodes[0] = cabinNode;
         nodes[1] = deerNode;
         nodes[2] = riverNode;
@@ -101,6 +114,7 @@ public class CompletedNodes : MonoBehaviour
         nodes[9] = powerGridNode;
         nodes[10] = metalFieldNode;
         nodes[11] = computerNode;
+        nodes[12] = computerInterior;
 
         //UpdateMapIcons();
         DrawMapIcons(PlayerData.prevNode - 1);
@@ -140,8 +154,6 @@ public class CompletedNodes : MonoBehaviour
 
     private float GetWaitTime()
     {
-        print("prevnode: " + PlayerData.prevNode);
-        print("currentnode: " + PlayerData.currentNode);
         if (firstTransition[PlayerData.prevNode - 1] && firstLoad[PlayerData.currentNode - 1])
         {
             return circleWaitTime * 7f;
@@ -236,6 +248,7 @@ public class CompletedNodes : MonoBehaviour
 
     private IEnumerator ChangeCircleLocation(int startNode, int endNode, float waitTime)
     {
+        print(endNode);
         //Position circle on start node
         circleSlider.fillAmount = 1;
         youAreHereCircle.transform.position = mapButton[startNode].transform.position;
@@ -272,9 +285,39 @@ public class CompletedNodes : MonoBehaviour
         StartCoroutine(LoadNewNode(0.5f));
     }
 
+    private void PlaceCircle(int node)
+    {
+        youAreHereCircle.transform.position = mapButton[node].transform.position;
+        youAreHereCircle.transform.localScale = circleScales[node] * Vector3.one;
+        circleSlider.fillAmount = 1;
+    }
+
+    public void LoadNode()
+    {
+        nodeSelector.OpenScene();
+    }
+
     private IEnumerator LoadNewNode(float waitTime)
     {
         yield return new WaitForSecondsRealtime(waitTime);
+        StartCoroutine(FadeOutAndTransfer()); 
+    }
+
+    private IEnumerator FadeOutAndTransfer()
+    {
+        blackOutSquare.enabled = true;
+        Color objectColor = blackOutSquare.color;
+        blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
+        float fadeAmount;
+        float fadeSpeed = 2f;
+
+        while (blackOutSquare.color.a < 1)
+        {
+            fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.color = objectColor;
+            yield return null;
+        }
         nodeSelector.OpenScene();
     }
 }

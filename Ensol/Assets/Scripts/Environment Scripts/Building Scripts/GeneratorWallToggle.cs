@@ -19,7 +19,7 @@ public class GeneratorWallToggle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(currAlpha);
+        //print(currAlpha);
         // if player walks in generator zone
         if(inZone && currAlpha > 0.0f)
         {

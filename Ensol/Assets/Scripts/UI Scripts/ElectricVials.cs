@@ -69,9 +69,9 @@ public class ElectricVials : MonoBehaviour // justin
         //Moves the energyUI onto the screen if the player has the solar upgrade at the start of every scene and the health has finished transitioning onto screen
         if (PlayerData.currentlyHasSolar && healthUI.finishedTransition && transitionTimer < transitionTime)
         {
-            StartCoroutine (slideIn(startingPos, endingPos1, center.localPosition, vial1));
-            StartCoroutine (slideIn(startingPos, endingPos2, center.localPosition, vial2));
-            StartCoroutine (slideIn(startingPos, endingPos3, center.localPosition, vial3));
+            StartCoroutine (slideIn(startingPos, endingPos1, center.localPosition, vial1, true));
+            StartCoroutine (slideIn(startingPos, endingPos2, center.localPosition, vial2, false));
+            StartCoroutine (slideIn(startingPos, endingPos3, center.localPosition, vial3, false));
         }
 
         //Resets all the colors once flickering is over
@@ -182,11 +182,14 @@ public class ElectricVials : MonoBehaviour // justin
         return true;
     }
 
-    IEnumerator slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial)
+    IEnumerator slideIn(Vector3 startPos, Vector3 endPos, Vector3 centerPos, RectTransform vial, bool soundPlayer)
     {
         if (!animateStart){
             yield return new WaitForSeconds(0.5f);
             animateStart = true;
+            if (soundPlayer){
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.hudVilesSlideIn, this.transform.position);
+            }
         } else {
             toggler.SetActive(true);
             Vector3 relativeStart = startPos - centerPos;

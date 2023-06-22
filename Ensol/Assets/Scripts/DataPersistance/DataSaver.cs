@@ -82,12 +82,14 @@ public class DataSaver : MonoBehaviour, IDataPersistance
 
         //Player Progress
         data.currentNode = PlayerData.currentNode;
+        data.bloodLocations = PlayerData.bloodLocations;
 
         //Player Tutorial Text
         data.shownWalkText = PlayerData.shownWalkText;
         data.shownBroomText = PlayerData.shownBroomText;
         data.shownSolarText = PlayerData.shownSolarText;
         data.shownThrowText = PlayerData.shownThrowText;
+        data.shownMapText   = PlayerData.shownMapText;
 
         //Player Stats (used for tutorial text)
         data.lightAttacks = PlayerData.lightAttacks;
@@ -116,6 +118,13 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
+        data.hasTransponder = PlayerData.hasTransponder;
+
+        //Power Grid Node Progression
+        data.firstGenHit = PlayerData.firstGenHit;
+        data.secondGenHit =  PlayerData.secondGenHit;
+        data.thirdGenHit =  PlayerData.thirdGenHit;
+
         //data.NGworked = PlayerData.NGworked;
 
 

@@ -16,6 +16,9 @@ public class _00CabinNode : MonoBehaviour
     public GameObject podInteractable;
     public GameObject windowInteractable;
     public GameObject conveyerInteractable;
+    public GameObject podInteractableText;
+    public GameObject windowInteractableText;
+    public GameObject conveyerInteractableText;
     public GameObject plushInteractable;
     
     [Header("Interactable Object Interactors")]
@@ -38,11 +41,44 @@ public class _00CabinNode : MonoBehaviour
     [HideInInspector] public GameObject[] players = null;
     private PlayerController combatController = null;
     public GameObject doorMeower;
-    
+
+    private void Awake() 
+    {
+        if (PlayerData.diedToCrackDeer && PlayerData.currentlyHasBroom == false)
+        {
+            SpawnPoint.First = true;
+            SpawnPoint.Second = false;
+        }
+        else if (SpawnPoint.Mapped)
+        {
+            SpawnPoint.First = true;
+            SpawnPoint.Second = false;
+            SpawnPoint.Mapped = false;
+        }
+        else if (CompletedNodes.prevNode == 1)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = true;
+        }
+        else if (CompletedNodes.prevNode == 3)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = false;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+    }
 
     private void Start()
     {
         CompletedNodes.prevNode = 0;
+
+        //make sure player doesnt get hardlocked from health
+        if (PlayerData.currHP < 1){
+            PlayerData.currHP = 10;
+        }
 
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
@@ -135,7 +171,7 @@ public class _00CabinNode : MonoBehaviour
             podInteractor.interacted = true;
             // removes highlight material from mesh
             podInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
-            
+            podInteractableText.tag = "Uninteractable";
         }
 
         // Window
@@ -147,7 +183,7 @@ public class _00CabinNode : MonoBehaviour
             windowInteractable.GetComponent<Renderer>().materials[0].SetFloat("_SetAlpha", 0f);
             // disable object in scene
             windowInteractable.SetActive(false);
-
+            windowInteractableText.tag = "Uninteractable";
         }
 
         // Conveyer
@@ -157,6 +193,7 @@ public class _00CabinNode : MonoBehaviour
             conveyerInteractor.interacted = true;
             // removes highlight material from mesh
             conveyerInteractable.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
+            conveyerInteractableText.tag = "Uninteractable";
         }
 
         // Plush

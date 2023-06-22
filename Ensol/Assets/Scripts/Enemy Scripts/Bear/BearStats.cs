@@ -94,6 +94,7 @@ public class BearStats : EnemyStats
         if (Random.Range(0f, 1f) < shieldDropChance)
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldDrop, this.transform.position);
         }
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");

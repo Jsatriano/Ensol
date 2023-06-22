@@ -8,10 +8,30 @@ public class _10MetalFieldNode : MonoBehaviour
     public PathCollider exitOnTriggerEnterEvent;
     private bool pathToComputer = false;
 
+
+    [Header("Teslas")]
     public GameObject teslaCoil01;
     public GameObject teslaCoil02;
     public GameObject teslaCoil03;
 
+    private void Awake()
+    {
+        //determine where to spawn
+        if (CompletedNodes.prevNode == 6)
+        {
+            SpawnPoint.First = true;
+            SpawnPoint.Second = false;
+        } 
+        else if (CompletedNodes.prevNode == 11)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = true;
+        }
+        else 
+        {
+            SpawnPoint.First = SceneSwitch.exitFrom;
+        }
+    }
 
     private void Start()
     {

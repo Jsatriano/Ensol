@@ -7,7 +7,6 @@ public class Interaction : MonoBehaviour
 {
     public PlayerController player;
     private GameObject targetedPickup;
-    private bool removePickup = true;
     public GameObject blackOutSquare;
 
     void Awake() {
@@ -33,7 +32,6 @@ public class Interaction : MonoBehaviour
             //print(collider);
             if(collider.gameObject.tag == "InteractablePickup")
             {
-                removePickup = true;
                // print("picked up object");
                 targetedPickup = collider.gameObject;
                 if (collider.gameObject.name == "Weapon Pile")
@@ -56,9 +54,7 @@ public class Interaction : MonoBehaviour
             else if(collider.gameObject.tag == "InteractableCrouch")
             {
                 collider.enabled = false;
-                removePickup = false;
                // print("picked up object");
-                targetedPickup = collider.gameObject;
                 Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
                 player.animator.SetBool("isPickup", true);
                 if(interactTarget != null) {
@@ -102,23 +98,27 @@ public class Interaction : MonoBehaviour
                     interactTarget = collider.gameObject.transform;
                     player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
                 }
-                player.state = PlayerController.State.INTERACTIONANIMATION;
+                player.state = PlayerController.State.DIALOGUE;
                 collider.gameObject.GetComponent<Checkpoint>().ActivateCheckpoint();
-                removePickup = false;
+                collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
             }
             else if(collider.gameObject.tag == "Checkpoint" && collider.gameObject.GetComponent<Checkpoint>().active){
                 player.state = PlayerController.State.DIALOGUE;
                 collider.gameObject.GetComponent<Checkpoint>().UseActiveCheckpoint();
-                removePickup = false;
             }
         }
     }
 
     //anim events for pickups
     private void DeactivatePickup(){
-        if (removePickup){
+        if (targetedPickup != null){
             targetedPickup.SetActive(false);
         }
+    }
+
+    //anim events for hacking
+    private void HackSounds(){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.panelShortCircuit, this.transform.position);
     }
 
     //quick fade out and in

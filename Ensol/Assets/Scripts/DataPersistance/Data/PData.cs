@@ -20,6 +20,7 @@ public class PData
     public bool currentlyHasBroom;
     public bool currentlyHasSolar;
     public float currHP;
+    public Queue<Vector3> bloodLocations;
 
     //Player Progress
     public int currentNode;
@@ -29,6 +30,7 @@ public class PData
     public bool shownBroomText;
     public bool shownSolarText;
     public bool shownThrowText;
+    public bool shownMapText;
 
     //Player Stats (used for tutorial text)
     public float lightAttacks;
@@ -57,6 +59,12 @@ public class PData
     //Security Tower Node Progression
     public bool birdTriggered;
     public bool disableBird;
+    public bool hasTransponder;
+
+    //Power Grid Node Progression
+    public bool firstGenHit;
+    public bool secondGenHit;
+    public bool thirdGenHit;
 
     public int NGworked;
     
@@ -93,7 +101,7 @@ public class PData
 
     public float[] timeSinceAtNode;
 
-    public int[] enemiesAliveInNode;
+    public List<List<string>> enemiesAliveInNode;
 
     public PData()
     {
@@ -117,6 +125,7 @@ public class PData
         shownBroomText = false;
         shownSolarText = false;
         shownThrowText = false;
+        shownMapText   = false;
 
         //Player Stats (used for tutorial text)
         lightAttacks = 0;
@@ -146,6 +155,12 @@ public class PData
         birdTriggered = false;
         disableBird = false;
         NGworked = 0;
+        hasTransponder = false;
+
+        //Power Grid Node Progression
+        firstGenHit = false;
+        secondGenHit = false;
+        thirdGenHit = false;
 
         // Node 1 variables
         weaponPickedUp = false;
@@ -171,18 +186,18 @@ public class PData
 
         firstLoad = new bool[] {
             false, false, true, true, true, true,
-            true, true, true, true, false
+            true, true, true, true, true, false, false
         };
 
         completedNodes = new bool[]
         {
             true, false, false, false, false, false,
-            false, false, false, false, true
+            false, false, false, false, false, true, true
         };
 
        firstTransition = new bool[] {
             false, true, true, true, true,
-            true, true, true, true, true, false
+            true, true, true, true, true, true, false, false
         };
 
         checkpoints = new bool[] {
@@ -191,12 +206,15 @@ public class PData
 
         timeSinceAtNode = new float[] {
             -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1
+            -1, -1, -1, -1, -1, -1, -1
         };
 
-        enemiesAliveInNode = new int[] {
-            999, 999, 999, 999, 999, 999,
-            999, 999, 999, 999, 999
+        enemiesAliveInNode = new List<List<string>> {
+            new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>()
         };
+
+        bloodLocations = new Queue<Vector3>();
     }
 }

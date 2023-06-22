@@ -24,10 +24,17 @@ public class _06BrokenMachineNode : MonoBehaviour
         if (CompletedNodes.prevNode == 5)
         {
             SpawnPoint.First = true;
+            SpawnPoint.Second = false;
         }
         else if (CompletedNodes.prevNode == 10)
         {
             SpawnPoint.First = false;
+            SpawnPoint.Second = true;
+        }
+        else if (CompletedNodes.prevNode == 7)
+        {
+            SpawnPoint.First = false;
+            SpawnPoint.Second = false;
         }
         else 
         {

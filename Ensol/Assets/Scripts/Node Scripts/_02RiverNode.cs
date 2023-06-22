@@ -5,7 +5,6 @@ using FMOD.Studio;
 
 public class _02RiverNode : MonoBehaviour
 {
-    private EventInstance river;
 
 
     [Header("Scripts")]
@@ -16,6 +15,7 @@ public class _02RiverNode : MonoBehaviour
     
     [Header("Interactable Object Interactors")]
     public DialogueTrigger footstepsInteractor;
+    public GameObject footstepsDialogue;
 
     [Header("Water Variables")]
     public GameObject water;
@@ -23,16 +23,15 @@ public class _02RiverNode : MonoBehaviour
 
     private void Awake() 
     {
-        river = AudioManager.instance.CreateEventInstance(FMODEvents.instance.envRiver);
-        river.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
-
         if (CompletedNodes.prevNode == 1)
         {
             SpawnPoint.First = true;
+            SpawnPoint.Second = false;
         }
         else if (CompletedNodes.prevNode == 5 || CompletedNodes.prevNode == 8)
         {
             SpawnPoint.First = false;
+            SpawnPoint.Second = true;
         }
         else 
         {
@@ -43,10 +42,6 @@ public class _02RiverNode : MonoBehaviour
 
     private void Start()
     {
-        if(_04RiverControlNode.riverOn == true)
-        {
-            river.start();
-        }
         CompletedNodes.firstLoad[2] = false;
 
 
@@ -54,6 +49,7 @@ public class _02RiverNode : MonoBehaviour
         if (PlayerData.controlsHit && water.activeInHierarchy)
         {
             water.SetActive(false);
+            footstepsDialogue.SetActive(false);
             foreach (GameObject waterBound in waterBounds)
             {
                 waterBound.SetActive(false);

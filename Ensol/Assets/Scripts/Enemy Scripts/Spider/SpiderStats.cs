@@ -23,6 +23,7 @@ public class SpiderStats : EnemyStats
 
     [Header("Web Shot Attack")]
     public float webShotCooldown;
+    public float webShotDamage;
     public float webShotMinRange;
     public float webShotMaxRange;
     public float webShotDebuff;
@@ -97,6 +98,7 @@ public class SpiderStats : EnemyStats
         if (Random.Range(0f, 1f) < shieldDropChance)
         {
             Instantiate(shieldDropPrefab, transform.position, transform.rotation);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldDrop, this.transform.position);
         }
 
         gameObject.layer = LayerMask.NameToLayer("DeadEnemy");  

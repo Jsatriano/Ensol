@@ -45,7 +45,7 @@ public class TazerShot : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else
+        else if (other.isTrigger == false)
         {
             Destroy(gameObject);
         }

@@ -16,9 +16,10 @@ public static class PlayerData
     public static bool currentlyHasBroom = false;
     public static bool currentlyHasSolar = false;
     public static float currHP = -1;
+    public static Queue<Vector3> bloodLocations;
 
     //Player Progress
-    public static int currentNode = 1;
+    public static int currentNode = 1; // CHANGE BACK TO 1
     public static int prevNode = 1;
 
     //Player Tutorial Text
@@ -67,11 +68,12 @@ public static class PlayerData
     //Enemy Respawn System
     public static float[] timeSinceAtNode = new float[] {
         -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1
+        -1, -1, -1, -1, -1, -1, -1
     };
 
-    public static int[] enemiesAliveInNode = new int[] {
-        999, 999, 999, 999, 999, 999,
-        999, 999, 999, 999, 999
+    public static List<List<string>> enemiesAliveInNode = new List<List<string>> {
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
+        new List<string>(), new List<string>(), new List<string>()
     };
 }

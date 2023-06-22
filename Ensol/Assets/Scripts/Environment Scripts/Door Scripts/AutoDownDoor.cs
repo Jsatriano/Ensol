@@ -39,6 +39,7 @@ public class AutoDownDoor : MonoBehaviour
     void OnTriggerEnter(Collider doorRadius)
     {
         nearDoor = true;
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerDoor, door.transform.position);
     }
 
     //when leaving the door

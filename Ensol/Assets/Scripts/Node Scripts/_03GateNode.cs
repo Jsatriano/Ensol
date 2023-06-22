@@ -17,10 +17,12 @@ public class _03GateNode : MonoBehaviour
         if (CompletedNodes.prevNode == 0)
         {
             SpawnPoint.First = true;
+            SpawnPoint.Second = false;
         }
         else if (CompletedNodes.prevNode == 4)
         {
             SpawnPoint.First = false;
+            SpawnPoint.Second = true;
         }
         else 
         {

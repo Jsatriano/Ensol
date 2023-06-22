@@ -7,6 +7,9 @@ public class GunPivotScript : MonoBehaviour
     [HideInInspector] public bool foundPlayer = false;
     private GameObject player;
     public LaserScript laserScript;
+    public GameObject laserBeamWindup;
+    public float speed;
+    private bool chargingSound = false;
 
     void Start()
     {
@@ -18,14 +21,24 @@ public class GunPivotScript : MonoBehaviour
     {
         if(foundPlayer)
         {
-            transform.LookAt(player.transform);
+            Vector3 direction = player.transform.position - transform.position;
+            Quaternion toRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+
+            //transform.LookAt(player.transform);
             StartCoroutine(Shoot());
         }
     }
 
     IEnumerator Shoot()
     {
-        yield return new WaitForSeconds(2f);
+        laserBeamWindup.SetActive(true);
+        if (!chargingSound) {
+            chargingSound = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.turretCharge, laserBeamWindup.transform.position);
+        }
+
+        yield return new WaitForSeconds(3f);
 
         laserScript.shootPlayer = true;
     }

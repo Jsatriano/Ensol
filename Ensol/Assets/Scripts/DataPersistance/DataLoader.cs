@@ -27,12 +27,14 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
         //Player Progress
         PlayerData.currentNode = data.currentNode;
+        PlayerData.bloodLocations = data.bloodLocations;
 
         //Player Tutorial Text
         PlayerData.shownWalkText  = data.shownWalkText;
         PlayerData.shownBroomText = data.shownBroomText;
         PlayerData.shownSolarText = data.shownSolarText;
         PlayerData.shownThrowText = data.shownThrowText;
+        PlayerData.shownMapText   = data.shownMapText;
 
         //Player Stats (used for tutorial text)
         PlayerData.lightAttacks = data.lightAttacks;
@@ -61,6 +63,12 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         PlayerData.birdTriggered = data.birdTriggered;
         PlayerData.disableBird = data.disableBird;
+        PlayerData.hasTransponder = data.hasTransponder;
+
+        //Power Grid Node Progression
+        PlayerData.firstGenHit = data.firstGenHit;
+        PlayerData.secondGenHit = data.secondGenHit;
+        PlayerData.thirdGenHit = data.thirdGenHit;
 
 
         // Node 1 variables
@@ -115,6 +123,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
 
         //Player Progress
         data.currentNode = PlayerData.currentNode;
+        data.bloodLocations = PlayerData.bloodLocations;
 
         //Player Tutorial Text
         data.shownWalkText = PlayerData.shownWalkText;
@@ -149,6 +158,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
+        data.hasTransponder = PlayerData.hasTransponder;
 
 
 
@@ -178,6 +188,9 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.completedNodes = CompletedNodes.completedNodes;
 
         data.firstTransition = CompletedNodes.firstTransition;
+
+        data.timeSinceAtNode = PlayerData.timeSinceAtNode;
+        data.enemiesAliveInNode = PlayerData.enemiesAliveInNode;
     }
 
     public void SaveStory(ref TextAsset globals)

@@ -34,6 +34,7 @@ public class SpiderWebShot : Node
         {
             ClearData("webShotEnded");
             ClearData("attacking");
+            ClearData("animation");
             state = NodeState.SUCCESS;
             return state;
         }

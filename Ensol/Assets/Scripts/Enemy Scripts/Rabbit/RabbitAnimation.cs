@@ -20,6 +20,7 @@ public class RabbitAnimation : MonoBehaviour
     private float minSpeed;
     private float maxSpeed;
     [SerializeField] private Rigidbody rabbitRB;
+    private bool audioPlayed = false;
 
     private void Start()
     {
@@ -45,9 +46,12 @@ public class RabbitAnimation : MonoBehaviour
                     animController.SetBool("Sitting", false);
                     animController.SetBool("Leaping", true);
                     state = State.LEAPING;
-                    attackSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.bunnyAttack);
-                    attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
-                    attackSound.start();
+                    if (!audioPlayed){
+                        audioPlayed = true;
+                        attackSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.bunnyAttack);
+                        attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+                        attackSound.start();
+                    }
                 }
                 break;
 
@@ -58,6 +62,8 @@ public class RabbitAnimation : MonoBehaviour
                 {
                     animController.SetBool("Leaping", false);
                     animController.SetBool("Dying", true);
+                    attackSound.stop(STOP_MODE.IMMEDIATE);
+                    attackSound.release();
                     state = State.DYING;
                     return;
                 }
@@ -65,8 +71,6 @@ public class RabbitAnimation : MonoBehaviour
 
             case State.DYING:
                 //Do nothing once rabbit is dead
-                attackSound.stop(STOP_MODE.IMMEDIATE);
-                attackSound.release();
                 return;
         }
     }
@@ -98,6 +102,12 @@ public class RabbitAnimation : MonoBehaviour
     void Update()
     {
         attackSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+    }
+
+    void OnDisable()
+    {
+        attackSound.stop(STOP_MODE.IMMEDIATE);
+        attackSound.release();
     }
 
 }

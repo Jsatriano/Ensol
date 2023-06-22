@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class BirdFlyAway : MonoBehaviour
 {
     public GameObject flyRadius, flyTarget, bird;
     private Animator birdAnim;
+    public EventInstance birdFlaps;
     public bool birdIsFlying = false;
     public int birdSpeed = 23;
 
@@ -26,7 +28,10 @@ public class BirdFlyAway : MonoBehaviour
             birdAnim.SetBool("isFlying", true);
             if (trigger == false)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.birdBeepBeep, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.birdSquawk, bird.transform.position);
+                birdFlaps = AudioManager.instance.CreateEventInstance(FMODEvents.instance.birdFly); 
+                birdFlaps.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(bird.gameObject));
+                birdFlaps.start();
                 trigger = true;
             }
             if(gameObject.transform.position != flyTarget.transform.position) {
@@ -40,8 +45,15 @@ public class BirdFlyAway : MonoBehaviour
         
     }
 
+    void OnDisable()
+    {
+        birdFlaps.stop(STOP_MODE.IMMEDIATE);
+        birdFlaps.release();
+    }
+
     void OnTriggerEnter(Collider col) {
         if(col.gameObject.layer == 8) {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.birdDie, bird.transform.position);
             birdAnim.SetBool("isDying", true);
             flyRadius.SetActive(false);
             gameObject.GetComponent<Collider>().enabled = false;

@@ -18,7 +18,7 @@ public class BirdFlyRadius : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider col) {
-        if(col.gameObject.tag == "Player") {
+        if(col.gameObject.tag == "Player" && !PlayerData.killedBird) {
             gameObject.GetComponent<Collider>().enabled = false;
             bird.birdIsFlying = true;
         }

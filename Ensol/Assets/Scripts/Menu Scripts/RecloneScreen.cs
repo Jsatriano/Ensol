@@ -28,6 +28,7 @@ public class RecloneScreen : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        nodeSelector.node = 1;
         PlayerData.currHP = -1;
         SceneManager.LoadScene(sceneName:"MenuScene");
     }

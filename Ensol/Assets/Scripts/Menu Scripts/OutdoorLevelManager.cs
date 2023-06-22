@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class OutdoorLevelManager : MonoBehaviour 
@@ -16,11 +17,13 @@ public class OutdoorLevelManager : MonoBehaviour
     public GameObject[] levelLocations;
     public GameObject player;
     public static bool isCheckpointTransition;
+    [SerializeField] private Image blackOutSquare;
+    public GameObject bloodPrefab;
 
     void Start()
     {
         node = NodeSelector.selectedNode;
-        print("Selected node is" + node);
+        print("Selected node is " + node);
         Load(node);
     }
 
@@ -28,7 +31,9 @@ public class OutdoorLevelManager : MonoBehaviour
         foreach(GameObject point in levelLocations) {
             point.SetActive(false);
         }
+        LoadBlood();
         int nodeIndex = node - 1;
+        print("nodeIndex is " + nodeIndex);
         if(nodeIndex >= 0 && nodeIndex < nodePrefabs.Length) {
             levelLocations[nodeIndex].SetActive(true);
             Instantiate(nodePrefabs[nodeIndex], levelLocations[nodeIndex].transform);
@@ -59,5 +64,14 @@ public class OutdoorLevelManager : MonoBehaviour
 
     public void GoBackToMapSelection() {
         SceneManager.LoadScene("MapScene");
+    }
+
+    private void LoadBlood(){
+        if(PlayerData.bloodLocations.Count > 4 ){
+            PlayerData.bloodLocations.Dequeue();
+        } 
+        foreach(Vector3 loc in PlayerData.bloodLocations) {
+            Instantiate(bloodPrefab, loc, new Quaternion());
+        }
     }
 }

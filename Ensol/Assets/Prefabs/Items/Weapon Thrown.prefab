@@ -865,13 +865,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  pcc: {fileID: 0}
   damageFlash: {fileID: 0}
   players: []
   isProjectile: 0
   damagePulseVFX: {fileID: 7426815683891816177}
   weaponThrowVFX: {fileID: 6212144850306776157}
   weaponHitVFX: {fileID: 189898985647363563, guid: f80724f25fc26aa4194d63d26b77be11, type: 3}
+  electricHitVFX: {fileID: 0}
+  noElectricHitVFX: {fileID: 0}
 --- !u!65 &5943284480292858319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -883,8 +884,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.047428295, y: 0.052697547, z: 0.17790252}
-  m_Center: {x: 0.00026602298, y: 0.0022329865, z: 0.017890483}
+  m_Size: {x: 0.047428295, y: 0.052697547, z: 0.09}
+  m_Center: {x: 0.00026602298, y: 0.0022329865, z: 0.05}
 --- !u!54 &8220605199291413979
 Rigidbody:
   m_ObjectHideFlags: 0

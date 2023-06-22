@@ -145,6 +145,44 @@ public class FileDataHandler
 
     }
 
+    ///////only for testing///////
+
+    public void LoadSkippedStory()
+    {
+
+        string fullPath = Sys.Path.Combine(dataDirPath, "DialogueState.game");
+
+        //Story loadedStory;
+
+        if (Sys.File.Exists(fullPath))
+        {
+
+            try
+            {
+                string storyToLoad = "";
+                using (Sys.FileStream stream = new Sys.FileStream(fullPath, Sys.FileMode.Open))
+                {
+                    using (Sys.StreamReader reader = new Sys.StreamReader(stream))
+                    {
+                        storyToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                DialogueVariables.saveFile = storyToLoad;
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Erroroccured when trying to load data from file: " + fullPath + "\n" + e);
+            }
+
+        }
+        //return loadedStory;
+
+    }
+
+    /////////////////////////////
+
     public void Delete()
     {
         string fullPath1 = Sys.Path.Combine(dataDirPath, dataFileName);

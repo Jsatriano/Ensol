@@ -1,5 +1,6 @@
 INCLUDE ../globals.ink
-EXTERNAL meowing()
+EXTERNAL petCat()
+EXTERNAL favoriteTunes()
 
 { deerdead == true: ->Intro3}
 { deadtodeer == true: -> After_death}
@@ -30,6 +31,7 @@ P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and so
 
 
 * {abletoleave && abletoleave2} [I just want to walk around for a bit.]
+~petCat()
 P1-USH: Okay! If you need anything, let me know.
 
 -> END
@@ -134,15 +136,16 @@ P1-USH: Okay!
 P1-USH: It’s not every day I see a solar panel shaped like that. Those edges look a bit sharp so please be careful! I’m glad you’re getting back into your building hobby though, it’s always a good idea to reinvigorate the mind!
     ->plush_questions
     
-+[Can you play my favorite tune? (Not working)]
++[Can you play my favorite tune?]
+~ favoriteTunes()
 P1-USH: Sure! 
     ->plush_questions
     
-+[Can you play my favorite game? (Not working)]
-P1-USH: Sure! 
-    ->plush_questions
+// +[Can you play my favorite game? (Not working)]
+// P1-USH: Sure! 
+//     ->plush_questions
     
-+{dear_defeated == false}[Can I pet you?(Not working)]
++{dear_defeated == false}[Can I pet you?]
 P1-USH: Absolutely! 
     ->plush_questions
 
@@ -153,7 +156,8 @@ P1-USH: Okay!
 -> Plush_unlock
 
 ===Plush_unlock_2===
-+[Can I pet you?(Not working)]
++[Can I pet you?]
+~ petCat()
 P1-USH: Absolutely! 
     ->plush_questions
 

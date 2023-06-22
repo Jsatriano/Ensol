@@ -7,6 +7,7 @@ public class WebShot : MonoBehaviour
     [HideInInspector] public Transform spiderTF;
     [HideInInspector] public float speedDebuff;
     [HideInInspector] public float debuffLength;
+    [HideInInspector] public float webDamage;
     public GameObject dustVFX;
     private GameObject activeDustVFX;
 
@@ -26,7 +27,7 @@ public class WebShot : MonoBehaviour
                 EnemyStats enemyScript = other.GetComponent<EnemyStats>();
                 if (enemyScript != null)
                 {
-                    //enemyScript.TakeDamage(tazerDamage);
+                    enemyScript.TakeDamage(webDamage);
                     activeDustVFX = Instantiate(dustVFX, gameObject.transform.position, gameObject.transform.rotation);
                     StartCoroutine(DeleteWeb());
                     gameObject.SetActive(false);
@@ -40,12 +41,13 @@ public class WebShot : MonoBehaviour
             if (playerScript != null)
             {
                 activeDustVFX = Instantiate(dustVFX, gameObject.transform.position, gameObject.transform.rotation);
+                playerScript.TakeDamage(webDamage, spiderTF.position);
                 playerScript.ApplySpeedChange(speedDebuff, debuffLength);
                 StartCoroutine(DeleteWeb());
                 gameObject.SetActive(false);
             }
         }
-        else
+        else if (other.isTrigger == false)
         {
             activeDustVFX = Instantiate(dustVFX, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(DeleteWeb());

@@ -46,12 +46,12 @@ public class HealthBar : MonoBehaviour // justin
     public void SetMaxHealth(float health)
     {
         slider.maxValue = health;
-        slider.value = PlayerData.currHP + 1;
+        slider.value = PlayerData.currHP;
     }
 
     public void SetHealth(float health)
     {
-        slider.value = health;
+        slider.value = health + 1;
     }
 
     IEnumerator slideIn()
@@ -60,6 +60,7 @@ public class HealthBar : MonoBehaviour // justin
         if (!animateStart){
             yield return new WaitForSeconds(0.5f);
             animateStart = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudHealthSlideIn, this.transform.position);
         } else {
             toggler.SetActive(true);
             //Transitions the health bar onto screen 

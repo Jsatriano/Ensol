@@ -21,6 +21,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerSpin { get; private set; }
     [field: SerializeField] public EventReference playerShieldOn { get; private set; }
     [field: SerializeField] public EventReference playerShieldBreak { get; private set; }
+    [field: SerializeField] public EventReference hudHealthSlideIn { get; private set; }
+    [field: SerializeField] public EventReference hudVilesSlideIn { get; private set; }
 
     [field: Header("Deer")]
     [field: SerializeField] public EventReference deerDeath { get; private set; }
@@ -28,6 +30,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deerMove { get; private set; }
     [field: SerializeField] public EventReference deerAlerted { get; private set; }
     [field: SerializeField] public EventReference deerGutted { get; private set; }
+    [field: SerializeField] public EventReference deerMoveMetal { get; private set; }
 
     [field: Header("Bunny")]
     [field: SerializeField] public EventReference bunnyMove { get; private set; }
@@ -37,6 +40,8 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Bird")]
     [field: SerializeField] public EventReference birdBeepBeep { get; private set; }
     [field: SerializeField] public EventReference birdSquawk { get; private set; }
+    [field: SerializeField] public EventReference birdDie { get; private set; }
+    [field: SerializeField] public EventReference birdFly { get; private set; }
 
     [field: Header("Bear")]
     [field: SerializeField] public EventReference bearDeath { get; private set; }
@@ -58,6 +63,8 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Turret")]
     [field: SerializeField] public EventReference turretFire { get; private set; }
+    [field: SerializeField] public EventReference boopboop { get; private set; }
+    [field: SerializeField] public EventReference turretCharge { get; private set; }
 
     [field: Header("Generator")]
     [field: SerializeField] public EventReference generatorOn { get; private set; }
@@ -68,6 +75,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference deathCut { get; private set; }
     [field: SerializeField] public EventReference envGateOpen { get; private set; }
     [field: SerializeField] public EventReference envFenceGateOpen { get; private set; }
+    [field: SerializeField] public EventReference panelShortCircuit { get; private set; }
     [field: SerializeField] public EventReference envCabinDoorOpen { get; private set; }
     [field: SerializeField] public EventReference envRiver { get; private set; }
     [field: SerializeField] public EventReference envBroomBreak { get; private set; }
@@ -83,6 +91,16 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference dirtMove { get; private set; }
     [field: SerializeField] public EventReference stoneMove { get; private set; }
     [field: SerializeField] public EventReference healUp { get; private set; }
+    [field: SerializeField] public EventReference favoriteTunes { get; private set; }
+    [field: SerializeField] public EventReference computerShutdown { get; private set; }
+    [field: SerializeField] public EventReference envComputerDoor { get; private set; }
+    [field: SerializeField] public EventReference envComputerUp { get; private set; }
+    [field: SerializeField] public EventReference ensolAlarm { get; private set; }
+    [field: SerializeField] public EventReference envFieldNodeBuzz { get; private set; }
+    [field: SerializeField] public EventReference shieldDrop { get; private set; }
+    [field: SerializeField] public EventReference envStampede { get; private set; }
+    
+
 
     public static FMODEvents instance { get; private set; }
 

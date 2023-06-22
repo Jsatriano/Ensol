@@ -50,7 +50,10 @@ public class SceneSwitch : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         Color objectColor = blackOutSquare.color;
         float fadeAmount = 0;
-        int fadeSpeed = 1;
+        float fadeSpeed = 1f;
+        if(nodeDestination == 13) {
+            fadeSpeed = 3f;
+        }
         while(blackOutSquare.color.a < 1)
         {      
             fadeAmount += fadeSpeed * Time.unscaledDeltaTime;
@@ -61,19 +64,27 @@ public class SceneSwitch : MonoBehaviour
         SetEnemiesDefeated();
         SetTimeAtNode();
         PlayerData.prevNode = PlayerData.currentNode;
-        PlayerData.currentNode = nodeDestination;       
-        pauseMenu.OpenMapForNodeTransfer();      
+        PlayerData.currentNode = nodeDestination;   
+        //no map cutscene for entering computer interior
+        if (nodeDestination == 13)
+        {
+            pauseMenu.InstantlyTransferNode();
+        }
+        else
+        {
+            pauseMenu.OpenMapForNodeTransfer();      
+        }
     }
 
     public void SetTimeAtNode()
     {
         if (PlayerData.timeSinceAtNode[PlayerData.currentNode] == -1)
         {
-            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+            PlayerData.timeSinceAtNode[PlayerData.currentNode-1] = Time.time;
         }
         else
         {
-            PlayerData.timeSinceAtNode[PlayerData.currentNode] = Time.time;
+            PlayerData.timeSinceAtNode[PlayerData.currentNode-1] = Time.time;
         }
     }
 
@@ -84,14 +95,14 @@ public class SceneSwitch : MonoBehaviour
             return;
         }
 
-        int enemiesAlive = 0;
+        List<string> aliveEnemies = new List<string>();
         foreach (Transform enemy in enemyParent)
         {
             if (enemy.gameObject.activeSelf && enemy.GetComponent<BT>().isAlive)
             {
-                enemiesAlive++;
+                aliveEnemies.Add(enemy.name);
             }
         }
-        PlayerData.enemiesAliveInNode[PlayerData.currentNode] = enemiesAlive;
+        PlayerData.enemiesAliveInNode[PlayerData.currentNode-1] = aliveEnemies;
     }
 }
