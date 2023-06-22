@@ -47,9 +47,10 @@ public class _06BrokenMachineNode : MonoBehaviour
     {
         //determine where to spawn part 2
         CompletedNodes.firstLoad[6] = false;
+        CompletedNodes.securityTowerNode = true;
 
         // doesn't spawn interactable bear if player already has upgrade
-        if(PlayerData.hasThrowUpgrade)
+        if (PlayerData.hasThrowUpgrade)
         {
             interactableBear.SetActive(false);
             transferCube.SetActive(true);
