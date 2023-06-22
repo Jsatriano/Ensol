@@ -101,7 +101,19 @@ public class PData
 
     public float[] timeSinceAtNode;
 
-    public List<List<string>> enemiesAliveInNode;
+    public List<string> cabinEnemiesAlive = new List<string>();
+    public List<string> deerEnemiesAlive = new List<string>();
+    public List<string> riverEnemiesAlive = new List<string>();
+    public List<string> gateEnemiesAlive = new List<string>();
+    public List<string> riverControlEnemiesAlive = new List<string>();
+    public List<string> bearEnemiesAlive = new List<string>();
+    public List<string> brokenMachineEnemiesAlive = new List<string>();
+    public List<string> securityTowerEnemiesAlive = new List<string>();
+    public List<string> birdEnemiesAlive = new List<string>();
+    public List<string> powerGridEnemiesAlive = new List<string>();
+    public List<string> metalFieldEnemiesAlive = new List<string>();
+    public List<string> computerEnemiesAlive = new List<string>();
+    public List<string> computerInteriorEnemiesAlive = new List<string>();
 
     public PData()
     {
@@ -209,12 +221,22 @@ public class PData
             -1, -1, -1, -1, -1, -1, -1
         };
 
-        enemiesAliveInNode = new List<List<string>> {
-            new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
-        new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
-        new List<string>(), new List<string>(), new List<string>()
-        };
+        cabinEnemiesAlive = new List<string>();
+        deerEnemiesAlive = new List<string>();
+        riverEnemiesAlive = new List<string>();
+        gateEnemiesAlive = new List<string>();
+        riverControlEnemiesAlive = new List<string>();
+        bearEnemiesAlive = new List<string>();
+        brokenMachineEnemiesAlive = new List<string>();
+        securityTowerEnemiesAlive = new List<string>();
+        birdEnemiesAlive = new List<string>();
+        powerGridEnemiesAlive = new List<string>();
+        metalFieldEnemiesAlive = new List<string>();
+        computerEnemiesAlive = new List<string>();
+        computerInteriorEnemiesAlive = new List<string>();
 
-        bloodLocations = new Queue<Vector3>();
+
+
+    bloodLocations = new Queue<Vector3>();
     }
 }

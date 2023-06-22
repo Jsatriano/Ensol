@@ -259,6 +259,17 @@ public class PauseMenu : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        //Save stuff for enemy manager
+        GameObject transferCube = GameObject.Find("Entrance");
+        if (transferCube)
+        {
+            SceneSwitch sceneSwitcher = transferCube.GetComponent<SceneSwitch>();
+            if (sceneSwitcher)
+            {
+                sceneSwitcher.SetTimeAtNode();
+                sceneSwitcher.SetEnemiesDefeated();
+            }
+        }
         DPM.SaveGame();
         SceneManager.LoadScene(sceneName:"MenuScene");
         amInPlaytestScene = false;

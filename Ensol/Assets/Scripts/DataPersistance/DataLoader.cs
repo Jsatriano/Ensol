@@ -101,7 +101,21 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         CompletedNodes.checkpoints = data.checkpoints;
 
         PlayerData.timeSinceAtNode = data.timeSinceAtNode;
-        PlayerData.enemiesAliveInNode = data.enemiesAliveInNode;
+
+        PlayerData.enemiesAliveInNode[0] = data.cabinEnemiesAlive;
+        PlayerData.enemiesAliveInNode[1] = data.deerEnemiesAlive;
+        PlayerData.enemiesAliveInNode[2] = data.riverEnemiesAlive;
+        PlayerData.enemiesAliveInNode[3] = data.gateEnemiesAlive;
+        PlayerData.enemiesAliveInNode[4] = data.riverControlEnemiesAlive;
+        PlayerData.enemiesAliveInNode[5] = data.bearEnemiesAlive;
+        PlayerData.enemiesAliveInNode[6] = data.brokenMachineEnemiesAlive;
+        PlayerData.enemiesAliveInNode[7] = data.securityTowerEnemiesAlive;
+        PlayerData.enemiesAliveInNode[8] = data.birdEnemiesAlive;
+        PlayerData.enemiesAliveInNode[9] = data.powerGridEnemiesAlive;
+        PlayerData.enemiesAliveInNode[10] = data.metalFieldEnemiesAlive;
+        PlayerData.enemiesAliveInNode[11] = data.computerEnemiesAlive;
+        PlayerData.enemiesAliveInNode[12] = data.computerInteriorEnemiesAlive;
+
     }
 
     public void SaveData(ref PData data)
@@ -190,7 +204,20 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.firstTransition = CompletedNodes.firstTransition;
 
         data.timeSinceAtNode = PlayerData.timeSinceAtNode;
-        data.enemiesAliveInNode = PlayerData.enemiesAliveInNode;
+
+        data.cabinEnemiesAlive = PlayerData.enemiesAliveInNode[0];
+        data.deerEnemiesAlive = PlayerData.enemiesAliveInNode[1];
+        data.riverEnemiesAlive = PlayerData.enemiesAliveInNode[2];
+        data.gateEnemiesAlive = PlayerData.enemiesAliveInNode[3];
+        data.riverControlEnemiesAlive = PlayerData.enemiesAliveInNode[4];
+        data.bearEnemiesAlive = PlayerData.enemiesAliveInNode[5];
+        data.brokenMachineEnemiesAlive = PlayerData.enemiesAliveInNode[6];
+        data.securityTowerEnemiesAlive = PlayerData.enemiesAliveInNode[7];
+        data.birdEnemiesAlive = PlayerData.enemiesAliveInNode[8];
+        data.powerGridEnemiesAlive = PlayerData.enemiesAliveInNode[9];
+        data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
+        data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
+        data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
     }
 
     public void SaveStory(ref TextAsset globals)
