@@ -8,6 +8,8 @@ public class Interaction : MonoBehaviour
     public PlayerController player;
     private GameObject targetedPickup;
     public GameObject blackOutSquare;
+    private bool petting = false;
+    public bool checkpointInteracting = false;
 
     void Awake() {
         player = gameObject.GetComponent<PlayerController>();
@@ -19,6 +21,9 @@ public class Interaction : MonoBehaviour
         {
             if(Input.GetButtonDown("Interact") && (player.state == PlayerController.State.MOVING || player.state == PlayerController.State.IDLE)){
                 Interact();
+            }
+            if (petting || checkpointInteracting){
+                player.state = PlayerController.State.INTERACTIONANIMATION;
             }
         }
     }
@@ -91,6 +96,7 @@ public class Interaction : MonoBehaviour
             else if(collider.gameObject.tag == "Checkpoint" && !collider.gameObject.GetComponent<Checkpoint>().active){
                 Transform interactTarget = collider.gameObject.transform.Find("Interact Target");
                 player.animator.SetBool("isPickup", true);
+                checkpointInteracting = true;
                 if(interactTarget != null) {
                     player.transform.LookAt(new Vector3(interactTarget.position.x, player.transform.position.y, interactTarget.position.z));
                 }
@@ -114,6 +120,15 @@ public class Interaction : MonoBehaviour
         if (targetedPickup != null){
             targetedPickup.SetActive(false);
         }
+    }
+
+    //anim evens for cat
+    private void StartPetting(){
+        petting = true;
+    }
+
+    private void EndPetting(){
+        petting = false;
     }
 
     //anim events for hacking

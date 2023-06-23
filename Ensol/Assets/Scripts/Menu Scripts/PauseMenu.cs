@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
         CHECKPOINT
     }
 
+    private Interaction interactionScript;
     public GameObject pauseMenu;
     public Image blackOutSquare;
     public DataPersistanceManager dataManager;
@@ -50,6 +51,7 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         menuState = MenuState.UNPAUSED;
+        interactionScript = GameObject.FindWithTag("Player").GetComponent<Interaction>();
         DPM = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPersistanceManager>();
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(resumeButton);
@@ -169,6 +171,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void CloseCheckpointMenu(){
+        interactionScript.checkpointInteracting = false;
         Time.timeScale = 1f;
         checkpointMenu.SetActive(false);
         menuState = MenuState.UNPAUSED;
@@ -176,6 +179,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void TransferViaCheckpoint(int nodeDestination) {
+        interactionScript.checkpointInteracting = false;
         checkpointMenu.SetActive(false);
         //trigger animations
         combatController.state = PlayerController.State.INTERACTIONANIMATION;
