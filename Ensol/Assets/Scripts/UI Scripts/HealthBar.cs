@@ -15,6 +15,7 @@ public class HealthBar : MonoBehaviour // justin
     private float transitionTimer;
     public float transitionTime;
     private bool animateStart = false;
+    private bool playAudio = true;
     [HideInInspector] public bool finishedTransition;
 
     private void Start()
@@ -60,7 +61,10 @@ public class HealthBar : MonoBehaviour // justin
         if (!animateStart){
             yield return new WaitForSeconds(0.5f);
             animateStart = true;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.hudHealthSlideIn, this.transform.position);
+            if (playAudio){
+                playAudio = false;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.hudHealthSlideIn, this.transform.position);
+            }
         } else {
             toggler.SetActive(true);
             //Transitions the health bar onto screen 

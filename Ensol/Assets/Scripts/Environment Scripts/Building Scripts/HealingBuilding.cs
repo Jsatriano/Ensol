@@ -15,9 +15,9 @@ public class HealingBuilding : MonoBehaviour
     public float drainSpeed = 1f;
     private Vector3 target;
 
-    void Awake() {
+    /*void Awake() {
         gameObject.tag = "Interactable";
-    }
+    }*/
     // Start is called before the first frame update
     void Start()
     {

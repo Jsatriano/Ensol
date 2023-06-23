@@ -20,6 +20,7 @@ public class _00CabinNode : MonoBehaviour
     public GameObject windowInteractableText;
     public GameObject conveyerInteractableText;
     public GameObject plushInteractable;
+    public GameObject podHealingInteractable;
     
     [Header("Interactable Object Interactors")]
     public CabinDoor doorInteractor;
@@ -73,11 +74,22 @@ public class _00CabinNode : MonoBehaviour
 
     private void Start()
     {
+        if (combatController == null)
+        {
+            SearchForPlayer();
+        }
+
         CompletedNodes.prevNode = 0;
 
         //make sure player doesnt get hardlocked from health
         if (PlayerData.currHP < 1){
-            PlayerData.currHP = 10;
+            PlayerData.currHP = combatController.maxHP;
+        }
+        
+        if (PlayerData.currHP < combatController.maxHP){
+            print("Swapping pods");
+            podInteractable.SetActive(false);
+            podHealingInteractable.SetActive(true);
         }
 
         //Only have the broom loaded into the scene if the player hasn't picked it up yet
@@ -118,10 +130,6 @@ public class _00CabinNode : MonoBehaviour
 
     public void Update()
     {
-        if (combatController == null)
-        {
-            SearchForPlayer();
-        }
         if(_01DeerNode.weaponPickedUp && !gateTransferCube.activeInHierarchy)
         {
             gateTransferCube.SetActive(true);
