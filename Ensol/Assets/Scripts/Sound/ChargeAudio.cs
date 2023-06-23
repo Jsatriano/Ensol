@@ -16,6 +16,10 @@ public class ChargeAudio : MonoBehaviour
         
     }
 
+    void Update(){
+        charge.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.gameObject));
+    }
+
 
     void OnDisable(){
         charge.stop(STOP_MODE.ALLOWFADEOUT);

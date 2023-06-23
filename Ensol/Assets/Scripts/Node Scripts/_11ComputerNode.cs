@@ -8,6 +8,7 @@ public class _11ComputerNode : MonoBehaviour
     public TextAsset exteriorCutscene;
     public GameObject enemyWave;
     public GameObject redLight;
+    public GameObject farChargeAudio;
     public EventInstance alarmSound;
     public float enemyWaveSpeed = 15;
     private bool seenCutsceneDialogue;
@@ -42,6 +43,7 @@ public class _11ComputerNode : MonoBehaviour
         seenCutsceneDialogue = true;
         dialogueManager.EnterDialogueMode(exteriorCutscene);
         redLight.SetActive(true);
+        farChargeAudio.SetActive(true);
         if (!playingAlarm){
             playingAlarm = true;
             alarmSound = AudioManager.instance.CreateEventInstance(FMODEvents.instance.ensolAlarm);
