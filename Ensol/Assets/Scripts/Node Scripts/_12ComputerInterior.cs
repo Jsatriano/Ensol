@@ -15,7 +15,7 @@ public class _12ComputerInterior : MonoBehaviour
     void Start()
     {
         PlayerData.prevNode = 11;
-        PlayerData.currentNode = 12; //10 and 11 because we want load game to start outside the building
+        PlayerData.currentNode = 12; //11 and 12 because we want load game to start outside the building
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerAnimator = player.GetComponent<Animator>();
         doorBar.SetActive(false);
@@ -31,6 +31,7 @@ public class _12ComputerInterior : MonoBehaviour
         }
         else if(!doorBarred && player.state != PlayerController.State.INTERACTIONANIMATION){
             print("barring door");
+            PlayerData.currentNode = 12;
             player.transform.LookAt(new Vector3(lookTarget.position.x, player.transform.position.y, lookTarget.position.z));
             player.state = PlayerController.State.INTERACTIONANIMATION;
             playerAnimator.SetBool("isClosingDoor", true);

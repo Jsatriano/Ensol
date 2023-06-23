@@ -12,6 +12,7 @@ public class EndingManager : MonoBehaviour
 
     public GameObject blackOutSquare;
     public GameObject computerObject;
+    public GameObject player;
     public bool killAmbiance = false;
     public bool killMusic = false;
     private string sceneName;
@@ -28,6 +29,7 @@ public class EndingManager : MonoBehaviour
         blackOutSquare = GameObject.Find("Black Out Screen");
         sceneName = SceneManager.GetActiveScene().name;  
         DPM = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPersistanceManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -51,9 +53,7 @@ public class EndingManager : MonoBehaviour
         gameEnding = true;
         killMusic = true;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.computerShutdown, computerObject.transform.position);
-        //print("ambiance is "+killAmbiance);
         killAmbiance = true;
-        //print("ambiance is "+killAmbiance);
     }
 
     public void EndTwo(){
@@ -74,6 +74,7 @@ public class EndingManager : MonoBehaviour
         {
             while(blackOutSquare.GetComponent<Image>().color.a < 1)
             {
+                player.GetComponent<PlayerController>().state = PlayerController.State.INTERACTIONANIMATION;
                 fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
@@ -82,11 +83,17 @@ public class EndingManager : MonoBehaviour
                     doneFading = true;
                     //Takes player to credits
                     if (gameEndingOne){
+                        yield return new WaitForSeconds(2.5f);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerDoor, player.transform.position);
+                        yield return new WaitForSeconds(1.3f);
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerUp, player.transform.position);
+                        yield return new WaitForSeconds(1.5f);
                         PlayerData.prevNode = 11;
                         DPM.SaveGame();
                         SceneManager.LoadScene(sceneName:"CreditScene");
                     } else {
                         killAmbiance = true;
+                        yield return new WaitForSeconds(2f);
                         DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                         AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.catMeow, this.transform.position);

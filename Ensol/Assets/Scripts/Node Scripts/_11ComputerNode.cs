@@ -20,6 +20,7 @@ public class _11ComputerNode : MonoBehaviour
     {
         SpawnPoint.First = true;
         CompletedNodes.prevNode = 11;
+        PlayerData.currentNode = 11; //this is not redundant, it is here for player loading into this node if they exited last on computer node
         redLight.SetActive(false);
         enemyWave.SetActive(false);
         dialogueManager = DialogueManager.GetInstance();
