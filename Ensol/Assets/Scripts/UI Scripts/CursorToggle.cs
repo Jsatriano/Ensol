@@ -23,11 +23,16 @@ public class CursorToggle : MonoBehaviour
 
     void Update()
     {
-        if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy && !checkpointUI.activeInHierarchy)
+        if (scene.name == "CreditScene"){
+            Cursor.visible = false;
+        }
+         else if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy && !checkpointUI.activeInHierarchy)
         {
             Cursor.visible = false;
-            if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom && PlayerData.prevNode != 12) || scene.name == "PlaytestingScene"){
+            if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom && PlayerData.currentNode != 12) || scene.name == "PlaytestingScene"){
                 arrow.SetActive(true);
+            } else {
+                arrow.SetActive(false);
             }
         }
         else

@@ -36,15 +36,20 @@ public class AutoDownDoor : MonoBehaviour
     }
 
     //when nearing door
-    void OnTriggerEnter(Collider doorRadius)
+    void OnTriggerEnter(Collider col)
     {
-        nearDoor = true;
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerDoor, door.transform.position);
+        if (col.gameObject.tag == "Player"){
+            nearDoor = true;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerDoor, door.transform.position);
+        }
     }
 
     //when leaving the door
-    void OnTriggerExit(Collider doorRadius)
+    void OnTriggerExit(Collider col)
     {
-        nearDoor = false;
+        if (col.gameObject.tag == "Player"){
+            nearDoor = false;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.envComputerUp, door.transform.position);
+        }
     }
 }

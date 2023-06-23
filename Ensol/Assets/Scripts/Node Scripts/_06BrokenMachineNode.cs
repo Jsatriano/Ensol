@@ -70,7 +70,7 @@ public class _06BrokenMachineNode : MonoBehaviour
         {
             PlayerData.hasThrowUpgrade = true;
             interactableBear.SetActive(false);
-            transferCube.SetActive(true);
+            //transferCube.SetActive(true);
         }
     }
 }
