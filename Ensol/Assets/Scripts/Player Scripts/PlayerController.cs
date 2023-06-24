@@ -233,7 +233,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("hasWeapon", hasWeapon);
 
         //read inputs
-        direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if (CursorToggle.controller == false)
+        {
+            direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        }
+        else
+        {
+            direction = new Vector3(Input.GetAxisRaw("Horizontal_Controller"), 0, Input.GetAxisRaw("Vertical_Controller"));
+        }
+        // direction = new Vector3(CursorToggle.horizontal, 0, CursorToggle.vertical);
         if(Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
@@ -890,11 +898,26 @@ public class PlayerController : MonoBehaviour
         // checks if player is moving
         if(direction.magnitude > 0.1f)
         {
-            // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
-            Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+            Vector3 rightMovement;
+            Vector3 upMovement;
 
-            // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
-            Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            if (CursorToggle.controller == false)
+            {
+                // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+                rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+
+                // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+                upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            }
+            else
+            {
+                // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+                rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal_Controller");
+
+                // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+                upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical_Controller");
+            }
+            
 
             // combines both movements to create a direction that our character will point to
             heading = Vector3.Normalize(rightMovement + upMovement);
