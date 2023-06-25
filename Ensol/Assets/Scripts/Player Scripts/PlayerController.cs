@@ -705,7 +705,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void LookAtMouse() {
-        if(!controller) {
+        if(CursorToggle.controller == false) {
             Vector3 toMouse = (mouseFollower.transform.position - transform.position);
             transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
         }

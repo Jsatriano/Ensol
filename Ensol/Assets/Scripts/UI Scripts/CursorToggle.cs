@@ -64,5 +64,15 @@ public class CursorToggle : MonoBehaviour
             }
             Cursor.visible = true;
         }
+
+        if (scene.name == "GameplayScene" && controller == true)
+        {
+            arrow.SetActive(false);
+            Cursor.visible = false;
+        }
+        else if (scene.name == "GameplayScene" && controller == false)
+        {
+            arrow.SetActive(true);
+        }
     }
 }
