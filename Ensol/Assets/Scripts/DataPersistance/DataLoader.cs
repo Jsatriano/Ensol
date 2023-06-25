@@ -116,6 +116,12 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.enemiesAliveInNode[11] = data.computerEnemiesAlive;
         PlayerData.enemiesAliveInNode[12] = data.computerInteriorEnemiesAlive;
 
+        OptionsMenu.musicValue = data.musicValue;
+        OptionsMenu.sfxValue = data.sfxValue;
+        OptionsMenu.screenShakeValue = data.screenShakeValue;
+        OptionsMenu.catModeActivated = data.catModeActivated;
+        OptionsMenu.grassActivated = data.grassActivated;
+
     }
 
     public void SaveData(ref PData data)
@@ -218,6 +224,13 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
         data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
         data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
+
+
+        data.musicValue = OptionsMenu.musicValue;
+        data.sfxValue = OptionsMenu.sfxValue;
+        data.screenShakeValue = OptionsMenu.screenShakeValue;
+        data.catModeActivated = OptionsMenu.catModeActivated;
+        data.grassActivated = OptionsMenu.grassActivated;
     }
 
     public void SaveStory(ref TextAsset globals)

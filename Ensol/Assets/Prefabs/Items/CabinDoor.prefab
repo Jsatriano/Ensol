@@ -94,8 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 855504077507814768}
-  openRot: 90
-  speed: 1.5
+  soundDoor: 0
   opening: 0
 --- !u!65 &2997393139921795672
 BoxCollider:
@@ -122,10 +121,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19fb3e2fc414ff942afb30803a5329d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCol: {fileID: 2997393139921795672}
+  collider: {fileID: 0}
   doorController: {fileID: 2418816174854313245}
-  inkJSON: {fileID: 4900000, guid: 0e9ca14e3d5dde24dbdf1de5c1a9fa44, type: 3}
+  openText: {fileID: 0}
   interacted: 0
+  inkJSON: {fileID: 4900000, guid: 0e9ca14e3d5dde24dbdf1de5c1a9fa44, type: 3}
+  cannotLeave: {fileID: 0}
 --- !u!1001 &5469843450154448703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -189,6 +190,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: adbb032271ad4de42b3a114bff639c75, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2b425e025e62ce6429a38461988f7afe, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f290b3e0f7919a4cb501c40df2a5580, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8f290b3e0f7919a4cb501c40df2a5580, type: 2}
     - target: {fileID: -5754084199372789682, guid: 6ffad98b4e5fef54d9461ff6b2b3f533, type: 3}
       propertyPath: m_Mesh
       value: 
