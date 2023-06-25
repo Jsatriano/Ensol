@@ -42,11 +42,15 @@ public class CursorToggle : MonoBehaviour
             // vertical = Input.GetAxisRaw("Vertical_Controller");
             controller = true;
         }
-        
-        if (scene.name == "CreditScene"){
+        if (scene.name == "GameplayScene" && controller == true)
+        {
+            arrow.SetActive(false);
             Cursor.visible = false;
         }
-         else if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy && !checkpointUI.activeInHierarchy)
+        else if (scene.name == "CreditScene"){
+            Cursor.visible = false;
+        }
+         else if(((scene.name == "GameplayScene" && !dialoguebox.activeInHierarchy) || scene.name == "PlaytestingScene") && !pauseMenu.activeInHierarchy && !map.activeInHierarchy && !checkpointUI.activeInHierarchy && controller == false)
         {
             Cursor.visible = false;
             if ((scene.name == "GameplayScene" && PlayerData.currentlyHasBroom && PlayerData.currentNode != 12) || scene.name == "PlaytestingScene"){
@@ -65,14 +69,12 @@ public class CursorToggle : MonoBehaviour
             Cursor.visible = true;
         }
 
-        if (scene.name == "GameplayScene" && controller == true)
-        {
-            arrow.SetActive(false);
-            Cursor.visible = false;
-        }
-        else if (scene.name == "GameplayScene" && controller == false)
-        {
-            arrow.SetActive(true);
-        }
+        
+        // else if (scene.name == "GameplayScene"  && !pauseMenu.activeInHierarchy)
+        // {
+        //     arrow.SetActive(true);
+        //     Cursor.visible = false;
+        // }
+        
     }
 }
