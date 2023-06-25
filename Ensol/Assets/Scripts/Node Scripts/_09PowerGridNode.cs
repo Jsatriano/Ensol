@@ -20,39 +20,24 @@ public class _09PowerGridNode : MonoBehaviour
     public Collider genPanel01;
     public Collider genPanel02;
     public Collider genPanel03;
-    private EventInstance generator1;
-    private EventInstance generator2;
-    private EventInstance generator3;
 
 
     private void Awake()
     {
         SpawnPoint.First = true;
-        generator1 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator2 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator3 = AudioManager.instance.CreateEventInstance(FMODEvents.instance.generatorOn);
-        generator1.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel01.gameObject));
-        generator2.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel02.gameObject));
-        generator3.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(genPanel03.gameObject));
     }
 
     private void Start()
     {
         CompletedNodes.prevNode = 9;
         CompletedNodes.firstLoad[9] = false;
-        if (!PlayerData.firstGenHit){
-            generator1.start();
-        } else {
+        if (PlayerData.firstGenHit){
             genPanel01.enabled = false;
         }
-        if (!PlayerData.secondGenHit){
-            generator2.start();
-        } else {
+        if (PlayerData.secondGenHit){
             genPanel02.enabled = false;
         }
-        if (!PlayerData.thirdGenHit){
-            generator3.start();
-        } else {
+        if (PlayerData.thirdGenHit){
             genPanel03.enabled = false;
         }
     }
@@ -64,7 +49,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             gen1Shutdown = true;
             PlayerData.firstGenHit = true;
-            StartCoroutine(GenShutdown(panObject1, generator1));
+            StartCoroutine(GenShutdown(panObject1));
         }
 
         // second generator
@@ -72,7 +57,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             gen2Shutdown = true;
             PlayerData.secondGenHit = true;
-            StartCoroutine(GenShutdown(panObject2, generator2));
+            StartCoroutine(GenShutdown(panObject2));
         }
 
         // third generator
@@ -80,7 +65,7 @@ public class _09PowerGridNode : MonoBehaviour
         {
             gen3Shutdown = true;
             PlayerData.thirdGenHit = true;
-            StartCoroutine(GenShutdown(panObject3, generator3));
+            StartCoroutine(GenShutdown(panObject3));
         }
 
         //once all 3 generators are active, computerNode = true (this should make the computerNode X appear and the power grid image replace the X)
@@ -92,13 +77,8 @@ public class _09PowerGridNode : MonoBehaviour
 
     }
 
-    public IEnumerator GenShutdown(GameObject thisGenerator, EventInstance thisGenSound){
+    public IEnumerator GenShutdown(GameObject thisGenerator){
         yield return new WaitForSeconds(1f);
         thisGenerator.GetComponent<Renderer>().materials[1].SetFloat("_SetAlpha", 0f);
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.generatorOff, thisGenerator.transform.position);
-        thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
-        thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
-        thisGenSound.stop(STOP_MODE.ALLOWFADEOUT);
-        thisGenSound.release();
     }
 }

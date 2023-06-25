@@ -31,6 +31,7 @@ public class ElectricVials : MonoBehaviour // justin
     private bool flickerState;
     private bool isFlickering;
     private bool animateStart = false;
+    private bool audioStart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -187,7 +188,8 @@ public class ElectricVials : MonoBehaviour // justin
         if (!animateStart){
             yield return new WaitForSeconds(0.5f);
             animateStart = true;
-            if (soundPlayer){
+            if (soundPlayer && audioStart == false){
+                audioStart = true;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.hudVilesSlideIn, this.transform.position);
             }
         } else {
