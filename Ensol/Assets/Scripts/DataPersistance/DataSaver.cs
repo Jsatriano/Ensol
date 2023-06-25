@@ -171,6 +171,12 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
         data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
         data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
+
+        data.musicValue = OptionsMenu.musicValue;
+        data.sfxValue = OptionsMenu.sfxValue;
+        data.screenShakeValue = OptionsMenu.screenShakeValue;
+        data.catModeActivated = OptionsMenu.catModeActivated;
+        data.grassActivated = OptionsMenu.grassActivated;
     }
 
     // public void LoadStory(TextAsset globals)
