@@ -116,11 +116,11 @@ public class PData
     public List<string> computerInteriorEnemiesAlive = new List<string>();
 
 
-    public float musicValue;
-    public float sfxValue;
-    public float screenShakeValue;
-    public bool catModeActivated;
-    public bool grassActivated;
+    public float musicValue = 1;
+    public float sfxValue = 1;
+    public float screenShakeValue = 1;
+    public bool catModeActivated = false;
+    public bool grassActivated = true;
 
 
 
