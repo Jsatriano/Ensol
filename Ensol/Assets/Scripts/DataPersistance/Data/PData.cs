@@ -115,6 +115,15 @@ public class PData
     public List<string> computerEnemiesAlive = new List<string>();
     public List<string> computerInteriorEnemiesAlive = new List<string>();
 
+
+    public float musicValue = 1;
+    public float sfxValue = 1;
+    public float screenShakeValue = 1;
+    public bool catModeActivated = false;
+    public bool grassActivated = true;
+
+
+
     public PData()
     {
         worked = false;
@@ -234,6 +243,13 @@ public class PData
         metalFieldEnemiesAlive = new List<string>();
         computerEnemiesAlive = new List<string>();
         computerInteriorEnemiesAlive = new List<string>();
+
+
+        musicValue = OptionsMenu.musicValue;
+        sfxValue = OptionsMenu.sfxValue;
+        screenShakeValue = OptionsMenu.screenShakeValue;
+        catModeActivated = OptionsMenu.catModeActivated;
+        grassActivated = OptionsMenu.grassActivated;
 
 
 
