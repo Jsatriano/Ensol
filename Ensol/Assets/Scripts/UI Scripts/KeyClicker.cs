@@ -9,10 +9,14 @@ public class KeyClicker : MonoBehaviour
     public KeyCode _key;
 
     private Button _button;
+    private Toggle _toggle;
 
     void Awake()
     {
         _button = GetComponent<Button>();
+        if (_button == null){
+            _toggle = GetComponent<Toggle>();
+        }
     }
 
     // Update is called once per frame
@@ -20,7 +24,11 @@ public class KeyClicker : MonoBehaviour
     {
         if(EventSystem.current.currentSelectedGameObject == this.gameObject && Input.GetKeyDown(_key)){
             //print("button pressed by E");
-            _button.onClick.Invoke();
+            if (_button != null){
+                _button.onClick.Invoke();
+            } else {
+                _toggle.isOn = !_toggle.isOn;
+            }
         }
     }
 }

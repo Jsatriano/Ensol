@@ -54,12 +54,14 @@ public class EndingManager : MonoBehaviour
         killMusic = true;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.computerShutdown, computerObject.transform.position);
         killAmbiance = true;
+        PlayerData.beatenGame = true;
     }
 
     public void EndTwo(){
         gameEndingOne = false;
         gameEnding = true;
         killMusic = true;
+        PlayerData.beatenGame = true;
     }
 
     public IEnumerator FadeBlackOutSquare()

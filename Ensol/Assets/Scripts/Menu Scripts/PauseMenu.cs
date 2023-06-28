@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject controlsMenu;
+    public GameObject firstOption;
 
     [Header("Checkpoint Menu")]
     [SerializeField] private GameObject checkpointMenu;
@@ -226,11 +227,15 @@ public class PauseMenu : MonoBehaviour
             isPaused = true;
             if(amInPlaytestScene) {
                 playtestMenu.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(resumeButtonPT);
                 StartCoroutine(SelectFirstChoice(resumeButtonPT));
                 Time.timeScale = 0f;
             }
             else {
                 pauseMenu.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(resumeButton);
                 StartCoroutine(SelectFirstChoice(resumeButton));
                 Time.timeScale = 0f;
             }
@@ -256,6 +261,8 @@ public class PauseMenu : MonoBehaviour
         else
         {
             optionsMenu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(firstOption);
             menuState = MenuState.OPTIONS;
         }
     }
