@@ -21,6 +21,7 @@ public class _00CabinNode : MonoBehaviour
     public GameObject conveyerInteractableText;
     public GameObject plushInteractable;
     public GameObject podHealingInteractable;
+    public GameObject ash;
     
     [Header("Interactable Object Interactors")]
     public CabinDoor doorInteractor;
@@ -107,6 +108,7 @@ public class _00CabinNode : MonoBehaviour
         else
         {
             broom.SetActive(true);
+            ash.SetActive(false);
             interactableBroom.SetActive(false);
         }
         weaponPile.SetActive(false);
