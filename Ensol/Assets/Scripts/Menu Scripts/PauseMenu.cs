@@ -256,13 +256,20 @@ public class PauseMenu : MonoBehaviour
         if (optionsMenu.activeInHierarchy)
         {
             optionsMenu.SetActive(false);
+            if (resumeButton.activeInHierarchy){
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(resumeButton);
+            } else {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(resumeButtonPT);
+            }
             menuState = MenuState.PAUSED;
         }
         else
         {
             optionsMenu.SetActive(true);
             EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(firstOption);
+            EventSystem.current.SetSelectedGameObject(firstOption);
             menuState = MenuState.OPTIONS;
         }
     }
