@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -144,6 +145,22 @@ public class PlayerController : MonoBehaviour
     //Input Read Variables
     private Vector3 direction;
     private bool lightAttackInput, heavyAttackInput, dashInput, throwAttackInput, shieldInput, pauseInput;
+    PlayerInputActions playerInputActions;
+    private PlayerInput playerInput;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        // playerInputActions.Player.Movement.performed += Move_performed;
+    }
+
+    // private void Move_performed(InputAction.CallbackContext context)
+    // {
+    //     print(context);
+    // }
 
     // function is called in scene start
     private void Start()
@@ -233,31 +250,34 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("hasWeapon", hasWeapon);
 
         //read inputs
-        if (CursorToggle.controller == false)
-        {
-            direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        }
-        else
-        {
-            direction = new Vector3(Input.GetAxisRaw("Horizontal_Controller"), 0, Input.GetAxisRaw("Vertical_Controller"));
-        }
+        // if (CursorToggle.controller == false)
+        // {
+        //     direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        // }
+        // else
+        // {
+        //     direction = new Vector3(Input.GetAxisRaw("Horizontal_Controller"), 0, Input.GetAxisRaw("Vertical_Controller"));
+        // }
         // direction = new Vector3(CursorToggle.horizontal, 0, CursorToggle.vertical);
-        if(Input.GetButtonDown("Dash")) {
+        direction = new Vector3(playerInputActions.Player.Movement.ReadValue<Vector2>().x, 0, playerInputActions.Player.Movement.ReadValue<Vector2>().y);
+
+
+        if(playerInputActions.Player.Dash.triggered) {//Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.Throw.triggered) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.LightAttack.triggered) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.HeavyAttack.triggered) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
         if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
             shieldInput = true;
         }
-        if(Input.GetButtonDown("Cancel") && allowInput) {
+        if(playerInputActions.Player.Cancel.triggered) {//Input.GetButtonDown("Cancel") && allowInput) {
             pauseInput = true;
         }
 
@@ -901,23 +921,27 @@ public class PlayerController : MonoBehaviour
             Vector3 rightMovement;
             Vector3 upMovement;
 
-            if (CursorToggle.controller == false)
-            {
-                // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
-                rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+            // if (CursorToggle.controller == false)
+            // {
+            //     // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+            //     rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
 
-                // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
-                upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
-            }
-            else
-            {
-                // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
-                rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal_Controller");
+            //     // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+            //     upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            // }
+            // else
+            // {
+            //     // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+            //     rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal_Controller");
 
-                // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
-                upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical_Controller");
-            }
+            //     // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+            //     upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical_Controller");
+            // }
+
+
+            rightMovement = right * moveSpeed * Time.deltaTime * playerInputActions.Player.Movement.ReadValue<Vector2>().x;
             
+            upMovement = forward * moveSpeed * Time.deltaTime * playerInputActions.Player.Movement.ReadValue<Vector2>().y;
 
             // combines both movements to create a direction that our character will point to
             heading = Vector3.Normalize(rightMovement + upMovement);
