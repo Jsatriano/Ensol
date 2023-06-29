@@ -16,9 +16,14 @@ VAR spider_defeated = false
 VAR deerSeen = false
 VAR rabbitSeen = false
 VAR bearSeen = false
+VAR spiderSeen = false
+VAR birdSeen = false
+VAR bird_defeated = false
+VAR all_units_unlocked_seen = false
 VAR repair_used = false
 VAR checkpointscount = 0
 VAR scrap_change = false
 VAR grass_change = false
 VAR lighting_change = false
 VAR riveroff  = false
+
