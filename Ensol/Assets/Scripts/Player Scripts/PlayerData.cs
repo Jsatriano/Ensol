@@ -76,4 +76,7 @@ public static class PlayerData
         new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
         new List<string>(), new List<string>(), new List<string>()
     };
+
+    //beaten the game
+    public static bool beatenGame = false;
 }

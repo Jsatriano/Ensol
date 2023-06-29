@@ -115,12 +115,13 @@ public class PData
     public List<string> computerEnemiesAlive = new List<string>();
     public List<string> computerInteriorEnemiesAlive = new List<string>();
 
-
+    //data that is not overwritten in a new game
     public float musicValue = 1;
     public float sfxValue = 1;
     public float screenShakeValue = 1;
     public bool catModeActivated = false;
     public bool grassActivated = true;
+    public bool beatenGame = false;
 
 
 
@@ -244,12 +245,13 @@ public class PData
         computerEnemiesAlive = new List<string>();
         computerInteriorEnemiesAlive = new List<string>();
 
-
+        //data that is not overwritten in a new game
         musicValue = OptionsMenu.musicValue;
         sfxValue = OptionsMenu.sfxValue;
         screenShakeValue = OptionsMenu.screenShakeValue;
         catModeActivated = OptionsMenu.catModeActivated;
         grassActivated = OptionsMenu.grassActivated;
+        beatenGame = PlayerData.beatenGame;
 
 
 

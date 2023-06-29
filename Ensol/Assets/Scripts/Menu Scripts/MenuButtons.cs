@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class MenuButtons : MonoBehaviour
 {
-    public GameObject nGButton, noButton, controlsButton, exitButton, firstOptions, newGameQuery, loadButton;
+    public GameObject nGButton, noButton, controlsButton, exitButton, firstOptions, newGameQuery, loadButton, sBButton;
     public NodeSelector nodeSelector;
     public DataPersistanceManager GameManager;
 
@@ -15,12 +15,15 @@ public class MenuButtons : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         Cursor.visible = true;
-        print (PlayerData.startedGame);
+        //print (PlayerData.startedGame);
         if (PlayerData.startedGame == false){
             Color fadedColor = loadButton.GetComponent<Image>().color;
             fadedColor = new Color(fadedColor.r, fadedColor.g, fadedColor.b, 0.3f);
             loadButton.GetComponent<Image>().color = fadedColor;
             loadButton.GetComponent<Button>().interactable = false;
+        }
+        if (PlayerData.beatenGame){
+            sBButton.SetActive(true);
         }
     }
 
@@ -79,5 +82,11 @@ public class MenuButtons : MonoBehaviour
     {
         AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
         Application.Quit();
+    }
+
+    public void Sandbox()
+    {
+        AudioManager.instance.PlayOneShot(FMODButtonEvents.instance.envbeepboop, this.transform.position);
+        SceneManager.LoadScene(sceneName:"PlaytestingScene");
     }
 }
