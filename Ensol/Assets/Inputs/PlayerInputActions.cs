@@ -89,6 +89,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CabinReturn"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cd1ae59-ec7f-4632-a70b-2a307a43edc8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -309,6 +318,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Mouse"",
                     ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""09f6fd29-d2c6-4974-927c-ef8f58332c53"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CabinReturn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -876,6 +896,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         m_Player_Submit = m_Player.FindAction("Submit", throwIfNotFound: true);
+        m_Player_CabinReturn = m_Player.FindAction("CabinReturn", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -954,6 +975,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Throw;
     private readonly InputAction m_Player_Cancel;
     private readonly InputAction m_Player_Submit;
+    private readonly InputAction m_Player_CabinReturn;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -965,6 +987,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Throw => m_Wrapper.m_Player_Throw;
         public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputAction @Submit => m_Wrapper.m_Player_Submit;
+        public InputAction @CabinReturn => m_Wrapper.m_Player_CabinReturn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -995,6 +1018,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Submit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubmit;
                 @Submit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubmit;
                 @Submit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubmit;
+                @CabinReturn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCabinReturn;
+                @CabinReturn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCabinReturn;
+                @CabinReturn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCabinReturn;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1020,6 +1046,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Submit.started += instance.OnSubmit;
                 @Submit.performed += instance.OnSubmit;
                 @Submit.canceled += instance.OnSubmit;
+                @CabinReturn.started += instance.OnCabinReturn;
+                @CabinReturn.performed += instance.OnCabinReturn;
+                @CabinReturn.canceled += instance.OnCabinReturn;
             }
         }
     }
@@ -1165,6 +1194,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnThrow(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
+        void OnCabinReturn(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
