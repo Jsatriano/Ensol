@@ -90,6 +90,7 @@ public class SpiderStats : EnemyStats
     {
         print(nameID + " is dead!");
         spiderBT.isAlive = false;
+        PlayerData.spiderKilled++;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.spiderDeath, this.transform.position);
         AudioManager.instance.PlayOneShot(FMODEvents.instance.deathCut, this.transform.position);
         //-------------> Spider death sound here <----------------

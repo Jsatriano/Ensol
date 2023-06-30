@@ -56,6 +56,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.bearsKilled = data.bearsKilled;
         PlayerData.bunniesKilled = data.bunniesKilled;
         PlayerData.deerKilled = data.deerKilled;
+        PlayerData.spiderKilled = data.spiderKilled;
 
         //River control progress
         PlayerData.controlsHit = data.controlsHit;
@@ -173,6 +174,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.bearsKilled = PlayerData.bearsKilled;
         data.bunniesKilled = PlayerData.bunniesKilled;
         data.deerKilled = PlayerData.deerKilled;
+        data.spiderKilled = PlayerData.spiderKilled;
 
         //River control progress
         data.controlsHit = PlayerData.controlsHit;

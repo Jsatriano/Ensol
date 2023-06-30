@@ -111,6 +111,7 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.bearsKilled = PlayerData.bearsKilled;
         data.bunniesKilled = PlayerData.bunniesKilled;
         data.deerKilled = PlayerData.deerKilled;
+        data.spiderKilled = PlayerData.spiderKilled;
 
         //River control progress
         data.controlsHit = PlayerData.controlsHit;

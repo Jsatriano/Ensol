@@ -34,6 +34,10 @@ public class HealingBuilding : MonoBehaviour
 
         if(!gameObject.GetComponent<Collider>().enabled) {
             wasUsed = true;
+            if (CompletedNodes.prevNode == 0){
+                var ach = new Steamworks.Data.Achievement("Home_Is_Where_The_Cloning_Pod_Is");
+                ach.Trigger();
+            }
         }
 
         if(wasUsed && !distributedHealing) {
