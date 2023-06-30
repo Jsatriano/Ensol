@@ -17,6 +17,9 @@ public class InteractText : MonoBehaviour
     [SerializeField] private DialogueTrigger dialogueTrigger;
     [SerializeField] private bool isDialogueText;
 
+    [SerializeField] private GameObject keyboardControls;
+    [SerializeField] private GameObject controllerControls;
+
     private void Start()
     {
         canvas.SetActive(false);
@@ -58,6 +61,23 @@ public class InteractText : MonoBehaviour
 
         canvasTF.LookAt(cam.transform.position);
 
+    }
+
+    private void Update()
+    {
+        if (canvas.activeSelf)
+        {
+            if (CursorToggle.controller)
+            {
+                controllerControls.SetActive(true);
+                keyboardControls.SetActive(false);
+            }
+            else
+            {
+                keyboardControls.SetActive(true);
+                controllerControls.SetActive(false);
+            }
+        }
     }
 
     private IEnumerator TextFadeIn()
