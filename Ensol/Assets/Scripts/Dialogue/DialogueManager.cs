@@ -47,6 +47,9 @@ public class DialogueManager : MonoBehaviour
 
     public GameObject cat;
 
+    PlayerInputActions playerInputActions;
+
+
     //for cat meowing dialogue
 
     private void Awake()
@@ -67,6 +70,8 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
         dialogueisPlaying = false;
         donePlaying = false;
         dialoguePanel.SetActive(false);
@@ -98,13 +103,13 @@ public class DialogueManager : MonoBehaviour
             }
         }
         /*Allow e and mouse to continue dialogue if there are no more choices*/
-        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
+        if (playerInputActions.Player.Submit.triggered && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
         {
             if (PlayerData.startedGame == false){
                 PlayerData.startedGame = true;
             }
             StartCoroutine(Delay());
-        } else if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key)) && !canContinuetoNextLine){
+        } else if (playerInputActions.Player.Submit.triggered && !canContinuetoNextLine){//(Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key))
             /*Allow skipping scroll*/
             skipping = true;
         }

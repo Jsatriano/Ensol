@@ -10,6 +10,14 @@ public class ControlScript : MonoBehaviour
     public GameObject keyboardControlText;
     public GameObject controllerControlText;
 
+    PlayerInputActions playerInputActions;
+
+    void Start()
+    {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -23,7 +31,7 @@ public class ControlScript : MonoBehaviour
             keyboardControlText.SetActive(true);
             controllerControlText.SetActive(false);
         }
-        if (Input.GetButtonDown("Cancel"))
+        if (playerInputActions.Player.Cancel.triggered)
         {
             SceneManager.LoadScene(sceneName: "MenuScene");
         }

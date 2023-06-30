@@ -54,6 +54,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject cPKeyboard;
     public GameObject cPController;
 
+
+
     private void Start()
     {
         menuState = MenuState.UNPAUSED;
@@ -78,39 +80,39 @@ public class PauseMenu : MonoBehaviour
         switch (menuState)
         {
             case MenuState.UNPAUSED:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     PauseUnpause();
                 }
-                else if (Input.GetButtonDown("Map") && PlayerData.windowInteracted)
+                else if (playerInputActions.Player.Map.triggered && PlayerData.windowInteracted)
                 {
                     OpenMap();
                 }
                 break;
 
             case MenuState.PAUSED:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     PauseUnpause();
                 }
                 break;
 
             case MenuState.OPTIONS:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     OpenCloseOptions();
                 }
                 break;
 
             case MenuState.CONTROLS:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     OpenCloseControls();
                 }
                 break;
 
             case MenuState.MAP_OPEN:
-                if ((Input.GetButtonDown("Map") || Input.GetButtonDown("Cancel")))
+                if ((playerInputActions.Player.Map.triggered) || playerInputActions.Player.Cancel.triggered)
                 {
                     CloseMap();
                 }
@@ -120,7 +122,7 @@ public class PauseMenu : MonoBehaviour
                 break;
 
             case MenuState.CHECKPOINT:
-                if((Input.GetButtonDown("Cancel"))) {
+                if((playerInputActions.Player.Cancel.triggered)) {
                     CloseCheckpointMenu();
                 }
                 break;
