@@ -89,12 +89,7 @@ public class CompletedNodes : MonoBehaviour
         if (homeText.activeInHierarchy && playerInputActions.Player.CabinReturn.triggered){
             pauseMenu.ReturnToCabin();
         }
-    }
 
-    //Function called for just looking at the map
-    public void LookAtMap()
-    {
-        blackOutSquare.enabled = false;
         if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
         {
             homeText.SetActive(true);
@@ -105,6 +100,12 @@ public class CompletedNodes : MonoBehaviour
             homeText.SetActive(false);
             cabinButton.interactable = false;
         }
+    }
+
+    //Function called for just looking at the map
+    public void LookAtMap()
+    {
+        blackOutSquare.enabled = false;
         PreDraw();
         PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
