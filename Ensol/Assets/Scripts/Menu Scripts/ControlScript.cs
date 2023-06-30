@@ -10,31 +10,22 @@ public class ControlScript : MonoBehaviour
     public GameObject keyboardControlText;
     public GameObject controllerControlText;
 
-    void Start() {
-        keyboardControlText.SetActive(true);
-        controllerControlText.SetActive(false);
-    }
-    
-
     // Update is called once per frame
     void Update()
     {
-       /* if(charController.controller)
+        if (CursorToggle.controller)
         {
-            keyboardControlText.SetActive(false);
             controllerControlText.SetActive(true);
+            keyboardControlText.SetActive(false);
         }
         else
         {
             keyboardControlText.SetActive(true);
             controllerControlText.SetActive(false);
-        }*/
-
-        if(Input.GetButtonDown("Cancel"))
-        {
-            SceneManager.LoadScene(sceneName:"MenuScene");
         }
-        
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene(sceneName: "MenuScene");
+        }
     }
-
 }

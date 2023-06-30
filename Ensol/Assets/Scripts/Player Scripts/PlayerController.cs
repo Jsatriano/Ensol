@@ -859,10 +859,22 @@ public class PlayerController : MonoBehaviour
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, gameObject.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
-
-        Vector3 throwTarget = mouseFollower.transform.position;
-        throwTarget.y = activeWeaponProjectile.transform.position.y;
-        activeWeaponProjectile.transform.LookAt(throwTarget);
+        Vector3 throwTarget;
+        if (CursorToggle.controller == false)
+        {
+            throwTarget = mouseFollower.transform.position;
+            throwTarget.y = activeWeaponProjectile.transform.position.y;
+            activeWeaponProjectile.transform.LookAt(throwTarget);
+        }
+        else
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
+            activeWeaponProjectile.transform.forward = transform.forward;
+        }            
+     
         weapon.SetActive(false);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);
