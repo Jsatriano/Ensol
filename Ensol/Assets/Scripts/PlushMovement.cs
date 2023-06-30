@@ -94,8 +94,7 @@ public class PlushMovement : MonoBehaviour
                 moveDirection = (plush.transform.position - positions[currPositionIndex].position).normalized;
                 rotation = Quaternion.LookRotation(moveDirection);
             }
-        }
-        
+        }      
     }
 
     IEnumerator PlushWait()
@@ -103,7 +102,7 @@ public class PlushMovement : MonoBehaviour
         waiting = true;
         plushAnims.ResetTrigger("Walking");
         plushAnims.SetTrigger("Sitting");
-        var time = Random.Range(0, maxWaitTime);
+        var time = Random.Range(2, maxWaitTime);
         yield return new WaitForSeconds(time);
         waiting = false;
     }
