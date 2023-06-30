@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
+    public float upgradedAttackPower = 5;
+    public float downgradedAttackPower = 3;
     [SerializeField] private float force = 1;
     public float invulnLength = 1;
     public float maxComboTimer = 1.0f;
@@ -220,6 +222,7 @@ public class PlayerController : MonoBehaviour
             hasWeapon = true;
             lightSlashVFX = noElectricLightSlashVFX;
             heavySlashVFX = noElectricHeavySlashVFX;
+            baseAttackPower = downgradedAttackPower;
         }
         else
         {
@@ -233,6 +236,7 @@ public class PlayerController : MonoBehaviour
             hasWeapon = true;
             lightSlashVFX = electricLightSlashVFX;
             heavySlashVFX = electricHeavySlashVFX;
+            baseAttackPower = upgradedAttackPower;
         }
         optionsMenu.OnCatModeChange.AddListener(UpdateCatMode);
         UpdateCatMode(OptionsMenu.catModeActivated);
