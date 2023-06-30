@@ -269,13 +269,13 @@ public class PlayerController : MonoBehaviour
         if(playerInputActions.Player.Dash.triggered) {//Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(playerInputActions.Player.Throw.triggered) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.Throw.triggered && allowInput && !doorBarred) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(playerInputActions.Player.LightAttack.triggered) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.LightAttack.triggered && allowInput && !doorBarred) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(playerInputActions.Player.HeavyAttack.triggered) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.HeavyAttack.triggered&& allowInput && !doorBarred) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
         if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
