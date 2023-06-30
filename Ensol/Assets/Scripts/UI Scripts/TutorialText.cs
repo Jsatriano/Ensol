@@ -27,6 +27,13 @@ public class TutorialText : MonoBehaviour
     [TextArea] public string broomText;
     [TextArea] public string solarText;
     [TextArea] public string throwText;
+
+    [Header("Tutorial Texts Controller")]
+    [TextArea] public string walkTextController;
+    [TextArea] public string mapTextController;
+    [TextArea] public string broomTextController;
+    [TextArea] public string solarTextController;
+    [TextArea] public string throwTextController;
     private string noText = "";
 
     [Header("Requirements")] //The things the player needs to do to make the text go away

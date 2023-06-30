@@ -5,7 +5,6 @@ using UnityEngine;
 public class TowerFading : MonoBehaviour
 {
     public GameObject powerTower;
-    public float speed;
     private float currAlpha = 1f;
     private bool fadeOut = false;
     
@@ -22,13 +21,13 @@ public class TowerFading : MonoBehaviour
     {
         if(fadeOut == true && currAlpha > 0.0f)
         {
-            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha -= 0.01f, 1f);
+            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha -= 0.02f, 1f);
             setAlpha(currAlpha);
         }
         
         if(fadeOut == false && currAlpha <= 1.0f)
         {
-            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha += 0.01f, 1f);
+            currAlpha = Mathf.MoveTowards(currAlpha, currAlpha += 0.02f, 1f);
             setAlpha(currAlpha);
         }
     }
