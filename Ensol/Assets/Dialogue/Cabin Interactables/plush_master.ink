@@ -221,7 +221,7 @@ P1-USH: Okay!
 
 +[(Previous Options.)]
 P1-USH: Anything else?
-->forest_questions
+->plush_questions
 
 ===forest_other===
 +{footprints_found}[Are there robots that leave human footprints?]

@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject keyboardContinuePanel;
+    [SerializeField] private GameObject controllerContinuePanel;
     [SerializeField] private GameObject choicesPanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private float typingspeed = 0.024f;
@@ -126,6 +128,16 @@ public class DialogueManager : MonoBehaviour
         dialogueisPlaying = true;
         charController.state = PlayerController.State.DIALOGUE;
         dialoguePanel.SetActive(true);
+        if (CursorToggle.controller)
+        {
+            controllerContinuePanel.SetActive(true);
+            keyboardContinuePanel.SetActive(false);
+        }
+        else
+        {
+            controllerContinuePanel.SetActive(false);
+            keyboardContinuePanel.SetActive(true);
+        }
         
         dialogueVariables.StartListening(currentStory);
 
