@@ -552,6 +552,7 @@ GameObject:
   - component: {fileID: 743038923}
   - component: {fileID: 743038922}
   - component: {fileID: 743038921}
+  - component: {fileID: 743038924}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -566,7 +567,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743038920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
@@ -609,6 +610,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &743038924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743038920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_MoveAction: {fileID: 4112069884100291509, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_SubmitAction: {fileID: 7222068065636376332, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_CancelAction: {fileID: -7472775270453988336, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: e864223c0af14d34099c19c8c4c1130d, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &852125306
 GameObject:
   m_ObjectHideFlags: 0
