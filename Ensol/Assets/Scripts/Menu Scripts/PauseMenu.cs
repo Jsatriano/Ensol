@@ -166,7 +166,7 @@ public class PauseMenu : MonoBehaviour
         if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
         }
-        if(PlayerData.currentNode == 12) {
+        if(PlayerData.currentNode == 11) {
             checkpointButtons[3].SetActive(false);
 
         }
