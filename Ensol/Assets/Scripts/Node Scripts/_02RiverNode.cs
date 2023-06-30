@@ -65,6 +65,7 @@ public class _02RiverNode : MonoBehaviour
         // Footsteps
         if(footstepsInteractor.interacted || PlayerData.footstepsInteracted)
         {
+            Debug.Log(DialogueVariables.saveFile);
             PlayerData.footstepsInteracted = true;
             footstepsInteractor.interacted = true;
             foreach(GameObject footstep in footstepsInteractable)

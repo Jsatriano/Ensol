@@ -12,17 +12,20 @@ public class DramaticMusicCollider : MonoBehaviour
     public EventInstance zoneMusic;
     public EndingManager endMNG;
     [SerializeField] private Transform cameraTarget;
+    PlayerInputActions playerInputActions;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(interactKey) && inRange && !musicPlaying && endMNG.killMusic == false){
+        if (playerInputActions.Player.Submit.triggered && inRange && !musicPlaying && endMNG.killMusic == false){
             musicPlaying = true;
             zoneMusic = AudioManager.instance.CreateEventInstance(FMODMusicEvents.instance.zoneMusic); 
             zoneMusic.start();

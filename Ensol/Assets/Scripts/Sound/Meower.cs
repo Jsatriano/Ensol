@@ -8,15 +8,21 @@ public class Meower : MonoBehaviour
     public KeyCode interactKey;
     private GameObject meower;
     // Start is called before the first frame update
+    PlayerInputActions playerInputActions;
+
+
+
     void Start()
     {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
         meower = GameObject.FindGameObjectWithTag("Meower");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(interactKey)) && inRange){
+        if (playerInputActions.Player.Submit.triggered && inRange){// || Input.GetMouseButtonDown(0) || Input.GetKeyDown(interactKey))
             //print("try to meow");
             StartCoroutine(DelayedMeow());
         }

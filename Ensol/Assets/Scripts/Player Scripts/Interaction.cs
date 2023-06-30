@@ -10,16 +10,20 @@ public class Interaction : MonoBehaviour
     public GameObject blackOutSquare;
     private bool petting = false;
     public bool checkpointInteracting = false;
+    private PlayerInputActions playerInputActions;
+     
 
     void Awake() {
         player = gameObject.GetComponent<PlayerController>();
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
     }
 
     public void Update()
     {
         if(DialogueManager.GetInstance().dialogueisPlaying == false)
         {
-            if(Input.GetButtonDown("Interact") && (player.state == PlayerController.State.MOVING || player.state == PlayerController.State.IDLE)){
+            if(playerInputActions.Player.Submit.triggered && (player.state == PlayerController.State.MOVING || player.state == PlayerController.State.IDLE)){
                 Interact();
             }
             if (petting || checkpointInteracting){
@@ -75,7 +79,7 @@ public class Interaction : MonoBehaviour
             }
             else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
             {
-               // print("inspected story element");
+                print(DialogueVariables.saveFile);
                 collider.enabled = false;
             }
             else if (collider.gameObject.tag == "Interactable")
