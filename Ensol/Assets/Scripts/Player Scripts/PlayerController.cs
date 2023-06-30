@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
             birdHead.SetActive(false);
         }
 
-        backpackVialMaterial = backpack.GetComponent<Renderer>().materials[0];
+        backpackVialMaterial = backpack.GetComponent<Renderer>().materials[1];
 
         if (!PlayerData.currentlyHasBroom && !PlayerData.currentlyHasSolar)
         {
@@ -1336,13 +1336,13 @@ public class PlayerController : MonoBehaviour
     //SHADER MANAGEMENT
 
     private void ManageVialShader() {
-        if(electricVials.currVial + 1 >= 3) {
-            backpackVialMaterial.SetFloat("Gradient_Clipping_Amount", 1f);
+        if(electricVials.currVial +1 >= 3) {
+            backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 1f);
         }
-        else if(electricVials.currVial + 1 == 2) {
+        else if(electricVials.currVial +1 == 2) {
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.2f);
         }
-        else if(electricVials.currVial + 1 == 1) {
+        else if(electricVials.currVial +1 == 1) {
             backpackVialMaterial.SetFloat("_Gradient_Clipping_Amount", 0.015f);
         }
         else {
