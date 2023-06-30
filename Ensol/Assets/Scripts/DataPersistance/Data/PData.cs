@@ -52,6 +52,7 @@ public class PData
     public int bearsKilled;
     public int bunniesKilled;
     public int deerKilled;
+    public int spiderKilled;
 
     //River control progress
     public bool controlsHit;
@@ -169,6 +170,7 @@ public class PData
         bearsKilled = 0;
         bunniesKilled = 0;
         deerKilled = 0;
+        spiderKilled = 0;
 
         //River control progress
         controlsHit = false;

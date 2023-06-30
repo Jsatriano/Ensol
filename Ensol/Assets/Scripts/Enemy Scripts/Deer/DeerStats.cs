@@ -69,6 +69,9 @@ public class DeerStats : EnemyStats
     {
        // print(nameID + " is dead!");
         PlayerData.deerKilled++;
+        //update achievement progress
+        Steamworks.SteamUserStats.AddStat("Deer_Killed", 1);
+        Steamworks.SteamUserStats.StoreStats();
         deerBT.isAlive = false;
         chargeHitbox.enabled = false;
         basicAttackHitbox.enabled = false;

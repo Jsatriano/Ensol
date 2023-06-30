@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Ink.Runtime;
 
 public class _00CabinNode : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class _00CabinNode : MonoBehaviour
     [HideInInspector] public GameObject[] players = null;
     private PlayerController combatController = null;
     public GameObject doorMeower;
+    private Story story;
+    public TextAsset globals;
 
     private void Awake() 
     {
@@ -71,6 +74,7 @@ public class _00CabinNode : MonoBehaviour
         {
             SpawnPoint.First = SceneSwitch.exitFrom;
         }
+        story = new Story(globals.text);
     }
 
     private void Start()
@@ -223,6 +227,12 @@ public class _00CabinNode : MonoBehaviour
         }
 
         /* ------------------------------------------------------------------ */
+
+        //achievement check
+        if ((bool) story.variablesState["all_units_unlocked_seen"] == true){
+            var ach = new Steamworks.Data.Achievement("Exposition_Dump");
+            ach.Trigger();
+        }
         
     }
 

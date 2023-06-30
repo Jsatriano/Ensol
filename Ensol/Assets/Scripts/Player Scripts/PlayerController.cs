@@ -1253,6 +1253,10 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateCatMode(bool activated)
     {
+        if (activated){
+            var ach = new Steamworks.Data.Achievement("Meow_Meow");
+            ach.Trigger();
+        }
         foreach(GameObject catObject in catModeObjects)
         {
             catObject.SetActive(activated);

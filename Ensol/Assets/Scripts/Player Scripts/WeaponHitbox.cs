@@ -16,6 +16,7 @@ public class WeaponHitbox : MonoBehaviour
     public GameObject electricHitVFX;
     public GameObject noElectricHitVFX;
     private Queue<GameObject> activeHitVFX = new Queue<GameObject>();
+    private int rabbitCombo = 0;
 
     void Awake()
     {
@@ -78,6 +79,14 @@ public class WeaponHitbox : MonoBehaviour
         if (isTriggered == false) {
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
+                //check if hitting two bunnies
+                if (col.gameObject.GetComponent<EnemyStats>().isRabbit){
+                    rabbitCombo += 1;
+                }
+                if (rabbitCombo >= 2){
+                    var ach = new Steamworks.Data.Achievement("Two_Rabbits_One_Spear");
+                    ach.Trigger();
+                }
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
                 Transform hitVFXTargetLocation = null;
                 hitVFXTargetLocation = col.gameObject.transform.Find("Hit VFX Target Location");
@@ -93,6 +102,7 @@ public class WeaponHitbox : MonoBehaviour
         if(isProjectile && !player.isCatching) {
             if(col.gameObject.layer == 7 || col.gameObject.layer == 12) {
                 isMoving = false;
+                rabbitCombo = 0;
                 Collider[] damagePulse = Physics.OverlapSphere(gameObject.transform.position, player.damagePulseRadius, 6);
                 damagePulseVFX.SetActive(true);
                 StartCoroutine(DisablePulseVFX());
@@ -109,6 +119,7 @@ public class WeaponHitbox : MonoBehaviour
         else if(isProjectile && player.isCatching) {
             if(col.gameObject.layer == 13) {
                 player.GrabWeapon();
+                rabbitCombo = 0;
             }
         }
     }

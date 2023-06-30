@@ -187,6 +187,8 @@ public class DialogueManager : MonoBehaviour
             GameObject cat = GameObject.Find("Plush");
             charController.transform.LookAt(new Vector3(cat.transform.position.x, charController.transform.position.y, cat.transform.position.z));
             charController.animator.SetBool("isPettingCat", true);
+            var ach = new Steamworks.Data.Achievement("Good_Kitty");
+            ach.Trigger();
         });
 
         ////////////////////////////////////////////////////
