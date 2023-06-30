@@ -733,6 +733,13 @@ public class PlayerController : MonoBehaviour
             Vector3 toMouse = (mouseFollower.transform.position - transform.position);
             transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
         }
+        else
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
+        }
     }
 
     private void AttackForce(float multiplier)
