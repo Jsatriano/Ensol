@@ -39,7 +39,7 @@ P1-USH: Okay! If you need anything, let me know.
 -> END
 
 === Over ===
-P1-USH: Hello Friend! If you need anything else, feel free to let me know.
+P1-USH: Hello Friend! If you need anything else later, feel free to let me know.
 
 -> END
 
@@ -107,7 +107,7 @@ P1-USH: Of course!
 
 
 +[I don't need anything else.]
-P1-USH: Okay! If you ever need anything else, feel free to let me know!
+P1-USH: Okay! If you ever need anything else later, feel free to let me know!
 ->END
 
 ===Plush_talk===
