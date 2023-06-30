@@ -34,10 +34,13 @@ public class PauseMenu : MonoBehaviour
     public NodeSelector nodeSelector;
     [HideInInspector] public MenuState menuState;
     [HideInInspector] public DataPersistanceManager DPM;
+    private PlayerInputActions playerInputActions;
 
     [Header("Map")]
     [SerializeField] private GameObject mapUI;
     [SerializeField] private CompletedNodes completedNodes;
+    public GameObject mapKeyboard;
+    public GameObject mapController;
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
@@ -48,6 +51,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject checkpointMenu;
     [SerializeField] private GameObject[] checkpointButtons;
     public TextMeshProUGUI checkpointDescription;
+    public GameObject cPKeyboard;
+    public GameObject cPController;
 
     private void Start()
     {
@@ -58,6 +63,8 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
         Time.timeScale = 1f;
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
 
         if (PlayerData.startedGame)
         {
@@ -117,6 +124,26 @@ public class PauseMenu : MonoBehaviour
                     CloseCheckpointMenu();
                 }
                 break;
+        }
+        if (mapUI.activeInHierarchy){
+            if (playerInputActions.Player.CabinReturn.triggered){
+                ReturnToCabin();
+            }
+        }
+        
+        if (checkpointMenu.activeInHierarchy && CursorToggle.controller){
+            cPController.SetActive(true);
+            cPKeyboard.SetActive(false);
+        } else if (checkpointMenu.activeInHierarchy){
+            cPController.SetActive(false);
+            cPKeyboard.SetActive(true);
+        }
+        if (mapUI.activeInHierarchy && CursorToggle.controller){
+            mapController.SetActive(true);
+            mapKeyboard.SetActive(false);
+        } else if (mapUI.activeInHierarchy){
+            mapController.SetActive(false);
+            mapKeyboard.SetActive(true);
         }
     }
 
