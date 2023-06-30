@@ -50,6 +50,7 @@ public static class PlayerData
     public static int bearsKilled = 0;
     public static int bunniesKilled = 0;
     public static int deerKilled = 0;
+    public static int spiderKilled = 0;
 
     //River control progress
     public static bool controlsHit = false;
@@ -76,4 +77,7 @@ public static class PlayerData
         new List<string>(), new List<string>(), new List<string>(), new List<string>(), new List<string>(),
         new List<string>(), new List<string>(), new List<string>()
     };
+
+    //beaten the game
+    public static bool beatenGame = false;
 }

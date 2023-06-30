@@ -44,6 +44,14 @@ public class _09PowerGridNode : MonoBehaviour
 
     public void Update()
     {
+        if (PlayerData.spiderKilled >= 1) 
+        {
+            story = new Story(globals.text);
+            story.state.LoadJson(DialogueVariables.saveFile);
+            story.EvaluateFunction("killedSpider");
+            DialogueVariables.saveFile = story.state.ToJson();
+        }
+
         // first generator
         if(genPanel01.enabled == false && gen1Shutdown == false)
         {

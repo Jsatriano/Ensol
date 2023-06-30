@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Ink.Runtime;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -90,6 +91,8 @@ public class PlayerController : MonoBehaviour
     public float vialRechargeSpeed;
     private float vialTimer;
     public float baseAttackPower = 5;
+    public float upgradedAttackPower = 5;
+    public float downgradedAttackPower = 3;
     [SerializeField] private float force = 1;
     public float invulnLength = 1;
     public float maxComboTimer = 1.0f;
@@ -144,6 +147,22 @@ public class PlayerController : MonoBehaviour
     //Input Read Variables
     private Vector3 direction;
     private bool lightAttackInput, heavyAttackInput, dashInput, throwAttackInput, shieldInput, pauseInput;
+    PlayerInputActions playerInputActions;
+    private PlayerInput playerInput;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        // playerInputActions.Player.Movement.performed += Move_performed;
+    }
+
+    // private void Move_performed(InputAction.CallbackContext context)
+    // {
+    //     print(context);
+    // }
 
     // function is called in scene start
     private void Start()
@@ -203,6 +222,7 @@ public class PlayerController : MonoBehaviour
             hasWeapon = true;
             lightSlashVFX = noElectricLightSlashVFX;
             heavySlashVFX = noElectricHeavySlashVFX;
+            baseAttackPower = downgradedAttackPower;
         }
         else
         {
@@ -216,6 +236,7 @@ public class PlayerController : MonoBehaviour
             hasWeapon = true;
             lightSlashVFX = electricLightSlashVFX;
             heavySlashVFX = electricHeavySlashVFX;
+            baseAttackPower = upgradedAttackPower;
         }
         optionsMenu.OnCatModeChange.AddListener(UpdateCatMode);
         UpdateCatMode(OptionsMenu.catModeActivated);
@@ -233,23 +254,34 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("hasWeapon", hasWeapon);
 
         //read inputs
-        direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if(Input.GetButtonDown("Dash")) {
+        // if (CursorToggle.controller == false)
+        // {
+        //     direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        // }
+        // else
+        // {
+        //     direction = new Vector3(Input.GetAxisRaw("Horizontal_Controller"), 0, Input.GetAxisRaw("Vertical_Controller"));
+        // }
+        // direction = new Vector3(CursorToggle.horizontal, 0, CursorToggle.vertical);
+        direction = new Vector3(playerInputActions.Player.Movement.ReadValue<Vector2>().x, 0, playerInputActions.Player.Movement.ReadValue<Vector2>().y);
+
+
+        if(playerInputActions.Player.Dash.triggered) {//Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.Throw.triggered) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.LightAttack.triggered) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.HeavyAttack.triggered) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
         if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
             shieldInput = true;
         }
-        if(Input.GetButtonDown("Cancel") && allowInput) {
+        if(playerInputActions.Player.Cancel.triggered) {//Input.GetButtonDown("Cancel") && allowInput) {
             pauseInput = true;
         }
 
@@ -697,9 +729,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void LookAtMouse() {
-        if(!controller) {
+        if(CursorToggle.controller == false) {
             Vector3 toMouse = (mouseFollower.transform.position - transform.position);
             transform.forward = new Vector3(toMouse.x, 0, toMouse.z);
+        }
+        else
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
         }
     }
 
@@ -890,11 +929,30 @@ public class PlayerController : MonoBehaviour
         // checks if player is moving
         if(direction.magnitude > 0.1f)
         {
-            // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
-            Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+            Vector3 rightMovement;
+            Vector3 upMovement;
 
-            // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
-            Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            // if (CursorToggle.controller == false)
+            // {
+            //     // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+            //     rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal");
+
+            //     // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+            //     upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
+            // }
+            // else
+            // {
+            //     // says what our right movement is going to be ( + / - ) depending on what horiz key is being pressed
+            //     rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Horizontal_Controller");
+
+            //     // says what our up movement is going to be ( + / - ) depending on what vert key is being pressed
+            //     upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical_Controller");
+            // }
+
+
+            rightMovement = right * moveSpeed * Time.deltaTime * playerInputActions.Player.Movement.ReadValue<Vector2>().x;
+            
+            upMovement = forward * moveSpeed * Time.deltaTime * playerInputActions.Player.Movement.ReadValue<Vector2>().y;
 
             // combines both movements to create a direction that our character will point to
             heading = Vector3.Normalize(rightMovement + upMovement);
@@ -1253,6 +1311,10 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateCatMode(bool activated)
     {
+        if (activated){
+            var ach = new Steamworks.Data.Achievement("Meow_Meow");
+            ach.Trigger();
+        }
         foreach(GameObject catObject in catModeObjects)
         {
             catObject.SetActive(activated);

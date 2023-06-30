@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ink.Runtime;
 
 public class _08BirdNode : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class _08BirdNode : MonoBehaviour
     private Vector3 birdPosition = new Vector3(-0.01194038f, -0.003794938f, 0.0007437048f);
     private PlayerController combatController = null;
     [HideInInspector] public GameObject[] players = null;
+    private Story story;
+    public TextAsset globals;
     
     private void Start()
     {
@@ -36,12 +39,16 @@ public class _08BirdNode : MonoBehaviour
         }
 
         if(activeDeadBird != null && !PlayerData.hasTransponder) {
-            Debug.Log("Bird active: " + activeDeadBird.activeInHierarchy);
-            Debug.Log("Has Trans: " + PlayerData.hasTransponder);
+            //Debug.Log("Bird active: " + activeDeadBird.activeInHierarchy);
+            //Debug.Log("Has Trans: " + PlayerData.hasTransponder);
             if(!activeDeadBird.activeInHierarchy && !PlayerData.hasTransponder){ 
                 PlayerData.hasTransponder = true;
                 transferCube.SetActive(true);
                 combatController.PickedUpTransponder();
+                story = new Story(globals.text);
+                story.state.LoadJson(DialogueVariables.saveFile);
+                story.EvaluateFunction("killedBird");
+                DialogueVariables.saveFile = story.state.ToJson();
             }
             else {
                 transferCube.SetActive(false);

@@ -54,12 +54,26 @@ public class EndingManager : MonoBehaviour
         killMusic = true;
         AudioManager.instance.PlayOneShot(FMODEvents.instance.computerShutdown, computerObject.transform.position);
         killAmbiance = true;
+        PlayerData.beatenGame = true;
+        if (PlayerData.deaths == 1){
+            var ach = new Steamworks.Data.Achievement("Beat_The_System");
+            ach.Trigger();
+        }
+        var ach2 = new Steamworks.Data.Achievement("Freedom_");
+        ach2.Trigger();
     }
 
     public void EndTwo(){
         gameEndingOne = false;
         gameEnding = true;
         killMusic = true;
+        PlayerData.beatenGame = true;
+        if (PlayerData.deaths == 1){
+            var ach = new Steamworks.Data.Achievement("Beat_The_System");
+            ach.Trigger();
+        }
+        var ach2 = new Steamworks.Data.Achievement("Ignorance_Is_Bliss");
+        ach2.Trigger();
     }
 
     public IEnumerator FadeBlackOutSquare()

@@ -52,6 +52,7 @@ public class PData
     public int bearsKilled;
     public int bunniesKilled;
     public int deerKilled;
+    public int spiderKilled;
 
     //River control progress
     public bool controlsHit;
@@ -115,6 +116,16 @@ public class PData
     public List<string> computerEnemiesAlive = new List<string>();
     public List<string> computerInteriorEnemiesAlive = new List<string>();
 
+    //data that is not overwritten in a new game
+    public float musicValue = 1;
+    public float sfxValue = 1;
+    public float screenShakeValue = 1;
+    public bool catModeActivated = false;
+    public bool grassActivated = true;
+    public bool beatenGame = false;
+
+
+
     public PData()
     {
         worked = false;
@@ -159,6 +170,7 @@ public class PData
         bearsKilled = 0;
         bunniesKilled = 0;
         deerKilled = 0;
+        spiderKilled = 0;
 
         //River control progress
         controlsHit = false;
@@ -234,6 +246,14 @@ public class PData
         metalFieldEnemiesAlive = new List<string>();
         computerEnemiesAlive = new List<string>();
         computerInteriorEnemiesAlive = new List<string>();
+
+        //data that is not overwritten in a new game
+        musicValue = OptionsMenu.musicValue;
+        sfxValue = OptionsMenu.sfxValue;
+        screenShakeValue = OptionsMenu.screenShakeValue;
+        catModeActivated = OptionsMenu.catModeActivated;
+        grassActivated = OptionsMenu.grassActivated;
+        beatenGame = PlayerData.beatenGame;
 
 
 

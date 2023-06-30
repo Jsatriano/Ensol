@@ -56,6 +56,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.bearsKilled = data.bearsKilled;
         PlayerData.bunniesKilled = data.bunniesKilled;
         PlayerData.deerKilled = data.deerKilled;
+        PlayerData.spiderKilled = data.spiderKilled;
 
         //River control progress
         PlayerData.controlsHit = data.controlsHit;
@@ -116,6 +117,14 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         PlayerData.enemiesAliveInNode[11] = data.computerEnemiesAlive;
         PlayerData.enemiesAliveInNode[12] = data.computerInteriorEnemiesAlive;
 
+        //data that is not overwritten in a new game
+        OptionsMenu.musicValue = data.musicValue;
+        OptionsMenu.sfxValue = data.sfxValue;
+        OptionsMenu.screenShakeValue = data.screenShakeValue;
+        OptionsMenu.catModeActivated = data.catModeActivated;
+        OptionsMenu.grassActivated = data.grassActivated;
+        PlayerData.beatenGame = data.beatenGame;
+
     }
 
     public void SaveData(ref PData data)
@@ -165,6 +174,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.bearsKilled = PlayerData.bearsKilled;
         data.bunniesKilled = PlayerData.bunniesKilled;
         data.deerKilled = PlayerData.deerKilled;
+        data.spiderKilled = PlayerData.spiderKilled;
 
         //River control progress
         data.controlsHit = PlayerData.controlsHit;
@@ -218,6 +228,14 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
         data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
         data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
+
+        //data that is not overwritten in a new game
+        data.musicValue = OptionsMenu.musicValue;
+        data.sfxValue = OptionsMenu.sfxValue;
+        data.screenShakeValue = OptionsMenu.screenShakeValue;
+        data.catModeActivated = OptionsMenu.catModeActivated;
+        data.grassActivated = OptionsMenu.grassActivated;
+        data.beatenGame = PlayerData.beatenGame;
     }
 
     public void SaveStory(ref TextAsset globals)

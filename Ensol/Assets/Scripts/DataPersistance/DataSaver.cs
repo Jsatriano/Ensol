@@ -111,6 +111,7 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.bearsKilled = PlayerData.bearsKilled;
         data.bunniesKilled = PlayerData.bunniesKilled;
         data.deerKilled = PlayerData.deerKilled;
+        data.spiderKilled = PlayerData.spiderKilled;
 
         //River control progress
         data.controlsHit = PlayerData.controlsHit;
@@ -171,6 +172,14 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         data.metalFieldEnemiesAlive = PlayerData.enemiesAliveInNode[10];
         data.computerEnemiesAlive = PlayerData.enemiesAliveInNode[11];
         data.computerInteriorEnemiesAlive = PlayerData.enemiesAliveInNode[12];
+
+        //data that is not overwritten in a new game
+        data.musicValue = OptionsMenu.musicValue;
+        data.sfxValue = OptionsMenu.sfxValue;
+        data.screenShakeValue = OptionsMenu.screenShakeValue;
+        data.catModeActivated = OptionsMenu.catModeActivated;
+        data.grassActivated = OptionsMenu.grassActivated;
+        data.beatenGame = PlayerData.beatenGame;
     }
 
     // public void LoadStory(TextAsset globals)

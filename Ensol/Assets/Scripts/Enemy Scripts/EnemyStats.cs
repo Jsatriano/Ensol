@@ -24,6 +24,7 @@ public class EnemyStats : MonoBehaviour
     public float obstacleDetectRadius; //The radius at which the enemy detects obstacles. Used for avoiding obstacles when moving 
     public float shieldDropChance;
     public GameObject shieldDropPrefab;
+    public bool isRabbit;
 
     [Header("Components")]
     public PlayerController player;      //Stores reference to player, in order to deal damage/otherwise affect them.
