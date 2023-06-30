@@ -269,13 +269,13 @@ public class PlayerController : MonoBehaviour
         if(playerInputActions.Player.Dash.triggered) {//Input.GetButtonDown("Dash")) {
             dashInput = true;
         }
-        if(playerInputActions.Player.Throw.triggered) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.Throw.triggered && allowInput && !doorBarred) {//Input.GetButtonDown("SpecialAttack") && allowInput && !doorBarred) {
             throwAttackInput = true;
         }
-        if(playerInputActions.Player.LightAttack.triggered) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.LightAttack.triggered && allowInput && !doorBarred) {//Input.GetButtonDown("LightAttack") && allowInput && !doorBarred) {
             lightAttackInput = true;
         }
-        if(playerInputActions.Player.HeavyAttack.triggered) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
+        if(playerInputActions.Player.HeavyAttack.triggered&& allowInput && !doorBarred) {//Input.GetButtonDown("HeavyAttack") && allowInput && !doorBarred) {
             heavyAttackInput = true;
         }
         if(Input.GetButtonDown("Shield") && allowInput && !doorBarred) {
@@ -859,10 +859,22 @@ public class PlayerController : MonoBehaviour
         LookAtMouse();
         activeWeaponProjectile = Instantiate(weaponProjectilePrefab, weaponCatchTarget.transform.position, gameObject.transform.rotation);
         activeWeaponProjectile.GetComponent<WeaponHitbox>().isProjectile = true;
-
-        Vector3 throwTarget = mouseFollower.transform.position;
-        throwTarget.y = activeWeaponProjectile.transform.position.y;
-        activeWeaponProjectile.transform.LookAt(throwTarget);
+        Vector3 throwTarget;
+        if (CursorToggle.controller == false)
+        {
+            throwTarget = mouseFollower.transform.position;
+            throwTarget.y = activeWeaponProjectile.transform.position.y;
+            activeWeaponProjectile.transform.LookAt(throwTarget);
+        }
+        else
+        {
+            if (direction != Vector3.zero)
+            {
+                transform.forward = direction;
+            }
+            activeWeaponProjectile.transform.forward = transform.forward;
+        }            
+     
         weapon.SetActive(false);
         weaponHead.SetActive(false);
         weaponBase.SetActive(false);

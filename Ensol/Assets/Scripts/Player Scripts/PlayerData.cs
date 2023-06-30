@@ -5,21 +5,21 @@ using UnityEngine;
 public static class PlayerData
 {
     //Weapon Upgrades
-    public static bool startedGame = false;
-    public static bool hasBroom = false;
-    public static bool hasSolarUpgrade = false;
-    public static bool hasThrowUpgrade = false;
-    public static bool diedToCrackDeer = false;
+    public static bool startedGame = true;
+    public static bool hasBroom = true;
+    public static bool hasSolarUpgrade = true;
+    public static bool hasThrowUpgrade = true;
+    public static bool diedToCrackDeer = true;
     public static bool hasShield = false;
 
     //Player Death Stuff
-    public static bool currentlyHasBroom = false;
-    public static bool currentlyHasSolar = false;
+    public static bool currentlyHasBroom = true;
+    public static bool currentlyHasSolar = true;
     public static float currHP = -1;
     public static Queue<Vector3> bloodLocations;
 
     //Player Progress
-    public static int currentNode = 1; // CHANGE BACK TO 1
+    public static int currentNode = 10; // CHANGE BACK TO 1
     public static int prevNode = 1;
 
     //Player Tutorial Text
