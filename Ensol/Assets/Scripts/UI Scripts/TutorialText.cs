@@ -29,6 +29,7 @@ public class TutorialText : MonoBehaviour
     [TextArea] public string throwText;
 
     [Header("Tutorial Texts Controller")]
+    [SerializeField] private GameObject buttonImage;
     [TextArea] public string walkTextController;
     [TextArea] public string mapTextController;
     [TextArea] public string broomTextController;
@@ -53,9 +54,11 @@ public class TutorialText : MonoBehaviour
 
     private void Start()
     {
+        buttonImage.SetActive(false);
         textMesh.text = noText;
         originalColor = textMesh.color;
     }
+
 
     private void LateUpdate()
     {
@@ -104,6 +107,14 @@ public class TutorialText : MonoBehaviour
         switch (state)
         {
             case TutorialState.WALK:
+                if (CursorToggle.controller)
+                {
+                    textMesh.text = walkTextController;
+                }
+                else
+                {
+                    textMesh.text = walkText;
+                }
                 if (PlayerData.distanceMoved >= distMoved)
                 {
                     state = TutorialState.NONE;
@@ -112,6 +123,14 @@ public class TutorialText : MonoBehaviour
                 break;
 
             case TutorialState.MAP:
+                if (CursorToggle.controller)
+                {
+                    textMesh.text = mapTextController;
+                }
+                else
+                {
+                    textMesh.text = mapText;
+                }
                 if (PlayerData.mapOpens > 0)
                 {
                     state = TutorialState.NONE;
@@ -120,6 +139,16 @@ public class TutorialText : MonoBehaviour
                 break;
 
             case TutorialState.BROOM:
+                if (CursorToggle.controller)
+                {
+                    buttonImage.SetActive(true);
+                    textMesh.text = broomTextController;
+                }
+                else
+                {
+                    buttonImage.SetActive(false);
+                    textMesh.text = broomText;
+                }
                 if (PlayerData.lightAttacks >= lights && PlayerData.dashes >= dashes)
                 {
                     state = TutorialState.NONE;
@@ -128,6 +157,14 @@ public class TutorialText : MonoBehaviour
                 break;
 
             case TutorialState.SOLAR:
+                if (CursorToggle.controller)
+                {
+                    textMesh.text = solarTextController;
+                }
+                else
+                {
+                    textMesh.text = solarText;
+                }
                 if (PlayerData.heavyAttacks >= heavies)
                 {
                     state = TutorialState.NONE;
@@ -136,6 +173,14 @@ public class TutorialText : MonoBehaviour
                 break;
 
             case TutorialState.THROW:
+                if (CursorToggle.controller)
+                {
+                    textMesh.text = throwTextController;
+                }
+                else
+                {
+                    textMesh.text = throwText;
+                }
                 if (PlayerData.throwAttacks >= throws)
                 {
                     state = TutorialState.NONE;
@@ -160,6 +205,7 @@ public class TutorialText : MonoBehaviour
             fadeTimer -= Time.deltaTime;
             yield return null;
         }
-        textMesh.text = noText;       
+        textMesh.text = noText;
+        buttonImage.SetActive(false);
     }
 }
