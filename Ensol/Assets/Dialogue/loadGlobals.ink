@@ -12,3 +12,9 @@ INCLUDE globals.ink
     
 === function killedRabbit ===
     ~rabbit_deafeated = true
+    
+=== function killedSpider ===
+    ~spider_defeated = true
+    
+=== function killedBird ===
+    ~bird_defeated = true
