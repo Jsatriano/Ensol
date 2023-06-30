@@ -80,12 +80,14 @@ public class WeaponHitbox : MonoBehaviour
             if(col.gameObject.tag == "Enemy") {
                 col.gameObject.GetComponent<EnemyStats>().TakeDamage(player.attackPower);
                 //check if hitting two bunnies
-                if (col.gameObject.GetComponent<EnemyStats>().isRabbit){
-                    rabbitCombo += 1;
-                }
-                if (rabbitCombo >= 2){
-                    var ach = new Steamworks.Data.Achievement("Two_Rabbits_One_Spear");
-                    ach.Trigger();
+                if (isProjectile){
+                    if (col.gameObject.GetComponent<EnemyStats>().isRabbit){
+                        rabbitCombo += 1;
+                    }
+                    if (rabbitCombo >= 2){
+                        var ach = new Steamworks.Data.Achievement("Two_Rabbits_One_Spear");
+                        ach.Trigger();
+                    }
                 }
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.minorCut, this.transform.position);
                 Transform hitVFXTargetLocation = null;
