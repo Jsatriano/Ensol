@@ -25,6 +25,7 @@ public class Checkpoint : MonoBehaviour
     [HideInInspector] public bool active;
     private Collider col;
     private PauseMenu checkpointMenu;
+    private GameObject checkpointDialogue;
     [SerializeField] private Renderer hatch;
 
     //KEY: INDEX - TARGET NODE
@@ -61,10 +62,16 @@ public class Checkpoint : MonoBehaviour
         if(checkpointMenu == null) {
             SearchForCheckpointMenu();
         }
+        if (checkpointDialogue != null && checkpointDialogue.activeInHierarchy){
+            col.enabled = false;
+        } else {
+            col.enabled = true;
+        }
     }
 
     public void ActivateCheckpoint(){
         active = true;
+        //col.enabled = true;
         CompletedNodes.checkpoints[index] = active;
         if(!CompletedNodes.checkpoints[0]) {
             CompletedNodes.checkpoints[0] = true;
@@ -74,6 +81,9 @@ public class Checkpoint : MonoBehaviour
 
     public void UseActiveCheckpoint() {
         checkpointMenu.OpenCheckpointMenu();
+        checkpointDialogue = GameObject.Find("CheckpointOptions");
+        //col.enabled = false;
+
     }
 
     public void SearchForCheckpointMenu() {
