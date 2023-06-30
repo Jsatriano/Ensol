@@ -39,8 +39,6 @@ public class PauseMenu : MonoBehaviour
     [Header("Map")]
     [SerializeField] private GameObject mapUI;
     [SerializeField] private CompletedNodes completedNodes;
-    public GameObject mapKeyboard;
-    public GameObject mapController;
 
     [Header("Options Menu")]
     [SerializeField] private GameObject optionsMenu;
@@ -127,11 +125,6 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
         }
-        if (mapUI.activeInHierarchy){
-            if (playerInputActions.Player.CabinReturn.triggered){
-                ReturnToCabin();
-            }
-        }
         
         if (checkpointMenu.activeInHierarchy && CursorToggle.controller){
             cPController.SetActive(true);
@@ -139,13 +132,6 @@ public class PauseMenu : MonoBehaviour
         } else if (checkpointMenu.activeInHierarchy){
             cPController.SetActive(false);
             cPKeyboard.SetActive(true);
-        }
-        if (mapUI.activeInHierarchy && CursorToggle.controller){
-            mapController.SetActive(true);
-            mapKeyboard.SetActive(false);
-        } else if (mapUI.activeInHierarchy){
-            mapController.SetActive(false);
-            mapKeyboard.SetActive(true);
         }
     }
 

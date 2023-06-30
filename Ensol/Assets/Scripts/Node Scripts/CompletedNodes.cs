@@ -37,7 +37,10 @@ public class CompletedNodes : MonoBehaviour
     public Slider[] mapSlider;
     [SerializeField] private Button cabinButton;
     [SerializeField] private GameObject homeText;
+    public GameObject keyboardText;
+    public GameObject controllerText;
     [SerializeField] private Image blackOutSquare;
+    public PauseMenu pauseMenu;
 
     [Header("Circle Data")]
     public GameObject youAreHereCircle;
@@ -51,6 +54,13 @@ public class CompletedNodes : MonoBehaviour
     [SerializeField] private float xDrawRate;
     [SerializeField] private float sceneryDrawRate;
     [SerializeField] private NodeSelector nodeSelector; 
+
+    private PlayerInputActions playerInputActions;
+
+    private void Start(){
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+    }
 
     /* 
     ------  KEY  ------
@@ -68,6 +78,18 @@ public class CompletedNodes : MonoBehaviour
     11 = computer
     12 = computer interior
     */
+
+    private void Update(){
+        if (CursorToggle.controller){
+            homeText = controllerText;
+        } else {
+            homeText = keyboardText;
+        }
+
+        if (homeText.activeInHierarchy && playerInputActions.Player.CabinReturn.triggered){
+            pauseMenu.ReturnToCabin();
+        }
+    }
 
     //Function called for just looking at the map
     public void LookAtMap()
