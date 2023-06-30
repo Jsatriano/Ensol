@@ -23,6 +23,8 @@ public class _00CabinNode : MonoBehaviour
     public GameObject plushInteractable;
     public GameObject podHealingInteractable;
     public GameObject ash;
+    public GameObject ashMedium;
+    public GameObject ashLarge;
     
     [Header("Interactable Object Interactors")]
     public CabinDoor doorInteractor;
@@ -114,6 +116,12 @@ public class _00CabinNode : MonoBehaviour
             broom.SetActive(true);
             ash.SetActive(false);
             interactableBroom.SetActive(false);
+        }
+        if (PlayerData.deaths > 1){
+            ashMedium.SetActive(true);
+        }
+        if (PlayerData.deaths > 2){
+            ashLarge.SetActive(true);
         }
         weaponPile.SetActive(false);
         stick.SetActive(false);
