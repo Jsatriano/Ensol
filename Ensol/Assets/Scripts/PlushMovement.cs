@@ -104,6 +104,12 @@ public class PlushMovement : MonoBehaviour
         plushAnims.SetTrigger("Sitting");
         var time = Random.Range(2, maxWaitTime);
         yield return new WaitForSeconds(time);
+        while (colliding)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
         waiting = false;
     }
 
