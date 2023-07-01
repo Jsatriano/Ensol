@@ -4860,8 +4860,12 @@ MonoBehaviour:
   textMesh: {fileID: 643763846}
   cam: {fileID: 0}
   walkText: 'Move: WASD'
-  mapText: "Open Map: TAB\nClick the cabin on the map to \nreturn home when out in
-    the wild."
+  mapText: 'Open Map: TAB
+
+    You can return home from the map
+
+    when out in
+    the wild.'
   broomText: 'Light Attack Combo: Left Mouse Button
 
     Dash: Space
@@ -4875,6 +4879,25 @@ MonoBehaviour:
   throwText: 'Throw Attack: Q then Q to recall
 
     This attack costs 2 energy.'
+  buttonImage: {fileID: 5522738712537803559}
+  walkTextController: 'Move: Left Joystick'
+  mapTextController: 'Open Map: Select
+
+    You can return home from the map
+
+    when
+    out in the wild.'
+  broomTextController: 'Light Attack Combo: Right Trigger
+
+    Dash: '
+  solarTextController: 'Heavy Attack: Left Trigger
+
+    This attack costs 2 energy.
+    Energy recharges over time.'
+  throwTextController: 'Throw Attack: Right Bumper to throw and recall
+
+    This
+    attack costs 2 energy.'
   distMoved: 5
   lights: 3
   dashes: 1
@@ -5147,7 +5170,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 545087713404487777}
   m_Father: {fileID: 1433604017}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5184,12 +5208,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Light Attack Combo: LMB -> LMB -> LMB
+  m_text: 'Light Attack Combo: Right Trigger
 
-    Heavy Attack: RMB
-
-    Dash:
-    Space'
+    Dash: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc9ac2a0c3806a44f89e5444bfa031ee, type: 2}
   m_sharedMaterial: {fileID: -2677729058286800060, guid: cc9ac2a0c3806a44f89e5444bfa031ee, type: 2}
@@ -6885,6 +6906,82 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5522738712537803559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 545087713404487777}
+  - component: {fileID: 4685705798415267725}
+  - component: {fileID: 524641783233626853}
+  m_Layer: 10
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &545087713404487777
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522738712537803559}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0035, y: 0.0035, z: 0.0035}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 643763845}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.682, y: 24.546}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4685705798415267725
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522738712537803559}
+  m_CullTransparentMesh: 1
+--- !u!114 &524641783233626853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522738712537803559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ab1de42def1940f42a3161c560132a05, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6162575554068288181
 GameObject:
   m_ObjectHideFlags: 0
@@ -8585,6 +8682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1449571756454301991}
   blackOutSquare: {fileID: 0}
+  checkpointInteracting: 0
 --- !u!114 &1360605719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8683,6 +8781,8 @@ MonoBehaviour:
   currentHP: 13
   vialRechargeSpeed: 5
   baseAttackPower: 5
+  upgradedAttackPower: 5
+  downgradedAttackPower: 3
   force: 3.5
   invulnLength: 1
   maxComboTimer: 0.25

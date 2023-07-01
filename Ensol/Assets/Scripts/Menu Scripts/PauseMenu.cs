@@ -34,6 +34,7 @@ public class PauseMenu : MonoBehaviour
     public NodeSelector nodeSelector;
     [HideInInspector] public MenuState menuState;
     [HideInInspector] public DataPersistanceManager DPM;
+    private PlayerInputActions playerInputActions;
 
     [Header("Map")]
     [SerializeField] private GameObject mapUI;
@@ -48,6 +49,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject checkpointMenu;
     [SerializeField] private GameObject[] checkpointButtons;
     public TextMeshProUGUI checkpointDescription;
+    public GameObject cPKeyboard;
+    public GameObject cPController;
+
+
 
     private void Start()
     {
@@ -58,6 +63,8 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(resumeButton);
         isPaused = false;
         Time.timeScale = 1f;
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
 
         if (PlayerData.startedGame)
         {
@@ -71,39 +78,39 @@ public class PauseMenu : MonoBehaviour
         switch (menuState)
         {
             case MenuState.UNPAUSED:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     PauseUnpause();
                 }
-                else if (Input.GetButtonDown("Map") && PlayerData.windowInteracted)
+                else if (playerInputActions.Player.Map.triggered && PlayerData.windowInteracted)
                 {
                     OpenMap();
                 }
                 break;
 
             case MenuState.PAUSED:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     PauseUnpause();
                 }
                 break;
 
             case MenuState.OPTIONS:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     OpenCloseOptions();
                 }
                 break;
 
             case MenuState.CONTROLS:
-                if (Input.GetButtonDown("Cancel"))
+                if (playerInputActions.Player.Cancel.triggered)
                 {
                     OpenCloseControls();
                 }
                 break;
 
             case MenuState.MAP_OPEN:
-                if ((Input.GetButtonDown("Map") || Input.GetButtonDown("Cancel")))
+                if ((playerInputActions.Player.Map.triggered) || playerInputActions.Player.Cancel.triggered)
                 {
                     CloseMap();
                 }
@@ -113,10 +120,18 @@ public class PauseMenu : MonoBehaviour
                 break;
 
             case MenuState.CHECKPOINT:
-                if((Input.GetButtonDown("Cancel"))) {
+                if((playerInputActions.Player.Cancel.triggered)) {
                     CloseCheckpointMenu();
                 }
                 break;
+        }
+        
+        if (checkpointMenu.activeInHierarchy && CursorToggle.controller){
+            cPController.SetActive(true);
+            cPKeyboard.SetActive(false);
+        } else if (checkpointMenu.activeInHierarchy){
+            cPController.SetActive(false);
+            cPKeyboard.SetActive(true);
         }
     }
 
@@ -151,7 +166,7 @@ public class PauseMenu : MonoBehaviour
         if(PlayerData.currentNode == 10) {
             checkpointButtons[2].SetActive(false);
         }
-        if(PlayerData.currentNode == 12) {
+        if(PlayerData.currentNode == 11) {
             checkpointButtons[3].SetActive(false);
 
         }

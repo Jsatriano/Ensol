@@ -37,7 +37,10 @@ public class CompletedNodes : MonoBehaviour
     public Slider[] mapSlider;
     [SerializeField] private Button cabinButton;
     [SerializeField] private GameObject homeText;
+    public GameObject keyboardText;
+    public GameObject controllerText;
     [SerializeField] private Image blackOutSquare;
+    public PauseMenu pauseMenu;
 
     [Header("Circle Data")]
     public GameObject youAreHereCircle;
@@ -51,6 +54,13 @@ public class CompletedNodes : MonoBehaviour
     [SerializeField] private float xDrawRate;
     [SerializeField] private float sceneryDrawRate;
     [SerializeField] private NodeSelector nodeSelector; 
+
+    private PlayerInputActions playerInputActions;
+
+    private void Start(){
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+    }
 
     /* 
     ------  KEY  ------
@@ -69,10 +79,17 @@ public class CompletedNodes : MonoBehaviour
     12 = computer interior
     */
 
-    //Function called for just looking at the map
-    public void LookAtMap()
-    {
-        blackOutSquare.enabled = false;
+    private void Update(){
+        if (CursorToggle.controller){
+            homeText = controllerText;
+        } else {
+            homeText = keyboardText;
+        }
+
+        if (homeText.activeInHierarchy && playerInputActions.Player.CabinReturn.triggered){
+            pauseMenu.ReturnToCabin();
+        }
+
         if (PlayerData.currentNode != 1 && PlayerData.currentNode != 13)
         {
             homeText.SetActive(true);
@@ -83,6 +100,12 @@ public class CompletedNodes : MonoBehaviour
             homeText.SetActive(false);
             cabinButton.interactable = false;
         }
+    }
+
+    //Function called for just looking at the map
+    public void LookAtMap()
+    {
+        blackOutSquare.enabled = false;
         PreDraw();
         PlaceCircle(PlayerData.currentNode - 1);
         //play open map sound
