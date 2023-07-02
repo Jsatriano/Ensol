@@ -210,6 +210,12 @@ public class DialogueManager : MonoBehaviour
             }
         });
 
+        currentStory.BindExternalFunction("achievement", () =>{
+            //unlock achievement
+            var ach = new Steamworks.Data.Achievement("Exposition_Dump");
+            ach.Trigger();
+        });
+
         ////////////////////////////////////////////////////
 
         ContinueStory();

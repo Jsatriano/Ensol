@@ -19,12 +19,14 @@ public class TimeTracker : MonoBehaviour
         timeElapsed = (int) Time.realtimeSinceStartup % 60;
         //print(timeElapsed);
 
-        if (timeElapsed == 0 && minuteMark == false){
+        if (timeElapsed < 1 && minuteMark == false){
+            //print ("minute");
             minuteMark = true; //make sure not to update it multiple times a frame
             Steamworks.SteamUserStats.AddStat("Sandbox_Minutes", 1);
             Steamworks.SteamUserStats.StoreStats();
         }
-        if (timeElapsed == 1){
+        if (timeElapsed > 1 && minuteMark == true){
+            //print ("minute restart");
             minuteMark = false;
         }
         

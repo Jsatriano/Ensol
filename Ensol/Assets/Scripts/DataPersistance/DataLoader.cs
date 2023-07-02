@@ -64,6 +64,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         PlayerData.birdTriggered = data.birdTriggered;
         PlayerData.disableBird = data.disableBird;
+        PlayerData.killedBird = data.killedBird;
         PlayerData.hasTransponder = data.hasTransponder;
 
         //Power Grid Node Progression
@@ -182,6 +183,7 @@ public class DataLoader : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
+        data.killedBird = PlayerData.killedBird;
         data.hasTransponder = PlayerData.hasTransponder;
 
 

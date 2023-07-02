@@ -60,6 +60,7 @@ public class PData
     //Security Tower Node Progression
     public bool birdTriggered;
     public bool disableBird;
+    public bool killedBird;
     public bool hasTransponder;
 
     //Power Grid Node Progression
@@ -178,6 +179,7 @@ public class PData
         //Security Tower Node Progression
         birdTriggered = false;
         disableBird = false;
+        killedBird = false;
         NGworked = 0;
         hasTransponder = false;
 

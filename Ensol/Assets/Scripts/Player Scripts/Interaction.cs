@@ -79,7 +79,7 @@ public class Interaction : MonoBehaviour
             }
             else if(collider.gameObject.tag == "InteractableStory" | collider.gameObject.tag == "InteractableOnce")
             {
-                print(DialogueVariables.saveFile);
+                //print(DialogueVariables.saveFile);
                 collider.enabled = false;
             }
             else if (collider.gameObject.tag == "Interactable")

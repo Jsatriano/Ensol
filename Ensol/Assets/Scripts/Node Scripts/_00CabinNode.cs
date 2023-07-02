@@ -140,6 +140,7 @@ public class _00CabinNode : MonoBehaviour
                 stick.SetActive(true);
             }
         }
+        
     }
 
     public void Update()
@@ -235,14 +236,9 @@ public class _00CabinNode : MonoBehaviour
         }
 
         /* ------------------------------------------------------------------ */
-
-        //achievement check
-        if ((bool) story.variablesState["all_units_unlocked_seen"] == true){
-            var ach = new Steamworks.Data.Achievement("Exposition_Dump");
-            ach.Trigger();
-        }
         
     }
+
 
     private void SearchForPlayer()
     {

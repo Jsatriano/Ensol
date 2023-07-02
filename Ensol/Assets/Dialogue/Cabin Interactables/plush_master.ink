@@ -1,5 +1,6 @@
 INCLUDE ../globals.ink
 EXTERNAL petCat()
+EXTERNAL achievement()
 EXTERNAL favoriteTunes()
 
 { deerdead == true: ->Intro3}
@@ -116,6 +117,7 @@ P1-USH: Anything else I can help you with friend?
 
 ===achievement_unlock_forestQ===
 ~all_units_unlocked_seen= true
+~achievement()
 
 -> forest_questions
 ===forest_questions===

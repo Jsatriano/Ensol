@@ -22,14 +22,14 @@ public class KeyClicker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(EventSystem.current.currentSelectedGameObject == this.gameObject && Input.GetKeyDown(_key)){
+        /*if(EventSystem.current.currentSelectedGameObject == this.gameObject && Input.GetKeyDown(_key)){
             //print("button pressed by E");
             if (_button != null){
                 _button.onClick.Invoke();
             } else {
                 _toggle.isOn = !_toggle.isOn;
             }
-        }
+        }*/
     }
 }
 

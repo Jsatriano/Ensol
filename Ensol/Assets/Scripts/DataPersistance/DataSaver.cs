@@ -119,6 +119,7 @@ public class DataSaver : MonoBehaviour, IDataPersistance
         //Security Tower Node Progression
         data.birdTriggered = PlayerData.birdTriggered;
         data.disableBird = PlayerData.disableBird;
+        data.killedBird = PlayerData.killedBird;
         data.hasTransponder = PlayerData.hasTransponder;
 
         //Power Grid Node Progression

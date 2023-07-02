@@ -69,15 +69,15 @@ public class _07SecurityTowerNode : MonoBehaviour
         // move bird if triggered
         if(beepsCollided == true && PlayerData.killedBird == false && birdTrigger.gameObject.activeInHierarchy)
         {
-            print ("bird go");
+            //print ("bird dead =" + PlayerData.killedBird);
             //For the beep beep
             if (timerTrigger == false)
             {
-                print ("go go go");
+                //print ("go go go");
                 StartCoroutine(BeepBeep(bird));
                 StartCoroutine(Squawk());
                 timerTrigger = true;
-                print ("timer is " + timerTrigger);
+                //print ("timer is " + timerTrigger);
                 
             }
             if (birdRoutine == null)
