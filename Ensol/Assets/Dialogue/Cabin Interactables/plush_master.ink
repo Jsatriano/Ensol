@@ -7,7 +7,6 @@ EXTERNAL favoriteTunes()
 { abletoleave == false && deadtodeer == false: -> Intro | -> Over}
 
 
-->Intro3
 
 === Intro ===
 ???: Ah, finally! That took a lot longer than usual. I was getting a bit worried.
@@ -28,7 +27,7 @@ EXTERNAL favoriteTunes()
 *[ Who are you? What are you?]
 P1-USH: You don’t remember me? I’m P1-USH, your at-home entertainment and social system! Would you like me to start off the day with your morning tunes? How about your favorite game?
 ~ abletoleave = true
-// 
+
 ->Dialogue_options
 
 
@@ -64,6 +63,7 @@ P1-USH: As in your previous body! It gets cleaned up while I wait for you to wak
 
 *[What was that outside?]
 P1-USH: Oh! That was a power-gathering model. Of course, all the units outside are also programmed with the retrieval protocol, to ensure you stay safe.
+    ~deerSeen = true
 ~death = true
 
 ->After_death_options
@@ -116,20 +116,20 @@ P1-USH: Anything else I can help you with friend?
 
 ===achievement_unlock_forestQ===
 ~all_units_unlocked_seen= true
+
 -> forest_questions
 ===forest_questions===
 +[What is the purpose of those deer robots?]
 P1-USH: Oh! That was a power-gathering model. They are quick and efficient, but also pretty sturdy! They gather solar power, then transfer that power to other machines.
     ~deerSeen = true
 
-{deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ}
+{deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ| -> forest_questions}
 
--> forest_questions
 
 +{rabbit_deafeated}[Why are there robots in the shape of a bunny?]
 P1-USH: Those are the gardening models. The bunny design, while small in stature, allows easy access to both small and large areas of flora that need attention. They are typically sent out in packs to maximize efficiency.
     ~rabbitSeen = true
-    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ}
+    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ| -> forest_questions}
 
 -> forest_questions
 
@@ -195,25 +195,22 @@ P1-USH: Okay!
 P1-USH: That’s the recycling model. It uses a combination of powerful magnets and industrial arms to gather refuse in its back for later recycling. Wouldn’t want to be in front of one while it's working.
     ~bearSeen = true
 
-{deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ}
+{deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ|-> forest_questions}
 
-->forest_questions
 
 +{spider_defeated} [Those spider robots, what were they used for?]
 P1-USH: Those are power-line models. They can build and climb infrastructure to erect and maintain power lines that cover great distances. They’re usually only found in power grids, so I’m not sure how you saw one.
     ~spiderSeen = true
     
-    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ}
+    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ| ->forest_questions}
 
-->forest_questions
 
 +{bird_defeated}[What are those bird models?]
 P1-USH: Those are the survey units! They scout around the forest and pings nearby units to whatever location that is in need of maintanence. They are quite agile and reliable as they are able to travel wherever they need.
     ~birdSeen = true
     
-    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ}
+    {deerSeen && rabbitSeen && bearSeen && spiderSeen && birdSeen: ->achievement_unlock_forestQ| ->forest_questions}
 
-->forest_questions
 
 +{bird_defeated == false}[I want to ask about something else.]
 P1-USH: Okay!
