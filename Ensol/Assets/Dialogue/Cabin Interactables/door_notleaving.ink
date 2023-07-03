@@ -1,6 +1,7 @@
 INCLUDE ../globals.ink
 EXTERNAL openDoor()
 { window_seen == true && conveyer_seen == true && cloning_seen == true: -> Over | -> Intro}
+{ interactables_seen == 3: -> Over | -> Intro}
 
 -> Over
 
