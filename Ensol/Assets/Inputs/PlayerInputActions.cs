@@ -107,6 +107,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StoryInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5713b96-a7c1-4130-8103-f71a4cdf4c36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -332,17 +341,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0141b34a-b4f7-4a58-85e5-12ff9b0ca336"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""09f6fd29-d2c6-4974-927c-ef8f58332c53"",
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
@@ -371,6 +369,50 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""709f3e43-2c6e-40b2-844e-eb95f4858fc9"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""StoryInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e53d1157-41e9-4d8c-a144-929b52007b5c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""StoryInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c20168d-ef52-4b26-9aad-e8197940f3bf"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""StoryInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c85d5cec-3047-4f00-8d51-58b515b7e331"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse"",
+                    ""action"": ""StoryInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -940,6 +982,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Submit = m_Player.FindAction("Submit", throwIfNotFound: true);
         m_Player_CabinReturn = m_Player.FindAction("CabinReturn", throwIfNotFound: true);
         m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
+        m_Player_StoryInteract = m_Player.FindAction("StoryInteract", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1020,6 +1063,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Submit;
     private readonly InputAction m_Player_CabinReturn;
     private readonly InputAction m_Player_Map;
+    private readonly InputAction m_Player_StoryInteract;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1033,6 +1077,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Submit => m_Wrapper.m_Player_Submit;
         public InputAction @CabinReturn => m_Wrapper.m_Player_CabinReturn;
         public InputAction @Map => m_Wrapper.m_Player_Map;
+        public InputAction @StoryInteract => m_Wrapper.m_Player_StoryInteract;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1069,6 +1114,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Map.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
                 @Map.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
                 @Map.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMap;
+                @StoryInteract.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStoryInteract;
+                @StoryInteract.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStoryInteract;
+                @StoryInteract.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStoryInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1100,6 +1148,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Map.started += instance.OnMap;
                 @Map.performed += instance.OnMap;
                 @Map.canceled += instance.OnMap;
+                @StoryInteract.started += instance.OnStoryInteract;
+                @StoryInteract.performed += instance.OnStoryInteract;
+                @StoryInteract.canceled += instance.OnStoryInteract;
             }
         }
     }
@@ -1247,6 +1298,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnCabinReturn(InputAction.CallbackContext context);
         void OnMap(InputAction.CallbackContext context);
+        void OnStoryInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

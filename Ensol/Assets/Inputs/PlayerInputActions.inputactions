@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "StoryInteract",
+                    "type": "Button",
+                    "id": "d5713b96-a7c1-4130-8103-f71a4cdf4c36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -310,17 +319,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0141b34a-b4f7-4a58-85e5-12ff9b0ca336",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "09f6fd29-d2c6-4974-927c-ef8f58332c53",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
@@ -349,6 +347,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "709f3e43-2c6e-40b2-844e-eb95f4858fc9",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "StoryInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e53d1157-41e9-4d8c-a144-929b52007b5c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "StoryInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c20168d-ef52-4b26-9aad-e8197940f3bf",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "StoryInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c85d5cec-3047-4f00-8d51-58b515b7e331",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "StoryInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

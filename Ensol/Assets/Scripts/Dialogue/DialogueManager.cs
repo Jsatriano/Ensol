@@ -103,13 +103,13 @@ public class DialogueManager : MonoBehaviour
             }
         }
         /*Allow e and mouse to continue dialogue if there are no more choices*/
-        if (playerInputActions.Player.Submit.triggered && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
+        if (playerInputActions.Player.StoryInteract.triggered && choicesPanel.activeInHierarchy == false && canContinuetoNextLine)
         {
             if (PlayerData.startedGame == false){
                 PlayerData.startedGame = true;
             }
             StartCoroutine(Delay());
-        } else if (playerInputActions.Player.Submit.triggered && !canContinuetoNextLine){//(Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key))
+        } else if (playerInputActions.Player.StoryInteract.triggered && !canContinuetoNextLine){//(Input.GetButtonDown("Submit") || Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0) || Input.GetKeyDown(_key))
             /*Allow skipping scroll*/
             skipping = true;
         }
