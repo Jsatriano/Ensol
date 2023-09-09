@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
+// JUSTIN
 public class ButtonGateController : MonoBehaviour
 {
     public MeshRenderer buttonMesh;
@@ -70,6 +71,7 @@ public class ButtonGateController : MonoBehaviour
         }
     }
 
+    // checks if there are any enemies alive
     private bool AllEnemiesDefeated()
     {
         if (!enemyManager)
@@ -77,6 +79,7 @@ public class ButtonGateController : MonoBehaviour
             return true;
         }
 
+        // returns false if there is an enemy alive
         foreach (BT enemy in enemyManager.aliveEnemies)
         {
             if (enemy.isAlive)

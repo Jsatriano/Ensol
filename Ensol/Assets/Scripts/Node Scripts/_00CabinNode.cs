@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Ink.Runtime;
 
+// JUSTIN
 public class _00CabinNode : MonoBehaviour
 {
     [Header("Exitting Variables")]
@@ -51,6 +52,7 @@ public class _00CabinNode : MonoBehaviour
 
     private void Awake() 
     {
+        // checks all states the player could be entering the cabin from, and spawns them in accordingly
         if (PlayerData.diedToCrackDeer && PlayerData.currentlyHasBroom == false)
         {
             SpawnPoint.First = true;
@@ -81,31 +83,34 @@ public class _00CabinNode : MonoBehaviour
 
     private void Start()
     {
+        // search for player gameobject
         if (combatController == null)
         {
             SearchForPlayer();
         }
 
+        // changes prevNode static variable to this node
         CompletedNodes.prevNode = 0;
 
         //make sure player doesnt get hardlocked from health
         if (PlayerData.currHP < 1){
             PlayerData.currHP = combatController.maxHP;
         }
-        
+
+        // if player is not at max HP, allow pod to heal player on interact
         if (PlayerData.currHP < combatController.maxHP){
             print("Swapping pods");
             podInteractable.SetActive(false);
             podHealingInteractable.SetActive(true);
         }
 
-        //Only have the broom loaded into the scene if the player hasn't picked it up yet
+        // Only have the broom loaded into the scene if the player hasn't picked it up yet
         if (PlayerData.hasBroom)
         {
             broom.SetActive(false);
             interactableBroom.SetActive(false);
         }
-        //Only load the interactable broom once the player has died to the crack deer
+        // Only load the interactable broom once the player has died to the crack deer
         else if (PlayerData.diedToCrackDeer)
         {
             interactableBroom.SetActive(true);
@@ -117,6 +122,8 @@ public class _00CabinNode : MonoBehaviour
             ash.SetActive(false);
             interactableBroom.SetActive(false);
         }
+
+        // change ash amount depending on # of player deaths (more deaths = bigger ash pile)
         if (PlayerData.deaths > 1){
             ashMedium.SetActive(true);
         }
@@ -126,6 +133,7 @@ public class _00CabinNode : MonoBehaviour
         weaponPile.SetActive(false);
         stick.SetActive(false);
 
+        // if player died with upgraded weapon, set upgraded weapons on floor
         if (PlayerData.hasSolarUpgrade)
         {
             if (!PlayerData.currentlyHasSolar)
@@ -133,6 +141,7 @@ public class _00CabinNode : MonoBehaviour
                 weaponPile.SetActive(true);
             }
         }
+        // if player died with only the broom weapon, set broom weapon on floor
         else if (PlayerData.hasBroom && !PlayerData.hasSolarUpgrade)
         {
             if (!PlayerData.currentlyHasBroom)
@@ -145,10 +154,12 @@ public class _00CabinNode : MonoBehaviour
 
     public void Update()
     {
+        // enables bottom path's transfer cube
         if(_01DeerNode.weaponPickedUp && !gateTransferCube.activeInHierarchy)
         {
             gateTransferCube.SetActive(true);
         }
+
         //Player picking up broom with a delay for audio
         if (!broom.activeInHierarchy && !interactableBroom.activeInHierarchy && !PlayerData.hasBroom)
         {
@@ -170,6 +181,7 @@ public class _00CabinNode : MonoBehaviour
             
         }
 
+        // allows player to go to gate node
         if(electricGateToGate.opening)
         {
             CompletedNodes.gateNode = true;
@@ -239,7 +251,7 @@ public class _00CabinNode : MonoBehaviour
         
     }
 
-
+    // searches for player game object in edge case
     private void SearchForPlayer()
     {
         if (players.Length == 0)
@@ -250,15 +262,6 @@ public class _00CabinNode : MonoBehaviour
         {
             combatController = p.GetComponent<PlayerController>();
         }
-
-        /*if (combatController == null)
-        {
-            print("Cabin Node Script Failed to find player");
-        }
-        else
-        {
-            print("Cabin Node Script located Player");
-        }*/
     }
 
     //have to detect collider on another object
@@ -277,10 +280,4 @@ public class _00CabinNode : MonoBehaviour
         }
         
     }
-
-    /*IEnumerator BroomPickup(){
-        combatController.PickedUpBroom();
-        yield return new WaitForSeconds(0.5f);
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.envBroomPickup, this.transform.position);
-    }*/
 }

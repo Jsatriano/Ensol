@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// JUSTIN
 public class GeneratorWallToggle : MonoBehaviour
 {
     public MeshRenderer[] generatorMeshes;
 
     private bool inZone = false;
     private float currAlpha = 0.0f;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -46,6 +40,7 @@ public class GeneratorWallToggle : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        // turn walls off
         if(col.tag == "Player")
         {
             inZone = true;
@@ -70,7 +65,7 @@ public class GeneratorWallToggle : MonoBehaviour
         Color tempColor;
         for(int i = 0; i < (generatorMeshes.Length - 1); i += 1)
         {
-            // if there is mroe than 1 material attached to a mesh
+            // if there is more than 1 material attached to a mesh
             if(generatorMeshes[i].gameObject.tag == "MultipleMaterials")
             {
                 foreach (Material mat in generatorMeshes[i].materials)

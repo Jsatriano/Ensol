@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 
+// JUSTIN
 public class ButtonDoorController : MonoBehaviour
 {
     public MeshRenderer buttonMesh;
     public Collider buttonCol;
     public GameObject requiredObj = null;
     public DoorController doorController;
-    //GameObject dialogueController;// = GameObject.FindWithTag("DialogueManager");
     public Material greenMat;
     public List<GameObject> enemiesList = new List<GameObject>();
     private GameObject[] enemiesTotal;
@@ -53,6 +53,7 @@ public class ButtonDoorController : MonoBehaviour
         }
         else
         {
+            // if there are no enemies left alive
             if(enemiesList.Count == 0)
             {
                 // turns button green
@@ -85,22 +86,6 @@ public class ButtonDoorController : MonoBehaviour
                 text.canBeInteracted = false;
             }
         }
-        /*
-        // opens door if button is pressed AND required obj is picked up AND there are no enemies left
-        if(!buttonCol.enabled && !requiredObj.activeInHierarchy && enemiesList.Count == 0)
-        {
-            // turns button green
-            buttonMesh.material = greenMat;
-
-            // opens door
-            doorController.OpenDoor();
-        }
-        else
-        {
-            // if button was pressed but other conditionals aren't met, turn collider back on
-            buttonCol.enabled = true;
-        }
-        */
     }
 
     // called by DeerStats when an enemy dies

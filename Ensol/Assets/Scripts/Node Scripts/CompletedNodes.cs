@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// JUSTIN
 public class CompletedNodes : MonoBehaviour
 {
     public static int prevNode = 999;
@@ -308,6 +309,7 @@ public class CompletedNodes : MonoBehaviour
         StartCoroutine(LoadNewNode(0.5f));
     }
 
+    // place circle on the map
     private void PlaceCircle(int node)
     {
         youAreHereCircle.transform.position = mapButton[node].transform.position;
@@ -326,14 +328,17 @@ public class CompletedNodes : MonoBehaviour
         StartCoroutine(FadeOutAndTransfer()); 
     }
 
+    // transfer sequence when going to new scene
     private IEnumerator FadeOutAndTransfer()
     {
+        // sets up image to be faded to black
         blackOutSquare.enabled = true;
         Color objectColor = blackOutSquare.color;
         blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
         float fadeAmount;
         float fadeSpeed = 2f;
 
+        // fades in set up image to black
         while (blackOutSquare.color.a < 1)
         {
             fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
@@ -341,6 +346,7 @@ public class CompletedNodes : MonoBehaviour
             blackOutSquare.color = objectColor;
             yield return null;
         }
+        // changes scene after screen is black
         nodeSelector.OpenScene();
     }
 }

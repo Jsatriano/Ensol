@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
+// ELIZABETH | JUSTIN | JOSEPH | HARSHA
 public class PauseMenu : MonoBehaviour
 {
     public enum MenuState
@@ -56,6 +57,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+        // Set up variables on scene start
         menuState = MenuState.UNPAUSED;
         interactionScript = GameObject.FindWithTag("Player").GetComponent<Interaction>();
         DPM = GameObject.FindGameObjectWithTag("Data").GetComponent<DataPersistanceManager>();
@@ -75,8 +77,10 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // switch case for each setting in menu
         switch (menuState)
         {
+            // unpaused case
             case MenuState.UNPAUSED:
                 if (playerInputActions.Player.Cancel.triggered)
                 {
@@ -88,6 +92,7 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
 
+            // paused case
             case MenuState.PAUSED:
                 if (playerInputActions.Player.Cancel.triggered)
                 {
@@ -95,6 +100,7 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
 
+            // options case
             case MenuState.OPTIONS:
                 if (playerInputActions.Player.Cancel.triggered)
                 {
@@ -102,6 +108,7 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
 
+            // controls case
             case MenuState.CONTROLS:
                 if (playerInputActions.Player.Cancel.triggered)
                 {
@@ -109,6 +116,7 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
 
+            // map opened case
             case MenuState.MAP_OPEN:
                 if ((playerInputActions.Player.Map.triggered) || playerInputActions.Player.Cancel.triggered)
                 {
@@ -116,9 +124,11 @@ public class PauseMenu : MonoBehaviour
                 }
                 break;
 
+            // map transer case
             case MenuState.MAP_TRANSFER:
                 break;
 
+            // menu checkpoint case
             case MenuState.CHECKPOINT:
                 if((playerInputActions.Player.Cancel.triggered)) {
                     CloseCheckpointMenu();
@@ -126,6 +136,7 @@ public class PauseMenu : MonoBehaviour
                 break;
         }
         
+        // sets controls for either controller or keyboard
         if (checkpointMenu.activeInHierarchy && CursorToggle.controller){
             cPController.SetActive(true);
             cPKeyboard.SetActive(false);
@@ -135,12 +146,12 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    //checkpoint menu functions
-
+    // checkpoint menu functions
     public void OpenCheckpointMenu() {
         Time.timeScale = 1f;
         checkpointMenu.SetActive(true);
         menuState = MenuState.CHECKPOINT;
+
 
         if (PlayerData.currentNode == 0){
             checkpointDescription.text = "You can take this newly revealed service tunnel back to anywhere you have found an access hatch. Where would you like to go?";
@@ -148,6 +159,7 @@ public class PauseMenu : MonoBehaviour
             checkpointDescription.text = "A smaller panel has been pried open here, revealing a series of service tunnels lined with large pipes and wires. You could use them to travel back and forth anywhere quickly and undetected, if you know where you’re going.";
         }
         
+        // sets checkpoints active depending on if player has unlocked them
         for(int i = 0; i < CompletedNodes.checkpoints.Length; i++) {
             if(!CompletedNodes.checkpoints[i]) {
                 checkpointButtons[i].SetActive(false);
@@ -172,6 +184,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // helper func for opening / closing the controls menu
     public void OpenCloseControls()
     {
         if (controlsMenu.activeInHierarchy)
@@ -186,6 +199,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // helper func for closing a checkpoint menu
     public void CloseCheckpointMenu(){
         interactionScript.checkpointInteracting = false;
         Time.timeScale = 1f;
@@ -193,6 +207,7 @@ public class PauseMenu : MonoBehaviour
         menuState = MenuState.UNPAUSED;
         combatController.state = PlayerController.State.IDLE;
     }
+
 
     public void TransferViaCheckpoint(int nodeDestination) {
         interactionScript.checkpointInteracting = false;
@@ -204,7 +219,7 @@ public class PauseMenu : MonoBehaviour
         StartCoroutine(FadeBlackOutSquare(nodeDestination));
     }
     // map functions
-    private void OpenMap()
+    private void OpenMap() // opens map
     {
         PlayerData.mapOpens += 1;
         menuState = MenuState.MAP_OPEN;
@@ -213,7 +228,7 @@ public class PauseMenu : MonoBehaviour
         completedNodes.LookAtMap();
     }
 
-    private void CloseMap()
+    private void CloseMap() // closes map
     {
         Time.timeScale = 1f;
         menuState = MenuState.UNPAUSED;       
@@ -221,7 +236,7 @@ public class PauseMenu : MonoBehaviour
         mapUI.SetActive(false);
     }
 
-    public void OpenMapForNodeTransfer()
+    public void OpenMapForNodeTransfer() // opens the map in the case of a node transfer
     {   
         menuState = MenuState.MAP_TRANSFER;
         Time.timeScale = 0f;
@@ -235,10 +250,13 @@ public class PauseMenu : MonoBehaviour
         completedNodes.LoadNode();
     }
 
+    // allows player to pause or unpause game
     public void PauseUnpause()
     {
+        // if the menus arent already active
         if(!pauseMenu.activeInHierarchy && !playtestMenu.activeInHierarchy)
         {
+            // sets game to paused and in the playtest scene
             isPaused = true;
             if(amInPlaytestScene) {
                 playtestMenu.SetActive(true);
@@ -247,6 +265,7 @@ public class PauseMenu : MonoBehaviour
                 StartCoroutine(SelectFirstChoice(resumeButtonPT));
                 Time.timeScale = 0f;
             }
+            // sets the game to paused
             else {
                 pauseMenu.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(null);
@@ -256,6 +275,7 @@ public class PauseMenu : MonoBehaviour
             }
             menuState = MenuState.PAUSED;
         }
+        // if the menus are already active, closes them and resumes play
         else
         {
             isPaused = false;
@@ -266,10 +286,13 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // opens and closes the options menu
     public void OpenCloseOptions()
     {
+        // if options is already active
         if (optionsMenu.activeInHierarchy)
         {
+            // closes options menu
             optionsMenu.SetActive(false);
             if (resumeButton.activeInHierarchy){
                 EventSystem.current.SetSelectedGameObject(null);
@@ -280,6 +303,7 @@ public class PauseMenu : MonoBehaviour
             }
             menuState = MenuState.PAUSED;
         }
+        // if options menu is not already active, opens it
         else
         {
             optionsMenu.SetActive(true);
@@ -289,9 +313,11 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // exits game to menu
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+
         //Save stuff for enemy manager
         GameObject transferCube = GameObject.Find("Entrance");
         if (transferCube)
@@ -308,11 +334,13 @@ public class PauseMenu : MonoBehaviour
         amInPlaytestScene = false;
     }
 
+    // returns player to node select scene
     public void ReturnToNodeSelect() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName:"MapScene");
     }
 
+    // returns player to the cabin
     public void ReturnToCabin() {
         //Save stuff for enemy manager
         GameObject transferCube = GameObject.Find("Entrance");
@@ -329,8 +357,10 @@ public class PauseMenu : MonoBehaviour
         StartCoroutine(ReturnToCabinFadeout());
     }
 
+    // fadeout sequence that starts when player returns to the cabin
     public IEnumerator ReturnToCabinFadeout()
     {
+        // closes any open menus
         if (menuState == MenuState.PAUSED)
         {
             PauseUnpause();
@@ -339,11 +369,14 @@ public class PauseMenu : MonoBehaviour
         {
             CloseMap();
         }
+        
+        // sets up the image that will be fading to black
         Color objectColor = blackOutSquare.color;
         blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 0);
         float fadeAmount;
         float fadeSpeed = 1.1f;
 
+        // slowly fades set up image to black
         while (blackOutSquare.color.a < 1)
         {
             fadeAmount = blackOutSquare.color.a + (fadeSpeed * Time.unscaledDeltaTime);
@@ -357,13 +390,16 @@ public class PauseMenu : MonoBehaviour
         nodeSelector.OpenScene();
     }
 
+    // opposite of the function above
     public IEnumerator FadeIn()
     {
+        // sets up the image that will be fading to transparency
         Color objectColor = blackOutSquare.color;
         blackOutSquare.color = new Color(objectColor.r, objectColor.g, objectColor.b, 1);
         float fadeAmount;
         float fadeSpeed = 1f;
 
+        // slowly fades set up image to transparent
         while (blackOutSquare.color.a > 0)
         {
             fadeAmount = blackOutSquare.color.a - (fadeSpeed * Time.deltaTime);
@@ -374,12 +410,14 @@ public class PauseMenu : MonoBehaviour
     }
 
 
+    // enters playtesting menu
     public void EnterPlaytestMenu() {
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName: "PlaytestingScene");
         InitializePlatestVars();
     }
 
+    // sets up the variables required to playtest efficiently (unlocks all weps)
     public void InitializePlatestVars()
     {
         amInPlaytestScene = true;
@@ -391,7 +429,7 @@ public class PauseMenu : MonoBehaviour
         PlayerData.currentlyHasSolar = true;
     }
 
-    //Playtesting menu functions
+    // -------- Playtesting menu functions --------
     public void ToggleHeavyAttack(bool toggle) {
         if (!PlayerData.hasSolarUpgrade)
         {
@@ -403,6 +441,7 @@ public class PauseMenu : MonoBehaviour
         }     
     }
 
+    // toggles throw attack
     public void ToggleThrowAttack(bool toggle) {
         if (!PlayerData.hasThrowUpgrade)
         {
@@ -414,6 +453,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // toggles shield
     public void ToggleShield(bool toggle) {
         if (PlayerData.hasShield)
         {
@@ -426,6 +466,7 @@ public class PauseMenu : MonoBehaviour
         
     }
 
+    // spawn in a deer
     public void SpawnDeer()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -437,6 +478,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // spawn in a bear
     public void SpawnBear()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -448,6 +490,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // spawn in a rabbit
     public void SpawnRabbit()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -459,6 +502,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // spawn in a spider
     public void SpawnSpider()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -470,6 +514,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // spawn in a mini spider
     public void SpawnMiniSpider()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -481,6 +526,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // spawn in a CRACK DEER
     public void SpawnCrackDeer()
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -494,7 +540,6 @@ public class PauseMenu : MonoBehaviour
 
     private IEnumerator SelectFirstChoice(GameObject selectedButton)
     {
-        //print("hello from line 177");
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
         EventSystem.current.SetSelectedGameObject(selectedButton);
