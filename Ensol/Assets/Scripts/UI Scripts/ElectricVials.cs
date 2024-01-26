@@ -88,7 +88,6 @@ public class ElectricVials : MonoBehaviour // justin
         //UI Flickering
         if (isFlickering)
         {
-           // print("hewwo");
             //Checks if it needs to start flickering in the other direction
             if (flickerTimer >= flickerTime)
             {
@@ -124,7 +123,6 @@ public class ElectricVials : MonoBehaviour // justin
         if (currVial < 2)
         {
             currVial += 1;
-            //vials[currVial].SetActive(true);
             sliders[currVial].value = 1;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.hudBatteryCharge, this.transform.position);
         }
@@ -153,7 +151,6 @@ public class ElectricVials : MonoBehaviour // justin
             // remove amount of vials (can vary per attack)
             for (int i = 0; i < numVials; i += 1)
             {
-                //vials[currVial].SetActive(false);
                 sliders[currVial].value = 0;
                 currVial -= 1;
             }

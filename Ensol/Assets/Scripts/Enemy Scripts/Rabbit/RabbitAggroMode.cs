@@ -106,17 +106,10 @@ public class RabbitAggroMode : Node
 
         RotateTowardsPlayer();
 
-        //Moves rabbit in the desired direction (with a speed cap)
-        if (_enemyRB.velocity.magnitude > _maxSpeed)
-        {
-            //Keep moving rabbit at max speed
-            _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
-        }
-        else
-        {
-            //Accelerate rabbit when not at max speed
-            _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
-        }
+        //Accelerate rabbit while ensuring it doesn't go above speed cap
+        _enemyRB.AddForce(_enemyTF.forward * _acceleration * speedDot, ForceMode.Acceleration);
+        _enemyRB.velocity = Vector3.ClampMagnitude(_enemyRB.velocity, _maxSpeed);
+
         state = NodeState.SUCCESS;
         return state;
     }
